@@ -1,0 +1,1324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9e28d4fa-fb70-43b0-9e8a-44d1016fd736" name="Default" comment="Initial commit">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.name" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/schnoop.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PHPUnit/Extensions/Database/TestMySQLCase.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PHPUnit/Framework/Constraint/AbstractSchnoopTestConstraint.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PHPUnit/Framework/Constraint/IsBinaryTypeConstruct.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PHPUnit/Framework/Constraint/IsColumnConstruct.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PHPUnit/Framework/Constraint/IsIntTypeConstruct.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PHPUnit/Framework/Constraint/IsNumericPointTypeConstruct.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PHPUnit/Framework/Constraint/IsStringTypeConstruct.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PHPUnit/Framework/SchnoopTestCase.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PHPUnit/MySQLTestHelper.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PHPUnit/Schnoop/MockPdo.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PHPUnit/SetupTestDbSchema.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PHPUnit/bootstrap.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Vagrantfile.dist" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/composer.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/composer.lock" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/phpunit.xml.dist" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/DbInspector/DbInspectorInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/DbInspector/MySQLInspector.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Exception/ExceptionInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Exception/SchnoopException.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/AbstractCommonColumn.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/AbstractCommonDatabase.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/AbstractCommonTable.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/CommonColumnInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/CommonDataTypeInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/CommonDatabaseInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/CommonTableInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/Exception/ColumnException.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/Exception/ExceptionInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/FactoryInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/Index.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/Column/Column.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/Column/ColumnInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/Column/NumericColumn.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/Column/NumericColumnInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/AbstractBinaryType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/AbstractBlobType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/AbstractIntType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/AbstractNumericPointType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/AbstractStringType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/AbstractTextType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/BigIntType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/BinaryType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/BinaryTypeInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/BitType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/BitTypeInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/BlobType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/BlobTypeInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/CharType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/DataTypeInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/DecimalType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/DoubleType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/FloatType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/IntType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/IntTypeInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/LongBlobType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/LongTextType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/MediumBlobType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/MediumIntType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/MediumTextType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/NumericPointTypeInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/NumericTypeInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/Option/DisplayWidthInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/Option/DisplayWidthTrait.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/Option/LengthInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/Option/LengthTrait.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/Option/NumericRangeInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/Option/NumericRangeTrait.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/Option/PrecisionScaleInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/Option/PrecisionScaleTrait.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/Option/SignedInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/Option/SignedTrait.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/SmallIntType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/StringTypeInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/TextType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/TextTypeInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/TinyBlobType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/TinyIntType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/TinyTextType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/VarBinaryType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/DataType/VarCharType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/Database/Database.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/Database/DatabaseInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/Table/Table.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQL/Table/TableInterface.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/MySQLFactory.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schema/Trigger.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Schnoop.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/SchnoopFactory.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint/IsBinaryTypeConstructTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint/IsColumnConstructTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint/IsIntTypeConstructTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint/IsNumericPointTypeConstructTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint/IsStringTypeConstructTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/DbInspector/MySQLInspectorTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/DbInspector/_fixtures/MySQLInspectorTest.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/AbstractCommonColumnTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/AbstractCommonDatabaseTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/AbstractCommonTableTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/Column/ColumnTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/Column/NumericColumnTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/AbstractBinaryTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/AbstractIntTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/AbstractNumericPointTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/AbstractStringTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/BigIntTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/BinaryTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/BitTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/BlobTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/CharTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/DecimalTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/DoubleTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/FloatTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/IntTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/LongBlobTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/LongTextTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/MediumBlobTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/MediumIntTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/MediumTextTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/SmallIntTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/TextTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/TinyBlobTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/TinyIntTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/TinyTextTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/VarBinaryTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/VarCharTypeTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/Database/DatabaseTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/Table/TableTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/Schema/MySQLFactoryTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/SchnoopFactoryTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Schnoop/SchnoopTest.php" />
+    </list>
+    <list id="f3f41820-9450-460e-89e6-e4800246984d" name="Rejected commit: Default" comment="Initial commit" />
+    <ignored path="dbschemesnoop.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <ignored path="phpunit.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="false" show_ignored="false" />
+  <component name="ComposerSettings">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <pharPath>$PROJECT_DIR$/composer.phar</pharPath>
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/schnoop$Column.coverage" NAME="Column Coverage Results" MODIFIED="1466930017075" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/schnoop$MySQLInspectorTest.coverage" NAME="MySQLInspectorTest Coverage Results" MODIFIED="1467236161303" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/schnoop$AbstractColumnTest.coverage" NAME="AbstractColumnTest Coverage Results" MODIFIED="1466327133784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/schnoop$ColumnIntTest__1_.coverage" NAME="ColumnIntTest (1) Coverage Results" MODIFIED="1465474219168" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/schnoop$DataType.coverage" NAME="DataType Coverage Results" MODIFIED="1466929589492" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/schnoop$Schnoop.coverage" NAME="Schnoop Coverage Results" MODIFIED="1467370759279" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/schnoop$ColumnIntTest.coverage" NAME="ColumnIntTest Coverage Results" MODIFIED="1465458549958" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/schnoop$AbstractColumnIntTest.coverage" NAME="AbstractColumnIntTest Coverage Results" MODIFIED="1465474036308" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/schnoop$AbstractStringCharacterSetTypeTest_testConstructed.coverage" NAME="AbstractStringCharacterSetTypeTest.testConstructed Coverage Results" MODIFIED="1466577784146" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/schnoop$SchnoopTest.coverage" NAME="SchnoopTest Coverage Results" MODIFIED="1467234744440" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/schnoop$AbstractIntTypeTest.coverage" NAME="AbstractIntTypeTest Coverage Results" MODIFIED="1466296844570" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/schnoop$MySQL.coverage" NAME="MySQL Coverage Results" MODIFIED="1466835484785" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/schnoop$MySQLFactoryTest.coverage" NAME="MySQLFactoryTest Coverage Results" MODIFIED="1467111596422" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DatabaseView">
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="dbschemesnoop" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Column.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Schema/MySQL/Column/Column.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <folding>
+                <element signature="e#144#196#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NumericColumnInterface.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Schema/MySQL/Column/NumericColumnInterface.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NumericColumn.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Schema/MySQL/Column/NumericColumn.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ColumnTest.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/Column/ColumnTest.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+              <folding>
+                <element signature="e#158#216#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IsBinaryTypeConstructTest.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint/IsBinaryTypeConstructTest.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="11" column="38" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NumericColumnTest.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/Column/NumericColumnTest.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IsNumericPointTypeConstructTest.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint/IsNumericPointTypeConstructTest.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="515">
+              <caret line="45" column="62" selection-start-line="45" selection-start-column="62" selection-end-line="45" selection-end-column="62" />
+              <folding>
+                <element signature="e#159#240#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IsNumericPointTypeConstruct.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PHPUnit/Framework/Constraint/IsNumericPointTypeConstruct.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="663">
+              <caret line="146" column="44" selection-start-line="146" selection-start-column="44" selection-end-line="146" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MySQLInspector.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DbInspector/MySQLInspector.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="194">
+              <caret line="55" column="22" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
+              <folding>
+                <marker date="1467235514016" expanded="true" signature="833:847" ph="SHOW DATABAS... " />
+                <marker date="1467235514016" expanded="true" signature="907:1034" ph="SELECT DATAB... " />
+                <marker date="1467235514016" expanded="true" signature="1087:1108" ph="SHOW TABLES " />
+                <marker date="1467235514016" expanded="true" signature="1158:1232" ph="SHOW TABLE S... " />
+                <marker date="1467235514016" expanded="true" signature="1283:1315" ph="SHOW FULL CO... " />
+                <marker date="1467235514016" expanded="true" signature="1361:1388" ph="SHOW INDEXES... " />
+                <marker date="1467235514016" expanded="true" signature="1435:1468" ph="SHOW TRIGGER... " />
+                <marker date="1467235514016" expanded="true" signature="1516:1559" ph="SHOW FUNCTIO... " />
+                <marker date="1467235514016" expanded="true" signature="1606:1672" ph="SHOW FUNCTIO... " />
+                <marker date="1467235514016" expanded="true" signature="1725:1755" ph="SHOW CREATE " />
+                <marker date="1467235514016" expanded="true" signature="1805:1849" ph="SHOW PROCEDU... " />
+                <marker date="1467235514016" expanded="true" signature="1897:1965" ph="SHOW PROCEDU... " />
+                <marker date="1467235514016" expanded="true" signature="2019:2050" ph="SHOW CREATE " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SetupTestDbSchema.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PHPUnit/SetupTestDbSchema.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="435">
+              <caret line="57" column="78" selection-start-line="57" selection-start-column="78" selection-end-line="57" selection-end-column="78" />
+              <folding>
+                <marker date="1466333644305" expanded="true" signature="1077:1110" ph="DROP SCHEMA " />
+                <marker date="1466333644305" expanded="true" signature="1156:1234" ph="CREATE DATAB... ${$database}" />
+                <marker date="1466333644305" expanded="true" signature="1280:1449" ph="CREATE TABLE... theworks" />
+                <marker date="1466333644305" expanded="true" signature="1495:1607" ph="CREATE DEFIN... theworks_ia" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MySQLTestHelper.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/PHPUnit/MySQLTestHelper.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="254">
+              <caret line="74" column="91" selection-start-line="74" selection-start-column="91" selection-end-line="74" selection-end-column="91" />
+              <folding>
+                <marker date="1466333605553" expanded="true" signature="1046:1079" ph="DROP SCHEMA " />
+                <marker date="1466333605553" expanded="true" signature="1130:1208" ph="CREATE DATAB... ${$database}" />
+                <marker date="1466333605553" expanded="true" signature="1259:1431" ph="CREATE TABLE... schnoop_tbl" />
+                <marker date="1466333605553" expanded="true" signature="1482:1645" ph="CREATE DEFIN... schnoop_tbl_after_insert" />
+                <marker date="1466333605553" expanded="true" signature="1608:1621" ph="DECLARE x IN... " />
+                <marker date="1466333605553" expanded="true" signature="1625:1640" ph="SELECT 1 INT... " />
+                <marker date="1466333605553" expanded="true" signature="1700:1848" ph="CREATE DEFIN... schnoop_proc" />
+                <marker date="1466333605553" expanded="true" signature="1898:2063" ph="CREATE DEFIN... schnoop_func" />
+                <marker date="1466333605553" expanded="true" signature="2042:2058" ph="RETURN 'Schn... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ColumnInterface.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Schema/MySQL/Column/ColumnInterface.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="XML" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/Schema/MySQL/DataType/VarCharType.php" />
+        <option value="$PROJECT_DIR$/src/Schema/MySQL/DataType/BitType.php" />
+        <option value="$PROJECT_DIR$/src/Schema/MySQL/DataType/BinaryType.php" />
+        <option value="$PROJECT_DIR$/PHPUnit/Framework/Constraint/IsIntTypeConstruct.php" />
+        <option value="$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint/IsIntConstructTest.php" />
+        <option value="$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint/IsIntTypeConstructTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/AbstractIntTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/BigIntTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/IntTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/MediumIntTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/SmallIntTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/TinyIntTypeTest.php" />
+        <option value="$PROJECT_DIR$/PHPUnit/Framework/Constraint/IsStringTypeConstruct.php" />
+        <option value="$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint/IsStringConstructTest.php" />
+        <option value="$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint/IsNumericPointConstructTest.php" />
+        <option value="$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint/IsBinaryConstructTest.php" />
+        <option value="$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint/IsStringTypeConstructTest.php" />
+        <option value="$PROJECT_DIR$/PHPUnit/Framework/Constraint/IsBinaryTypeConstruct.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/AbstractStringTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/BlobTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/LongBlobTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/MediumBlobTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/TinyBlobTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/VarBinaryTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/BinaryTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/CharTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/LongTextTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/MediumTextTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/TextTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/TinyTextTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/VarCharTypeTest.php" />
+        <option value="$PROJECT_DIR$/src/Schema/MySQL/DataType/VarBinaryType.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQLFactoryTest.php" />
+        <option value="$PROJECT_DIR$/PHPUnit/Framework/SchnoopTestCase.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/AbstractNumericPointTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/DecimalTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/DoubleTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/FloatTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/BitTypeTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/Database/DatabaseTest.php" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/Schema/MySQL/Column/NumericColumnInterface.php" />
+        <option value="$PROJECT_DIR$/src/Schema/MySQL/Column/NumericColumn.php" />
+        <option value="$PROJECT_DIR$/src/Schema/MySQL/Column/Column.php" />
+        <option value="$PROJECT_DIR$/src/Schema/MySQL/Column/ColumnInterface.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/Column/ColumnTest.php" />
+        <option value="$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint/IsBinaryTypeConstructTest.php" />
+        <option value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/Column/NumericColumnTest.php" />
+        <option value="$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint/IsNumericPointTypeConstructTest.php" />
+        <option value="$PROJECT_DIR$/PHPUnit/Framework/Constraint/IsNumericPointTypeConstruct.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NamedScopeManager">
+    <order>
+      <scope name="Sources" />
+    </order>
+  </component>
+  <component name="PhpServers">
+    <servers />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="Schnoop PHP 5.6">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/resource-operations" />
+      <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-token-stream" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit-mock-objects" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/vendor/phpmd/phpmd" />
+      <path value="$PROJECT_DIR$/vendor/squizlabs/php_codesniffer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/dependency-injection" />
+      <path value="$PROJECT_DIR$/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/vendor/symfony/config" />
+      <path value="$PROJECT_DIR$/vendor/pdepend/pdepend" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/dbunit" />
+      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
+    </include_path>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="width" value="1920" />
+    <option name="height" value="1055" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>CoffeeScript</id>
+          </State>
+          <State>
+            <id>GeneralCoffeeScript</id>
+          </State>
+          <State>
+            <id>GeneralJavaScript</id>
+          </State>
+          <State>
+            <id>JavaScript</id>
+          </State>
+          <State>
+            <id>Naming conventionsJavaScript</id>
+          </State>
+          <State>
+            <id>PHP</id>
+          </State>
+          <State>
+            <id>Probable bugsJavaScript</id>
+          </State>
+          <State>
+            <id>RELAX NG</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>PhpCSValidationInspection</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers ProjectPane="false" />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="schnoop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="schnoop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="schnoop" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="schnoop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="schnoop" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PHPUnit" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="schnoop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="schnoop" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PHPUnit" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Framework" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="schnoop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="schnoop" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PHPUnit" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Framework" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Constraint" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DepColumn" />
+    <property name="settings.editor.selected.configurable" value="fileTemplates" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
+    <property name="SearchEverywhereHistoryKey" value="find us&#9;ACTION&#9;FindUsages" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint" />
+      <recent name="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/Column" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/PHPUnit/Schnoop" />
+      <recent name="$PROJECT_DIR$/PHPUnit" />
+      <recent name="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL" />
+    </key>
+  </component>
+  <component name="RunManager" selected="PHPUnit.IsNumericPointTypeConstructTest">
+    <configuration default="false" name="Schnoop" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner directory="$PROJECT_DIR$/tests/Schnoop" />
+      <method />
+    </configuration>
+    <configuration default="false" name="FloatTypeTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\DataType\FloatTypeTest" file="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/FloatTypeTest.php" scope="Class" />
+      <method />
+    </configuration>
+    <configuration default="false" name="ColumnTest.testWarningWhenSetDefaultWhenNotAllowed" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\Column\ColumnTest" file="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/Column/ColumnTest.php" method="testWarningWhenSetDefaultWhenNotAllowed" scope="Method" />
+      <method />
+    </configuration>
+    <configuration default="false" name="DatabaseTest.testGetTableThatDoesNotExist" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\Database\DatabaseTest" file="$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/Database/DatabaseTest.php" method="testGetTableThatDoesNotExist" scope="Method" />
+      <method />
+    </configuration>
+    <configuration default="false" name="IsNumericPointTypeConstructTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="MilesAsylum\Schnoop\Tests\PHPUnit\Framework\Constraint\IsNumericPointTypeConstructTest" file="$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint/IsNumericPointTypeConstructTest.php" scope="Class" />
+      <method />
+    </configuration>
+    <configuration default="true" type="BashConfigurationType" factoryName="Bash">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="INTERPRETER_PATH" value="/bin/bash" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="PHPUnit.Schnoop" />
+      <item index="1" class="java.lang.String" itemvalue="PHPUnit.FloatTypeTest" />
+      <item index="2" class="java.lang.String" itemvalue="PHPUnit.ColumnTest.testWarningWhenSetDefaultWhenNotAllowed" />
+      <item index="3" class="java.lang.String" itemvalue="PHPUnit.DatabaseTest.testGetTableThatDoesNotExist" />
+      <item index="4" class="java.lang.String" itemvalue="PHPUnit.IsNumericPointTypeConstructTest" />
+    </list>
+    <recent_temporary>
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="PHPUnit.IsNumericPointTypeConstructTest" />
+        <item index="1" class="java.lang.String" itemvalue="PHPUnit.Schnoop" />
+        <item index="2" class="java.lang.String" itemvalue="PHPUnit.DatabaseTest.testGetTableThatDoesNotExist" />
+        <item index="3" class="java.lang.String" itemvalue="PHPUnit.ColumnTest.testWarningWhenSetDefaultWhenNotAllowed" />
+        <item index="4" class="java.lang.String" itemvalue="PHPUnit.FloatTypeTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9e28d4fa-fb70-43b0-9e8a-44d1016fd736" name="Default" comment="" />
+      <created>1464729615507</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1464729615507</updated>
+      <workItem from="1464729616651" duration="30169000" />
+      <workItem from="1465022305833" duration="9740000" />
+      <workItem from="1465040179252" duration="3143000" />
+      <workItem from="1465047452133" duration="187294000" />
+      <workItem from="1466758667177" duration="1761000" />
+      <workItem from="1466833357140" duration="4593000" />
+      <workItem from="1466896871333" duration="18772000" />
+      <workItem from="1467010001323" duration="39792000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="ColumnTest_testWarningWhenSetDefaultWhenNotAllowed - 2016.07.01 at 20h 51m 23s.xml">
+      <configuration name="ColumnTest.testWarningWhenSetDefaultWhenNotAllowed" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="DatabaseTest_testGetTableThatDoesNotExist - 2016.07.01 at 20h 58m 45s.xml">
+      <configuration name="DatabaseTest.testGetTableThatDoesNotExist" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="IsNumericPointTypeConstructTest - 2016.07.01 at 21h 39m 45s.xml">
+      <configuration name="IsNumericPointTypeConstructTest" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="IsNumericPointTypeConstructTest - 2016.07.01 at 21h 40m 40s.xml">
+      <configuration name="IsNumericPointTypeConstructTest" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Schnoop - 2016.07.01 at 20h 46m 38s.xml">
+      <configuration name="Schnoop" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Schnoop - 2016.07.01 at 20h 47m 03s.xml">
+      <configuration name="Schnoop" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Schnoop - 2016.07.01 at 20h 51m 32s.xml">
+      <configuration name="Schnoop" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Schnoop - 2016.07.01 at 20h 51m 51s.xml">
+      <configuration name="Schnoop" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Schnoop - 2016.07.01 at 20h 59m 15s.xml">
+      <configuration name="Schnoop" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Schnoop - 2016.07.01 at 20h 59m 33s.xml">
+      <configuration name="Schnoop" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="295264000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1920" height="1055" extended-state="0" />
+    <editor active="false" />
+    <layout>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942432" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942432" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31769723" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20682302" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942432" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21428572" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960597" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942432" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39978677" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287234" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31769723" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20682302" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942432" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21428572" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960597" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942432" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39978677" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/BigIntTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="734">
+          <caret line="69" column="4" selection-start-line="69" selection-start-column="4" selection-end-line="69" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/IntTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="734">
+          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/MediumIntTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="58" column="17" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/SmallIntTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="57" column="17" selection-start-line="57" selection-start-column="17" selection-end-line="57" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/TinyIntTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="57" column="17" selection-start-line="57" selection-start-column="17" selection-end-line="57" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHPUnit/Framework/Constraint/IsStringTypeConstruct.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1175">
+          <caret line="105" column="48" selection-start-line="105" selection-start-column="48" selection-end-line="105" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint/IsStringTypeConstructTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2205">
+          <caret line="155" column="58" selection-start-line="155" selection-start-column="58" selection-end-line="155" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHPUnit/Framework/Constraint/IsIntTypeConstruct.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHPUnit/Framework/Constraint/IsBinaryTypeConstruct.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="541">
+          <caret line="76" column="8" selection-start-line="76" selection-start-column="8" selection-end-line="76" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Schema/MySQL/DataType/VarCharType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/BlobTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="33" column="17" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/LongBlobTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="33" column="18" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/MediumBlobTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="34" column="18" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/TinyBlobTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="33" column="18" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/VarBinaryTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="35" column="17" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/BinaryTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="35" column="16" selection-start-line="35" selection-start-column="16" selection-end-line="35" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/CharTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="40" column="15" selection-start-line="40" selection-start-column="15" selection-end-line="40" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/AbstractStringTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="52" column="15" selection-start-line="52" selection-start-column="15" selection-end-line="52" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/LongTextTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="42" column="18" selection-start-line="42" selection-start-column="18" selection-end-line="42" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/MediumTextTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="42" column="18" selection-start-line="42" selection-start-column="18" selection-end-line="42" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/TextTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="43" column="18" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/TinyTextTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="39" column="18" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/VarCharTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="39" column="5" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Schema/MySQL/DataType/VarBinaryType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="22" column="20" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Schema/MySQLFactory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="98" column="20" selection-start-line="98" selection-start-column="20" selection-end-line="98" selection-end-column="20" />
+          <folding>
+            <element signature="e#130#181#0#PHP" expanded="true" />
+            <marker date="1467150354588" expanded="true" signature="2353:2387" ph="SHOW COLLATI... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQLFactoryTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="752">
+          <caret line="610" column="29" selection-start-line="610" selection-start-column="29" selection-end-line="610" selection-end-column="29" />
+          <folding>
+            <element signature="e#145#203#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHPUnit/Framework/SchnoopTestCase.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="59" column="33" selection-start-line="59" selection-start-column="33" selection-end-line="59" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Schema/MySQL/DataType/AbstractNumericPointType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/AbstractNumericPointTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="516">
+          <caret line="85" column="17" selection-start-line="85" selection-start-column="17" selection-end-line="85" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/DecimalTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="70" column="17" selection-start-line="70" selection-start-column="17" selection-end-line="70" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/DoubleTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="62" column="17" selection-start-line="62" selection-start-column="17" selection-end-line="62" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/FloatTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="524">
+          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Schema/MySQL/DataType/BitType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/DataType/BitTypeTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Schema/MySQL/Database/Database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="79" column="5" selection-start-line="79" selection-start-column="5" selection-end-line="79" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="2" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/.name">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/Database/DatabaseTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="586">
+          <caret line="83" column="62" selection-start-line="83" selection-start-column="62" selection-end-line="83" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Schema/MySQL/Column/NumericColumnInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Schema/MySQL/Column/NumericColumn.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Schema/MySQL/Column/Column.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding>
+            <element signature="e#144#196#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Schema/MySQL/Column/ColumnInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/Column/ColumnTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <element signature="e#158#216#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint/IsBinaryTypeConstructTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="11" column="38" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Schnoop/Schema/MySQL/Column/NumericColumnTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/PHPUnit/Framework/Constraint/IsNumericPointTypeConstructTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="515">
+          <caret line="45" column="62" selection-start-line="45" selection-start-column="62" selection-end-line="45" selection-end-column="62" />
+          <folding>
+            <element signature="e#159#240#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHPUnit/Framework/Constraint/IsNumericPointTypeConstruct.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="146" column="44" selection-start-line="146" selection-start-column="44" selection-end-line="146" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DbInspector/MySQLInspector.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="55" column="22" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
+          <folding>
+            <marker date="1467235514016" expanded="true" signature="833:847" ph="SHOW DATABAS... " />
+            <marker date="1467235514016" expanded="true" signature="907:1034" ph="SELECT DATAB... " />
+            <marker date="1467235514016" expanded="true" signature="1087:1108" ph="SHOW TABLES " />
+            <marker date="1467235514016" expanded="true" signature="1158:1232" ph="SHOW TABLE S... " />
+            <marker date="1467235514016" expanded="true" signature="1283:1315" ph="SHOW FULL CO... " />
+            <marker date="1467235514016" expanded="true" signature="1361:1388" ph="SHOW INDEXES... " />
+            <marker date="1467235514016" expanded="true" signature="1435:1468" ph="SHOW TRIGGER... " />
+            <marker date="1467235514016" expanded="true" signature="1516:1559" ph="SHOW FUNCTIO... " />
+            <marker date="1467235514016" expanded="true" signature="1606:1672" ph="SHOW FUNCTIO... " />
+            <marker date="1467235514016" expanded="true" signature="1725:1755" ph="SHOW CREATE " />
+            <marker date="1467235514016" expanded="true" signature="1805:1849" ph="SHOW PROCEDU... " />
+            <marker date="1467235514016" expanded="true" signature="1897:1965" ph="SHOW PROCEDU... " />
+            <marker date="1467235514016" expanded="true" signature="2019:2050" ph="SHOW CREATE " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHPUnit/SetupTestDbSchema.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="57" column="78" selection-start-line="57" selection-start-column="78" selection-end-line="57" selection-end-column="78" />
+          <folding>
+            <marker date="1466333644305" expanded="true" signature="1077:1110" ph="DROP SCHEMA " />
+            <marker date="1466333644305" expanded="true" signature="1156:1234" ph="CREATE DATAB... ${$database}" />
+            <marker date="1466333644305" expanded="true" signature="1280:1449" ph="CREATE TABLE... theworks" />
+            <marker date="1466333644305" expanded="true" signature="1495:1607" ph="CREATE DEFIN... theworks_ia" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHPUnit/MySQLTestHelper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="74" column="91" selection-start-line="74" selection-start-column="91" selection-end-line="74" selection-end-column="91" />
+          <folding>
+            <marker date="1466333605553" expanded="true" signature="1046:1079" ph="DROP SCHEMA " />
+            <marker date="1466333605553" expanded="true" signature="1130:1208" ph="CREATE DATAB... ${$database}" />
+            <marker date="1466333605553" expanded="true" signature="1259:1431" ph="CREATE TABLE... schnoop_tbl" />
+            <marker date="1466333605553" expanded="true" signature="1482:1645" ph="CREATE DEFIN... schnoop_tbl_after_insert" />
+            <marker date="1466333605553" expanded="true" signature="1608:1621" ph="DECLARE x IN... " />
+            <marker date="1466333605553" expanded="true" signature="1625:1640" ph="SELECT 1 INT... " />
+            <marker date="1466333605553" expanded="true" signature="1700:1848" ph="CREATE DEFIN... schnoop_proc" />
+            <marker date="1466333605553" expanded="true" signature="1898:2063" ph="CREATE DEFIN... schnoop_func" />
+            <marker date="1466333605553" expanded="true" signature="2042:2058" ph="RETURN 'Schn... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <last-edited>Sources</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+          <order>
+            <scope name="Sources" />
+          </order>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

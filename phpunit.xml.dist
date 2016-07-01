@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<phpunit bootstrap="./PHPUnit/bootstrap.php">
+    <php>
+        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_ENABLED" value="true" />
+        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_HOST" value="localhost" />
+        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_USERNAME" value="root" />
+        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_PASSWORD" value="root" />
+        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_PORT" value="3306" />
+        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_DATABASE" value="schnoop_testing" />
+    </php>
+    <testsuite name="Schnoop Test Suite">
+        <directory>./tests/Schnoop/</directory>
+    </testsuite>
+    <testsuite name="Schnoop PHPUnit Suite">
+        <directory>./tests/PHPUnit/</directory>
+    </testsuite>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src/</directory>
+        </whitelist>
+    </filter>
+</phpunit>

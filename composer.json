@@ -1,0 +1,33 @@
+{
+  "name": "MilesAsylum/Schnoop",
+  "description": "Provides a convienent interface for inspecting a database schema.",
+  "homepage": "https://github.com/courtney-miles/schnoop",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Courtney Miles",
+      "email": "courtney@milesasylum.com"
+    }
+  ],
+  "require": {
+    "php" : "~5.6.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit" : "~5.0",
+    "phpunit/dbunit": "~2.0",
+    "squizlabs/php_codesniffer": "@stable",
+    "phpmd/phpmd" : "@stable"
+  },
+  "autoload": {
+    "psr-4": {
+      "MilesAsylum\\Schnoop\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "MilesAsylum\\Schnoop\\Tests\\": "tests/",
+      "MilesAsylum\\Schnoop\\PHPUnit\\": "PHPUnit/"
+    }
+  }
+}
