@@ -27,10 +27,6 @@ abstract class TestMySQLCase extends \PHPUnit_Extensions_Database_TestCase
 
     public static function setUpBeforeClass()
     {
-        if (empty($_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_ENABLED'])) {
-            self::markTestSkipped('Mysql tests disabled. See TESTS_SCHNOOP_DBADAPTER_MYSQL_ENABLED constant.');
-        }
-        
         self::$mysqlHelper = new MySQLTestHelper();
 
         self::$pdo = self::$mysqlHelper->getConnection();

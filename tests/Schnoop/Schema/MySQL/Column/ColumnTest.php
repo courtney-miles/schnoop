@@ -71,6 +71,8 @@ class ColumnTest extends SchnoopTestCase
         $mockDataType = $this->createMock('MilesAsylum\Schnoop\Schema\MySQL\DataType\DataTypeInterface');
         $mockDataType->method('cast')
             ->willReturn(null);
+        $mockDataType->method('allowDefault')
+            ->willReturn(true);
 
         /** @var Column $column */
         $column = new Column(
@@ -98,6 +100,8 @@ class ColumnTest extends SchnoopTestCase
         $mockDataType = $this->createMock('MilesAsylum\Schnoop\Schema\MySQL\DataType\DataTypeInterface');
         $mockDataType->method('cast')
             ->willReturn('');
+        $mockDataType->method('allowDefault')
+            ->willReturn(true);
 
         $column = new Column(
             $this->name,

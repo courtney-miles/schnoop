@@ -4,7 +4,7 @@
         <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_ENABLED" value="true" />
         <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_HOST" value="localhost" />
         <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_USERNAME" value="root" />
-        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_PASSWORD" value="root" />
+        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_PASSWORD" value="" />
         <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_PORT" value="3306" />
         <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_DATABASE" value="schnoop_testing" />
     </php>

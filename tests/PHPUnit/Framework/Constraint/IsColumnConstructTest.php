@@ -93,7 +93,7 @@ class IsColumnConstructTest extends TestCase
     {
         $isColumnConstruct = new IsColumnConstruct(
             $this->name,
-            'MilesAsylum\Schnoop\Schema\MySQL\Column\ColumnInterface',
+            'MilesAsylum\Schnoop\Schema\MySQL\DataType\DataTypeInterface',
             $this->allowNull,
             $this->hasDefault,
             $this->default,
@@ -110,7 +110,7 @@ class IsColumnConstructTest extends TestCase
             $this->comment
         );
 
-        $this->assertTrue($isColumnConstruct->matches($this->mockColumn));
+        $this->assertTrue($isColumnConstruct->matches($this->mockColumn), 'Failed:' . $isColumnConstruct->toString());
     }
 
     public function testFailName()

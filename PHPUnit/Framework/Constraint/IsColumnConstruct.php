@@ -120,6 +120,8 @@ class IsColumnConstruct extends AbstractSchnoopTestConstraint
                 $other->hasDefault(),
                 'column correctly identifies hasDefault'
             );
+
+            return false;
         }
 
         if ($this->default !== $other->getDefault()) {

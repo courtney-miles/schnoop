@@ -11,6 +11,15 @@ class MySQLInspectorTest extends TestMySQLCase
      * @var MySQLInspector
      */
     protected $mysqlInspector;
+    
+    public static function setUpBeforeClass()
+    {
+        if (empty($_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_ENABLED'])) {
+            self::markTestSkipped('Mysql tests disabled. See TESTS_SCHNOOP_DBADAPTER_MYSQL_ENABLED constant.');
+        }
+        
+        parent::setUpBeforeClass();
+    }
 
     public function setUp()
     {
