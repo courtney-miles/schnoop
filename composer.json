@@ -1,5 +1,5 @@
 {
-  "name": "MilesAsylum/Schnoop",
+  "name": "miles-asylum/schnoop",
   "description": "Provides a convienent interface for inspecting a database schema.",
   "homepage": "https://github.com/courtney-miles/schnoop",
   "minimum-stability": "stable",
