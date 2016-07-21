@@ -83,7 +83,7 @@ class SchnoopTest extends SchnoopTestCase
             ->willReturn($fetchDbReturn);
 
         $this->mockFactory->expects($this->atLeastOnce())
-            ->method('newDatabase')
+            ->method('createDatabase')
             ->with($fetchDbReturn, $this->schnoop)
             ->willReturn($factoryDbReturn);
 
@@ -127,7 +127,7 @@ class SchnoopTest extends SchnoopTestCase
             ->willReturn($fetchColumnReturn);
 
         $this->mockFactory->expects($this->atLeastOnce())
-            ->method('newTable')
+            ->method('createTable')
             ->with($fetchTableReturn, $fetchColumnReturn)
             ->willReturn($newTableReturn);
 

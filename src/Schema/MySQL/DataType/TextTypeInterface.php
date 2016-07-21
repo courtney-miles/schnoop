@@ -10,5 +10,4 @@ namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
 interface TextTypeInterface extends StringTypeInterface
 {
-
 }

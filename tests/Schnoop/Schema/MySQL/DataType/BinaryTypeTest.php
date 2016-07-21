@@ -30,7 +30,7 @@ class BinaryTypeTest extends SchnoopTestCase
 
     public function testConstruct()
     {
-        $this->assertIsBinaryTypeConstruct(
+        $this->binaryTypeAsserts(
             DataTypeInterface::TYPE_BINARY,
             $this->length,
             true,

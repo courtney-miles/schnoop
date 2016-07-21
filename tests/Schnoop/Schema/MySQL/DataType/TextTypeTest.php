@@ -29,17 +29,15 @@ class TextTypeTest extends SchnoopTestCase
         parent::setUp();
 
         $this->textType = new TextType(
-            $this->characterSet,
             $this->collation
         );
     }
 
     public function testConstructed()
     {
-        $this->assertIsStringTypeConstruct(
+        $this->stringTypeAsserts(
             DataTypeInterface::TYPE_TEXT,
-            pow(2, 16)-1,
-            $this->characterSet,
+            pow(2, 16) - 1,
             $this->collation,
             false,
             $this->textType

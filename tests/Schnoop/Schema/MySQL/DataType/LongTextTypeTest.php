@@ -28,20 +28,14 @@ class LongTextTypeTest extends SchnoopTestCase
         parent::setUp();
 
         $this->longTextType = new LongTextType(
-            $this->characterSet,
             $this->collation
         );
     }
 
     public function testConstructed()
     {
-        $this->assertIsStringTypeConstruct(
-            DataTypeInterface::TYPE_LONGTEXT,
-            pow(2, 32)-1,
-            $this->characterSet,
-            $this->collation,
-            false,
-            $this->longTextType
+        $this->stringTypeAsserts(
+            DataTypeInterface::TYPE_LONGTEXT, pow(2, 32) - 1, $this->collation, false, $this->longTextType
         );
     }
 

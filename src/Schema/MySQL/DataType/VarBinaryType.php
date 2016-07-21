@@ -13,12 +13,12 @@ class VarBinaryType extends AbstractBinaryType
     /**
      * @return string
      */
-    public function getType()
+    public function getName()
     {
         return self::TYPE_VARBINARY;
     }
 
-    public function allowDefault()
+    public function doesAllowDefault()
     {
         return true;
     }

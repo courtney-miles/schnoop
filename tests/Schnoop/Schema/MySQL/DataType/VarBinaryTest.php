@@ -30,7 +30,7 @@ class VarBinaryTest extends SchnoopTestCase
 
     public function testConstruct()
     {
-        $this->assertIsBinaryTypeConstruct(
+        $this->binaryTypeAsserts(
             DataTypeInterface::TYPE_VARBINARY,
             $this->length,
             true,

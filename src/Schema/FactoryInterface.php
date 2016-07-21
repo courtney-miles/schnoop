@@ -17,18 +17,18 @@ interface FactoryInterface
      * @param Schnoop $schnoop
      * @return CommonDatabaseInterface
      */
-    public function newDatabase(array $rawDatabase, Schnoop $schnoop);
+    public function createDatabase(array $rawDatabase, Schnoop $schnoop);
     
     /**
      * @param array $rawTable
      * @param array $rawColumns
      * @return CommonTableInterface
      */
-    public function newTable(array $rawTable, array $rawColumns);
+    public function createTable(array $rawTable, array $rawColumns);
 
     /**
      * @param array $rawColumn
      * @return CommonColumnInterface
      */
-    public function newColumn(array $rawColumn);
+    public function createColumn(array $rawColumn);
 }

@@ -44,13 +44,13 @@ class AbstractIntTypeTest extends SchnoopTestCase
         );
 
         $this->abstractIntType->expects($this->any())
-            ->method('getType')
+            ->method('getName')
             ->willReturn($this->type);
     }
 
     public function testConstruct()
     {
-        $this->assertIsIntTypeConstruct(
+        $this->intTypeAsserts(
             $this->type,
             (int)$this->displayWidth,
             $this->signed,

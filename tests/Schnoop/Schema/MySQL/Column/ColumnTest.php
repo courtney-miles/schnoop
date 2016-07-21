@@ -10,7 +10,9 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\Column;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\Schema\MySQL\Column\Column;
+use MilesAsylum\Schnoop\Schema\MySQL\Column\ColumnInterface;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\DataTypeInterface;
+use MilesAsylum\Schnoop\Schema\MySQL\DataType\NumericTypeInterface;
 use PHPUnit_Framework_MockObject_MockObject;
 
 class ColumnTest extends SchnoopTestCase
@@ -40,7 +42,7 @@ class ColumnTest extends SchnoopTestCase
         $this->mockDataType = $this->createMock('MilesAsylum\Schnoop\Schema\MySQL\DataType\DataTypeInterface');
         $this->mockDataType->method('cast')
             ->willReturn((int)$this->default);
-        $this->mockDataType->method('allowDefault')
+        $this->mockDataType->method('doesAllowDefault')
             ->willReturn(true);
 
         $this->column = new Column(
@@ -52,75 +54,42 @@ class ColumnTest extends SchnoopTestCase
         );
     }
 
-    public function testConstructed()
-    {
-        $this->assertIsColumnConstruct(
-            $this->name,
-            $this->mockDataType,
-            $this->allowNull,
-            true,
-            (int)$this->default,
-            $this->comment,
-            $this->column
-        );
-    }
-
-    public function testHasDefaultWhenAllowNull()
-    {
-        /** @var DataTypeInterface|PHPUnit_Framework_MockObject_MockObject $mockDataType */
-        $mockDataType = $this->createMock('MilesAsylum\Schnoop\Schema\MySQL\DataType\DataTypeInterface');
-        $mockDataType->method('cast')
-            ->willReturn(null);
-        $mockDataType->method('allowDefault')
-            ->willReturn(true);
-
-        /** @var Column $column */
-        $column = new Column(
-            $this->name,
-            $mockDataType,
-            true,
-            null,
-            $this->comment
-        );
-
-        $this->assertIsColumnConstruct(
-            $this->name,
-            $mockDataType,
-            true,
-            true,
-            null,
-            $this->comment,
+    /**
+     * @dataProvider constructedColumnTestProvider
+     * @param $expectedName
+     * @param DataTypeInterface $expectedDataType
+     * @param $expectedAllowNull
+     * @param $expectedHasDefault
+     * @param $expectedDefault
+     * @param $expectedComment
+     * @param $expectedZeroFill
+     * @param $expectedAutoIncrement
+     * @param ColumnInterface $column
+     */
+    public function testConstructed(
+        $expectedName,
+        DataTypeInterface $expectedDataType,
+        $expectedAllowNull,
+        $expectedHasDefault,
+        $expectedDefault,
+        $expectedComment,
+        $expectedZeroFill,
+        $expectedAutoIncrement,
+        ColumnInterface $column
+    ) {
+        $this->columnAsserts(
+            $expectedName,
+            $expectedDataType,
+            $expectedAllowNull,
+            $expectedHasDefault,
+            $expectedDefault,
+            $expectedComment,
+            $expectedZeroFill,
+            $expectedAutoIncrement,
             $column
         );
     }
 
-    public function testNotHasDefaultWhenNotAllowNull()
-    {
-        /** @var DataTypeInterface|PHPUnit_Framework_MockObject_MockObject $mockDataType */
-        $mockDataType = $this->createMock('MilesAsylum\Schnoop\Schema\MySQL\DataType\DataTypeInterface');
-        $mockDataType->method('cast')
-            ->willReturn('');
-        $mockDataType->method('allowDefault')
-            ->willReturn(true);
-
-        $column = new Column(
-            $this->name,
-            $mockDataType,
-            false,
-            null,
-            $this->comment
-        );
-
-        $this->assertIsColumnConstruct(
-            $this->name,
-            $mockDataType,
-            false,
-            false,
-            null,
-            $this->comment,
-            $column
-        );
-    }
 
     /**
      * @expectedException \PHPUnit_Framework_Error_Warning
@@ -132,7 +101,7 @@ class ColumnTest extends SchnoopTestCase
         $mockDataType = $this->createMock('MilesAsylum\Schnoop\Schema\MySQL\DataType\DataTypeInterface');
         $mockDataType->method('cast')
             ->willReturn('');
-        $mockDataType->method('allowDefault')
+        $mockDataType->method('doesAllowDefault')
             ->willReturn(false);
 
         $column = new Column(
@@ -142,5 +111,225 @@ class ColumnTest extends SchnoopTestCase
             'Foo',
             $this->comment
         );
+    }
+
+    /**
+     * @see testConstructed
+     * @return \Generator
+     */
+    public function constructedColumnTestProvider()
+    {
+        $returnParams = [];
+
+        $name = 'schnoop_column';
+        $comment = 'schnoop_comment';
+        $numericDefault = '123.45';
+        $castNumericDefault = (float)$numericDefault;
+        $nullDefault = null;
+        $castNullDefault = null;
+
+        // Test 'baseline' (NOT NULL, No Default, Irrelevant ZEROFILL, Irrelevant AUTOINCREMENT)
+        $mockDataType = $this->newMockDataType('DataTypeInterface', null, true);
+        $returnParams[] = $this->constructedColumnTestParamArray(
+            $name,
+            $mockDataType,
+            false,
+            false,
+            null,
+            $comment,
+            null,
+            null,
+            new Column(
+                $name,
+                $mockDataType,
+                false,
+                null,
+                $comment
+            )
+        );
+
+        // Test 'baseline' + Allow NULL
+        $mockDataType = $this->newMockDataType('DataTypeInterface', null, true);
+        $returnParams[] = $this->constructedColumnTestParamArray(
+            $name,
+            $mockDataType,
+            true, // <-- This is significant to this test.
+            true, // <-- This is significant to this test. If columns allows null, then the column will have a default of NULL.
+            null,
+            $comment,
+            null,
+            null,
+            new Column(
+                $name,
+                $mockDataType,
+                true, // <-- This is significant to this test.
+                null, // <-- This is significant to this test.
+                $comment
+            )
+        );
+
+        // Test 'baseline' + Default
+        $default = 123;
+        $castDefault = 'abc'; // Not the same as $default to ensure the supplied value is cast.
+        $mockDataType = $this->newMockDataType('DataTypeInterface', $castDefault, true);
+        $returnParams[] = $this->constructedColumnTestParamArray(
+            $name,
+            $mockDataType,
+            false,
+            true, // <-- This is significant to this test.
+            $castDefault,
+            $comment,
+            null,
+            null,
+            new Column(
+                $name,
+                $mockDataType,
+                false,
+                $default, // <-- This is significant to this test.
+                $comment
+            )
+        );
+
+        // Test 'baseline' + Allow NULL + Not Allow Default
+        $mockDataType = $this->newMockDataType(
+            'DataTypeInterface',
+            null,
+            false // <-- This is significant to this test.
+        );
+        $returnParams[] = $this->constructedColumnTestParamArray(
+            $name,
+            $mockDataType,
+            true, // <-- This is significant to this test.
+            false, // <-- This is significant to this test.
+            null,
+            $comment,
+            null,
+            null,
+            new Column(
+                $name,
+                $mockDataType,
+                true, // <-- This is significant to this test.
+                null,
+                $comment
+            )
+        );
+
+        // Test 'baseline' + NumericDataType + Not Zero Fill + Not AutoIncrement
+        $mockDataType = $this->newMockDataType('NumericTypeInterface', null, true);
+        $returnParams[] = $this->constructedColumnTestParamArray(
+            $name,
+            $mockDataType,
+            false,
+            false,
+            null,
+            $comment,
+            false, // <-- This is significant to this test.
+            false, // <-- This is significant to this test.
+            new Column(
+                $name,
+                $mockDataType,
+                false,
+                null,
+                $comment
+            )
+        );
+
+        // Test 'baseline' + NumericDataType + Zero Fill + Not AutoIncrement
+        $mockDataType = $this->newMockDataType('NumericTypeInterface', null, true);
+        $returnParams[] = $this->constructedColumnTestParamArray(
+            $name,
+            $mockDataType,
+            false,
+            false,
+            null,
+            $comment,
+            true, // <-- This is significant to this test.
+            false, // <-- This is significant to this test.
+            new Column(
+                $name,
+                $mockDataType,
+                false,
+                null,
+                $comment,
+                true // <-- This is significant to this test.
+            )
+        );
+
+        // Test 'baseline' + NumericDataType + Not Zero Fill + AutoIncrement
+        $mockDataType = $this->newMockDataType('NumericTypeInterface', null, true);
+        $returnParams[] = $this->constructedColumnTestParamArray(
+            $name,
+            $mockDataType,
+            false,
+            false,
+            null,
+            $comment,
+            false, // <-- This is significant to this test.
+            true, // <-- This is significant to this test.
+            new Column(
+                $name,
+                $mockDataType,
+                false,
+                null,
+                $comment,
+                false, // <-- This is significant to this test.
+                true // <-- This is significant to this test.
+            )
+        );
+
+        return $returnParams;
+    }
+
+    /**
+     * @param $expectedName
+     * @param DataTypeInterface $expectedDataType
+     * @param $expectedAllowNull
+     * @param $expectedHasDefault
+     * @param $expectedDefault
+     * @param $expectedComment
+     * @param $expectedZeroFill
+     * @param $expectedAutoIncrement
+     * @param ColumnInterface $column
+     * @return array
+     */
+    protected function constructedColumnTestParamArray(
+        $expectedName,
+        DataTypeInterface $expectedDataType,
+        $expectedAllowNull,
+        $expectedHasDefault,
+        $expectedDefault,
+        $expectedComment,
+        $expectedZeroFill,
+        $expectedAutoIncrement,
+        ColumnInterface $column
+    ) {
+        return [
+            $expectedName,
+            $expectedDataType,
+            $expectedAllowNull,
+            $expectedHasDefault,
+            $expectedDefault,
+            $expectedComment,
+            $expectedZeroFill,
+            $expectedAutoIncrement,
+            $column
+        ];
+    }
+
+    /**
+     * @param $interfaceName
+     * @param $castValue
+     * @param $doesAllowDefault
+     * @return NumericTypeInterface|PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function newMockDataType($interfaceName, $castValue, $doesAllowDefault)
+    {
+        $mockDataType = $this->createMock('MilesAsylum\Schnoop\Schema\MySQL\DataType\\'. $interfaceName);
+        $mockDataType->method('cast')
+            ->willReturn($castValue);
+        $mockDataType->method('doesAllowDefault')
+            ->willReturn($doesAllowDefault);
+
+        return $mockDataType;
     }
 }

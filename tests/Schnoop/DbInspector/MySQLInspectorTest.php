@@ -191,7 +191,7 @@ class MySQLInspectorTest extends TestMySQLCase
     public function testRestoreDatabaseUseWhenFetchingDatabase()
     {
         $this->markTestIncomplete(
-            'Have not tested that the previously selected database is restored when fetching another database.'
+            'Have not tested that the previously selected database is restored when fetching resource from another database.'
         );
     }
 }

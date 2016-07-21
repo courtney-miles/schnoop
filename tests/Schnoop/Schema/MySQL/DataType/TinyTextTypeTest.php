@@ -27,18 +27,13 @@ class TinyTextTypeTest extends SchnoopTestCase
     {
         parent::setUp();
         
-        $this->tinyTextType = new TinyTextType($this->characterSet, $this->collation);
+        $this->tinyTextType = new TinyTextType($this->collation);
     }
 
     public function testConstructed()
     {
-        $this->assertIsStringTypeConstruct(
-            DataTypeInterface::TYPE_TINYTEXT,
-            pow(2, 8)-1,
-            $this->characterSet,
-            $this->collation,
-            false,
-            $this->tinyTextType
+        $this->stringTypeAsserts(
+            DataTypeInterface::TYPE_TINYTEXT, pow(2, 8) - 1, $this->collation, false, $this->tinyTextType
         );
     }
 

@@ -14,12 +14,12 @@ class BinaryType extends AbstractBinaryType
     /**
      * @return string
      */
-    public function getType()
+    public function getName()
     {
         return self::TYPE_BINARY;
     }
     
-    public function allowDefault()
+    public function doesAllowDefault()
     {
         return true;
     }

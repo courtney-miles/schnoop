@@ -18,7 +18,7 @@ class IntType extends AbstractIntType
         parent::__construct($displayWidth, $signed, $minRange, $maxRange);
     }
 
-    public function getType()
+    public function getName()
     {
         return self::TYPE_INT;
     }

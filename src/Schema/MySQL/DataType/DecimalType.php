@@ -10,7 +10,18 @@ namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
 class DecimalType extends AbstractNumericPointType
 {
-    public function getType()
+    /**
+     * DecimalType constructor.
+     * @param bool $signed
+     * @param int $precision
+     * @param int $scale
+     */
+    public function __construct($signed, $precision, $scale)
+    {
+        parent::__construct($signed, $precision, $scale);
+    }
+
+    public function getName()
     {
         return self::TYPE_DECIMAL;
     }

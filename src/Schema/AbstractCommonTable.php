@@ -36,12 +36,22 @@ class AbstractCommonTable implements CommonTableInterface
         return $this->name;
     }
 
+    public function getColumnList()
+    {
+        return array_keys($this->columns);
+    }
+
     /**
      * @return AbstractCommonColumn[]
      */
     public function getColumns()
     {
         return array_values($this->columns);
+    }
+
+    public function hasColumn($columnName)
+    {
+        return isset($this->columns[$columnName]);
     }
 
     public function getColumn($columnName)

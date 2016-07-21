@@ -37,7 +37,7 @@ class MediumIntTypeTest extends SchnoopTestCase
 
     public function testConstructSigned()
     {
-        $this->assertIsIntTypeConstruct(
+        $this->intTypeAsserts(
             DataTypeInterface::TYPE_MEDIUMINT,
             $this->displayWidth,
             true,
@@ -50,7 +50,7 @@ class MediumIntTypeTest extends SchnoopTestCase
 
     public function testConstructUnsigned()
     {
-        $this->assertIsIntTypeConstruct(
+        $this->intTypeAsserts(
             DataTypeInterface::TYPE_MEDIUMINT,
             $this->displayWidth,
             false,

@@ -47,12 +47,20 @@ interface DataTypeInterface extends CommonDataTypeInterface
     const TYPE_ENUM = 'enum';
     const TYPE_SET = 'set';
 
+    const TYPE_DATE = 'date';
+    const TYPE_DATETIME = 'datetime';
+    const TYPE_TIMESTAMP = 'timestamp';
+    const TYPE_TIME = 'time';
+    const TYPE_YEAR = 'year';
+
     /**
      * @return bool
      */
-    public function allowDefault();
-    
+    public function doesAllowDefault();
+
     /**
+     * Cast a value from MySQL to a suitable PHP type.
+     * @param mixed $value
      * @return mixed
      */
     public function cast($value);

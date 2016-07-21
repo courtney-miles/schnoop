@@ -10,7 +10,7 @@ namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
 abstract class AbstractTextType extends AbstractStringType implements TextTypeInterface
 {
-    public function allowDefault()
+    public function doesAllowDefault()
     {
         return false;
     }

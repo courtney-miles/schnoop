@@ -30,21 +30,14 @@ class VarCharTypeTest extends SchnoopTestCase
         parent::setUp();
         
         $this->varCharType = new VarCharType(
-            $this->length,
-            $this->characterSet,
-            $this->collation
+            $this->length, $this->collation
         );
     }
 
     public function testConstructed()
     {
-        $this->assertIsStringTypeConstruct(
-            DataTypeInterface::TYPE_VARCHAR,
-            $this->length,
-            $this->characterSet,
-            $this->collation,
-            true,
-            $this->varCharType
+        $this->stringTypeAsserts(
+            DataTypeInterface::TYPE_VARCHAR, $this->length, $this->collation, true, $this->varCharType
         );
     }
 

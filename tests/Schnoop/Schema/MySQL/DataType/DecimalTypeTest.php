@@ -15,66 +15,64 @@ use MilesAsylum\Schnoop\Schema\MySQL\DataType\DecimalType;
 class DecimalTypeTest extends SchnoopTestCase
 {
     /**
-     * @var DecimalType
+     * @dataProvider constructedProvider
+     * @param bool $expectedIsSigned
+     * @param int|null $expectedPrecision
+     * @param int|null $expectedScale
+     * @param string|null $expectedMinRange
+     * @param string|null $expectedMaxRange
+     * @param DecimalType $actualDecimalType
      */
-    protected $decimalTypeSigned;
-
-    /**
-     * @var DecimalType
-     */
-    protected $decimalTypeUnsigned;
-
-    protected $precision = 6;
-
-    protected $scale = 2;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->decimalTypeSigned = new DecimalType(
-            $this->precision,
-            $this->scale,
-            true
-        );
-
-        $this->decimalTypeUnsigned = new DecimalType(
-            $this->precision,
-            $this->scale,
-            false
-        );
-    }
-
-    public function testConstructedSigned()
-    {
-        $this->assertIsNumericPointTypeConstruct(
+    public function testConstructed(
+        $expectedIsSigned,
+        $expectedPrecision,
+        $expectedScale,
+        $expectedMinRange,
+        $expectedMaxRange,
+        $actualDecimalType
+    ) {
+        $this->numericPointTypeAsserts(
             DataTypeInterface::TYPE_DECIMAL,
-            $this->precision,
-            $this->scale,
+            $expectedIsSigned,
+            $expectedPrecision,
+            $expectedScale,
+            $expectedMinRange,
+            $expectedMaxRange,
             true,
-            '-9999.99',
-            '9999.99',
-            true,
-            $this->decimalTypeSigned
-        );
-    }
-
-    public function testConstructedUnsigned()
-    {
-        $this->assertIsNumericPointTypeConstruct(
-            DataTypeInterface::TYPE_DECIMAL,
-            $this->precision,
-            $this->scale,
-            false,
-            '0',
-            '9999.99',
-            true,
-            $this->decimalTypeUnsigned
+            $actualDecimalType
         );
     }
 
     public function testCast()
     {
-        $this->assertSame('123.45', $this->decimalTypeSigned->cast(123.45));
+        $decimalType = new DecimalType(true, 10, 0);
+
+        $this->assertSame('123.45', $decimalType->cast(123.45));
+    }
+
+    /**
+     * @see testConstructed
+     * @return array
+     */
+    public function constructedProvider()
+    {
+        return [
+            [
+                true,
+                6,
+                2,
+                '-9999.99',
+                '9999.99',
+                new DecimalType(true, 6, 2)
+            ],
+            [
+                false,
+                6,
+                2,
+                '0',
+                '9999.99',
+                new DecimalType(false, 6, 2)
+            ]
+        ];
     }
 }

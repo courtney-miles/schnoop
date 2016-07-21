@@ -65,7 +65,7 @@ class Schnoop
     public function getDatabase($databaseName)
     {
         return $this->hasDatabase($databaseName)
-            ? $this->schemaFactory->newDatabase($this->dbInspector->fetchDatabase($databaseName), $this)
+            ? $this->schemaFactory->createDatabase($this->dbInspector->fetchDatabase($databaseName), $this)
             : null;
     }
 
@@ -85,7 +85,7 @@ class Schnoop
      */
     public function getTable($databaseName, $tableName)
     {
-        return $this->schemaFactory->newTable(
+        return $this->schemaFactory->createTable(
             $this->dbInspector->fetchTable($databaseName, $tableName),
             $this->dbInspector->fetchColumns($databaseName, $tableName)
         );

@@ -20,21 +20,24 @@ abstract class AbstractNumericPointType implements NumericPointTypeInterface
 
     /**
      * AbstractNumericPointType constructor.
+     * @param bool $signed
      * @param int $precision
      * @param int $scale
-     * @param bool $signed
      */
-    public function __construct($precision, $scale, $signed)
+    public function __construct($signed, $precision = null, $scale = null)
     {
-        $maxRange = str_repeat('9', $precision - $scale) . '.' . str_repeat('9', $scale);
-        $minRange = $signed ? '-' . $maxRange : '0';
-        
-        $this->setPrecisionScale($precision, $scale);
         $this->setSigned($signed);
-        $this->setRange($minRange, $maxRange);
+
+        if (isset($precision, $scale)) {
+            $this->setPrecisionScale($precision, $scale);
+
+            $maxRange = str_repeat('9', $precision - $scale) . '.' . str_repeat('9', $scale);
+            $minRange = $signed ? '-' . $maxRange : '0';
+            $this->setRange($minRange, $maxRange);
+        }
     }
     
-    public function allowDefault()
+    public function doesAllowDefault()
     {
         return true;
     }

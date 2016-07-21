@@ -22,11 +22,9 @@ class AbstractStringTypeTest extends SchnoopTestCase
 
     protected $length = 128;
 
-    protected $characterSet = 'utf8';
-
     protected $collation = 'utf8_general_ci';
 
-    protected $allowDefault = true;
+    protected $doesAllowDefault = true;
 
     public function setUp()
     {
@@ -36,26 +34,24 @@ class AbstractStringTypeTest extends SchnoopTestCase
             'MilesAsylum\Schnoop\Schema\MySQL\DataType\AbstractStringType',
             [
                 $this->length,
-                $this->characterSet,
                 $this->collation
             ]
         );
 
-        $this->abstractStringType->method('getType')
+        $this->abstractStringType->method('getName')
             ->willReturn($this->type);
 
-        $this->abstractStringType->method('allowDefault')
-            ->willReturn($this->allowDefault);
+        $this->abstractStringType->method('doesAllowDefault')
+            ->willReturn($this->doesAllowDefault);
     }
 
     public function testConstructed()
     {
-        $this->assertIsStringTypeConstruct(
+        $this->stringTypeAsserts(
             $this->type,
             $this->length,
-            $this->characterSet,
             $this->collation,
-            $this->allowDefault,
+            $this->doesAllowDefault,
             $this->abstractStringType
         );
     }

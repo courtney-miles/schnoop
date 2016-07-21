@@ -36,7 +36,7 @@ class SmallIntTypeTest extends SchnoopTestCase
 
     public function testConstructSigned()
     {
-        $this->assertIsIntTypeConstruct(
+        $this->intTypeAsserts(
             DataTypeInterface::TYPE_SMALLINT,
             $this->displayWidth,
             true,
@@ -49,7 +49,7 @@ class SmallIntTypeTest extends SchnoopTestCase
 
     public function testConstructUnsigned()
     {
-        $this->assertIsIntTypeConstruct(
+        $this->intTypeAsserts(
             DataTypeInterface::TYPE_SMALLINT,
             $this->displayWidth,
             false,

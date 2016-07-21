@@ -10,7 +10,7 @@ namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
 abstract class AbstractBlobType extends AbstractBinaryType implements BlobTypeInterface
 {
-    public function allowDefault()
+    public function doesAllowDefault()
     {
         return false;
     }

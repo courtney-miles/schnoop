@@ -8,10 +8,9 @@
 
 namespace MilesAsylum\Schnoop\Schema;
 
+use MilesAsylum\Schnoop\Schema\Exception\FactoryException;
 use MilesAsylum\Schnoop\Schema\MySQL\Column\Column;
 use MilesAsylum\Schnoop\Schema\MySQL\Column\ColumnInterface;
-use MilesAsylum\Schnoop\Schema\MySQL\Column\NumericColumn;
-use MilesAsylum\Schnoop\Schema\MySQL\Column\NumericColumnInterface;
 use MilesAsylum\Schnoop\Schema\MySQL\Database\Database;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\BigIntType;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\BinaryType;
@@ -20,6 +19,7 @@ use MilesAsylum\Schnoop\Schema\MySQL\DataType\BlobType;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\CharType;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\DecimalType;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\DoubleType;
+use MilesAsylum\Schnoop\Schema\MySQL\DataType\EnumType;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\FloatType;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\IntType;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\IntTypeInterface;
@@ -30,6 +30,8 @@ use MilesAsylum\Schnoop\Schema\MySQL\DataType\MediumIntType;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\MediumTextType;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\NumericPointTypeInterface;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\NumericTypeInterface;
+use MilesAsylum\Schnoop\Schema\MySQL\DataType\OptionsTypeInterface;
+use MilesAsylum\Schnoop\Schema\MySQL\DataType\SetType;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\SmallIntType;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\StringTypeInterface;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\TextType;
@@ -48,21 +50,12 @@ class MySQLFactory implements FactoryInterface
      */
     protected $pdo;
 
-    /**
-     * @var \PDOStatement
-     */
-    protected $stmtSelCharSetFromCollation;
-
     public function __construct(\PDO $pdo)
     {
         $this->pdo = $pdo;
-        $this->stmtSelCharSetFromCollation = $this->pdo->prepare(<<< SQL
-SHOW COLLATION WHERE Collation = ?
-SQL
-        );
     }
 
-    public function newDatabase(array $rawDatabase, Schnoop $schnoop)
+    public function createDatabase(array $rawDatabase, Schnoop $schnoop)
     {
         return new Database(
             $rawDatabase['name'],
@@ -72,12 +65,12 @@ SQL
         );
     }
     
-    public function newTable(array $rawTable, array $rawColumns)
+    public function createTable(array $rawTable, array $rawColumns)
     {
         $columns = [];
         
         foreach ($rawColumns as $rawCol) {
-            $columns[] = $this->newColumn($rawCol);
+            $columns[] = $this->createColumn($rawCol);
         }
         
         $table = new Table(
@@ -94,33 +87,29 @@ SQL
 
     /**
      * @param array $rowColumn
-     * @return ColumnInterface|NumericColumnInterface
+     * @return ColumnInterface
      */
-    public function newColumn(array $rowColumn)
+    public function createColumn(array $rowColumn)
     {
-        $dataType = $this->newDataType($rowColumn['type'], $rowColumn['collation']);
-        $autoIncrement = strtolower($rowColumn['extra']) == 'auto_increment' ? true: false;
+        $dataType = $this->createDataType($rowColumn['type'], $rowColumn['collation']);
         $allowNull = strtolower($rowColumn['null']) == 'yes' ? true : false;
 
+        $zeroFill = $autoIncrement = null;
+
         if ($dataType instanceof NumericTypeInterface) {
-            $column = new NumericColumn(
-                $rowColumn['field'],
-                $dataType,
-                stripos($rowColumn['type'], 'zerofill') !== false,
-                $allowNull,
-                $rowColumn['default'],
-                $autoIncrement,
-                $rowColumn['comment']
-            );
-        } else {
-            $column = new Column(
-                $rowColumn['field'],
-                $dataType,
-                $allowNull,
-                $rowColumn['default'],
-                $rowColumn['comment']
-            );
+            $zeroFill = stripos($rowColumn['type'], 'zerofill') !== false;
+            $autoIncrement = strtolower($rowColumn['extra']) == 'auto_increment' ? true: false;
         }
+
+        $column = new Column(
+            $rowColumn['field'],
+            $dataType,
+            $allowNull,
+            $rowColumn['default'],
+            $rowColumn['comment'],
+            $zeroFill,
+            $autoIncrement
+        );
         
         return $column;
     }
@@ -128,109 +117,43 @@ SQL
     /**
      * @param $dataTypeString
      * @param null $collation
-     * @return IntTypeInterface|NumericPointTypeInterface|StringTypeInterface|null
+     * @return IntTypeInterface|NumericPointTypeInterface|OptionsTypeInterface|StringTypeInterface|null
+     * @throws FactoryException
      */
-    public function newDataType($dataTypeString, $collation = null)
+    public function createDataType($dataTypeString, $collation = null)
     {
         $dataType = null;
-        $dataTypeString = strtolower($dataTypeString);
 
-        if (preg_match('/^(tiny|small|medium|big)?int(eger)?\((\d+)\)( unsigned)?/', $dataTypeString, $matches)) {
-            $displayWidth = $matches[3];
-            $signed = empty($matches[4]);
+        if (preg_match('/^(\w+)/', $dataTypeString, $matches)) {
+            $namespace = 'MilesAsylum\Schnoop\Schema\MySQL\DataType\\';
+            $factoryClass = $namespace . ucfirst(strtolower($matches[1])) . 'TypeFactory';
 
-            switch ($matches[1]) {
-                case 'tiny':
-                    $dataType = new TinyIntType($displayWidth, $signed);
-                    break;
-                case 'small':
-                    $dataType = new SmallIntType($displayWidth, $signed);
-                    break;
-                case 'medium':
-                    $dataType = new MediumIntType($displayWidth, $signed);
-                    break;
-                case 'big':
-                    $dataType = new BigIntType($displayWidth, $signed);
-                    break;
-                default:
-                    $dataType = new IntType($displayWidth, $signed);
-                    break;
-            }
-        } elseif (preg_match('/^(decimal|float|double)\((\d+),(\d+)\)( unsigned)?/', $dataTypeString, $matches)) {
-            $precision = $matches[2];
-            $scale = $matches[3];
-            $signed = empty($matches[4]);
-
-            switch ($matches[1]) {
-                case 'decimal':
-                    $dataType = new DecimalType($precision, $scale, $signed);
-                    break;
-                case 'double':
-                    $dataType = new DoubleType($precision, $scale, $signed);
-                    break;
-                case 'float':
-                    $dataType = new FloatType($precision, $scale, $signed);
-            }
-        } elseif (preg_match('/^(var)?binary\((\d+)\)$/', $dataTypeString, $matches)) {
-            $isVarBinary = !empty($matches[1]);
-            $length = $matches[2];
-
-            if ($isVarBinary) {
-                $dataType = new VarBinaryType($length);
+            if (class_exists($factoryClass)) {
+                return $factoryClass::create($dataTypeString, $collation);
             } else {
-                $dataType = new BinaryType($length);
-            }
-        } elseif (preg_match('/^bit\((\d+)\)$/', $dataTypeString, $matches)) {
-            $dataType = new BitType($matches[1]);
-        } else {
-            $characterSet = !empty($collation) ? $this->getCharacterSet($collation) : null;
-
-            if (preg_match('/^(var)?char\((\d+)\)$/', $dataTypeString, $matches)) {
-                $isVarChar = !empty($matches[1]);
-                $length = $matches[2];
-
-                if ($isVarChar) {
-                    $dataType = new VarCharType($length, $characterSet, $collation);
-                } else {
-                    $dataType = new CharType($length, $characterSet, $collation);
-                }
-            } else {
-                switch ($dataTypeString) {
-                    case 'text':
-                        $dataType = new TextType($characterSet, $collation);
-                        break;
-                    case 'tinytext':
-                        $dataType = new TinyTextType($characterSet, $collation);
-                        break;
-                    case 'mediumtext':
-                        $dataType = new MediumTextType($characterSet, $collation);
-                        break;
-                    case 'longtext':
-                        $dataType = new LongTextType($characterSet, $collation);
-                        break;
-                    case 'blob':
-                        $dataType = new BlobType();
-                        break;
-                    case 'tinyblob':
-                        $dataType = new TinyBlobType();
-                        break;
-                    case 'mediumblob':
-                        $dataType = new MediumBlobType();
-                        break;
-                    case 'longblob':
-                        $dataType = new LongBlobType();
-                        break;
-                }
+                throw new FactoryException("A factory class was not found for the {$matches[1]} data type.");
             }
         }
 
         return $dataType;
     }
 
-    public function getCharacterSet($collation)
+    /**
+     * @param $optionsString
+     * @return array|bool False if the string has the wrong format, otherwise the array of options.
+     */
+    protected function parseOptions($optionsString)
     {
-        $this->stmtSelCharSetFromCollation->execute(array($collation));
+        if (!preg_match("/^\('.+'\)$/", $optionsString)) {
+            trigger_error(
+                "Unrecognised string format for options string: $optionsString. Options string has been ignored"
+            );
+            return false;
+        }
 
-        return $this->stmtSelCharSetFromCollation->fetch(\PDO::FETCH_ASSOC)['Charset'];
+        $optionsString = substr_replace($optionsString, '', 0, 2);
+        $optionsString = substr_replace($optionsString, '', -2, 2);
+
+        return preg_split("/', ?'/", $optionsString);
     }
 }

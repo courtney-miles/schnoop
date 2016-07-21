@@ -25,7 +25,7 @@ abstract class AbstractIntType implements IntTypeInterface
         $this->setRange($minRange, $maxRange);
     }
     
-    public function allowDefault()
+    public function doesAllowDefault()
     {
         return true;
     }

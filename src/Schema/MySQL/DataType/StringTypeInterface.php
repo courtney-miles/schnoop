@@ -9,16 +9,8 @@
 namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\LengthInterface;
+use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\CollationInterface;
 
-interface StringTypeInterface extends DataTypeInterface, LengthInterface
+interface StringTypeInterface extends DataTypeInterface, CollationInterface, LengthInterface
 {
-    /**
-     * @return string
-     */
-    public function getCharacterSet();
-
-    /**
-     * @return string
-     */
-    public function getCollation();
 }

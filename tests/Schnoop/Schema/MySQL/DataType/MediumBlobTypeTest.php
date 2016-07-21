@@ -29,7 +29,7 @@ class MediumBlobTypeTest extends SchnoopTestCase
 
     public function testConstruct()
     {
-        $this->assertIsBinaryTypeConstruct(
+        $this->binaryTypeAsserts(
             DataTypeInterface::TYPE_MEDIUMBLOB,
             pow(2, 24)-1,
             false,

@@ -8,7 +8,6 @@
 
 namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
-
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\LengthTrait;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\NumericRangeTrait;
 
@@ -26,7 +25,7 @@ class BitType implements BitTypeInterface
     /**
      * @return string
      */
-    public function getType()
+    public function getName()
     {
         return self::TYPE_BIT;
     }
@@ -39,7 +38,7 @@ class BitType implements BitTypeInterface
         return (int)$value;
     }
     
-    public function allowDefault()
+    public function doesAllowDefault()
     {
         return true;
     }

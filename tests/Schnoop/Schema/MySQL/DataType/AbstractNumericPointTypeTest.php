@@ -36,37 +36,37 @@ class AbstractNumericPointTypeTest extends SchnoopTestCase
         $this->abstractNumericPointTypeSigned = $this->getMockForAbstractClass(
             'MilesAsylum\Schnoop\Schema\MySQL\DataType\AbstractNumericPointType',
             [
+                true,
                 $this->precision,
-                $this->scale,
-                true
+                $this->scale
             ]
         );
 
         $this->abstractNumericPointTypeSigned->expects($this->any())
-            ->method('getType')
+            ->method('getName')
             ->willReturn($this->type);
 
         $this->abstractNumericPointTypeUnsigned = $this->getMockForAbstractClass(
             'MilesAsylum\Schnoop\Schema\MySQL\DataType\AbstractNumericPointType',
             [
+                false,
                 $this->precision,
-                $this->scale,
-                false
+                $this->scale
             ]
         );
 
         $this->abstractNumericPointTypeUnsigned->expects($this->any())
-            ->method('getType')
+            ->method('getName')
             ->willReturn($this->type);
     }
 
     public function testConstructedSigned()
     {
-        $this->assertIsNumericPointTypeConstruct(
+        $this->numericPointTypeAsserts(
             $this->type,
+            true,
             $this->precision,
             $this->scale,
-            true,
             '-9999.99',
             '9999.99',
             true,
@@ -76,11 +76,11 @@ class AbstractNumericPointTypeTest extends SchnoopTestCase
 
     public function testConstructedUnsigned()
     {
-        $this->assertIsNumericPointTypeConstruct(
+        $this->numericPointTypeAsserts(
             $this->type,
+            false,
             $this->precision,
             $this->scale,
-            false,
             '0',
             '9999.99',
             true,

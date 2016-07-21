@@ -18,7 +18,7 @@ class MediumBlobType extends AbstractBlobType
     /**
      * @return string
      */
-    public function getType()
+    public function getName()
     {
         return self::TYPE_MEDIUMBLOB;
     }

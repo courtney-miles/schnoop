@@ -28,7 +28,7 @@ class BlobTypeTest extends SchnoopTestCase
 
     public function testConstruct()
     {
-        $this->assertIsBinaryTypeConstruct(
+        $this->binaryTypeAsserts(
             DataTypeInterface::TYPE_BLOB,
             pow(2, 16)-1,
             false,

@@ -13,5 +13,5 @@ interface CommonDataTypeInterface
     /**
      * @return string
      */
-    public function getType();
+    public function getName();
 }

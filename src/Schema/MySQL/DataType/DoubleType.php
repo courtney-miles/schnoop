@@ -10,7 +10,7 @@ namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
 class DoubleType extends AbstractNumericPointType
 {
-    public function getType()
+    public function getName()
     {
         return self::TYPE_DOUBLE;
     }

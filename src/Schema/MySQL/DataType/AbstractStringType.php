@@ -8,27 +8,21 @@
 
 namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
+use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\CollationTrait;
+
 abstract class AbstractStringType implements StringTypeInterface
 {
+    use CollationTrait;
+    
     /**
      * @var int
      */
     protected $length;
-    
-    /**
-     * @var string
-     */
-    protected $characterSet;
 
-    /**
-     * @var string
-     */
-    protected $collation;
-
-    public function __construct($length, $characterSet = null, $collation = null)
+    public function __construct($length, $collation = null)
     {
         $this->setLength($length);
-        $this->setCharacterSet($characterSet, $collation);
+        $this->setCollation($collation);
     }
 
     public function cast($value)
@@ -42,32 +36,6 @@ abstract class AbstractStringType implements StringTypeInterface
     public function getLength()
     {
         return $this->length;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCharacterSet()
-    {
-        return $this->characterSet;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCollation()
-    {
-        return $this->collation;
-    }
-
-    /**
-     * @param string $characterSet
-     * @param string $collation
-     */
-    protected function setCharacterSet($characterSet, $collation)
-    {
-        $this->characterSet = $characterSet;
-        $this->collation = $collation;
     }
 
     /**

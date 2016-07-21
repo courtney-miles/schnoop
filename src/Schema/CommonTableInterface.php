@@ -11,6 +11,8 @@ namespace MilesAsylum\Schnoop\Schema;
 interface CommonTableInterface
 {
     public function getName();
+    public function getColumnList();
     public function getColumns();
+    public function hasColumn($columnName);
     public function getColumn($columnName);
 }

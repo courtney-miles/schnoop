@@ -28,20 +28,14 @@ class MediumTextTypeTest extends SchnoopTestCase
         parent::setUp();
 
         $this->mediumTextType = new MediumTextType(
-            $this->characterSet,
             $this->collation
         );
     }
 
     public function testConstructed()
     {
-        $this->assertIsStringTypeConstruct(
-            DataTypeInterface::TYPE_MEDIUMTEXT,
-            pow(2, 24)-1,
-            $this->characterSet,
-            $this->collation,
-            false,
-            $this->mediumTextType
+        $this->stringTypeAsserts(
+            DataTypeInterface::TYPE_MEDIUMTEXT, pow(2, 24) - 1, $this->collation, false, $this->mediumTextType
         );
     }
 

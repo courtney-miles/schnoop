@@ -44,7 +44,7 @@ class BigIntTypeTest extends SchnoopTestCase
 
     public function testConstructedSigned()
     {
-        $this->assertIsIntTypeConstruct(
+        $this->intTypeAsserts(
             DataTypeInterface::TYPE_BIGINT,
             $this->displayWidth,
             true,
@@ -57,7 +57,7 @@ class BigIntTypeTest extends SchnoopTestCase
 
     public function testConstructedUnsigned()
     {
-        $this->assertIsIntTypeConstruct(
+        $this->intTypeAsserts(
             DataTypeInterface::TYPE_BIGINT,
             $this->displayWidth,
             false,

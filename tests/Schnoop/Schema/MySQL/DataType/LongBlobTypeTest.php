@@ -28,7 +28,7 @@ class LongBlobTypeTest extends SchnoopTestCase
 
     public function testConstruct()
     {
-        $this->assertIsBinaryTypeConstruct(
+        $this->binaryTypeAsserts(
             DataTypeInterface::TYPE_LONGBLOB,
             pow(2, 32)-1,
             false,

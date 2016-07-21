@@ -30,21 +30,14 @@ class CharTypeTest extends SchnoopTestCase
         parent::setUp();
 
         $this->charType = new CharType(
-            $this->length,
-            $this->characterSet,
-            $this->collation
+            $this->length, $this->collation
         );
     }
 
     public function testConstructed()
     {
-        $this->assertIsStringTypeConstruct(
-            DataTypeInterface::TYPE_CHAR,
-            $this->length,
-            $this->characterSet,
-            $this->collation,
-            true,
-            $this->charType
+        $this->stringTypeAsserts(
+            DataTypeInterface::TYPE_CHAR, $this->length, $this->collation, true, $this->charType
         );
     }
 
