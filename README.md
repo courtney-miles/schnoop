@@ -67,7 +67,8 @@ if ($database->hasTable($tableName){
     echo $table->getEngine(); // I.e. InnoDB
     echo $table->getDefaultCollation(); // I.e. utf8mb_general_ci
     echo $table->getRowFormat(); // I.e. dynamic
-    print_r($table->getColumnList) // Array of column names;
+    print_r($table->getColumnList()) // Array of column names;
+    print_r($table->getIndexList()) // Array of index names;
 } else {
     echo "A table named, $tableName, cannot be found in {$database->getName()}";
 }
@@ -85,8 +86,8 @@ $columnName = 'acme_col';
 if ($table->hasColumn($columnName) {
     $column = $table->getColumn($columnName);
     
-    echo $column->getName(); // acme_col
-    echo $column->getDefault(); // I.e. Foo
+    echo $column->getName(); // The name of the column.
+    echo $column->getDefault(); // I.e. The default value of the column.
     var_export($column->isAllowNull()); // true == NULL, false == NOT NULL.
 } else {
     echo "A column named, $columnName, does not exists for table {$table->getName()}.";
@@ -105,18 +106,42 @@ $dataType = $column->getDataType();
 echo $dataType->getName(); // INT, VARCHAR, TEXT or BLOB, etc.
 ```
 
+### Inspect table indexes
+
+```php
+<?php
+
+// ...
+
+$indexName = 'PRIMARY KEY';
+
+if ($table->hasIndex($indexName)) {
+    $index = $table->getIndex($indexName);
+    
+    echo $index->getType(); // index, unique, fulltext or spatial.
+    echo $index->getIndexType(); // hash, btree, rtree or fulltext.
+    
+    foreach ($index->getIndexedColumns as $indexedColumn) {
+        echo $indexedColumn->getColumn()->getName(); // The name of the column in the index.
+        echo $indexedColumn->getCollation(); // The collation (i.e. Asc) of the index on the column.
+    }
+}
+```
+
 ## TODO
 
 1. Add support for JSON data type.
-2. List table indexes.
-3. Examine table indexes.
-4. List table triggers.
-5. Examine table triggers.
-6. List routines.
-7. Examine routines.
-8. Add support for SPATIAL data.
+2. List table triggers.
+3. Examine table triggers.
+4. List routines.
+5. Examine routines.
+6. Add support for SPATIAL data.
 
 ## Changelog
+
+### Version 0.1.0-alpha.2
+
+* Indexes on a table can be examined. 
 
 ### Version 0.1.0-alpha.1
 
