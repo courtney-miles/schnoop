@@ -8,7 +8,6 @@
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\DataType;
 
-
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\DataTypeInterface;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\YearType;
 

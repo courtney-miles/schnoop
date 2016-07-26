@@ -26,6 +26,7 @@ class SchnoopFactory
     /**
      * @param PDO $pdo
      * @return DbInspectorInterface
+     * @throws SchnoopException
      */
     public static function newDBInspector(PDO $pdo)
     {

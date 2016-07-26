@@ -98,6 +98,7 @@ class MySQLInspectorTest extends TestMySQLCase
                 'seq_in_index' => '1',
                 'column_name' => 'id',
                 'collation' => 'A',
+                'sub_part' => null,
                 'index_type' => 'BTREE',
                 'index_comment' => ''
             ]

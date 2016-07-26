@@ -33,7 +33,8 @@ class SetTypeTest extends SchnoopTestCase
         parent::setUp();
 
         $this->setType = new SetType(
-            $this->options, $this->collation
+            $this->options,
+            $this->collation
         );
     }
 
@@ -42,6 +43,7 @@ class SetTypeTest extends SchnoopTestCase
         $this->assertSame(DataTypeInterface::TYPE_SET, $this->setType->getName());
         $this->assertSame($this->options, $this->setType->getOptions());
         $this->assertSame($this->collation, $this->setType->getCollation());
+        $this->assertTrue($this->setType->doesAllowDefault());
     }
 
     public function testCast()

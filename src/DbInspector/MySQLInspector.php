@@ -185,6 +185,7 @@ SQL;
             'seq_in_index',
             'column_name',
             'collation',
+            'sub_part',
             'index_type',
             'index_comment'
         ];

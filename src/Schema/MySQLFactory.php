@@ -8,38 +8,23 @@
 
 namespace MilesAsylum\Schnoop\Schema;
 
+use MilesAsylum\Schnoop\Exception\SchnoopException;
 use MilesAsylum\Schnoop\Schema\Exception\FactoryException;
 use MilesAsylum\Schnoop\Schema\MySQL\Column\Column;
 use MilesAsylum\Schnoop\Schema\MySQL\Column\ColumnInterface;
 use MilesAsylum\Schnoop\Schema\MySQL\Database\Database;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\BigIntType;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\BinaryType;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\BitType;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\BlobType;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\CharType;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\DecimalType;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\DoubleType;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\EnumType;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\FloatType;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\IntType;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\IntTypeInterface;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\LongBlobType;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\LongTextType;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\MediumBlobType;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\MediumIntType;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\MediumTextType;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\NumericPointTypeInterface;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\NumericTypeInterface;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\OptionsTypeInterface;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\SetType;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\SmallIntType;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\StringTypeInterface;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\TextType;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\TinyBlobType;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\TinyIntType;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\TinyTextType;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\VarBinaryType;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\VarCharType;
+use MilesAsylum\Schnoop\Schema\MySQL\Index\FullTextIndex;
+use MilesAsylum\Schnoop\Schema\MySQL\Index\Index;
+use MilesAsylum\Schnoop\Schema\MySQL\Index\IndexedColumn;
+use MilesAsylum\Schnoop\Schema\MySQL\Index\IndexedColumnInterface;
+use MilesAsylum\Schnoop\Schema\MySQL\Index\IndexInterface;
+use MilesAsylum\Schnoop\Schema\MySQL\Index\SpatialIndex;
+use MilesAsylum\Schnoop\Schema\MySQL\Index\UniqueIndex;
 use MilesAsylum\Schnoop\Schema\MySQL\Table\Table;
 use MilesAsylum\Schnoop\Schnoop;
 
@@ -65,7 +50,7 @@ class MySQLFactory implements FactoryInterface
         );
     }
     
-    public function createTable(array $rawTable, array $rawColumns)
+    public function createTable(array $rawTable, array $rawColumns, array $rawIndexes)
     {
         $columns = [];
         
@@ -76,6 +61,7 @@ class MySQLFactory implements FactoryInterface
         $table = new Table(
             $rawTable['name'],
             $columns,
+            $this->createIndexes($rawIndexes, $columns),
             $rawTable['engine'],
             $rawTable['row_format'],
             $rawTable['collation'],
@@ -139,21 +125,95 @@ class MySQLFactory implements FactoryInterface
     }
 
     /**
-     * @param $optionsString
-     * @return array|bool False if the string has the wrong format, otherwise the array of options.
+     * @param array $rawIndexes
+     * @param ColumnInterface[] $columns
+     * @return MySQL\Index\Index[]
+     * @throws SchnoopException
      */
-    protected function parseOptions($optionsString)
+    public function createIndexes(array $rawIndexes, array $columns)
     {
-        if (!preg_match("/^\('.+'\)$/", $optionsString)) {
-            trigger_error(
-                "Unrecognised string format for options string: $optionsString. Options string has been ignored"
-            );
-            return false;
+        $aggrIndexes = [];
+        $indexes = [];
+
+        foreach ($rawIndexes as $rawIndex) {
+            $indexName = $rawIndex['key_name'];
+            $aggrIndexes[$indexName]['index_type'] = $rawIndex['index_type'];
+            $aggrIndexes[$indexName]['non_unique'] = $rawIndex['non_unique'];
+            $aggrIndexes[$indexName]['index_comment'] = $rawIndex['index_comment'];
+
+            foreach ($columns as $column) {
+                if ($column->getName() == $rawIndex['column_name']) {
+                    $aggrIndexes[$indexName]['columns'][$rawIndex['seq_in_index']] = $this->createIndexedColumn(
+                        $rawIndex,
+                        $column
+                    );
+
+                    break;
+                }
+            }
+
+            if (empty($aggrIndexes[$indexName]['columns'][$rawIndex['seq_in_index']])) {
+                throw new SchnoopException(
+                    sprintf(
+                        'A column named %s is needed for index %s but was not supplied.',
+                        $rawIndex['column_name'],
+                        $indexName
+                    )
+                );
+            }
         }
 
-        $optionsString = substr_replace($optionsString, '', 0, 2);
-        $optionsString = substr_replace($optionsString, '', -2, 2);
+        foreach ($aggrIndexes as $keyName => $aggrIndex) {
+            if ($aggrIndex['non_unique'] == 0) {
+                $indexes[] = new UniqueIndex(
+                    $keyName,
+                    $aggrIndex['columns'],
+                    strtoupper($aggrIndex['index_type']),
+                    $aggrIndex['index_comment']
+                );
+            } else {
+                switch (strtoupper($aggrIndex['index_type'])) {
+                    case IndexInterface::INDEX_TYPE_FULLTEXT:
+                        $indexes[] = new FullTextIndex(
+                            $keyName,
+                            $aggrIndex['columns'],
+                            $aggrIndex['index_comment']
+                        );
+                        break;
+                    case IndexInterface::INDEX_TYPE_RTREE:
+                        $indexes[] = new SpatialIndex(
+                            $keyName,
+                            $aggrIndex['columns'],
+                            $aggrIndex['index_comment']
+                        );
+                        break;
+                    default:
+                        $indexes[] = new Index(
+                            $keyName,
+                            $aggrIndex['columns'],
+                            $aggrIndex['index_type'],
+                            $aggrIndex['index_comment']
+                        );
+                        break;
+                }
+            }
+        }
 
-        return preg_split("/', ?'/", $optionsString);
+        return $indexes;
+    }
+
+    public function createIndexedColumn($rawIndex, ColumnInterface $column)
+    {
+        if ($rawIndex['column_name'] != $column->getName()) {
+            throw new SchnoopException(
+                sprintf(
+                    "Supplied column does not match the index.  Column name is %s but index is for %s.",
+                    $column->getName(),
+                    $rawIndex['column_name']
+                )
+            );
+        }
+
+        return new IndexedColumn($column, $rawIndex['sub_part'], IndexedColumnInterface::COLLATION_ASC);
     }
 }

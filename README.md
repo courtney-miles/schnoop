@@ -114,6 +114,7 @@ echo $dataType->getName(); // INT, VARCHAR, TEXT or BLOB, etc.
 5. Examine table triggers.
 6. List routines.
 7. Examine routines.
+8. Add support for SPATIAL data.
 
 ## Changelog
 

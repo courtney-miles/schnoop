@@ -1,5 +1,5 @@
 {
-  "name": "miles-asylum/schnoop",
+  "name": "milesasylum/schnoop",
   "description": "Schnoop provides a convenient PHP interface for inspecting a database schema.",
   "homepage": "https://github.com/courtney-miles/schnoop",
   "minimum-stability": "stable",

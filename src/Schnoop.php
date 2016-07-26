@@ -87,7 +87,8 @@ class Schnoop
     {
         return $this->schemaFactory->createTable(
             $this->dbInspector->fetchTable($databaseName, $tableName),
-            $this->dbInspector->fetchColumns($databaseName, $tableName)
+            $this->dbInspector->fetchColumns($databaseName, $tableName),
+            $this->dbInspector->fetchIndexes($databaseName, $tableName)
         );
     }
     

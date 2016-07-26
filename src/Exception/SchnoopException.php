@@ -10,5 +10,4 @@ namespace MilesAsylum\Schnoop\Exception;
 
 class SchnoopException extends \Exception implements ExceptionInterface
 {
-
 }

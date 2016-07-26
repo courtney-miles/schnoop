@@ -18,14 +18,21 @@ class AbstractCommonTable implements CommonTableInterface
     protected $columns = array();
 
     /**
+     * @var CommonIndexInterface[]
+     */
+    protected $indexes = array();
+
+    /**
      * AbstractTable constructor.
      * @param $name
      * @param CommonColumnInterface[] $columns
+     * @param CommonIndexInterface[] $indexes
      */
-    public function __construct($name, array $columns)
+    public function __construct($name, array $columns, array $indexes)
     {
         $this->name = $name;
         $this->setColumns($columns);
+        $this->setIndexes($indexes);
     }
     
     /**
@@ -56,7 +63,27 @@ class AbstractCommonTable implements CommonTableInterface
 
     public function getColumn($columnName)
     {
-        return $this->columns[$columnName];
+        return $this->hasColumn($columnName) ? $this->columns[$columnName] : null;
+    }
+
+    public function getIndexList()
+    {
+        return array_keys($this->indexes);
+    }
+
+    public function getIndexes()
+    {
+        return array_values($this->indexes);
+    }
+
+    public function hasIndex($indexName)
+    {
+        return isset($this->indexes[$indexName]);
+    }
+
+    public function getIndex($indexName)
+    {
+        return $this->hasIndex($indexName) ? $this->indexes[$indexName] : null;
     }
 
     /**
@@ -64,7 +91,7 @@ class AbstractCommonTable implements CommonTableInterface
      */
     protected function setColumns(array $columns)
     {
-        $this->columns = array();
+        $this->columns = [];
 
         foreach ($columns as $column) {
             $this->addColumn($column);
@@ -78,5 +105,22 @@ class AbstractCommonTable implements CommonTableInterface
     {
         $column->setTable($this);
         $this->columns[$column->getName()] = $column;
+    }
+
+    /**
+     * @param CommonIndexInterface[] $indexes
+     */
+    protected function setIndexes(array $indexes)
+    {
+        $this->indexes = [];
+
+        foreach ($indexes as $index) {
+            $this->addIndex($index);
+        }
+    }
+
+    protected function addIndex(CommonIndexInterface $index)
+    {
+        $this->indexes[$index->getName()] = $index;
     }
 }

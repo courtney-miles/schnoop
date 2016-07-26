@@ -42,6 +42,7 @@ class EnumTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(DataTypeInterface::TYPE_ENUM, $this->enumType->getName());
         $this->assertSame($this->options, $this->enumType->getOptions());
         $this->assertSame($this->collation, $this->enumType->getCollation());
+        $this->assertTrue($this->enumType->doesAllowDefault());
     }
 
     public function testCast()

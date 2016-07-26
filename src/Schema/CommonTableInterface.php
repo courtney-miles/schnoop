@@ -15,4 +15,8 @@ interface CommonTableInterface
     public function getColumns();
     public function hasColumn($columnName);
     public function getColumn($columnName);
+    public function getIndexList();
+    public function getIndexes();
+    public function hasIndex($indexName);
+    public function getIndex($indexName);
 }

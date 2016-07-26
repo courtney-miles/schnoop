@@ -9,7 +9,8 @@
 namespace MilesAsylum\Schnoop\Schema\MySQL\Table;
 
 use MilesAsylum\Schnoop\Schema\AbstractCommonTable;
-use MilesAsylum\Schnoop\Schema\CommonColumnInterface;
+use MilesAsylum\Schnoop\Schema\MySQL\Column\ColumnInterface;
+use MilesAsylum\Schnoop\Schema\MySQL\Index\IndexInterface;
 
 class Table extends AbstractCommonTable implements TableInterface
 {
@@ -19,24 +20,34 @@ class Table extends AbstractCommonTable implements TableInterface
 
     protected $rowFormat;
 
+    /**
+     * @var string
+     */
     protected $comment;
 
     /**
-     * Table constructor.
-     * @param $name
-     * @param CommonColumnInterface[] $columns
-     * @param $engine
-     * @param $rowFormat
-     * @param $collation
-     * @param $comment
+     * @var array|\MilesAsylum\Schnoop\Schema\MySQL\Index\IndexInterface[]
      */
-    public function __construct($name, array $columns, $engine, $rowFormat, $collation, $comment)
+    protected $indexes;
+
+    /**
+     * Table constructor.
+     * @param string $name
+     * @param ColumnInterface[] $columns
+     * @param IndexInterface[] $indexes
+     * @param string $engine
+     * @param string $rowFormat
+     * @param string $collation
+     * @param string $comment
+     */
+    public function __construct($name, array $columns, array $indexes, $engine, $rowFormat, $collation, $comment)
     {
-        parent::__construct($name, $columns);
+        parent::__construct($name, $columns, $indexes);
         $this->setEngine($engine);
         $this->setDefaultCollation($collation);
         $this->setRowFormat($rowFormat);
         $this->setComment($comment);
+        $this->setIndexes($indexes);
     }
 
     /**

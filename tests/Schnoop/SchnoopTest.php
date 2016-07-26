@@ -114,6 +114,7 @@ class SchnoopTest extends SchnoopTestCase
         $fetchTable = 'schnoop_table';
         $fetchTableReturn = ['Foo'];
         $fetchColumnReturn = ['Bar'];
+        $fetchIndexReturn = ['Fiz'];
         $newTableReturn = 'Foobar';
 
         $this->mockDbInspector->expects($this->atLeastOnce())
@@ -125,6 +126,11 @@ class SchnoopTest extends SchnoopTestCase
             ->method('fetchColumns')
             ->with($fetchDb, $fetchTable)
             ->willReturn($fetchColumnReturn);
+
+        $this->mockDbInspector->expects($this->atLeastOnce())
+            ->method('fetchIndexes')
+            ->with($fetchDb, $fetchTable)
+            ->willReturn($fetchIndexReturn);
 
         $this->mockFactory->expects($this->atLeastOnce())
             ->method('createTable')

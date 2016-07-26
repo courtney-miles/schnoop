@@ -10,6 +10,7 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\Table;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\Schema\MySQL\Column\ColumnInterface;
+use MilesAsylum\Schnoop\Schema\MySQL\Index\IndexInterface;
 use MilesAsylum\Schnoop\Schema\MySQL\Table\Table;
 
 class TableTest extends SchnoopTestCase
@@ -26,7 +27,14 @@ class TableTest extends SchnoopTestCase
      */
     protected $mockColumns = [];
 
-    protected $columnName = 'col_name';
+    protected $columnName = 'schnoop_col';
+
+    /**
+     * @var IndexInterface[]
+     */
+    protected $mockIndexes = [];
+
+    protected $indexName = 'schnoop_idx';
 
     protected $engine;
 
@@ -40,19 +48,23 @@ class TableTest extends SchnoopTestCase
     {
         parent::setUp();
 
-        $mockColumn = $this->createMock('MilesAsylum\Schnoop\Schema\MySQL\Column\ColumnInterface');
+        $mockColumn = $this->createMock(ColumnInterface::class);
         $mockColumn->method('getName')
             ->willReturn($this->columnName);
-
         $mockColumn->expects($this->once())
             ->method('setTable')
-            ->with($this->isInstanceOf('MilesAsylum\Schnoop\Schema\MySQL\Table\Table'));
-
+            ->with($this->isInstanceOf(Table::class));
         $this->mockColumns[] = $mockColumn;
+
+        $mockIndex = $this->createMock(IndexInterface::class);
+        $mockIndex->method('getName')
+            ->willReturn($this->indexName);
+        $this->mockIndexes[] = $mockIndex;
 
         $this->table = new Table(
             $this->name,
             $this->mockColumns,
+            $this->mockIndexes,
             $this->engine,
             $this->rowFormat,
             $this->defaultCollation,
@@ -73,5 +85,10 @@ class TableTest extends SchnoopTestCase
     public function testGetColumn()
     {
         $this->assertSame(reset($this->mockColumns), $this->table->getColumn($this->columnName));
+    }
+
+    public function testGetIndex()
+    {
+        $this->assertSame(reset($this->mockIndexes), $this->table->getIndex($this->indexName));
     }
 }

@@ -11,6 +11,7 @@ use MilesAsylum\Schnoop\Schema\MySQL\DataType\NumericPointTypeInterface;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\OptionsTypeInterface;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\StringTypeInterface;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\TimeTypeInterface;
+use MilesAsylum\Schnoop\Schema\MySQL\Index\IndexInterface;
 use PHPUnit\Framework\TestCase;
 
 class SchnoopTestCase extends TestCase
@@ -254,5 +255,31 @@ class SchnoopTestCase extends TestCase
         $this->assertSame($expectedComment, $actualColumn->getComment());
         $this->assertSame($expectedZeroFill, $actualColumn->doesZeroFill());
         $this->assertSame($expectedAutoIncrement, $actualColumn->isAutoIncrement());
+    }
+
+    /**
+     * @param string $expectedName
+     * @param string $expectedType
+     * @param ColumnInterface[] $expectedIndexedColumns
+     * @param string $expectedIndexType
+     * @param string $expectedComment
+     * @param IndexInterface $actualIndex
+     */
+    public function indexAsserts(
+        $expectedName,
+        $expectedType,
+        array $expectedIndexedColumns,
+        $expectedIndexType,
+        $expectedComment,
+        IndexInterface $actualIndex
+    ) {
+        $this->assertSame($expectedName, $actualIndex->getName());
+        $this->assertSame($expectedIndexedColumns, $actualIndex->getIndexedColumns());
+        $this->assertSame($expectedIndexType, $actualIndex->getIndexType());
+        $this->assertSame($expectedComment, $actualIndex->getComment());
+
+        if ($expectedType !== null) {
+            $this->assertSame($expectedType, $actualIndex->getType());
+        }
     }
 }
