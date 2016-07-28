@@ -10,9 +10,11 @@ namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
 class MediumTextType extends AbstractTextType
 {
+    const LENGTH = 16777215;
+
     public function __construct($collation)
     {
-        parent::__construct(16777215, $collation);
+        parent::__construct(self::LENGTH, $collation);
     }
 
     /**

@@ -96,11 +96,13 @@ SQL;
         return $databaseList;
     }
 
-    public function fetchDatabase($databaseName)
+    public function fetchDatabase($databaseName = null)
     {
-        $prevDatabase = $this->pdo->query('SELECT DATABASE()')->fetchColumn();
+        if ($databaseName !== null) {
+            $prevDatabase = $this->pdo->query('SELECT DATABASE()')->fetchColumn();
+            $this->pdo->query("USE `$databaseName`");
+        }
 
-        $this->pdo->query("USE `$databaseName`");
         $row = $this->pdo
             ->query($this->sqlSelectDatabaseAttributes)
             ->fetch(PDO::FETCH_ASSOC);

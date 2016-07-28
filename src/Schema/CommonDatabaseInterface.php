@@ -11,4 +11,10 @@ namespace MilesAsylum\Schnoop\Schema;
 interface CommonDatabaseInterface
 {
     public function getName();
+
+    public function getTableList();
+
+    public function hasTable($tableName);
+
+    public function getTable($tableName);
 }

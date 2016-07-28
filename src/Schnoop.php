@@ -62,11 +62,13 @@ class Schnoop
      * @param $databaseName
      * @return Schema\CommonDatabaseInterface|null
      */
-    public function getDatabase($databaseName)
+    public function getDatabase($databaseName = null)
     {
-        return $this->hasDatabase($databaseName)
-            ? $this->schemaFactory->createDatabase($this->dbInspector->fetchDatabase($databaseName), $this)
-            : null;
+        if ($databaseName !== null && !$this->hasDatabase($databaseName)) {
+            return null;
+        }
+
+        return $this->schemaFactory->createDatabase($this->dbInspector->fetchDatabase($databaseName), $this);
     }
 
     /**

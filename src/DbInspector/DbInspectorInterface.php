@@ -5,8 +5,13 @@ namespace MilesAsylum\Schnoop\DbInspector;
 interface DbInspectorInterface
 {
     public function fetchDatabaseList();
-    
-    public function fetchDatabase($databaseName);
+
+    /**
+     * Fetch the details of the named database, or the current database if no name is supplied.
+     * @param null $databaseName
+     * @return mixed
+     */
+    public function fetchDatabase($databaseName = null);
 
     public function fetchTableList($databaseName);
 

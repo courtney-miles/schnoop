@@ -19,4 +19,6 @@ interface CommonTableInterface
     public function getIndexes();
     public function hasIndex($indexName);
     public function getIndex($indexName);
+    public function hasPrimaryKey();
+    public function getPrimaryKey();
 }

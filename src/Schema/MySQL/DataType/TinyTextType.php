@@ -10,9 +10,11 @@ namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
 class TinyTextType extends AbstractTextType
 {
+    const LENGTH = 255;
+
     public function __construct($collation)
     {
-        parent::__construct(255, $collation);
+        parent::__construct(self::LENGTH, $collation);
     }
 
     /**

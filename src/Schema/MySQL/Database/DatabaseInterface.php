@@ -15,10 +15,4 @@ interface DatabaseInterface extends CommonDatabaseInterface
     public function getDefaultCharacterSet();
 
     public function getDefaultCollation();
-    
-    public function getTableList();
-    
-    public function hasTable($tableName);
-    
-    public function getTable($tableName);
 }

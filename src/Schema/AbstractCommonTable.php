@@ -86,6 +86,16 @@ class AbstractCommonTable implements CommonTableInterface
         return $this->hasIndex($indexName) ? $this->indexes[$indexName] : null;
     }
 
+    public function hasPrimaryKey()
+    {
+        return $this->hasIndex('PRIMARY KEY');
+    }
+
+    public function getPrimaryKey()
+    {
+        return $this->getIndex('PRIMARY KEY');
+    }
+
     /**
      * @param CommonColumnInterface[] $columns
      */

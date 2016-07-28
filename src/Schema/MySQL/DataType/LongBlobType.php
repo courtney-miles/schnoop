@@ -10,9 +10,11 @@ namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
 class LongBlobType extends AbstractBlobType
 {
+    const LENGTH = 4294967295;
+
     public function __construct()
     {
-        parent::__construct(4294967295);
+        parent::__construct(self::LENGTH);
     }
 
     /**

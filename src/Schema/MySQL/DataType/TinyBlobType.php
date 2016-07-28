@@ -10,9 +10,11 @@ namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
 class TinyBlobType extends AbstractBlobType
 {
+    const LENGTH = 255;
+
     public function __construct()
     {
-        parent::__construct(255);
+        parent::__construct(self::LENGTH);
     }
 
     /**

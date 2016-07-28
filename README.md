@@ -139,6 +139,14 @@ if ($table->hasIndex($indexName)) {
 
 ## Changelog
 
+<!--
+### Version 0.1.0-alpha.3
+
+* Defined lengths of fixed-length string type (I.e TEXT, BLOB, etc) as constant.
+* `schnoop::getDatabase()` will return the current database when a name is not supplied.
+* Added `hasPrimaryKey()` and `getPrimaryKey()` methods to the table interface, as a more convenient alternative to calling `hasIndex('PRIMARY KEY')` and `getIndex('PRIMARY KEY')`.
+-->
+
 ### Version 0.1.0-alpha.2
 
 * Indexes on a table can be examined. 
