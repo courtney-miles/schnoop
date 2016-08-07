@@ -64,6 +64,7 @@ class ColumnTest extends SchnoopTestCase
      * @param $expectedComment
      * @param $expectedZeroFill
      * @param $expectedAutoIncrement
+     * @param $expectedDDL
      * @param ColumnInterface $column
      */
     public function testConstructed(
@@ -75,6 +76,7 @@ class ColumnTest extends SchnoopTestCase
         $expectedComment,
         $expectedZeroFill,
         $expectedAutoIncrement,
+        $expectedDDL,
         ColumnInterface $column
     ) {
         $this->columnAsserts(
@@ -86,14 +88,14 @@ class ColumnTest extends SchnoopTestCase
             $expectedComment,
             $expectedZeroFill,
             $expectedAutoIncrement,
+            $expectedDDL,
             $column
         );
     }
 
-
     /**
      * @expectedException \PHPUnit_Framework_Error_Warning
-     * @expectedExceptionMessage Attempt made to set a default for a data-type that does not support. The supplied default value has been ignored.
+     * @expectedExceptionMessage Attempt made to set a default value for a data-type that does not support a default. The supplied default value has been ignored.
      */
     public function testWarningWhenSetDefaultWhenNotAllowed()
     {
@@ -115,7 +117,7 @@ class ColumnTest extends SchnoopTestCase
 
     /**
      * @see testConstructed
-     * @return \Generator
+     * @return array
      */
     public function constructedColumnTestProvider()
     {
@@ -139,6 +141,7 @@ class ColumnTest extends SchnoopTestCase
             $comment,
             null,
             null,
+            "`$name` FOO NOT NULL COMMENT '$comment'",
             new Column(
                 $name,
                 $mockDataType,
@@ -159,6 +162,7 @@ class ColumnTest extends SchnoopTestCase
             $comment,
             null,
             null,
+            "`$name` FOO NULL DEFAULT NULL COMMENT '$comment'",
             new Column(
                 $name,
                 $mockDataType,
@@ -181,6 +185,7 @@ class ColumnTest extends SchnoopTestCase
             $comment,
             null,
             null,
+            "`$name` FOO NOT NULL DEFAULT 'abc' COMMENT '$comment'",
             new Column(
                 $name,
                 $mockDataType,
@@ -205,6 +210,7 @@ class ColumnTest extends SchnoopTestCase
             $comment,
             null,
             null,
+            "`$name` FOO NULL COMMENT '$comment'",
             new Column(
                 $name,
                 $mockDataType,
@@ -225,6 +231,7 @@ class ColumnTest extends SchnoopTestCase
             $comment,
             false, // <-- This is significant to this test.
             false, // <-- This is significant to this test.
+            "`$name` FOO NOT NULL COMMENT '$comment'",
             new Column(
                 $name,
                 $mockDataType,
@@ -245,6 +252,7 @@ class ColumnTest extends SchnoopTestCase
             $comment,
             true, // <-- This is significant to this test.
             false, // <-- This is significant to this test.
+            "`$name` FOO ZEROFILL NOT NULL COMMENT '$comment'",
             new Column(
                 $name,
                 $mockDataType,
@@ -266,6 +274,7 @@ class ColumnTest extends SchnoopTestCase
             $comment,
             false, // <-- This is significant to this test.
             true, // <-- This is significant to this test.
+            "`$name` FOO NOT NULL AUTO_INCREMENT COMMENT '$comment'",
             new Column(
                 $name,
                 $mockDataType,
@@ -289,6 +298,7 @@ class ColumnTest extends SchnoopTestCase
      * @param $expectedComment
      * @param $expectedZeroFill
      * @param $expectedAutoIncrement
+     * @param $expectedDDL
      * @param ColumnInterface $column
      * @return array
      */
@@ -301,6 +311,7 @@ class ColumnTest extends SchnoopTestCase
         $expectedComment,
         $expectedZeroFill,
         $expectedAutoIncrement,
+        $expectedDDL,
         ColumnInterface $column
     ) {
         return [
@@ -312,21 +323,26 @@ class ColumnTest extends SchnoopTestCase
             $expectedComment,
             $expectedZeroFill,
             $expectedAutoIncrement,
+            $expectedDDL,
             $column
         ];
     }
 
     /**
      * @param $interfaceName
-     * @param $castValue
+     * @param $default
      * @param $doesAllowDefault
      * @return NumericTypeInterface|PHPUnit_Framework_MockObject_MockObject
      */
-    protected function newMockDataType($interfaceName, $castValue, $doesAllowDefault)
+    protected function newMockDataType($interfaceName, $default, $doesAllowDefault)
     {
         $mockDataType = $this->createMock('MilesAsylum\Schnoop\Schema\MySQL\DataType\\'. $interfaceName);
+        $mockDataType->method('__toString')
+            ->willReturn('FOO');
         $mockDataType->method('cast')
-            ->willReturn($castValue);
+            ->willReturn($default);
+        $mockDataType->method('quote')
+            ->willReturn("'" . addslashes($default) . "'");
         $mockDataType->method('doesAllowDefault')
             ->willReturn($doesAllowDefault);
 

@@ -10,7 +10,9 @@ namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
 class CharType extends AbstractStringType
 {
-    public function __construct($length, $collation)
+    const MAX_LENGTH = 255;
+
+    public function __construct($length, $collation = null)
     {
         parent::__construct($length, $collation);
     }
@@ -18,7 +20,7 @@ class CharType extends AbstractStringType
     /**
      * @return string
      */
-    public function getName()
+    public function getType()
     {
         return self::TYPE_CHAR;
     }

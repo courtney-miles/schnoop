@@ -28,12 +28,22 @@ trait PrecisionScaleTrait
         return $this->precision;
     }
 
+    public function hasPrecision()
+    {
+        return $this->precision !== null;
+    }
+
     /**
      * @return int
      */
     public function getScale()
     {
         return $this->scale;
+    }
+
+    public function hasScale()
+    {
+        return $this->scale !== null;
     }
 
     /**

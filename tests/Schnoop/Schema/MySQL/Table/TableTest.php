@@ -20,7 +20,7 @@ class TableTest extends SchnoopTestCase
      */
     protected $table;
 
-    protected $name;
+    protected $name = 'schnoop_tbl';
 
     /**
      * @var ColumnInterface[]
@@ -36,13 +36,15 @@ class TableTest extends SchnoopTestCase
 
     protected $indexName = 'schnoop_idx';
 
-    protected $engine;
+    protected $engine = 'InnoDB';
 
-    protected $rowFormat;
+    protected $rowFormat = 'Compact';
 
-    protected $defaultCollation;
+    protected $defaultCollation = 'utf8mb4_general_ci';
 
-    protected $comment;
+    protected $comment = 'This is a comment';
+
+    protected $ddl;
 
     public function setUp()
     {
@@ -51,6 +53,8 @@ class TableTest extends SchnoopTestCase
         $mockColumn = $this->createMock(ColumnInterface::class);
         $mockColumn->method('getName')
             ->willReturn($this->columnName);
+        $mockColumn->method('__toString')
+            ->willReturn('__column_ddl__');
         $mockColumn->expects($this->once())
             ->method('setTable')
             ->with($this->isInstanceOf(Table::class));
@@ -59,6 +63,8 @@ class TableTest extends SchnoopTestCase
         $mockIndex = $this->createMock(IndexInterface::class);
         $mockIndex->method('getName')
             ->willReturn($this->indexName);
+        $mockIndex->method('__toString')
+            ->willReturn('__index_ddl__');
         $this->mockIndexes[] = $mockIndex;
 
         $this->table = new Table(
@@ -70,9 +76,20 @@ class TableTest extends SchnoopTestCase
             $this->defaultCollation,
             $this->comment
         );
+
+        $this->ddl = <<< SQL
+CREATE TABLE `{$this->name}` (
+    __column_ddl__,
+    __index_ddl__
+)
+ENGINE = INNODB
+DEFAULT COLLATE = '{$this->defaultCollation}'
+ROW_FORMAT = COMPACT
+COMMENT = '{$this->comment}';
+SQL;
     }
 
-    public function testConstruct()
+    public function testConstructed()
     {
         $this->assertSame($this->name, $this->table->getName());
         $this->assertSame($this->mockColumns, $this->table->getColumns());
@@ -80,6 +97,7 @@ class TableTest extends SchnoopTestCase
         $this->assertSame($this->rowFormat, $this->table->getRowFormat());
         $this->assertSame($this->defaultCollation, $this->table->getDefaultCollation());
         $this->assertSame($this->comment, $this->table->getComment());
+        $this->assertSame($this->ddl, (string)$this->table);
     }
 
     public function testGetColumn()

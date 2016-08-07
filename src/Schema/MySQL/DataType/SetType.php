@@ -1,41 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 8/07/16
- * Time: 7:34 AM
- */
 
 namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\CollationTrait;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\OptionTrait;
-
-class SetType implements OptionsTypeInterface
+class SetType extends AbstractOptionsType
 {
-    use OptionTrait;
-    use CollationTrait;
-    
-    public function __construct(array $options, $collation)
-    {
-        $this->setOptions($options);
-        $this->setCollation($collation);
-    }
-
     /**
      * @return string
      */
-    public function getName()
+    public function getType()
     {
         return self::TYPE_SET;
-    }
-
-    /**
-     * @return bool
-     */
-    public function doesAllowDefault()
-    {
-        return true;
     }
 
     /**

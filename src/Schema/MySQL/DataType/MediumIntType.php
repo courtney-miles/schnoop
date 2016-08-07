@@ -10,15 +10,15 @@ namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
 class MediumIntType extends AbstractIntType
 {
-    public function __construct($displayWidth, $signed)
+    public function __construct($displayWidth, $isSigned)
     {
-        $minRange = $signed ? -8388608 : 0;
-        $maxRange = $signed ? 8388607 : 16777215;
+        $minRange = $isSigned ? -8388608 : 0;
+        $maxRange = $isSigned ? 8388607 : 16777215;
 
-        parent::__construct($displayWidth, $signed, $minRange, $maxRange);
+        parent::__construct($displayWidth, $isSigned, $minRange, $maxRange);
     }
 
-    public function getName()
+    public function getType()
     {
         return self::TYPE_MEDIUMINT;
     }

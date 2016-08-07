@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 22/06/16
- * Time: 4:44 PM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\DataType;
-
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\BigIntType;
@@ -16,60 +9,68 @@ use MilesAsylum\Schnoop\Schema\MySQL\DataType\DataTypeInterface;
 class BigIntTypeTest extends SchnoopTestCase
 {
     /**
-     * @var BigIntType
+     * @dataProvider constructedProvider()
+     * @param int $expectedDisplayWidth
+     * @param bool $expectedIsSigned
+     * @param int $expectedMinRange
+     * @param int $expectedMaxRange
+     * @param string $expectedDDL
+     * @param BigIntType $actualBigInt
      */
-    protected $bigIntTypeSigned;
-
-    /**
-     * @var BigIntType
-     */
-    protected $bigIntTypeUnsigned;
-
-    protected $displayWidth = 10;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->bigIntTypeSigned = new BigIntType(
-            $this->displayWidth,
-            true
-        );
-
-        $this->bigIntTypeUnsigned = new BigIntType(
-            $this->displayWidth,
-            false
-        );
-    }
-
-    public function testConstructedSigned()
-    {
+    public function testConstructed(
+        $expectedDisplayWidth,
+        $expectedIsSigned,
+        $expectedMinRange,
+        $expectedMaxRange,
+        $expectedDDL,
+        BigIntType $actualBigInt
+    ) {
         $this->intTypeAsserts(
             DataTypeInterface::TYPE_BIGINT,
-            $this->displayWidth,
+            $expectedDisplayWidth,
+            $expectedIsSigned,
+            $expectedMinRange,
+            $expectedMaxRange,
             true,
-            (int)('-' . bcdiv(bcpow('2', '64'), '2')),
-            (int)bcsub(bcdiv(bcpow('2', '64'), '2'), '1'),
-            true,
-            $this->bigIntTypeSigned
+            $expectedDDL,
+            $actualBigInt
         );
     }
 
-    public function testConstructedUnsigned()
-    {
-        $this->intTypeAsserts(
-            DataTypeInterface::TYPE_BIGINT,
-            $this->displayWidth,
-            false,
-            0,
-            (float)bcsub(bcpow('2', '64'), '1'),
-            true,
-            $this->bigIntTypeUnsigned
-        );
-    }
-    
     public function testCast()
     {
-        $this->assertSame(123, $this->bigIntTypeSigned->cast('123'));
+        $bigInt = new BigIntType(10, false);
+
+        $this->assertSame(123, $bigInt->cast('123'));
+    }
+
+    /**
+     * @see testConstructed()
+     * @return array
+     */
+    public function constructedProvider()
+    {
+        $displayWidth = 10;
+        $signed = true;
+        $notSigned = false;
+
+        return [
+            [
+                $displayWidth,
+                $signed,
+                (float)('-' . bcdiv(bcpow('2', '64'), '2')),
+                (int)bcsub(bcdiv(bcpow('2', '64'), '2'), '1'),
+                "BIGINT($displayWidth)",
+                new BigIntType($displayWidth, $signed)
+            ],
+            [
+                $displayWidth,
+                $notSigned,
+                0,
+                (float)bcsub(bcpow('2', '64'), '1'),
+                "BIGINT($displayWidth) UNSIGNED",
+                new BigIntType($displayWidth, $notSigned)
+            ]
+        ];
     }
 }

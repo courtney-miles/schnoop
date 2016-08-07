@@ -34,6 +34,7 @@ class VarBinaryTest extends SchnoopTestCase
             DataTypeInterface::TYPE_VARBINARY,
             $this->length,
             true,
+            'VARBINARY(' . $this->length . ')',
             $this->varBinaryType
         );
     }

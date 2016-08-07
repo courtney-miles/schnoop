@@ -5,9 +5,10 @@ namespace MilesAsylum\Schnoop;
 use MilesAsylum\Schnoop\DbInspector\DbInspectorInterface;
 use MilesAsylum\Schnoop\DbInspector\MySQLInspector;
 use MilesAsylum\Schnoop\Exception\SchnoopException;
+use MilesAsylum\Schnoop\Schema\DatabaseInterface;
 use PDO;
 use MilesAsylum\Schnoop\Schema\FactoryInterface;
-use MilesAsylum\Schnoop\Schema\MySQLFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\MySQLFactory;
 
 class SchnoopFactory
 {

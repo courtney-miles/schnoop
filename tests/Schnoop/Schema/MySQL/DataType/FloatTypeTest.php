@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 26/06/16
- * Time: 6:08 PM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\DataType;
 
@@ -21,6 +15,7 @@ class FloatTypeTest extends SchnoopTestCase
      * @param int|null $expectedScale
      * @param string|null $expectedMinRange
      * @param string|null $expectedMaxRange
+     * @param string $expectedDDL
      * @param FloatType $actualFloatType
      */
     public function testConstructed(
@@ -29,6 +24,7 @@ class FloatTypeTest extends SchnoopTestCase
         $expectedScale,
         $expectedMinRange,
         $expectedMaxRange,
+        $expectedDDL,
         $actualFloatType
     ) {
         $this->numericPointTypeAsserts(
@@ -39,6 +35,7 @@ class FloatTypeTest extends SchnoopTestCase
             $expectedMinRange,
             $expectedMaxRange,
             true,
+            $expectedDDL,
             $actualFloatType
         );
     }
@@ -56,30 +53,38 @@ class FloatTypeTest extends SchnoopTestCase
      */
     public function constructedProvider()
     {
+        $signed = true;
+        $notSigned = false;
+        $precision = 6;
+        $scale = 2;
+
         return [
             [
-                true,
-                6,
-                2,
+                $signed,
+                $precision,
+                $scale,
                 '-9999.99',
                 '9999.99',
-                new FloatType(true, 6, 2)
+                "FLOAT($precision,$scale)",
+                new FloatType($signed, $precision, $scale)
             ],
             [
-                false,
-                6,
-                2,
+                $notSigned,
+                $precision,
+                $scale,
                 '0',
                 '9999.99',
-                new FloatType(false, 6, 2)
+                "FLOAT($precision,$scale) UNSIGNED",
+                new FloatType($notSigned, $precision, $scale)
             ],
             [
-                true,
+                $signed,
                 null,
                 null,
                 null,
                 null,
-                new FloatType(true)
+                'FLOAT',
+                new FloatType($signed)
             ]
         ];
     }

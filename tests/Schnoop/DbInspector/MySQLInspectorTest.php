@@ -19,11 +19,18 @@ class MySQLInspectorTest extends TestMySQLCase
         }
         
         parent::setUpBeforeClass();
+
+        self::$pdo->query("USE `{$_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_DATABASE']}`");
     }
 
     public function setUp()
     {
         $this->mysqlInspector = new MySQLInspector(self::$pdo);
+    }
+
+    public function testGetActiveDatabase()
+    {
+        $this->assertSame($_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_DATABASE'], $this->mysqlInspector->fetchActiveDatabase());
     }
 
     public function testFetchDatabaseList()

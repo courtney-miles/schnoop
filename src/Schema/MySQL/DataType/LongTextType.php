@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 23/06/16
- * Time: 7:24 AM
- */
 
 namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
@@ -12,7 +6,7 @@ class LongTextType extends AbstractTextType
 {
     const LENGTH = 4294967295;
 
-    public function __construct($collation)
+    public function __construct($collation = null)
     {
         parent::__construct(self::LENGTH, $collation);
     }
@@ -20,7 +14,7 @@ class LongTextType extends AbstractTextType
     /**
      * @return string
      */
-    public function getName()
+    public function getType()
     {
         return self::TYPE_LONGTEXT;
     }

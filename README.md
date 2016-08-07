@@ -130,12 +130,13 @@ if ($table->hasIndex($indexName)) {
 
 ## TODO
 
-1. Add support for JSON data type.
-2. List table triggers.
-3. Examine table triggers.
-4. List routines.
-5. Examine routines.
-6. Add support for SPATIAL data.
+1. Split the schema objects into a separate package that will be a dependency.
+2. Add support for JSON data type.
+3. List table triggers.
+4. Examine table triggers.
+5. List routines.
+6. Examine routines.
+7. Add support for SPATIAL data.
 
 ## Changelog
 
@@ -143,8 +144,10 @@ if ($table->hasIndex($indexName)) {
 ### Version 0.1.0-alpha.3
 
 * Defined lengths of fixed-length string type (I.e TEXT, BLOB, etc) as constant.
-* `schnoop::getDatabase()` will return the current database when a name is not supplied.
+* The database to examine must now be set by calling `schnoop::setActiveDatabase()`. By default the database set in the connection will be set as the active database.
 * Added `hasPrimaryKey()` and `getPrimaryKey()` methods to the table interface, as a more convenient alternative to calling `hasIndex('PRIMARY KEY')` and `getIndex('PRIMARY KEY')`.
+* Echoing a database object will echo the DDL for that object.
+* Factory methods have been shifted into their own namespace, in preparation for splitting the schema objects into their own package.
 -->
 
 ### Version 0.1.0-alpha.2

@@ -8,8 +8,12 @@
 
 namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
+use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\QuoteStringTrait;
+
 abstract class AbstractBinaryType implements BinaryTypeInterface
 {
+    use QuoteStringTrait;
+
     /**
      * @var int
      */
@@ -24,11 +28,6 @@ abstract class AbstractBinaryType implements BinaryTypeInterface
         $this->setLength($length);
     }
 
-    public function cast($value)
-    {
-        return (string)$value;
-    }
-    
     /**
      * @return int
      */
@@ -43,5 +42,16 @@ abstract class AbstractBinaryType implements BinaryTypeInterface
     protected function setLength($length)
     {
         $this->length = (int)$length;
+    }
+
+    public function cast($value)
+    {
+        return (string)$value;
+    }
+
+    public function __toString()
+    {
+        return strtoupper($this->getType())
+        . ($this->length > 0 ? '(' . $this->length . ')' : null);
     }
 }

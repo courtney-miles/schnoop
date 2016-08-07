@@ -3,9 +3,11 @@
 namespace MilesAsylum\Schnoop;
 
 use MilesAsylum\Schnoop\DbInspector\DbInspectorInterface;
+use MilesAsylum\Schnoop\Exception\SchnoopException;
+use MilesAsylum\Schnoop\Schema\DatabaseInterface;
 use PDO;
 use MilesAsylum\Schnoop\Schema\FactoryInterface;
-use MilesAsylum\Schnoop\Schema\CommonTableInterface;
+use MilesAsylum\Schnoop\Schema\TableInterface;
 
 class Schnoop
 {
@@ -25,6 +27,11 @@ class Schnoop
     protected $schemaFactory;
 
     /**
+     * @var string
+     */
+    protected $activeDatabaseName;
+
+    /**
      * @var array
      */
     protected $databaseList;
@@ -35,13 +42,42 @@ class Schnoop
      * @param DbInspectorInterface $dbAdapter
      * @param FactoryInterface $factoryInterface
      */
-    public function __construct(PDO $pdo, DbInspectorInterface $dbAdapter, FactoryInterface $factoryInterface)
-    {
+    public function __construct(
+        PDO $pdo,
+        DbInspectorInterface $dbAdapter,
+        FactoryInterface $factoryInterface
+    ) {
         $this->pdo = $pdo;
         $this->dbInspector = $dbAdapter;
         $this->schemaFactory = $factoryInterface;
-        
+
         $this->loadDatabaseList();
+
+        $activeDatabaseName = $this->dbInspector->fetchActiveDatabase();
+
+        if (!empty($activeDatabaseName)) {
+            $this->setActiveDatabase($activeDatabaseName);
+        }
+    }
+
+    public function getActiveDatabaseName()
+    {
+        return $this->activeDatabaseName;
+    }
+
+    /**
+     * @param $databaseName
+     * @throws SchnoopException
+     */
+    public function setActiveDatabase($databaseName)
+    {
+        if (!$this->hasDatabase($databaseName)) {
+            throw new SchnoopException(
+                "Unknown database, `$databaseName`."
+            );
+        }
+
+        $this->activeDatabaseName = $databaseName;
     }
 
     public function getDatabaseList()
@@ -59,38 +95,37 @@ class Schnoop
     }
 
     /**
-     * @param $databaseName
-     * @return Schema\CommonDatabaseInterface|null
+     * @return DatabaseInterface|null
      */
-    public function getDatabase($databaseName = null)
+    public function getDatabase()
     {
-        if ($databaseName !== null && !$this->hasDatabase($databaseName)) {
-            return null;
-        }
+        $this->ensureActiveDatabaseSet();
 
-        return $this->schemaFactory->createDatabase($this->dbInspector->fetchDatabase($databaseName), $this);
+        return $this->schemaFactory->createDatabase($this->dbInspector->fetchDatabase($this->activeDatabaseName));
     }
 
     /**
-     * @param $databaseName
      * @return array
      */
-    public function getTableList($databaseName)
+    public function getTableList()
     {
-        return $this->dbInspector->fetchTableList($databaseName);
+        $this->ensureActiveDatabaseSet();
+
+        return $this->dbInspector->fetchTableList($this->activeDatabaseName);
     }
 
     /**
-     * @param $databaseName
      * @param $tableName
-     * @return CommonTableInterface
+     * @return TableInterface
      */
-    public function getTable($databaseName, $tableName)
+    public function getTable($tableName)
     {
+        $this->ensureActiveDatabaseSet();
+
         return $this->schemaFactory->createTable(
-            $this->dbInspector->fetchTable($databaseName, $tableName),
-            $this->dbInspector->fetchColumns($databaseName, $tableName),
-            $this->dbInspector->fetchIndexes($databaseName, $tableName)
+            $this->dbInspector->fetchTable($this->activeDatabaseName, $tableName),
+            $this->dbInspector->fetchColumns($this->activeDatabaseName, $tableName),
+            $this->dbInspector->fetchIndexes($this->activeDatabaseName, $tableName)
         );
     }
     
@@ -98,5 +133,14 @@ class Schnoop
     {
         $databaseList = $this->dbInspector->fetchDatabaseList();
         $this->databaseList = array_combine($databaseList, $databaseList);
+    }
+
+    protected function ensureActiveDatabaseSet($failMessage = '')
+    {
+        if (empty($this->activeDatabaseName)) {
+            throw new SchnoopException(
+                !empty($failMessage) ? $failMessage : 'The active database has not been set.'
+            );
+        }
     }
 }

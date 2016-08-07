@@ -21,6 +21,7 @@ class DoubleTypeTest extends SchnoopTestCase
      * @param int|null $expectedScale
      * @param string|null $expectedMinRange
      * @param string|null $expectedMaxRange
+     * @param string $expectedDDL
      * @param DoubleType $actualDecimalType
      */
     public function testConstructed(
@@ -29,6 +30,7 @@ class DoubleTypeTest extends SchnoopTestCase
         $expectedScale,
         $expectedMinRange,
         $expectedMaxRange,
+        $expectedDDL,
         $actualDecimalType
     ) {
         $this->numericPointTypeAsserts(
@@ -39,6 +41,7 @@ class DoubleTypeTest extends SchnoopTestCase
             $expectedMinRange,
             $expectedMaxRange,
             true,
+            $expectedDDL,
             $actualDecimalType
         );
     }
@@ -56,30 +59,38 @@ class DoubleTypeTest extends SchnoopTestCase
      */
     public function constructedProvider()
     {
+        $signed = true;
+        $notSigned = false;
+        $precision = 6;
+        $scale = 2;
+
         return [
             [
-                true,
-                6,
-                2,
+                $signed,
+                $precision,
+                $scale,
                 '-9999.99',
                 '9999.99',
-                new DoubleType(true, 6, 2)
+                "DOUBLE($precision,$scale)",
+                new DoubleType($signed, $precision, $scale)
             ],
             [
-                false,
-                6,
-                2,
+                $notSigned,
+                $precision,
+                $scale,
                 '0',
                 '9999.99',
-                new DoubleType(false, 6, 2)
+                "DOUBLE($precision,$scale) UNSIGNED",
+                new DoubleType($notSigned, $precision, $scale)
             ],
             [
-                true,
+                $signed,
                 null,
                 null,
                 null,
                 null,
-                new DoubleType(true)
+                "DOUBLE",
+                new DoubleType($signed)
             ]
         ];
     }

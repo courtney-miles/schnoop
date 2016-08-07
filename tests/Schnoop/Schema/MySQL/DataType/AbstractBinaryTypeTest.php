@@ -20,21 +20,32 @@ class AbstractBinaryTypeTest extends SchnoopTestCase
 
     protected $length = '3';
 
+    protected $type = 'foo';
+
     public function setUp()
     {
         parent::setUp();
 
         $this->abstractBinaryType = $this->getMockForAbstractClass(
-            'MilesAsylum\Schnoop\Schema\MySQL\DataType\AbstractBinaryType',
+            AbstractBinaryType::class,
             [
                 $this->length
             ]
         );
+
+        $this->abstractBinaryType->method('getType')
+            ->willReturn($this->type);
     }
 
-    public function testConstruct()
+    public function testConstructed()
     {
-        $this->assertSame((int)$this->length, $this->abstractBinaryType->getLength());
+        $this->binaryTypeAsserts(
+            $this->type,
+            (int)$this->length,
+            null,
+            'FOO(' . $this->length . ')',
+            $this->abstractBinaryType
+        );
     }
 
     public function testCast()

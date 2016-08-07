@@ -8,11 +8,11 @@
 
 namespace MilesAsylum\Schnoop\Schema\MySQL\Table;
 
-use MilesAsylum\Schnoop\Schema\AbstractCommonTable;
+use MilesAsylum\Schnoop\Schema\AbstractTable;
 use MilesAsylum\Schnoop\Schema\MySQL\Column\ColumnInterface;
 use MilesAsylum\Schnoop\Schema\MySQL\Index\IndexInterface;
 
-class Table extends AbstractCommonTable implements TableInterface
+class Table extends AbstractTable implements TableInterface
 {
     protected $engine;
 
@@ -40,8 +40,15 @@ class Table extends AbstractCommonTable implements TableInterface
      * @param string $collation
      * @param string $comment
      */
-    public function __construct($name, array $columns, array $indexes, $engine, $rowFormat, $collation, $comment)
-    {
+    public function __construct(
+        $name,
+        array $columns,
+        array $indexes,
+        $engine = null,
+        $rowFormat = null,
+        $collation = null,
+        $comment = null
+    ) {
         parent::__construct($name, $columns, $indexes);
         $this->setEngine($engine);
         $this->setDefaultCollation($collation);
@@ -58,12 +65,22 @@ class Table extends AbstractCommonTable implements TableInterface
         return $this->engine;
     }
 
+    public function hasEngine()
+    {
+        return !empty($this->engine);
+    }
+
     /**
      * @return mixed
      */
     public function getDefaultCollation()
     {
         return $this->defaultCollation;
+    }
+
+    public function hasDefaultCollation()
+    {
+        return !empty($this->defaultCollation);
     }
 
     /**
@@ -74,12 +91,50 @@ class Table extends AbstractCommonTable implements TableInterface
         return $this->rowFormat;
     }
 
+    public function hasRowFormat()
+    {
+        return !empty($this->rowFormat);
+    }
+
     /**
      * @return mixed
      */
     public function getComment()
     {
         return $this->comment;
+    }
+
+    public function hasComment()
+    {
+        return strlen($this->comment);
+    }
+
+    public function __toString()
+    {
+        $columnDefinitions = [];
+        foreach ($this->getColumns() as $column) {
+            $columnDefinitions[] = (string)$column;
+        }
+
+        $indexDefinitions = [];
+        foreach ($this->getIndexes() as $index) {
+            $indexDefinitions[] = (string)$index;
+        }
+
+        $tableOptions = array_filter(
+            [
+                $this->hasEngine() ? 'ENGINE = ' . strtoupper($this->getEngine()) : null,
+                $this->hasDefaultCollation() ? "DEFAULT COLLATE = '" . $this->getDefaultCollation() . "'" : null,
+                $this->hasRowFormat() ? 'ROW_FORMAT = ' . strtoupper($this->getRowFormat()) : null,
+                $this->hasComment() ? "COMMENT = '" . addslashes($this->getComment()) . "'" : null
+            ]
+        );
+
+        return 'CREATE TABLE `' . $this->name . "` (\n    "
+            . implode(",\n    ", array_merge($columnDefinitions, $indexDefinitions))
+            . "\n)\n"
+            . implode("\n", $tableOptions)
+            . ';';
     }
 
     /**

@@ -8,13 +8,14 @@
 
 namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
-
 class BinaryType extends AbstractBinaryType
 {
+    const MAX_LENGTH = 255;
+
     /**
      * @return string
      */
-    public function getName()
+    public function getType()
     {
         return self::TYPE_BINARY;
     }

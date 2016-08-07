@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 12/07/16
- * Time: 7:26 AM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\DataType;
 
@@ -16,29 +10,30 @@ class DateTimeTypeTest extends SchnoopTestCase
 {
     /**
      * @dataProvider timeTypeProvider
-     * @param $expectedName
-     * @param $expectedPrecision
-     * @param $expectedAllowDefault
-     * @param $valueToCast
-     * @param $expectedCastValue
+     * @param int $expectedPrecision
+     * @param string $expectedDDL
      * @param DateTimeType $actualTimeType
      */
     public function testConstruct(
-        $expectedName,
         $expectedPrecision,
-        $expectedAllowDefault,
-        $valueToCast,
-        $expectedCastValue,
+        $expectedDDL,
         DateTimeType $actualTimeType
     ) {
         $this->timeTypeAsserts(
-            $expectedName,
+            DataTypeInterface::TYPE_DATETIME,
             $expectedPrecision,
-            $expectedAllowDefault,
-            $valueToCast,
-            $expectedCastValue,
+            true,
+            $expectedDDL,
             $actualTimeType
         );
+    }
+
+    public function testCast()
+    {
+        $dateTime = '2016-01-01 11:59:59';
+        $dateTimeType = new DateTimeType();
+
+        $this->assertSame($dateTime, $dateTimeType->cast($dateTime));
     }
 
     /**
@@ -46,27 +41,18 @@ class DateTimeTypeTest extends SchnoopTestCase
      */
     public function timeTypeProvider()
     {
-        $timeTypeDefaultPrecision = new DateTimeType();
-
         $precision = 3;
-        $timeTypeExplicitPrecision = new DateTimeType($precision);
 
         return [
             [
-                DataTypeInterface::TYPE_DATETIME,
                 0,
-                true,
-                '2016-01-01 11:59:59',
-                '2016-01-01 11:59:59',
-                $timeTypeDefaultPrecision
+                'DATETIME',
+                new DateTimeType()
             ],
             [
-                DataTypeInterface::TYPE_DATETIME,
                 $precision,
-                true,
-                '2016-01-01 11:59:59.000',
-                '2016-01-01 11:59:59.000',
-                $timeTypeExplicitPrecision
+                "DATETIME($precision)",
+                new DateTimeType($precision)
             ]
         ];
     }

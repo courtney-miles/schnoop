@@ -1,15 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 19/06/16
- * Time: 10:06 AM
- */
 
 namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\NumericRangeTrait;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\PrecisionScaleTrait;
+use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\QuoteNumericTrait;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\SignedTrait;
 
 abstract class AbstractNumericPointType implements NumericPointTypeInterface
@@ -17,6 +12,7 @@ abstract class AbstractNumericPointType implements NumericPointTypeInterface
     use PrecisionScaleTrait;
     use SignedTrait;
     use NumericRangeTrait;
+    use QuoteNumericTrait;
 
     /**
      * AbstractNumericPointType constructor.
@@ -40,5 +36,28 @@ abstract class AbstractNumericPointType implements NumericPointTypeInterface
     public function doesAllowDefault()
     {
         return true;
+    }
+
+    public function __toString()
+    {
+        $typeDDL = strtoupper($this->getType());
+
+        if ($this->hasPrecision()) {
+            if ($this->hasScale()) {
+                $typeDDL .= '(' . $this->getPrecision() . ',' . $this->getScale() . ')';
+            } else {
+                $typeDDL .= '(' . $this->getPrecision() . ')';
+            }
+        }
+
+        return implode(
+            ' ',
+            array_filter(
+                [
+                    $typeDDL,
+                    !$this->isSigned() ? 'UNSIGNED' : null
+                ]
+            )
+        );
     }
 }

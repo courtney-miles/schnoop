@@ -21,7 +21,7 @@ class DecimalType extends AbstractNumericPointType
         parent::__construct($signed, $precision, $scale);
     }
 
-    public function getName()
+    public function getType()
     {
         return self::TYPE_DECIMAL;
     }

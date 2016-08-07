@@ -14,4 +14,9 @@ abstract class AbstractBlobType extends AbstractBinaryType implements BlobTypeIn
     {
         return false;
     }
+
+    public function __toString()
+    {
+        return strtoupper($this->getType());
+    }
 }

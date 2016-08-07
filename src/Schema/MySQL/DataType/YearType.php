@@ -8,12 +8,16 @@
 
 namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
+use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\QuoteNumericTrait;
+
 class YearType implements DataTypeInterface
 {
+    use QuoteNumericTrait;
+
     /**
      * @return string
      */
-    public function getName()
+    public function getType()
     {
         return self::TYPE_YEAR;
     }
@@ -34,5 +38,10 @@ class YearType implements DataTypeInterface
     public function cast($value)
     {
         return (int)$value;
+    }
+
+    public function __toString()
+    {
+        return strtoupper($this->getType());
     }
 }

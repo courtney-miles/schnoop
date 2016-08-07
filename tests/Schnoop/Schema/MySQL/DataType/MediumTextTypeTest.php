@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 23/06/16
- * Time: 7:22 AM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\DataType;
 
@@ -15,32 +9,56 @@ use MilesAsylum\Schnoop\Schema\MySQL\DataType\MediumTextType;
 class MediumTextTypeTest extends SchnoopTestCase
 {
     /**
-     * @var MediumTextType
+     * @dataProvider constructedProvider()
+     * @param int $expectedLength
+     * @param string|null $expectedCollation
+     * @param string $expectedDDL
+     * @param MediumTextType $actualMediumTextType
      */
-    protected $mediumTextType;
-
-    protected $characterSet = 'utf8';
-
-    protected $collation = 'utf8_general_ci';
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->mediumTextType = new MediumTextType(
-            $this->collation
-        );
-    }
-
-    public function testConstructed()
-    {
+    public function testConstructed(
+        $expectedLength,
+        $expectedCollation,
+        $expectedDDL,
+        MediumTextType $actualMediumTextType
+    ) {
         $this->stringTypeAsserts(
-            DataTypeInterface::TYPE_MEDIUMTEXT, pow(2, 24) - 1, $this->collation, false, $this->mediumTextType
+            DataTypeInterface::TYPE_MEDIUMTEXT,
+            $expectedLength,
+            $expectedCollation,
+            false,
+            $expectedDDL,
+            $actualMediumTextType
         );
     }
 
     public function testCast()
     {
-        $this->assertSame('123', $this->mediumTextType->cast(123));
+        $mediumTextType = new MediumTextType();
+        $this->assertSame('123', $mediumTextType->cast(123));
+    }
+
+    /**
+     * @see testConstructed()
+     * @return array
+     */
+    public function constructedProvider()
+    {
+        $length = pow(2, 24) -1;
+        $collation = 'utf8_general_ci';
+
+        return [
+            [
+                $length,
+                $collation,
+                "MEDIUMTEXT COLLATE '$collation'",
+                new MediumTextType($collation)
+            ],
+            [
+                $length,
+                null,
+                'MEDIUMTEXT',
+                new MediumTextType()
+            ]
+        ];
     }
 }

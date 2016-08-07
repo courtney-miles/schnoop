@@ -32,6 +32,7 @@ class BlobTypeTest extends SchnoopTestCase
             DataTypeInterface::TYPE_BLOB,
             pow(2, 16)-1,
             false,
+            'BLOB',
             $this->blobType
         );
     }

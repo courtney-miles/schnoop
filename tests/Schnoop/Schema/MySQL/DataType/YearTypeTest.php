@@ -18,7 +18,7 @@ class YearTypeTest extends \PHPUnit_Framework_TestCase
         $yearType = new YearType();
         $yearStr = '2016';
 
-        $this->assertSame(DataTypeInterface::TYPE_YEAR, $yearType->getName());
+        $this->assertSame(DataTypeInterface::TYPE_YEAR, $yearType->getType());
         $this->assertTrue($yearType->doesAllowDefault());
         $this->assertSame((int)$yearStr, $yearType->cast($yearStr));
     }

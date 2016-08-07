@@ -16,6 +16,8 @@ class BitType implements BitTypeInterface
     use LengthTrait;
     use NumericRangeTrait;
 
+    const MAX_LENGTH = 64;
+
     public function __construct($length)
     {
         $this->setLength($length);
@@ -25,9 +27,14 @@ class BitType implements BitTypeInterface
     /**
      * @return string
      */
-    public function getName()
+    public function getType()
     {
         return self::TYPE_BIT;
+    }
+
+    public function doesAllowDefault()
+    {
+        return true;
     }
 
     /**
@@ -37,9 +44,14 @@ class BitType implements BitTypeInterface
     {
         return (int)$value;
     }
-    
-    public function doesAllowDefault()
+
+    public function quote($value)
     {
-        return true;
+        return "'" . addslashes($value) . "'";
+    }
+
+    public function __toString()
+    {
+        return strtoupper($this->getType()) . '(' . $this->getLength() . ')';
     }
 }

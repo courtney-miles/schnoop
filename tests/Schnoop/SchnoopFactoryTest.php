@@ -9,6 +9,9 @@
 namespace MilesAsylum\Schnoop\Tests\Schnoop;
 
 use MilesAsylum\Schnoop\DbInspector\MySQLInspector;
+use MilesAsylum\Schnoop\PHPUnit\Schnoop\MockPdo;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\MySQLFactory;
+use MilesAsylum\Schnoop\Schnoop;
 use MilesAsylum\Schnoop\SchnoopFactory;
 use PDO;
 use PHPUnit_Framework_MockObject_MockObject;
@@ -29,7 +32,7 @@ class SchnoopFactoryTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->mockPdo = $this->createMock('MilesAsylum\Schnoop\PHPUnit\Schnoop\MockPdo');
+        $this->mockPdo = $this->createMock(MockPdo::class);
 
         $this->schnoopFactory = new SchnoopFactory();
     }
@@ -42,7 +45,7 @@ class SchnoopFactoryTest extends \PHPUnit_Framework_TestCase
             ->willReturn('mysql');
 
         $this->assertInstanceOf(
-            '\MilesAsylum\Schnoop\DbInspector\MySQLInspector',
+            MySQLInspector::class,
             $this->schnoopFactory->newDBInspector($this->mockPdo)
         );
     }
@@ -50,16 +53,25 @@ class SchnoopFactoryTest extends \PHPUnit_Framework_TestCase
     public function testNewSchemaFactory()
     {
         /** @var MySQLInspector $mockDbInspector */
-        $mockDbInspector = $this->createMock('MilesAsylum\Schnoop\DbInspector\MySQLInspector');
+        $mockDbInspector = $this->createMock(MySQLInspector::class);
 
         $this->assertInstanceOf(
-            'MilesAsylum\Schnoop\Schema\MySQLFactory',
+            MySQLFactory::class,
             $this->schnoopFactory->newSchemaFactory($mockDbInspector, $this->mockPdo)
         );
     }
 
     public function testCreateSchnoop()
     {
+        /** @var SchnoopFactory|PHPUnit_Framework_MockObject_MockObject $schnoopFactory */
+        $schnoopFactory = $this->getMockBuilder(SchnoopFactory::class)
+            ->setMethods(['newDBInspector', 'newSchemaFactory'])
+            ->getMock();
+        $schnoopFactory->method('newDBInspector')
+            ->willReturn($this->createMock(MySQLInspector::class));
+        $schnoopFactory->method('newSchemaFactory')
+            ->willReturn($this->createMock(MySQLFactory::class));
+
         $mockPdoStatement = $this->createMock('\PDOStatement');
 
         $this->mockPdo->expects($this->atLeastOnce())
@@ -71,7 +83,7 @@ class SchnoopFactoryTest extends \PHPUnit_Framework_TestCase
 
         $mockPdoStatement->method('fetchAll')->willReturn(array());
 
-        $this->assertInstanceOf('MilesAsylum\Schnoop\Schnoop', $this->schnoopFactory->create($this->mockPdo));
+        $this->assertInstanceOf(Schnoop::class, $schnoopFactory->create($this->mockPdo));
     }
 
     /**

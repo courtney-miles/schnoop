@@ -8,9 +8,7 @@
 
 namespace MilesAsylum\Schnoop\Schema\MySQL\Column;
 
-use MilesAsylum\Schnoop\Schema\CommonColumnInterface;
-
-interface ColumnInterface extends CommonColumnInterface
+interface ColumnInterface extends \MilesAsylum\Schnoop\Schema\ColumnInterface
 {
     /**
      * @return boolean

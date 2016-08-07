@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 26/06/16
- * Time: 6:14 PM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\DataType;
-
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\DataTypeInterface;
@@ -16,53 +9,67 @@ use MilesAsylum\Schnoop\Schema\MySQL\DataType\MediumIntType;
 class MediumIntTypeTest extends SchnoopTestCase
 {
     /**
-     * @var MediumIntType
+     * @dataProvider constructedProvider()
+     * @param int $expectedDisplayWidth
+     * @param bool $expectedIsSigned
+     * @param int $expectedMinRange
+     * @param int $expectedMaxRange
+     * @param string $expectedDDL
+     * @param MediumIntType $actualMediumIntType
      */
-    protected $intTypeSigned;
-
-    /**
-     * @var MediumIntType
-     */
-    protected $intTypeUnsigned;
-
-    protected $displayWidth = 4;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->intTypeSigned = new MediumIntType($this->displayWidth, true);
-        $this->intTypeUnsigned = new MediumIntType($this->displayWidth, false);
-    }
-
-    public function testConstructSigned()
-    {
+    public function testConstructed(
+        $expectedDisplayWidth,
+        $expectedIsSigned,
+        $expectedMinRange,
+        $expectedMaxRange,
+        $expectedDDL,
+        MediumIntType $actualMediumIntType
+    ) {
         $this->intTypeAsserts(
             DataTypeInterface::TYPE_MEDIUMINT,
-            $this->displayWidth,
+            $expectedDisplayWidth,
+            $expectedIsSigned,
+            $expectedMinRange,
+            $expectedMaxRange,
             true,
-            -pow(2, 24)/2,
-            pow(2, 24)/2-1,
-            true,
-            $this->intTypeSigned
-        );
-    }
-
-    public function testConstructUnsigned()
-    {
-        $this->intTypeAsserts(
-            DataTypeInterface::TYPE_MEDIUMINT,
-            $this->displayWidth,
-            false,
-            0,
-            pow(2, 24)-1,
-            true,
-            $this->intTypeUnsigned
+            $expectedDDL,
+            $actualMediumIntType
         );
     }
 
     public function testCast()
     {
-        $this->assertSame(123, $this->intTypeSigned->cast('123'));
+        $mediumIntType = new MediumIntType(10, true);
+        $this->assertSame(123, $mediumIntType->cast('123'));
+    }
+
+    /**
+     * @see testConstructed()
+     * @return array
+     */
+    public function constructedProvider()
+    {
+        $displayWidth = 10;
+        $signed = true;
+        $notSigned = false;
+
+        return [
+            [
+                $displayWidth,
+                $signed,
+                -pow(2, 24)/2,
+                pow(2, 24)/2-1,
+                "MEDIUMINT($displayWidth)",
+                new MediumIntType($displayWidth, $signed)
+            ],
+            [
+                $displayWidth,
+                $notSigned,
+                0,
+                pow(2, 24)-1,
+                "MEDIUMINT($displayWidth) UNSIGNED",
+                new MediumIntType($displayWidth, $notSigned)
+            ]
+        ];
     }
 }

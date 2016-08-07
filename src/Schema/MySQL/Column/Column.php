@@ -8,7 +8,7 @@
 
 namespace MilesAsylum\Schnoop\Schema\MySQL\Column;
 
-use MilesAsylum\Schnoop\Schema\AbstractCommonColumn;
+use MilesAsylum\Schnoop\Schema\AbstractColumn;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\DataTypeInterface;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\NumericTypeInterface;
 
@@ -17,7 +17,7 @@ use MilesAsylum\Schnoop\Schema\MySQL\DataType\NumericTypeInterface;
  * @package MilesAsylum\Schnoop\Schema\MySQL\Column
  * @method DataTypeInterface getDataType
  */
-class Column extends AbstractCommonColumn implements ColumnInterface
+class Column extends AbstractColumn implements ColumnInterface
 {
     /**
      * @var string
@@ -99,11 +99,16 @@ class Column extends AbstractCommonColumn implements ColumnInterface
         return $this->comment;
     }
 
+    public function hasComment()
+    {
+        return (bool)strlen($this->comment);
+    }
+
     protected function setDefault($default)
     {
         if ($default !== null && !$this->getDataType()->doesAllowDefault()) {
             trigger_error(
-                'Attempt made to set a default for a data-type that does not support. The supplied default value has been ignored.',
+                'Attempt made to set a default value for a data-type that does not support a default. The supplied default value has been ignored.',
                 E_USER_WARNING
             );
             
@@ -127,5 +132,45 @@ class Column extends AbstractCommonColumn implements ColumnInterface
     public function isAutoIncrement()
     {
         return $this->autoIncrement;
+    }
+
+    public function __toString()
+    {
+        $default = null;
+
+        if ($this->hasDefault()) {
+            $default = $this->prepareDDLDefault($this->getDefault());
+        }
+
+        return implode(
+            ' ',
+            array_filter(
+                [
+                    '`' . $this->getName() . '`',
+                    (string)$this->getDataType(),
+                    $this->doesZeroFill() ? 'ZEROFILL' : null,
+                    $this->allowNull ? 'NULL' : 'NOT NULL',
+                    $this->hasDefault() ? 'DEFAULT ' . $default : null,
+                    $this->isAutoIncrement() ? 'AUTO_INCREMENT' : null,
+                    $this->hasComment() ? sprintf("COMMENT '%s'", addslashes($this->getComment())) : null
+                ]
+            )
+        );
+    }
+
+    protected function prepareDDLDefault($default)
+    {
+        $default = $this->getDefault();
+
+        if (is_array($default)) {
+            foreach ($default as $k => $option) {
+                $default[$k] = $this->getDataType()->quote($option);
+            }
+            $default = '(' . implode(',', $default) . ')';
+        } else {
+            $default = $this->getDefault() === null ? 'NULL' : $this->getDataType()->quote($default);
+        }
+
+        return $default;
     }
 }

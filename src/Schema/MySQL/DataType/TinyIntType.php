@@ -10,15 +10,15 @@ namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
 class TinyIntType extends AbstractIntType
 {
-    public function __construct($displayWidth, $signed)
+    public function __construct($displayWidth, $isSigned)
     {
-        $minRange = $signed ? -128 : 0;
-        $maxRange = $signed ? 127 : 255;
+        $minRange = $isSigned ? -128 : 0;
+        $maxRange = $isSigned ? 127 : 255;
 
-        parent::__construct($displayWidth, $signed, $minRange, $maxRange);
+        parent::__construct($displayWidth, $isSigned, $minRange, $maxRange);
     }
 
-    public function getName()
+    public function getType()
     {
         return self::TYPE_TINYINT;
     }

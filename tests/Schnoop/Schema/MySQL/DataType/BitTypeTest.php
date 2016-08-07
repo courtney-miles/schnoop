@@ -30,7 +30,7 @@ class BitTypeTest extends SchnoopTestCase
 
     public function testConstruct()
     {
-        $this->assertSame(DataTypeInterface::TYPE_BIT, $this->bitType->getName());
+        $this->assertSame(DataTypeInterface::TYPE_BIT, $this->bitType->getType());
         $this->assertSame((int)$this->length, $this->bitType->getLength());
         $this->assertSame(0, $this->bitType->getMinRange());
         $this->assertSame(pow(2, 3), $this->bitType->getMaxRange());

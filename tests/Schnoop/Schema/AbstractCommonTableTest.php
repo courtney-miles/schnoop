@@ -8,28 +8,28 @@
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema;
 
-use MilesAsylum\Schnoop\Schema\AbstractCommonTable;
-use MilesAsylum\Schnoop\Schema\CommonColumnInterface;
-use MilesAsylum\Schnoop\Schema\CommonIndexInterface;
+use MilesAsylum\Schnoop\Schema\AbstractTable;
+use MilesAsylum\Schnoop\Schema\ColumnInterface;
+use MilesAsylum\Schnoop\Schema\IndexInterface;
 
 class AbstractCommonTableTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var AbstractCommonTable
+     * @var AbstractTable
      */
     protected $abstractCommonTable;
 
     protected $name = 'schnoop_table';
 
     /**
-     * @var CommonColumnInterface[]
+     * @var ColumnInterface[]
      */
     protected $mockColumns = [];
 
     protected $columnName = 'schnoop_column';
 
     /**
-     * @var CommonColumnInterface[]
+     * @var ColumnInterface[]
      */
     protected $mockIndexes = [];
 
@@ -39,16 +39,16 @@ class AbstractCommonTableTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $mockColumn = $this->createMock(CommonColumnInterface::class);
+        $mockColumn = $this->createMock(ColumnInterface::class);
         $mockColumn->method('getName')->willReturn($this->columnName);
         $this->mockColumns[] = $mockColumn;
 
-        $mockIndex = $this->createMock(CommonIndexInterface::class);
+        $mockIndex = $this->createMock(IndexInterface::class);
         $mockIndex->method('getName')->willReturn($this->indexName);
         $this->mockIndexes[] = $mockIndex;
 
         $this->abstractCommonTable = $this->getMockForAbstractClass(
-            AbstractCommonTable::class,
+            AbstractTable::class,
             [
                 $this->name,
                 $this->mockColumns,

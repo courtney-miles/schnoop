@@ -9,12 +9,12 @@
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
-use MilesAsylum\Schnoop\Schema\AbstractCommonDatabase;
+use MilesAsylum\Schnoop\Schema\AbstractDatabase;
 
 class AbstractCommonDatabaseTest extends SchnoopTestCase
 {
     /**
-     * @var AbstractCommonDatabase
+     * @var AbstractDatabase
      */
     protected $abstractCommonDatabase;
 
@@ -25,7 +25,7 @@ class AbstractCommonDatabaseTest extends SchnoopTestCase
         parent::setUp();
 
         $this->abstractCommonDatabase = $this->getMockForAbstractClass(
-            'MilesAsylum\Schnoop\Schema\AbstractCommonDatabase',
+            AbstractDatabase::class,
             [$this->name]
         );
     }

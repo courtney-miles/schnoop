@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 26/06/16
- * Time: 6:02 PM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\DataType;
 
@@ -15,34 +9,56 @@ use MilesAsylum\Schnoop\Schema\MySQL\DataType\DataTypeInterface;
 class CharTypeTest extends SchnoopTestCase
 {
     /**
-     * @var CharType
+     * @dataProvider constructedProvider()
+     * @param int $expectedLength
+     * @param string|null $expectedCollation
+     * @param string $expectedDDL
+     * @param CharType $actualCharType
      */
-    protected $charType;
-
-    protected $length = 10;
-
-    protected $characterSet = 'utf8';
-
-    protected $collation = 'utf8_general_ci';
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->charType = new CharType(
-            $this->length, $this->collation
-        );
-    }
-
-    public function testConstructed()
-    {
+    public function testConstructed(
+        $expectedLength,
+        $expectedCollation,
+        $expectedDDL,
+        CharType $actualCharType
+    ) {
         $this->stringTypeAsserts(
-            DataTypeInterface::TYPE_CHAR, $this->length, $this->collation, true, $this->charType
+            DataTypeInterface::TYPE_CHAR,
+            $expectedLength,
+            $expectedCollation,
+            true,
+            $expectedDDL,
+            $actualCharType
         );
     }
 
     public function testCastToString()
     {
-        $this->assertSame('123', $this->charType->cast(123));
+        $charType = new CharType(10);
+        $this->assertSame('123', $charType->cast(123));
+    }
+
+    /**
+     * @see testConstructed()
+     * @return array
+     */
+    public function constructedProvider()
+    {
+        $length = 10;
+        $collation = 'utf8_general_ci';
+
+        return [
+            [
+                $length,
+                $collation,
+                "CHAR($length) COLLATE '$collation'",
+                new CharType($length, $collation)
+            ],
+            [
+                $length,
+                null,
+                "CHAR($length)",
+                new CharType($length)
+            ]
+        ];
     }
 }

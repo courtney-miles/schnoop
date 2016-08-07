@@ -23,7 +23,12 @@ class IndexTest extends SchnoopTestCase
         );
 
         $this->indexAsserts(
-            $name, IndexInterface::INDEX_INDEX, $indexedColumns, $indexType, $comment, $index
+            $name,
+            IndexInterface::INDEX_INDEX,
+            $indexedColumns,
+            $indexType,
+            $comment,
+            $index
         );
     }
 }

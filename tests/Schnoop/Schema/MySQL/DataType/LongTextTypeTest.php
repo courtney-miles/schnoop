@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 23/06/16
- * Time: 7:25 AM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\DataType;
 
@@ -15,32 +9,56 @@ use MilesAsylum\Schnoop\Schema\MySQL\DataType\LongTextType;
 class LongTextTypeTest extends SchnoopTestCase
 {
     /**
-     * @var LongTextType
+     * @dataProvider constructedProvider()
+     * @param int $expectedLength
+     * @param string|null $expectedCollation
+     * @param string $expectedDDL
+     * @param LongTextType $actualLongTextType
      */
-    protected $longTextType;
-
-    protected $characterSet = 'utf8';
-
-    protected $collation = 'utf8_general_ci';
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->longTextType = new LongTextType(
-            $this->collation
-        );
-    }
-
-    public function testConstructed()
-    {
+    public function testConstructed(
+        $expectedLength,
+        $expectedCollation,
+        $expectedDDL,
+        LongTextType $actualLongTextType
+    ) {
         $this->stringTypeAsserts(
-            DataTypeInterface::TYPE_LONGTEXT, pow(2, 32) - 1, $this->collation, false, $this->longTextType
+            DataTypeInterface::TYPE_LONGTEXT,
+            $expectedLength,
+            $expectedCollation,
+            false,
+            $expectedDDL,
+            $actualLongTextType
         );
     }
 
     public function testCast()
     {
-        $this->assertSame('123', $this->longTextType->cast(123));
+        $longTextType = new LongTextType();
+        $this->assertSame('123', $longTextType->cast(123));
+    }
+
+    /**
+     * @see testConstructed()
+     * @return array
+     */
+    public function constructedProvider()
+    {
+        $length = pow(2, 32) -1;
+        $collation = 'utf8_general_ci';
+
+        return [
+            [
+                $length,
+                $collation,
+                "LONGTEXT COLLATE '$collation'",
+                new LongTextType($collation)
+            ],
+            [
+                $length,
+                null,
+                'LONGTEXT',
+                new LongTextType()
+            ]
+        ];
     }
 }

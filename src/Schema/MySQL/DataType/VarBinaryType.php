@@ -10,10 +10,12 @@ namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
 class VarBinaryType extends AbstractBinaryType
 {
+    const MAX_LENGTH = 65535;
+
     /**
      * @return string
      */
-    public function getName()
+    public function getType()
     {
         return self::TYPE_VARBINARY;
     }

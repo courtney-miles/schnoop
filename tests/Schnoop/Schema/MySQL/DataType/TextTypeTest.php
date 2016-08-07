@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 21/06/16
- * Time: 10:04 PM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\DataType;
 
@@ -16,36 +10,56 @@ use MilesAsylum\Schnoop\Schema\MySQL\DataType\TextTypeInterface;
 class TextTypeTest extends SchnoopTestCase
 {
     /**
-     * @var TextTypeInterface
+     * @dataProvider constructedProvider()
+     * @param int $expectedLength
+     * @param string|null $expectedCollation
+     * @param string $expectedDDL
+     * @param TextType $actualLongTextType
      */
-    protected $textType;
-
-    protected $characterSet = 'utf8';
-
-    protected $collation = 'utf8_general_ci';
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->textType = new TextType(
-            $this->collation
-        );
-    }
-
-    public function testConstructed()
-    {
+    public function testConstructed(
+        $expectedLength,
+        $expectedCollation,
+        $expectedDDL,
+        TextType $actualLongTextType
+    ) {
         $this->stringTypeAsserts(
             DataTypeInterface::TYPE_TEXT,
-            pow(2, 16) - 1,
-            $this->collation,
+            $expectedLength,
+            $expectedCollation,
             false,
-            $this->textType
+            $expectedDDL,
+            $actualLongTextType
         );
     }
 
     public function testCast()
     {
-        $this->assertSame('123', $this->textType->cast(123));
+        $longTextType = new TextType();
+        $this->assertSame('123', $longTextType->cast(123));
+    }
+
+    /**
+     * @see testConstructed()
+     * @return array
+     */
+    public function constructedProvider()
+    {
+        $length = pow(2, 16) -1;
+        $collation = 'utf8_general_ci';
+
+        return [
+            [
+                $length,
+                $collation,
+                "TEXT COLLATE '$collation'",
+                new TextType($collation)
+            ],
+            [
+                $length,
+                null,
+                'TEXT',
+                new TextType()
+            ]
+        ];
     }
 }

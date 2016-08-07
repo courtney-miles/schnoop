@@ -40,7 +40,7 @@ class SetTypeTest extends SchnoopTestCase
 
     public function testConstruct()
     {
-        $this->assertSame(DataTypeInterface::TYPE_SET, $this->setType->getName());
+        $this->assertSame(DataTypeInterface::TYPE_SET, $this->setType->getType());
         $this->assertSame($this->options, $this->setType->getOptions());
         $this->assertSame($this->collation, $this->setType->getCollation());
         $this->assertTrue($this->setType->doesAllowDefault());

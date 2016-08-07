@@ -86,7 +86,11 @@ SQL;
         $this->sqlShowProcedureCreate = <<< SQL
 SHOW CREATE PROCEDURE `%s`.`%s`
 SQL;
+    }
 
+    public function fetchActiveDatabase()
+    {
+        return $this->pdo->query('SELECT DATABASE()')->fetchColumn();
     }
 
     public function fetchDatabaseList()
@@ -99,7 +103,7 @@ SQL;
     public function fetchDatabase($databaseName = null)
     {
         if ($databaseName !== null) {
-            $prevDatabase = $this->pdo->query('SELECT DATABASE()')->fetchColumn();
+            $prevDatabase = $this->fetchActiveDatabase();
             $this->pdo->query("USE `$databaseName`");
         }
 

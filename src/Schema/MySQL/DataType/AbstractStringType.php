@@ -9,10 +9,12 @@
 namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\CollationTrait;
+use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\QuoteStringTrait;
 
 abstract class AbstractStringType implements StringTypeInterface
 {
     use CollationTrait;
+    use QuoteStringTrait;
     
     /**
      * @var int
@@ -25,17 +27,30 @@ abstract class AbstractStringType implements StringTypeInterface
         $this->setCollation($collation);
     }
 
-    public function cast($value)
-    {
-        return (string)$value;
-    }
-
     /**
      * @return int
      */
     public function getLength()
     {
         return $this->length;
+    }
+
+    public function cast($value)
+    {
+        return (string)$value;
+    }
+
+    public function __toString()
+    {
+        return implode(
+            ' ',
+            array_filter(
+                [
+                    strtoupper($this->getType()) . '(' . $this->length . ')',
+                    $this->hasCollation() ? "COLLATE '" . addslashes($this->getCollation()) . "'" : null
+                ]
+            )
+        );
     }
 
     /**

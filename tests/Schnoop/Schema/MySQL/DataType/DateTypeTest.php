@@ -19,7 +19,7 @@ class DateTypeTest extends \PHPUnit_Framework_TestCase
         $dateType = new DateType();
         $dateStr = '2016-01-01';
 
-        $this->assertSame(DataTypeInterface::TYPE_DATE, $dateType->getName());
+        $this->assertSame(DataTypeInterface::TYPE_DATE, $dateType->getType());
         $this->assertTrue($dateType->doesAllowDefault());
         $this->assertSame($dateStr, $dateType->cast($dateStr));
     }

@@ -34,6 +34,7 @@ class BinaryTypeTest extends SchnoopTestCase
             DataTypeInterface::TYPE_BINARY,
             $this->length,
             true,
+            'BINARY(3)',
             $this->binaryType
         );
     }

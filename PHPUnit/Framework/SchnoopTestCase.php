@@ -17,29 +17,32 @@ use PHPUnit\Framework\TestCase;
 class SchnoopTestCase extends TestCase
 {
     /**
-     * @param string $expectedName
+     * @param string $expectedType
      * @param int $expectedDisplayWidth
      * @param bool $expectedSigned
      * @param int $expectedMinRange
      * @param int $expectedMaxRange
      * @param bool $expectedAllowDefault
+     * @param string $expectedDDL
      * @param IntTypeInterface $actualIntType
      */
     public function intTypeAsserts(
-        $expectedName,
+        $expectedType,
         $expectedDisplayWidth,
         $expectedSigned,
         $expectedMinRange,
         $expectedMaxRange,
         $expectedAllowDefault,
+        $expectedDDL,
         IntTypeInterface $actualIntType
     ) {
-        $this->assertSame($expectedName, $actualIntType->getName());
+        $this->assertSame($expectedType, $actualIntType->getType());
         $this->assertSame($expectedDisplayWidth, $actualIntType->getDisplayWidth());
         $this->assertSame($expectedSigned, $actualIntType->isSigned());
         $this->assertSame($expectedMinRange, $actualIntType->getMinRange());
         $this->assertSame($expectedMaxRange, $actualIntType->getMaxRange());
         $this->assertSame($expectedAllowDefault, $actualIntType->doesAllowDefault());
+        $this->assertSame($expectedDDL, (string)$actualIntType);
     }
 
     /**
@@ -60,32 +63,35 @@ class SchnoopTestCase extends TestCase
     }
 
     /**
-     * @param string $expectedName
+     * @param string $expectedType
      * @param bool $expectedSigned
      * @param int|null $expectedPrecision
      * @param int|null $expectedScale
      * @param string|null $expectedMinRange
      * @param string|null $expectedMaxRange
      * @param bool $expectedAllowDefault
+     * @param string $expectedDDL
      * @param NumericPointTypeInterface $actualNumericPointType
      */
     public function numericPointTypeAsserts(
-        $expectedName,
+        $expectedType,
         $expectedSigned,
         $expectedPrecision,
         $expectedScale,
         $expectedMinRange,
         $expectedMaxRange,
         $expectedAllowDefault,
+        $expectedDDL,
         NumericPointTypeInterface $actualNumericPointType
     ) {
-        $this->assertSame($expectedName, $actualNumericPointType->getName());
+        $this->assertSame($expectedType, $actualNumericPointType->getType());
         $this->assertSame($expectedPrecision, $actualNumericPointType->getPrecision());
         $this->assertSame($expectedScale, $actualNumericPointType->getScale());
         $this->assertSame($expectedSigned, $actualNumericPointType->isSigned());
         $this->assertSame($expectedMinRange, $actualNumericPointType->getMinRange());
         $this->assertSame($expectedMaxRange, $actualNumericPointType->getMaxRange());
         $this->assertSame($expectedAllowDefault, $actualNumericPointType->doesAllowDefault());
+        $this->assertSame($expectedDDL, (string)$actualNumericPointType);
     }
 
     /**
@@ -109,24 +115,26 @@ class SchnoopTestCase extends TestCase
     }
 
     /**
-     * @param string $expectedName
+     * @param string $expectedType
      * @param int $expectedLength
-     * @param string $expectedCollation
-     * @param bool $allowDefault
+     * @param string|null $expectedCollation
+     * @param bool $expectedAllowDefault
+     * @param string $expectedDDL
      * @param StringTypeInterface $actualStringType
-     * @internal param string $expectedCharacterSet
      */
     public function stringTypeAsserts(
-        $expectedName,
+        $expectedType,
         $expectedLength,
         $expectedCollation,
-        $allowDefault,
+        $expectedAllowDefault,
+        $expectedDDL,
         StringTypeInterface $actualStringType
     ) {
-        $this->assertSame($expectedName, $actualStringType->getName());
+        $this->assertSame($expectedType, $actualStringType->getType());
         $this->assertSame($expectedLength, $actualStringType->getLength());
         $this->assertSame($expectedCollation, $actualStringType->getCollation());
-        $this->assertSame($allowDefault, $actualStringType->doesAllowDefault());
+        $this->assertSame($expectedAllowDefault, $actualStringType->doesAllowDefault());
+        $this->assertSame($expectedDDL, (string)$actualStringType);
     }
 
     /**
@@ -170,20 +178,23 @@ class SchnoopTestCase extends TestCase
     }
 
     /**
-     * @param string $expectedName
+     * @param string $expectedType
      * @param int $expectedLength
-     * @param $expectedAllowDefault
+     * @param bool $expectedAllowDefault
+     * @param string $expectedDDL
      * @param BinaryTypeInterface $actualStringType
      */
     public function binaryTypeAsserts(
-        $expectedName,
+        $expectedType,
         $expectedLength,
         $expectedAllowDefault,
+        $expectedDDL,
         BinaryTypeInterface $actualStringType
     ) {
-        $this->assertSame($expectedName, $actualStringType->getName());
+        $this->assertSame($expectedType, $actualStringType->getType());
         $this->assertSame($expectedLength, $actualStringType->getLength());
         $this->assertSame($expectedAllowDefault, $actualStringType->doesAllowDefault());
+        $this->assertSame($expectedDDL, (string)$actualStringType);
     }
 
     /**
@@ -198,17 +209,16 @@ class SchnoopTestCase extends TestCase
     }
 
     public function timeTypeAsserts(
-        $expectedName,
+        $expectedType,
         $expectedPrecision,
         $expectedAllowDefault,
-        $valueToCast,
-        $expectedCastValue,
+        $expectedDDL,
         TimeTypeInterface $actualTimeType
     ) {
-        $this->assertSame($expectedName, $actualTimeType->getName());
+        $this->assertSame($expectedType, $actualTimeType->getType());
         $this->assertSame($expectedPrecision, $actualTimeType->getPrecision());
         $this->assertSame($expectedAllowDefault, $actualTimeType->doesAllowDefault());
-        $this->assertSame($expectedCastValue, $actualTimeType->cast($valueToCast));
+        $this->assertSame($expectedDDL, (string)$actualTimeType);
     }
 
     /**
@@ -234,6 +244,7 @@ class SchnoopTestCase extends TestCase
      * @param string $expectedComment
      * @param $expectedZeroFill
      * @param $expectedAutoIncrement
+     * @param string $expectedDDL
      * @param ColumnInterface $actualColumn
      */
     public function columnAsserts(
@@ -245,6 +256,7 @@ class SchnoopTestCase extends TestCase
         $expectedComment,
         $expectedZeroFill,
         $expectedAutoIncrement,
+        $expectedDDL,
         ColumnInterface $actualColumn
     ) {
         $this->assertSame($expectedName, $actualColumn->getName());
@@ -255,6 +267,7 @@ class SchnoopTestCase extends TestCase
         $this->assertSame($expectedComment, $actualColumn->getComment());
         $this->assertSame($expectedZeroFill, $actualColumn->doesZeroFill());
         $this->assertSame($expectedAutoIncrement, $actualColumn->isAutoIncrement());
+        $this->assertSame($expectedDDL, (string)$actualColumn);
     }
 
     /**

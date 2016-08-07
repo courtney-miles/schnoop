@@ -1,15 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 11/07/16
- * Time: 4:26 PM
- */
 
 namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
+use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\QuoteStringTrait;
+
 abstract class AbstractTimeType implements TimeTypeInterface
 {
+    use QuoteStringTrait;
+
     protected $precision;
 
     public function __construct($precision = 0)
@@ -36,5 +34,11 @@ abstract class AbstractTimeType implements TimeTypeInterface
     public function cast($value)
     {
         return $value;
+    }
+
+    public function __toString()
+    {
+        return strtoupper($this->getType())
+            . ($this->getPrecision() > 0 ? '(' . $this->getPrecision() . ')' : null);
     }
 }

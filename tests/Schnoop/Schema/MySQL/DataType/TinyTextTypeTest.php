@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 23/06/16
- * Time: 7:11 AM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\DataType;
 
@@ -15,30 +9,56 @@ use MilesAsylum\Schnoop\Schema\MySQL\DataType\TinyTextType;
 class TinyTextTypeTest extends SchnoopTestCase
 {
     /**
-     * @var TinyTextType
+     * @dataProvider constructedProvider()
+     * @param int $expectedLength
+     * @param string|null $expectedCollation
+     * @param string $expectedDDL
+     * @param TinyTextType $actualLongTextType
      */
-    protected $tinyTextType;
-    
-    protected $characterSet = 'ut8';
-    
-    protected $collation = 'utf8_general_ci';
-
-    public function setUp()
-    {
-        parent::setUp();
-        
-        $this->tinyTextType = new TinyTextType($this->collation);
-    }
-
-    public function testConstructed()
-    {
+    public function testConstructed(
+        $expectedLength,
+        $expectedCollation,
+        $expectedDDL,
+        TinyTextType $actualLongTextType
+    ) {
         $this->stringTypeAsserts(
-            DataTypeInterface::TYPE_TINYTEXT, pow(2, 8) - 1, $this->collation, false, $this->tinyTextType
+            DataTypeInterface::TYPE_TINYTEXT,
+            $expectedLength,
+            $expectedCollation,
+            false,
+            $expectedDDL,
+            $actualLongTextType
         );
     }
 
     public function testCast()
     {
-        $this->assertSame('123', $this->tinyTextType->cast(123));
+        $longTextType = new TinyTextType();
+        $this->assertSame('123', $longTextType->cast(123));
+    }
+
+    /**
+     * @see testConstructed()
+     * @return array
+     */
+    public function constructedProvider()
+    {
+        $length = pow(2, 8) -1;
+        $collation = 'utf8_general_ci';
+
+        return [
+            [
+                $length,
+                $collation,
+                "TINYTEXT COLLATE '$collation'",
+                new TinyTextType($collation)
+            ],
+            [
+                $length,
+                null,
+                'TINYTEXT',
+                new TinyTextType()
+            ]
+        ];
     }
 }

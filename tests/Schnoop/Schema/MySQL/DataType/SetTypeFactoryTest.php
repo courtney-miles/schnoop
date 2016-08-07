@@ -9,7 +9,7 @@
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\DataType;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\SetTypeFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\SetTypeFactory;
 
 class SetTypeFactoryTest extends SchnoopTestCase
 {

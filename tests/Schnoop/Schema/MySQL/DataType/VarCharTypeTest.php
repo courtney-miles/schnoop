@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 22/06/16
- * Time: 7:42 AM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\DataType;
 
@@ -15,34 +9,56 @@ use MilesAsylum\Schnoop\Schema\MySQL\DataType\VarCharType;
 class VarCharTypeTest extends SchnoopTestCase
 {
     /**
-     * @var VarCharType
+     * @dataProvider constructedProvider()
+     * @param int $expectedLength
+     * @param string|null $expectedCollation
+     * @param string $expectedDDL
+     * @param VarCharType $actualCharType
      */
-    protected $varCharType;
-    
-    protected $length = 10;
-    
-    protected $characterSet = 'utf8';
-    
-    protected $collation = 'utf8_general_ci';
-    
-    public function setUp()
-    {
-        parent::setUp();
-        
-        $this->varCharType = new VarCharType(
-            $this->length, $this->collation
-        );
-    }
-
-    public function testConstructed()
-    {
+    public function testConstructed(
+        $expectedLength,
+        $expectedCollation,
+        $expectedDDL,
+        VarCharType $actualCharType
+    ) {
         $this->stringTypeAsserts(
-            DataTypeInterface::TYPE_VARCHAR, $this->length, $this->collation, true, $this->varCharType
+            DataTypeInterface::TYPE_VARCHAR,
+            $expectedLength,
+            $expectedCollation,
+            true,
+            $expectedDDL,
+            $actualCharType
         );
     }
 
     public function testCastToString()
     {
-        $this->assertSame('123', $this->varCharType->cast(123));
+        $charType = new VarCharType(10);
+        $this->assertSame('123', $charType->cast(123));
+    }
+
+    /**
+     * @see testConstructed()
+     * @return array
+     */
+    public function constructedProvider()
+    {
+        $length = 10;
+        $collation = 'utf8_general_ci';
+
+        return [
+            [
+                $length,
+                $collation,
+                "VARCHAR($length) COLLATE '$collation'",
+                new VarCharType($length, $collation)
+            ],
+            [
+                $length,
+                null,
+                "VARCHAR($length)",
+                new VarCharType($length)
+            ]
+        ];
     }
 }

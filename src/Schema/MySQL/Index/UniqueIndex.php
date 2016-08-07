@@ -8,4 +8,9 @@ class UniqueIndex extends AbstractIndex
     {
         return self::INDEX_UNIQUE;
     }
+
+    public function __toString()
+    {
+        return $this->makeIndexDDL($this->getType() . ' INDEX', $this->getName());
+    }
 }

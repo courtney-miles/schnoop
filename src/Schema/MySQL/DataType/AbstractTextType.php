@@ -14,4 +14,17 @@ abstract class AbstractTextType extends AbstractStringType implements TextTypeIn
     {
         return false;
     }
+
+    public function __toString()
+    {
+        return implode(
+            ' ',
+            array_filter(
+                [
+                    strtoupper($this->getType()),
+                    $this->hasCollation() ? "COLLATE '" . addslashes($this->getCollation()) . "'" : null
+                ]
+            )
+        );
+    }
 }

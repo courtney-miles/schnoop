@@ -32,6 +32,7 @@ class TinyBlobTypeTest extends SchnoopTestCase
             DataTypeInterface::TYPE_TINYBLOB,
             pow(2, 8)-1,
             false,
+            'TINYBLOB',
             $this->tinyBlobType
         );
     }

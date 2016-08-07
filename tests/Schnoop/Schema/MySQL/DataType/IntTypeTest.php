@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 19/06/16
- * Time: 10:49 AM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\DataType;
 
@@ -15,53 +9,67 @@ use MilesAsylum\Schnoop\Schema\MySQL\DataType\IntType;
 class IntTypeTest extends SchnoopTestCase
 {
     /**
-     * @var IntType
+     * @dataProvider constructedProvider()
+     * @param int $expectedDisplayWidth
+     * @param bool $expectedIsSigned
+     * @param int $expectedMinRange
+     * @param int $expectedMaxRange
+     * @param string $expectedDDL
+     * @param IntType $actualIntType
      */
-    protected $intTypeSigned;
-
-    /**
-     * @var IntType
-     */
-    protected $intTypeUnsigned;
-    
-    protected $displayWidth = 4;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->intTypeSigned = new IntType($this->displayWidth, true);
-        $this->intTypeUnsigned = new IntType($this->displayWidth, false);
-    }
-
-    public function testConstructSigned()
-    {
+    public function testConstructed(
+        $expectedDisplayWidth,
+        $expectedIsSigned,
+        $expectedMinRange,
+        $expectedMaxRange,
+        $expectedDDL,
+        IntType $actualIntType
+    ) {
         $this->intTypeAsserts(
             DataTypeInterface::TYPE_INT,
-            $this->displayWidth,
+            $expectedDisplayWidth,
+            $expectedIsSigned,
+            $expectedMinRange,
+            $expectedMaxRange,
             true,
-            -pow(2, 32)/2,
-            pow(2, 32)/2-1,
-            true,
-            $this->intTypeSigned
-        );
-    }
-
-    public function testConstructUnsigned()
-    {
-        $this->intTypeAsserts(
-            DataTypeInterface::TYPE_INT,
-            $this->displayWidth,
-            false,
-            0,
-            pow(2, 32)-1,
-            true,
-            $this->intTypeUnsigned
+            $expectedDDL,
+            $actualIntType
         );
     }
 
     public function testCast()
     {
-        $this->assertSame(123, $this->intTypeSigned->cast('123'));
+        $intType = new IntType(10, true);
+        $this->assertSame(123, $intType->cast('123'));
+    }
+
+    /**
+     * @see testConstructed()
+     * @return array
+     */
+    public function constructedProvider()
+    {
+        $displayWidth = 10;
+        $signed = true;
+        $notSigned = false;
+
+        return [
+            [
+                $displayWidth,
+                $signed,
+                -pow(2, 32)/2,
+                pow(2, 32)/2-1,
+                "INT($displayWidth)",
+                new IntType($displayWidth, $signed)
+            ],
+            [
+                $displayWidth,
+                $notSigned,
+                0,
+                pow(2, 32)-1,
+                "INT($displayWidth) UNSIGNED",
+                new IntType($displayWidth, $notSigned)
+            ]
+        ];
     }
 }

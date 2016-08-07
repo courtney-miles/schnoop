@@ -1,58 +1,92 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 22/06/16
- * Time: 4:39 PM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\DataType;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\AbstractStringType;
+use PHPUnit_Framework_MockObject_MockObject;
 
 class AbstractStringTypeTest extends SchnoopTestCase
 {
     /**
-     * @var AbstractStringType
+     * @dataProvider constructedProvider()
+     * @param string $type
+     * @param int $length
+     * @param string $collation
+     * @param bool $doesAllowDefault
+     * @param string $expectedDDL
      */
-    protected $abstractStringType;
+    public function testConstructed(
+        $type,
+        $length,
+        $collation,
+        $doesAllowDefault,
+        $expectedDDL
+    ) {
+        $abstractStringType = $this->createMockAbstractStringType($type, $length, $collation, $doesAllowDefault);
 
-    protected $type = 'char';
+        $this->stringTypeAsserts(
+            $type,
+            $length,
+            $collation,
+            $doesAllowDefault,
+            $expectedDDL,
+            $abstractStringType
+        );
+    }
 
-    protected $length = 128;
-
-    protected $collation = 'utf8_general_ci';
-
-    protected $doesAllowDefault = true;
-
-    public function setUp()
+    /**
+     * @see testConstructed()
+     * @return array
+     */
+    public function constructedProvider()
     {
-        parent::setUp();
+        $type = 'foo';
+        $length = 128;
+        $collation = 'utf8_general_ci';
+        $allowDefault = true;
 
-        $this->abstractStringType = $this->getMockForAbstractClass(
-            'MilesAsylum\Schnoop\Schema\MySQL\DataType\AbstractStringType',
+        return [
             [
-                $this->length,
-                $this->collation
+                $type,
+                $length,
+                $collation,
+                $allowDefault,
+                "FOO($length) COLLATE '$collation'"
+            ],
+            [
+                $type,
+                $length,
+                null,
+                $allowDefault,
+                "FOO($length)"
+            ]
+        ];
+    }
+
+    /**
+     * @param $type
+     * @param $length
+     * @param $collation
+     * @param $doesAllowDefault
+     * @return AbstractStringType|PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function createMockAbstractStringType($type, $length, $collation, $doesAllowDefault)
+    {
+        $abstractStringType = $this->getMockForAbstractClass(
+            AbstractStringType::class,
+            [
+                $length,
+                $collation
             ]
         );
 
-        $this->abstractStringType->method('getName')
-            ->willReturn($this->type);
+        $abstractStringType->method('getType')
+            ->willReturn($type);
 
-        $this->abstractStringType->method('doesAllowDefault')
-            ->willReturn($this->doesAllowDefault);
-    }
+        $abstractStringType->method('doesAllowDefault')
+            ->willReturn($doesAllowDefault);
 
-    public function testConstructed()
-    {
-        $this->stringTypeAsserts(
-            $this->type,
-            $this->length,
-            $this->collation,
-            $this->doesAllowDefault,
-            $this->abstractStringType
-        );
+        return $abstractStringType;
     }
 }

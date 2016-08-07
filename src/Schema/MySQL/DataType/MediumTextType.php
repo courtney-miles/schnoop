@@ -12,7 +12,7 @@ class MediumTextType extends AbstractTextType
 {
     const LENGTH = 16777215;
 
-    public function __construct($collation)
+    public function __construct($collation = null)
     {
         parent::__construct(self::LENGTH, $collation);
     }
@@ -20,7 +20,7 @@ class MediumTextType extends AbstractTextType
     /**
      * @return string
      */
-    public function getName()
+    public function getType()
     {
         return self::TYPE_MEDIUMTEXT;
     }

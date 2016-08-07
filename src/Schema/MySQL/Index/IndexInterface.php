@@ -2,9 +2,7 @@
 
 namespace MilesAsylum\Schnoop\Schema\MySQL\Index;
 
-use MilesAsylum\Schnoop\Schema\CommonIndexInterface;
-
-interface IndexInterface extends CommonIndexInterface
+interface IndexInterface extends \MilesAsylum\Schnoop\Schema\IndexInterface
 {
     const INDEX_INDEX = 'index';
     const INDEX_UNIQUE = 'unique';

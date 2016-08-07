@@ -12,27 +12,39 @@ use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\AbstractTimeType;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\DataTypeInterface;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\TimeTypeInterface;
+use PHPUnit_Framework_MockObject_MockObject;
 
 class AbstractTimeTypeTest extends SchnoopTestCase
 {
     /**
      * @dataProvider abstractTimeTypeProvider
-     * @param int $expectedPrecision
-     * @param bool $expectedAllowDefault
-     * @param string $valueToCast
-     * @param string $expectedCastValue
-     * @param AbstractTimeType $actualTimeType
+     * @param string $type
+     * @param int $precision
+     * @param string $expectedDDL
      */
     public function testConstruct(
-        $expectedPrecision,
-        $expectedAllowDefault,
-        $valueToCast,
-        $expectedCastValue,
-        AbstractTimeType $actualTimeType
+        $type,
+        $precision,
+        $expectedDDL
     ) {
-        $this->assertSame($expectedPrecision, $actualTimeType->getPrecision());
-        $this->assertSame($expectedAllowDefault, $actualTimeType->doesAllowDefault());
-        $this->assertSame($expectedCastValue, $actualTimeType->cast($valueToCast));
+        $abstractTimeType = $this->createMockAbstractTimeType($type, $precision);
+
+        $this->timeTypeAsserts(
+            $type,
+            $precision === null ? 0 : $precision,
+            true,
+            $expectedDDL,
+            $abstractTimeType
+        );
+    }
+
+    public function testCast()
+    {
+        /** @var AbstractTimeType|PHPUnit_Framework_MockObject_MockObject $abstractTimeType */
+        $abstractTimeType = $abstractTimeType = $this->getMockForAbstractClass(AbstractTimeType::class);
+        $time = '11:59:59';
+
+        $this->assertSame($time, $abstractTimeType->cast($time));
     }
 
     /**
@@ -40,31 +52,39 @@ class AbstractTimeTypeTest extends SchnoopTestCase
      */
     public function abstractTimeTypeProvider()
     {
-        $timeTypeDefaultPrecision = $this->getMockForAbstractClass(
-            '\MilesAsylum\Schnoop\Schema\MySQL\DataType\AbstractTimeType'
-        );
-
         $precision = 3;
-        $timeTypeExplicitPrecision = $this->getMockForAbstractClass(
-            '\MilesAsylum\Schnoop\Schema\MySQL\DataType\AbstractTimeType',
-            [$precision]
-        );
 
         return [
             [
-                0,
-                true,
-                '11:59:59',
-                '11:59:59',
-                $timeTypeDefaultPrecision
+                'foo',
+                null,
+                'FOO'
             ],
             [
+                'foo',
                 $precision,
-                true,
-                '11:59:59.000',
-                '11:59:59.000',
-                $timeTypeExplicitPrecision
+                "FOO($precision)"
             ]
         ];
+    }
+
+    /**
+     * @param $type
+     * @param null $precision
+     * @return AbstractTimeType|PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function createMockAbstractTimeType($type, $precision)
+    {
+        $constructArgs = isset($precision) ? [$precision] : [];
+
+        $abstractTimeType = $this->getMockForAbstractClass(
+            AbstractTimeType::class,
+            $constructArgs
+        );
+
+        $abstractTimeType->method('getType')
+            ->willReturn($type);
+
+        return $abstractTimeType;
     }
 }

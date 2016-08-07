@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 12/07/16
- * Time: 7:35 AM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\DataType;
 
@@ -16,28 +10,21 @@ class TimestampTypeTest extends SchnoopTestCase
 {
     /**
      * @dataProvider timeTypeProvider
-     * @param $expectedName
-     * @param $expectedPrecision
-     * @param $expectedAllowDefault
-     * @param $valueToCast
-     * @param $expectedCastValue
-     * @param TimestampType $actualTimeType
+     * @param int $expectedPrecision
+     * @param string $expectedDDL
+     * @param TimestampType $actualTimestampType
      */
     public function testConstruct(
-        $expectedName,
         $expectedPrecision,
-        $expectedAllowDefault,
-        $valueToCast,
-        $expectedCastValue,
-        TimestampType $actualTimeType
+        $expectedDDL,
+        TimestampType $actualTimestampType
     ) {
         $this->timeTypeAsserts(
-            $expectedName,
+            DataTypeInterface::TYPE_TIMESTAMP,
             $expectedPrecision,
-            $expectedAllowDefault,
-            $valueToCast,
-            $expectedCastValue,
-            $actualTimeType
+            true,
+            $expectedDDL,
+            $actualTimestampType
         );
     }
 
@@ -46,27 +33,18 @@ class TimestampTypeTest extends SchnoopTestCase
      */
     public function timeTypeProvider()
     {
-        $timeTypeDefaultPrecision = new TimestampType();
-
         $precision = 3;
-        $timeTypeExplicitPrecision = new TimestampType($precision);
 
         return [
             [
-                DataTypeInterface::TYPE_TIMESTAMP,
                 0,
-                true,
-                '2016-01-01 11:59:59',
-                '2016-01-01 11:59:59',
-                $timeTypeDefaultPrecision
+                'TIMESTAMP',
+                new TimestampType()
             ],
             [
-                DataTypeInterface::TYPE_TIMESTAMP,
                 $precision,
-                true,
-                '2016-01-01 11:59:59.000',
-                '2016-01-01 11:59:59.000',
-                $timeTypeExplicitPrecision
+                "TIMESTAMP($precision)",
+                new TimestampType($precision)
             ]
         ];
     }

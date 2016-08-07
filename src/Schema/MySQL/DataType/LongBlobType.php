@@ -20,7 +20,7 @@ class LongBlobType extends AbstractBlobType
     /**
      * @return string
      */
-    public function getName()
+    public function getType()
     {
         return self::TYPE_LONGBLOB;
     }

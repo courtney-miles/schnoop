@@ -10,6 +10,7 @@ namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\DisplayWidthTrait;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\NumericRangeTrait;
+use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\QuoteNumericTrait;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\SignedTrait;
 
 abstract class AbstractIntType implements IntTypeInterface
@@ -17,11 +18,12 @@ abstract class AbstractIntType implements IntTypeInterface
     use DisplayWidthTrait;
     use SignedTrait;
     use NumericRangeTrait;
+    use QuoteNumericTrait;
     
-    public function __construct($displayWidth, $signed, $minRange, $maxRange)
+    public function __construct($displayWidth, $isSigned, $minRange, $maxRange)
     {
         $this->setDisplayWidth($displayWidth);
-        $this->setSigned($signed);
+        $this->setSigned($isSigned);
         $this->setRange($minRange, $maxRange);
     }
     
@@ -33,5 +35,18 @@ abstract class AbstractIntType implements IntTypeInterface
     public function cast($value)
     {
         return (int)$value;
+    }
+
+    public function __toString()
+    {
+        return implode(
+            ' ',
+            array_filter(
+                [
+                    strtoupper($this->getType()) . ($this->displayWidth > 0 ? '(' . $this->displayWidth .')' : null),
+                    !$this->isSigned() ? 'UNSIGNED' : null
+                ]
+            )
+        );
     }
 }

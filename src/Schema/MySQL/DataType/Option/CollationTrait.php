@@ -23,6 +23,11 @@ trait CollationTrait
         return $this->collation;
     }
 
+    public function hasCollation()
+    {
+        return !empty($this->collation);
+    }
+
     /**
      * @param string $collation
      * @internal param string $characterSet

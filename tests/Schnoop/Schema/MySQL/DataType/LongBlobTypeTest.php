@@ -32,6 +32,7 @@ class LongBlobTypeTest extends SchnoopTestCase
             DataTypeInterface::TYPE_LONGBLOB,
             pow(2, 32)-1,
             false,
+            'LONGBLOB',
             $this->longBlobType
         );
     }

@@ -13,7 +13,7 @@ class DateTimeType extends AbstractTimeType
     /**
      * @return string
      */
-    public function getName()
+    public function getType()
     {
         return self::TYPE_DATETIME;
     }

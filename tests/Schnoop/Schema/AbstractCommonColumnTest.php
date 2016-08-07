@@ -1,29 +1,23 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 29/06/16
- * Time: 7:23 AM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema;
 
-use MilesAsylum\Schnoop\Schema\AbstractCommonColumn;
-use MilesAsylum\Schnoop\Schema\CommonDataTypeInterface;
-use MilesAsylum\Schnoop\Schema\CommonTableInterface;
+use MilesAsylum\Schnoop\Schema\AbstractColumn;
+use MilesAsylum\Schnoop\Schema\DataTypeInterface;
+use MilesAsylum\Schnoop\Schema\TableInterface;
 use PHPUnit_Framework_MockObject_MockObject;
 
 class AbstractCommonColumnTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var AbstractCommonColumn
+     * @var AbstractColumn
      */
     protected $abstractCommonColumn;
 
     protected $name = 'schnoop_column';
 
     /**
-     * @var CommonDataTypeInterface
+     * @var DataTypeInterface
      */
     protected $mockDataType;
 
@@ -31,10 +25,10 @@ class AbstractCommonColumnTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->mockDataType = $this->createMock('MilesAsylum\Schnoop\Schema\CommonDataTypeInterface');
+        $this->mockDataType = $this->createMock(DataTypeInterface::class);
 
         $this->abstractCommonColumn = $this->getMockForAbstractClass(
-            'MilesAsylum\Schnoop\Schema\AbstractCommonColumn',
+            AbstractColumn::class,
             [$this->name, $this->mockDataType]
         );
     }
@@ -49,8 +43,8 @@ class AbstractCommonColumnTest extends \PHPUnit_Framework_TestCase
     public function testSetTable()
     {
         $tableName = 'schnoop_table';
-        /** @var CommonTableInterface|PHPUnit_Framework_MockObject_MockObject $mockTable */
-        $mockTable = $this->createMock('MilesAsylum\Schnoop\Schema\CommonTableInterface');
+        /** @var TableInterface|PHPUnit_Framework_MockObject_MockObject $mockTable */
+        $mockTable = $this->createMock(TableInterface::class);
         $mockTable->method('getName')->willReturn($tableName);
 
         $this->abstractCommonColumn->setTable($mockTable);
@@ -63,13 +57,13 @@ class AbstractCommonColumnTest extends \PHPUnit_Framework_TestCase
      * @depends testSetTable
      * @expectedException \MilesAsylum\Schnoop\Schema\Exception\ColumnException
      * @expectedExceptionMessage Attempt made to attach column schnoop_column to table schnoop_table2 when it is already attached to schnoop_table
-     * @param AbstractCommonColumn $abstractCommonColumn
+     * @param AbstractColumn $abstractCommonColumn
      */
-    public function testExceptionWhenTableAlreadySet(AbstractCommonColumn $abstractCommonColumn)
+    public function testExceptionWhenTableAlreadySet(AbstractColumn $abstractCommonColumn)
     {
         $tableName = 'schnoop_table2';
-        /** @var CommonTableInterface|PHPUnit_Framework_MockObject_MockObject $mockTable */
-        $mockTable = $this->createMock('MilesAsylum\Schnoop\Schema\CommonTableInterface');
+        /** @var TableInterface|PHPUnit_Framework_MockObject_MockObject $mockTable */
+        $mockTable = $this->createMock(TableInterface::class);
         $mockTable->method('getName')->willReturn($tableName);
 
         $abstractCommonColumn->setTable($mockTable);

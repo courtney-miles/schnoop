@@ -8,11 +8,10 @@
 
 namespace MilesAsylum\Schnoop\Schema\MySQL\Database;
 
-use MilesAsylum\Schnoop\Schema\AbstractCommonDatabase;
-use MilesAsylum\Schnoop\Schema\MySQL\Table\Table;
+use MilesAsylum\Schnoop\Schema\AbstractDatabase;
 use MilesAsylum\Schnoop\Schnoop;
 
-class Database extends AbstractCommonDatabase implements DatabaseInterface
+class Database extends AbstractDatabase implements DatabaseInterface
 {
     /**
      * @var string
@@ -29,33 +28,11 @@ class Database extends AbstractCommonDatabase implements DatabaseInterface
      */
     protected $schnoop;
 
-    /**
-     * @var
-     */
-    protected $tableList = array();
-
-    /**
-     * @var Table[]
-     */
-    protected $loadedTables = array();
-
-    public function __construct($name, $characterSet, $collation, Schnoop $schnoop)
+    public function __construct($name, $collation = null)
     {
         parent::__construct($name);
 
-        $this->schnoop = $schnoop;
-
-        $this->setDefaultCharacterSet($characterSet);
         $this->setDefaultCollation($collation);
-        $this->loadTableList();
-    }
-
-    /**
-     * @return string
-     */
-    public function getDefaultCharacterSet()
-    {
-        return $this->defaultCharacterSet;
     }
 
     /**
@@ -66,27 +43,15 @@ class Database extends AbstractCommonDatabase implements DatabaseInterface
         return $this->defaultCollation;
     }
 
-    public function getTableList()
+    public function hasDefaultCollation()
     {
-        return array_values($this->tableList);
+        return !empty($this->defaultCollation);
     }
 
-    public function hasTable($tableName)
+    public function __toString()
     {
-        return isset($this->tableList[$tableName]);
-    }
-
-    public function getTable($tableName)
-    {
-        if ($this->hasTable($tableName)) {
-            if (!isset($this->loadedTables[$tableName])) {
-                $this->loadedTables[$tableName] = $this->schnoop->getTable($this->name, $tableName);
-            }
-
-            return $this->loadedTables[$tableName];
-        }
-
-        return null;
+        return "CREATE DATABASE `$this->name`"
+            . ($this->hasDefaultCollation() ? " DEFAULT COLLATE '{$this->getDefaultCollation()}'" : null);
     }
 
     /**
@@ -103,11 +68,5 @@ class Database extends AbstractCommonDatabase implements DatabaseInterface
     protected function setDefaultCollation($collation)
     {
         $this->defaultCollation = $collation;
-    }
-
-    protected function loadTableList()
-    {
-        $tableList = $this->schnoop->getTableList($this->name);
-        $this->tableList = array_combine($tableList, $tableList);
     }
 }

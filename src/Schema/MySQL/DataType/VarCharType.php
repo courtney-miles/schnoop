@@ -10,12 +10,14 @@ namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
 class VarCharType extends AbstractStringType
 {
-    public function __construct($length, $collation)
+    const MAX_LENGTH = 65535;
+
+    public function __construct($length, $collation = null)
     {
         parent::__construct($length, $collation);
     }
 
-    public function getName()
+    public function getType()
     {
         return self::TYPE_VARCHAR;
     }

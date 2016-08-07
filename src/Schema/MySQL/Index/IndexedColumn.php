@@ -34,6 +34,11 @@ class IndexedColumn implements IndexedColumnInterface
         $this->collation = $collation;
     }
 
+    public function getColumnName()
+    {
+        return $this->column->getName();
+    }
+
     public function getColumn()
     {
         return $this->column;

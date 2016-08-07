@@ -101,11 +101,12 @@ SQL
     protected function makeDsn()
     {
         $dsn = sprintf(
-            "mysql:host=%s;port=%d",
+            "mysql:host=%s;port=%d;dbname=%s",
             $_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_HOST'],
-            !empty($_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_PORT']) ?  : 3306
+            !empty($_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_PORT']) ? $_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_PORT'] : 3306,
+            $_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_DATABASE']
         );
-        
+
         return $dsn;
     }
     

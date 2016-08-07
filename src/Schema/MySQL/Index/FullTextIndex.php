@@ -13,4 +13,9 @@ class FullTextIndex extends AbstractIndex
     {
         return self::INDEX_FULLTEXT;
     }
+
+    public function __toString()
+    {
+        return $this->makeIndexDDL($this->getType(), $this->getName());
+    }
 }

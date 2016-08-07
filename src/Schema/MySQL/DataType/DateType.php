@@ -8,12 +8,16 @@
 
 namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
+use MilesAsylum\Schnoop\Schema\MySQL\DataType\Option\QuoteStringTrait;
+
 class DateType implements DataTypeInterface
 {
+    use QuoteStringTrait;
+
     /**
      * @return string
      */
-    public function getName()
+    public function getType()
     {
         return self::TYPE_DATE;
     }
@@ -32,5 +36,10 @@ class DateType implements DataTypeInterface
     public function cast($value)
     {
         return $value;
+    }
+
+    public function __toString()
+    {
+        return strtoupper($this->getType());
     }
 }

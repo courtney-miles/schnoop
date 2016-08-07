@@ -21,6 +21,7 @@ class DecimalTypeTest extends SchnoopTestCase
      * @param int|null $expectedScale
      * @param string|null $expectedMinRange
      * @param string|null $expectedMaxRange
+     * @param string $expectedDDL
      * @param DecimalType $actualDecimalType
      */
     public function testConstructed(
@@ -29,6 +30,7 @@ class DecimalTypeTest extends SchnoopTestCase
         $expectedScale,
         $expectedMinRange,
         $expectedMaxRange,
+        $expectedDDL,
         $actualDecimalType
     ) {
         $this->numericPointTypeAsserts(
@@ -39,6 +41,7 @@ class DecimalTypeTest extends SchnoopTestCase
             $expectedMinRange,
             $expectedMaxRange,
             true,
+            $expectedDDL,
             $actualDecimalType
         );
     }
@@ -56,22 +59,28 @@ class DecimalTypeTest extends SchnoopTestCase
      */
     public function constructedProvider()
     {
+        $signed = true;
+        $notSigned = false;
+        $precision = 6;
+        $scale = 2;
         return [
             [
-                true,
-                6,
-                2,
+                $signed,
+                $precision,
+                $scale,
                 '-9999.99',
                 '9999.99',
-                new DecimalType(true, 6, 2)
+                "DECIMAL($precision,$scale)",
+                new DecimalType($signed, $precision, $scale)
             ],
             [
-                false,
-                6,
-                2,
+                $notSigned,
+                $precision,
+                $scale,
                 '0',
                 '9999.99',
-                new DecimalType(false, 6, 2)
+                "DECIMAL($precision,$scale) UNSIGNED",
+                new DecimalType($notSigned, $precision, $scale)
             ]
         ];
     }

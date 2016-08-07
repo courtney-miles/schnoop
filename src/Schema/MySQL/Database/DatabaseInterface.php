@@ -8,11 +8,11 @@
 
 namespace MilesAsylum\Schnoop\Schema\MySQL\Database;
 
-use MilesAsylum\Schnoop\Schema\CommonDatabaseInterface;
-
-interface DatabaseInterface extends CommonDatabaseInterface
+interface DatabaseInterface extends \MilesAsylum\Schnoop\Schema\DatabaseInterface
 {
-    public function getDefaultCharacterSet();
-
     public function getDefaultCollation();
+
+    public function hasDefaultCollation();
+
+    public function __toString();
 }

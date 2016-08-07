@@ -8,9 +8,7 @@
 
 namespace MilesAsylum\Schnoop\Schema\MySQL\DataType;
 
-use MilesAsylum\Schnoop\Schema\CommonDataTypeInterface;
-
-interface DataTypeInterface extends CommonDataTypeInterface
+interface DataTypeInterface extends \MilesAsylum\Schnoop\Schema\DataTypeInterface
 {
     const TYPE_BOOL = 'bool';
 
@@ -64,4 +62,11 @@ interface DataTypeInterface extends CommonDataTypeInterface
      * @return mixed
      */
     public function cast($value);
+
+    /**
+     * Quotes a value, based on the type, for use in a DDL statement. Do not believe for a second that this will make queries safe.
+     * @param $value
+     * @return mixed
+     */
+    public function quote($value);
 }

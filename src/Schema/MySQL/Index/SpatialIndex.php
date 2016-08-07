@@ -13,4 +13,9 @@ class SpatialIndex extends AbstractIndex
     {
         return self::INDEX_SPATIAL;
     }
+
+    public function __toString()
+    {
+        return $this->makeIndexDDL($this->getType(), $this->getName());
+    }
 }

@@ -33,6 +33,7 @@ class MediumBlobTypeTest extends SchnoopTestCase
             DataTypeInterface::TYPE_MEDIUMBLOB,
             pow(2, 24)-1,
             false,
+            'MEDIUMBLOB',
             $this->mediumBlobType
         );
     }

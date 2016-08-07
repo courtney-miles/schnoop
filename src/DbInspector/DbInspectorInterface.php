@@ -4,6 +4,8 @@ namespace MilesAsylum\Schnoop\DbInspector;
 
 interface DbInspectorInterface
 {
+    public function fetchActiveDatabase();
+
     public function fetchDatabaseList();
 
     /**

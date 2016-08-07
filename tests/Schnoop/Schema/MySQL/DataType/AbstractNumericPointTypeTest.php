@@ -10,81 +10,107 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\DataType;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\Schema\MySQL\DataType\AbstractNumericPointType;
+use PHPUnit_Framework_MockObject_MockObject;
 
 class AbstractNumericPointTypeTest extends SchnoopTestCase
 {
     /**
-     * @var AbstractNumericPointType
+     * @dataProvider constructedProvider()
+     * @param $isSigned
+     * @param $precision
+     * @param $scale
+     * @param $type
+     * @param $expectedMinRange
+     * @param $expectedMaxRange
+     * @param $expectedDoesAllowNull
+     * @param $expectedDDL
      */
-    protected $abstractNumericPointTypeSigned;
+    public function testConstructed(
+        $isSigned,
+        $precision,
+        $scale,
+        $type,
+        $expectedMinRange,
+        $expectedMaxRange,
+        $expectedDoesAllowNull,
+        $expectedDDL
+    ) {
+        $abstractNumericPointType = $this->createMockAbstractNumericPointType(
+            $type,
+            $isSigned,
+            $precision,
+            $scale
+        );
+
+        $this->numericPointTypeAsserts(
+            $type,
+            $isSigned,
+            $precision,
+            $scale,
+            $expectedMinRange,
+            $expectedMaxRange,
+            $expectedDoesAllowNull,
+            $expectedDDL,
+            $abstractNumericPointType
+        );
+    }
 
     /**
-     * @var AbstractNumericPointType
+     * @see testConstructed()
+     * @return array
      */
-    protected $abstractNumericPointTypeUnsigned;
-
-    protected $type = 'decimal';
-
-    protected $precision = 6;
-
-    protected $scale = 2;
-
-    public function setUp()
+    public function constructedProvider()
     {
-        parent::setUp();
+        $signed = true;
+        $notSigned = false;
+        $precision = 6;
+        $scale = 2;
 
-        $this->abstractNumericPointTypeSigned = $this->getMockForAbstractClass(
-            'MilesAsylum\Schnoop\Schema\MySQL\DataType\AbstractNumericPointType',
+        return [
             [
+                $signed,
+                $precision,
+                $scale,
+                'foo',
+                '-9999.99',
+                '9999.99',
                 true,
-                $this->precision,
-                $this->scale
-            ]
-        );
-
-        $this->abstractNumericPointTypeSigned->expects($this->any())
-            ->method('getName')
-            ->willReturn($this->type);
-
-        $this->abstractNumericPointTypeUnsigned = $this->getMockForAbstractClass(
-            'MilesAsylum\Schnoop\Schema\MySQL\DataType\AbstractNumericPointType',
+                "FOO($precision,$scale)"
+            ],
             [
-                false,
-                $this->precision,
-                $this->scale
+                $notSigned,
+                $precision,
+                $scale,
+                'foo',
+                '0',
+                '9999.99',
+                true,
+                "FOO($precision,$scale) UNSIGNED"
+            ]
+        ];
+    }
+
+    /**
+     * @param $type
+     * @param $signed
+     * @param $precision
+     * @param $scale
+     * @return AbstractNumericPointType|PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function createMockAbstractNumericPointType($type, $signed, $precision, $scale)
+    {
+        $mockAbstractNumericPointType = $this->getMockForAbstractClass(
+            AbstractNumericPointType::class,
+            [
+                $signed,
+                $precision,
+                $scale
             ]
         );
 
-        $this->abstractNumericPointTypeUnsigned->expects($this->any())
-            ->method('getName')
-            ->willReturn($this->type);
-    }
+        $mockAbstractNumericPointType->method('getType')
+            ->willReturn($type);
 
-    public function testConstructedSigned()
-    {
-        $this->numericPointTypeAsserts(
-            $this->type,
-            true,
-            $this->precision,
-            $this->scale,
-            '-9999.99',
-            '9999.99',
-            true,
-            $this->abstractNumericPointTypeSigned
-        );
-    }
-
-    public function testConstructedUnsigned()
-    {
-        $this->numericPointTypeAsserts(
-            $this->type,
-            false,
-            $this->precision,
-            $this->scale,
-            '0',
-            '9999.99',
-            true,
-            $this->abstractNumericPointTypeUnsigned
-        );
+        return $mockAbstractNumericPointType;
     }
 }

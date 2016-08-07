@@ -8,4 +8,13 @@ class Index extends AbstractIndex
     {
         return self::INDEX_INDEX;
     }
+
+    public function __toString()
+    {
+        if (strcasecmp('primary', $this->getName()) == 0) {
+            return $this->makeIndexDDL('PRIMARY KEY');
+        }
+
+        return $this->makeIndexDDL($this->getType(), $this->getName(), $this->getIndexType());
+    }
 }

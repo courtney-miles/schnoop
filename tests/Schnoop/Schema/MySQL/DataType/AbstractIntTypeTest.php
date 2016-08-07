@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 19/06/16
- * Time: 10:34 AM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema\MySQL\DataType;
 
@@ -15,54 +9,111 @@ use PHPUnit_Framework_MockObject_MockObject;
 class AbstractIntTypeTest extends SchnoopTestCase
 {
     /**
-     * @var AbstractIntType|PHPUnit_Framework_MockObject_MockObject
+     * @dataProvider constructProvider()
+     * @param string $type
+     * @param int $displayWidth
+     * @param bool $isSigned
+     * @param int $minRange
+     * @param int $maxRange
+     * @param string $expectedDDL
      */
-    protected $abstractIntType;
-
-    protected $type = 'int';
-
-    protected $displayWidth = '3';
-
-    protected $signed = true;
-
-    protected $minRange = -128;
-
-    protected $maxRange = 127;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->abstractIntType = $this->getMockForAbstractClass(
-            'MilesAsylum\Schnoop\Schema\MySQL\DataType\AbstractIntType',
-            [
-                $this->displayWidth,
-                $this->signed,
-                $this->minRange,
-                $this->maxRange
-            ]
+    public function testConstructed(
+        $type,
+        $displayWidth,
+        $isSigned,
+        $minRange,
+        $maxRange,
+        $expectedDDL
+    ) {
+        $abstractIntType = $this->createMockAbstractIntType(
+            $type,
+            $displayWidth,
+            $isSigned,
+            $minRange,
+            $maxRange
         );
 
-        $this->abstractIntType->expects($this->any())
-            ->method('getName')
-            ->willReturn($this->type);
-    }
-
-    public function testConstruct()
-    {
         $this->intTypeAsserts(
-            $this->type,
-            (int)$this->displayWidth,
-            $this->signed,
-            $this->minRange,
-            $this->maxRange,
+            $type,
+            (int)$displayWidth,
+            $isSigned,
+            $minRange,
+            $maxRange,
             true,
-            $this->abstractIntType
+            $expectedDDL,
+            $abstractIntType
         );
     }
 
     public function testCast()
     {
-        $this->assertSame(123, $this->abstractIntType->cast('123'));
+        $abstractIntType = $this->createMockAbstractIntType('foo', 3, true, 1, 1);
+
+        $this->assertSame(123, $abstractIntType->cast('123'));
+    }
+
+    /**
+     * @see testConstructed()
+     * @return array
+     */
+    public function constructProvider()
+    {
+        return [
+            [
+                'foo',
+                3,
+                true,
+                -128,
+                127,
+                'FOO(3)'
+            ],
+            [
+                'foo',
+                3,
+                false,
+                -128,
+                127,
+                'FOO(3) UNSIGNED'
+            ],
+            [
+                'foo',
+                null,
+                false,
+                -128,
+                127,
+                'FOO UNSIGNED'
+            ]
+        ];
+    }
+
+    /**
+     * @param string $type
+     * @param int $displayWidth
+     * @param bool $isSigned
+     * @param int $minRange
+     * @param int $maxRange
+     * @return AbstractIntType|PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function createMockAbstractIntType(
+        $type,
+        $displayWidth,
+        $isSigned,
+        $minRange,
+        $maxRange
+    ) {
+        $abstractIntType = $this->getMockForAbstractClass(
+            AbstractIntType::class,
+            [
+                $displayWidth,
+                $isSigned,
+                $minRange,
+                $maxRange
+            ]
+        );
+
+        $abstractIntType->method('getType')
+            ->willReturn($type);
+
+        return $abstractIntType;
     }
 }
