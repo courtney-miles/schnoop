@@ -1,25 +1,32 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 21/07/16
- * Time: 4:34 PM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\YearTypeFactory;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\YearType;
 
 class YearTypeFactoryTest extends SchnoopTestCase
 {
+    /**
+     * @var YearTypeFactory
+     */
+    protected $yearTypeFactory;
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->yearTypeFactory = new YearTypeFactory();
+    }
+
     /**
      * @dataProvider doRecogniseProvider
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
     {
-        $this->assertTrue(YearTypeFactory::doRecognise($typeStr));
+        $this->assertTrue($this->yearTypeFactory->doRecognise($typeStr));
     }
 
     /**
@@ -28,7 +35,7 @@ class YearTypeFactoryTest extends SchnoopTestCase
      */
     public function testDoNotRecognise($typeStr)
     {
-        $this->assertFalse(YearTypeFactory::doRecognise($typeStr));
+        $this->assertFalse($this->yearTypeFactory->doRecognise($typeStr));
     }
 
     /**
@@ -38,14 +45,14 @@ class YearTypeFactoryTest extends SchnoopTestCase
     public function testCreateType($typeStr)
     {
         $this->assertInstanceOf(
-            '\MilesAsylum\Schnoop\Schema\MySQL\DataType\YearType',
-            YearTypeFactory::create($typeStr)
+            YearType::class,
+            $this->yearTypeFactory->create($typeStr)
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse(YearTypeFactory::create('binary(254)'));
+        $this->assertFalse($this->yearTypeFactory->create('binary(254)'));
     }
 
     /**

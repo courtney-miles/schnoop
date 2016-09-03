@@ -1,25 +1,32 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 21/07/16
- * Time: 4:24 PM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\TimeTypeFactory;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\TimeType;
 
 class TimeTypeFactoryTest extends SchnoopTestCase
 {
+    /**
+     * @var TimeTypeFactory
+     */
+    protected $timeTypeFactory;
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->timeTypeFactory = new TimeTypeFactory();
+    }
+
     /**
      * @dataProvider doRecogniseProvider
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
     {
-        $this->assertTrue(TimeTypeFactory::doRecognise($typeStr));
+        $this->assertTrue($this->timeTypeFactory->doRecognise($typeStr));
     }
 
     /**
@@ -28,7 +35,7 @@ class TimeTypeFactoryTest extends SchnoopTestCase
      */
     public function testDoNotRecognise($typeStr)
     {
-        $this->assertFalse(TimeTypeFactory::doRecognise($typeStr));
+        $this->assertFalse($this->timeTypeFactory->doRecognise($typeStr));
     }
 
     /**
@@ -39,15 +46,15 @@ class TimeTypeFactoryTest extends SchnoopTestCase
     public function testCreateType($typeStr, $precision)
     {
         $this->timeTypeFactoryAsserts(
-            '\MilesAsylum\Schnoop\Schema\MySQL\DataType\TimeType',
+            TimeType::class,
             $precision,
-            TimeTypeFactory::create($typeStr)
+            $this->timeTypeFactory->create($typeStr)
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse(TimeTypeFactory::create('binary(254)'));
+        $this->assertFalse($this->timeTypeFactory->create('binary(254)'));
     }
 
     /**

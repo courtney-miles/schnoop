@@ -1,15 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 19/07/16
- * Time: 9:42 PM
- */
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\BlobType;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
+use MilesAsylum\Schnoop\SchemaFactory\DataTypeFactoryInterface;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\BlobType;
 
 class BlobTypeFactory implements DataTypeFactoryInterface
 {
@@ -18,9 +12,9 @@ class BlobTypeFactory implements DataTypeFactoryInterface
      * @param null $collation
      * @return BlobType|bool
      */
-    public static function create($typeStr, $collation = null)
+    public function create($typeStr, $collation = null)
     {
-        if (!self::doRecognise($typeStr)) {
+        if (!$this->doRecognise($typeStr)) {
             return false;
         }
 
@@ -31,7 +25,7 @@ class BlobTypeFactory implements DataTypeFactoryInterface
      * @param $typeStr
      * @return bool
      */
-    public static function doRecognise($typeStr)
+    public function doRecognise($typeStr)
     {
         return preg_match('/^blob$/i', $typeStr) === 1;
     }

@@ -1,15 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 20/07/16
- * Time: 7:41 AM
- */
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\TextType;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
+use MilesAsylum\Schnoop\SchemaFactory\DataTypeFactoryInterface;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\TextType;
 
 class TextTypeFactory implements DataTypeFactoryInterface
 {
@@ -18,20 +12,23 @@ class TextTypeFactory implements DataTypeFactoryInterface
      * @param null $collation
      * @return TextType|bool
      */
-    public static function create($typeStr, $collation = null)
+    public function create($typeStr, $collation = null)
     {
-        if (!self::doRecognise($typeStr)) {
+        if (!$this->doRecognise($typeStr)) {
             return false;
         }
 
-        return new TextType($collation);
+        $textType = new TextType();
+        $textType->setCollation($collation);
+
+        return $textType;
     }
 
     /**
      * @param $typeStr
      * @return bool
      */
-    public static function doRecognise($typeStr)
+    public function doRecognise($typeStr)
     {
         return preg_match('/^text$/i', $typeStr) === 1;
     }

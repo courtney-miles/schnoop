@@ -1,18 +1,30 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 19/07/16
- * Time: 7:31 AM
- */
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\NumericPointTypeInterface;
 
-abstract class AbstractNumericPointTypeFactory implements DataTypeFactoryInterface
+abstract class AbstractNumericPointTypeFactory implements NumericPointTypeFactoryInterface
 {
-    protected static function matchPointPattern($pattern, $typeStr)
+    public function create($typeStr, $collation = null)
+    {
+        return $this->populate($this->newType(), $typeStr);
+    }
+
+    public function populate(NumericPointTypeInterface $numericPointType, $typeStr)
+    {
+        if (!$this->doRecognise($typeStr)) {
+            return false;
+        }
+
+        $numericPointType->setSigned($this->extractSigned($typeStr));
+        $numericPointType->setPrecisionScale(...$this->extractPrecisionScale($typeStr));
+        $numericPointType->setZeroFill($this->extractZeroFill($typeStr));
+
+        return $numericPointType;
+    }
+
+    protected function matchPointPattern($pattern, $typeStr)
     {
         $r = preg_match($pattern, $typeStr);
 
@@ -29,13 +41,13 @@ abstract class AbstractNumericPointTypeFactory implements DataTypeFactoryInterfa
      * @param string $typeStr
      * @return array The array will contain two values. The first item is the
      * precision, and the second is the scale. In the case that a precision
-     * and scale is not specified, both items will be null.
+     * and scale are not specified in the data-type string, both items will be null.
      */
-    protected static function getPrecisionScale($typeStr)
+    protected function extractPrecisionScale($typeStr)
     {
         $precision = $scale = null;
 
-        if (preg_match('/\((\d+),(\d+)\)/', $typeStr, $matches)) {
+        if (preg_match('/\( *(\d+) *, *(\d+) *\)/', $typeStr, $matches)) {
             $precision = (int)$matches[1];
             $scale = (int)$matches[2];
         }
@@ -43,8 +55,21 @@ abstract class AbstractNumericPointTypeFactory implements DataTypeFactoryInterfa
         return [$precision, $scale];
     }
 
-    protected static function getSigned($typeStr)
+    /**
+     * @param string $typeStr
+     * @return bool
+     */
+    protected function extractSigned($typeStr)
     {
         return stripos($typeStr, ' unsigned') === false;
+    }
+
+    /**
+     * @param string $typeStr
+     * @return bool
+     */
+    protected function extractZeroFill($typeStr)
+    {
+        return stripos($typeStr, ' zerofill') !== false;
     }
 }

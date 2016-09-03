@@ -8,50 +8,103 @@
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 
+use MilesAsylum\Schnoop\PHPUnit\Framework\AbstractNumericPointTypeFactoryTestCase;
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\FloatTypeFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\NumericPointTypeFactoryInterface;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\FloatType;
+use PHPUnit_Framework_MockObject_MockObject;
 
-class FloatTypeFactoryTest extends SchnoopTestCase
+class FloatTypeFactoryTest extends AbstractNumericPointTypeFactoryTestCase
 {
     /**
-     * @dataProvider doRecogniseProvider
-     * @param $typeStr
+     * @return NumericPointTypeFactoryInterface
      */
-    public function testDoRecognise($typeStr)
+    protected function newNumericFloatTypeFactory()
     {
-        $this->assertTrue(FloatTypeFactory::doRecognise($typeStr));
+        return new FloatTypeFactory();
     }
 
     /**
-     * @dataProvider doNotRecogniseProvider
-     * @param $typeStr
+     * @param PHPUnit_Framework_MockObject_MockObject $mockNumericPointType
+     * @return NumericPointTypeFactoryInterface|PHPUnit_Framework_MockObject_MockObject
      */
-    public function testDoNotRecognise($typeStr)
-    {
-        $this->assertFalse(FloatTypeFactory::doRecognise($typeStr));
+    protected function newMockNumericPointTypeFactory(
+        PHPUnit_Framework_MockObject_MockObject $mockNumericPointType
+    ) {
+        $mockFloatTypeFactory = $this->getMockBuilder(FloatTypeFactory::class)
+            ->setMethods(['newType'])
+            ->getMock();
+        $mockFloatTypeFactory->method('newType')
+            ->willReturn($mockNumericPointType);
+
+        return $mockFloatTypeFactory;
     }
 
     /**
-     * @dataProvider createTypeProvider
-     * @param $typeStr
-     * @param $expectedIsSigned
-     * @param $expectedPrecision
-     * @param $expectedScale
+     * @string
      */
-    public function testCreateType($typeStr, $expectedIsSigned, $expectedPrecision, $expectedScale)
+    protected function getExpectedNumericPointTypeClass()
     {
-        $this->numericPointTypeFactoryAsserts(
-            '\MilesAsylum\Schnoop\Schema\MySQL\DataType\FloatType',
-            $expectedIsSigned,
-            $expectedPrecision,
-            $expectedScale,
-            FloatTypeFactory::create($typeStr)
-        );
+        return FloatType::class;
     }
 
-    public function testCreateWrongType()
+    /**
+     * @return array
+     */
+    public function populateProvider()
     {
-        $this->assertFalse(FloatTypeFactory::create('varchar(254)'));
+        return [
+            [
+                true,
+                null,
+                null,
+                false,
+                'float'
+            ],
+            [
+                true,
+                null,
+                null,
+                false,
+                'float signed'
+            ],
+            [
+                true,
+                6,
+                2,
+                false,
+                'float(6,2)'
+            ],
+            [
+                true,
+                6,
+                2,
+                false,
+                'float(6,2) signed'
+            ],
+            [
+                false,
+                6,
+                2,
+                false,
+                'float(6,2) unsigned'
+            ],
+            [
+                true,
+                6,
+                2,
+                true,
+                'float(6,2) zerofill'
+            ],
+            [
+                false,
+                6,
+                2,
+                true,
+                'float(6,2) unsigned zerofill'
+            ]
+        ];
     }
 
     /**
@@ -76,40 +129,6 @@ class FloatTypeFactoryTest extends SchnoopTestCase
     {
         return [
             ['varchar(255)']
-        ];
-    }
-
-    /**
-     * @see testCreateType
-     * @return array
-     */
-    public function createTypeProvider()
-    {
-        return [
-            [
-                'float(6,2)',
-                true,
-                6,
-                2
-            ],
-            [
-                'FLOAT(6,2) UNSIGNED', // Test case sensitivity.
-                false,
-                6,
-                2
-            ],
-            [
-                'float',
-                true,
-                null,
-                null
-            ],
-            [
-                'float unsigned',
-                false,
-                null,
-                null
-            ]
         ];
     }
 }

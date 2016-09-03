@@ -1,102 +1,116 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 18/07/16
- * Time: 7:25 AM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
+use MilesAsylum\Schnoop\PHPUnit\Framework\AbstractIntTypeFactoryTestCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\IntTypeFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\IntTypeFactoryInterface;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\IntType;
+use PHPUnit_Framework_MockObject_MockObject;
 
-class IntTypeFactoryTest extends SchnoopTestCase
+class IntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
 {
+
     /**
-     * @dataProvider doRecogniseProvider
-     * @param $typeStr
+     * @return IntTypeFactoryInterface
      */
-    public function testDoRecognise($typeStr)
+    protected function newIntTypeFactory()
     {
-        $this->assertTrue(IntTypeFactory::doRecognise($typeStr));
+        return new IntTypeFactory();
+    }
+
+    protected function newMockedIntTypeFactory(PHPUnit_Framework_MockObject_MockObject $mockIntType = null)
+    {
+        $intTypeFactory = $this->getMockBuilder(IntTypeFactory::class)
+            ->setMethods(['newType'])
+            ->getMock();
+        $intTypeFactory->method('newType')
+            ->willReturn($mockIntType);
+
+        return $intTypeFactory;
+    }
+
+    protected function getExpectedIntTypeClass()
+    {
+        return IntType::class;
     }
 
     /**
-     * @dataProvider doNotRecogniseProvider
-     * @param $typeStr
+     * @return array
      */
-    public function testDoNotRecognise($typeStr)
+    public function populateProvider()
     {
-        $this->assertFalse(IntTypeFactory::doRecognise($typeStr));
+        return [
+            [
+                11,
+                true,
+                false,
+                'int(11)'
+            ],
+            [
+                11,
+                true,
+                false,
+                'int(11) signed'
+            ],
+            [
+                10,
+                false,
+                false,
+                'int(10) unsigned'
+            ],
+            [
+                11,
+                true,
+                true,
+                'int(11) zerofill'
+            ],
+            [
+                11,
+                true,
+                true,
+                'int(11) signed zerofill'
+            ],
+            [
+                11,
+                false,
+                true,
+                'int(11) unsigned zerofill'
+            ],
+            [
+                10,
+                false,
+                true,
+                'INT(10) UNSIGNED ZEROFILL'
+            ],
+        ];
     }
 
     /**
-     * @dataProvider createIntTypeProvider
-     * @param $typeStr
-     * @param $expectedDisplayWidth
-     * @param $expectedIsSigned
-     */
-    public function testCreateIntType($typeStr, $expectedDisplayWidth, $expectedIsSigned)
-    {
-        $this->intTypeFactoryAsserts(
-            '\MilesAsylum\Schnoop\Schema\MySQL\DataType\IntType',
-            $expectedDisplayWidth,
-            $expectedIsSigned,
-            IntTypeFactory::create($typeStr)
-        );
-    }
-
-    public function testCreateWrongType()
-    {
-        $this->assertFalse(IntTypeFactory::create('varchar(254)'));
-    }
-
-    /**
-     * @see testDoRecognise
      * @return array
      */
     public function doRecogniseProvider()
     {
         return [
-            ['int(10) unsigned'],
             ['int(10)'],
-            ['integer(10) unsigned'],
-            ['integer(10)']
+            ['int(10) signed'],
+            ['int(10) signed zerofill'],
+            ['int(10) unsigned'],
+            ['int(10) unsigned zerofill'],
+            ['int(10) zerofill'],
+            ['INT(10) UNSIGNED ZEROFILL'],
         ];
     }
 
     /**
-     * @see testDoNotRecognise
      * @return array
      */
     public function doNotRecogniseProvider()
     {
         return [
-            ['varchar(255)'],
             ['int'],
-            ['integer']
-        ];
-    }
-
-    public function createIntTypeProvider()
-    {
-        return [
-            [
-                'int(10)',
-                10,
-                true
-            ],
-            [
-                'INT(10) UNSIGNED', // Test case sensitivity.
-                10,
-                false
-            ],
-            [
-                'integer(10) unsigned',
-                10,
-                false
-            ]
+            ['bigint(10)'],
+            ['varchar(255)']
         ];
     }
 }

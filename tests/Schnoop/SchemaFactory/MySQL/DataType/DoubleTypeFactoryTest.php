@@ -8,50 +8,109 @@
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
+use MilesAsylum\Schnoop\PHPUnit\Framework\AbstractNumericPointTypeFactoryTestCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DoubleTypeFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\NumericPointTypeFactoryInterface;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\DoubleType;
+use PHPUnit_Framework_MockObject_MockObject;
 
-class DoubleTypeFactoryTest extends SchnoopTestCase
+class DoubleTypeFactoryTest extends AbstractNumericPointTypeFactoryTestCase
 {
     /**
-     * @dataProvider doRecogniseProvider
-     * @param $typeStr
+     * @return NumericPointTypeFactoryInterface
      */
-    public function testDoRecognise($typeStr)
+    protected function newNumericFloatTypeFactory()
     {
-        $this->assertTrue(DoubleTypeFactory::doRecognise($typeStr));
+        return new DoubleTypeFactory();
     }
 
     /**
-     * @dataProvider doNotRecogniseProvider
-     * @param $typeStr
+     * @param PHPUnit_Framework_MockObject_MockObject $mockNumericPointType
+     * @return NumericPointTypeFactoryInterface|PHPUnit_Framework_MockObject_MockObject
      */
-    public function testDoNotRecognise($typeStr)
-    {
-        $this->assertFalse(DoubleTypeFactory::doRecognise($typeStr));
+    protected function newMockNumericPointTypeFactory(
+        PHPUnit_Framework_MockObject_MockObject $mockNumericPointType
+    ) {
+        $mockDoubleTypeFactory = $this->getMockBuilder(DoubleTypeFactory::class)
+            ->setMethods(['newType'])
+            ->getMock();
+        $mockDoubleTypeFactory->method('newType')
+            ->willReturn($mockNumericPointType);
+
+        return$mockDoubleTypeFactory;
     }
 
     /**
-     * @dataProvider createTypeProvider
-     * @param $typeStr
-     * @param $expectedIsSigned
-     * @param $expectedPrecision
-     * @param $expectedScale
+     * @string
      */
-    public function testCreateType($typeStr, $expectedIsSigned, $expectedPrecision, $expectedScale)
+    protected function getExpectedNumericPointTypeClass()
     {
-        $this->numericPointTypeFactoryAsserts(
-            '\MilesAsylum\Schnoop\Schema\MySQL\DataType\DoubleType',
-            $expectedIsSigned,
-            $expectedPrecision,
-            $expectedScale,
-            DoubleTypeFactory::create($typeStr)
-        );
+        return DoubleType::class;
     }
 
-    public function testCreateWrongType()
+    /**
+     * @return array
+     */
+    public function populateProvider()
     {
-        $this->assertFalse(DoubleTypeFactory::create('varchar(254)'));
+        return [
+            [
+                true,
+                null,
+                null,
+                false,
+                'double'
+            ],
+            [
+                true,
+                6,
+                2,
+                false,
+                'double(6,2)'
+            ],
+            [
+                true,
+                null,
+                null,
+                false,
+                'double signed'
+            ],
+            [
+                false,
+                null,
+                null,
+                false,
+                'double unsigned'
+            ],
+            [
+                true,
+                null,
+                null,
+                true,
+                'double zerofill'
+            ],
+            [
+                true,
+                null,
+                null,
+                true,
+                'double signed zerofill'
+            ],
+            [
+                false,
+                null,
+                null,
+                true,
+                'double unsigned zerofill'
+            ],
+            [
+                false,
+                6,
+                2,
+                true,
+                'DOUBLE ( 6 , 2 ) UNSIGNED ZEROFILL'
+            ]
+        ];
     }
 
     /**
@@ -76,40 +135,6 @@ class DoubleTypeFactoryTest extends SchnoopTestCase
     {
         return [
             ['varchar(255)']
-        ];
-    }
-
-    /**
-     * @see testCreateType
-     * @return array
-     */
-    public function createTypeProvider()
-    {
-        return [
-            [
-                'double(6,2)',
-                true,
-                6,
-                2
-            ],
-            [
-                'DOUBLE(6,2) UNSIGNED', // Test case sensitivity.
-                false,
-                6,
-                2
-            ],
-            [
-                'double',
-                true,
-                null,
-                null
-            ],
-            [
-                'double unsigned',
-                false,
-                null,
-                null
-            ]
         ];
     }
 }

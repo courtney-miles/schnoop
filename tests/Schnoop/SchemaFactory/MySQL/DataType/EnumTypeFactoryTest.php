@@ -1,25 +1,32 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 21/07/16
- * Time: 7:20 AM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\EnumTypeFactory;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\EnumType;
 
 class EnumTypeFactoryTest extends SchnoopTestCase
 {
+    /**
+     * @var EnumTypeFactory
+     */
+    protected $enumTypeFactory;
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->enumTypeFactory = new EnumTypeFactory();
+    }
+
     /**
      * @dataProvider doRecogniseProvider
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
     {
-        $this->assertTrue(EnumTypeFactory::doRecognise($typeStr));
+        $this->assertTrue($this->enumTypeFactory->doRecognise($typeStr));
     }
 
     /**
@@ -28,7 +35,7 @@ class EnumTypeFactoryTest extends SchnoopTestCase
      */
     public function testDoNotRecognise($typeStr)
     {
-        $this->assertFalse(EnumTypeFactory::doRecognise($typeStr));
+        $this->assertFalse($this->enumTypeFactory->doRecognise($typeStr));
     }
 
     /**
@@ -40,16 +47,16 @@ class EnumTypeFactoryTest extends SchnoopTestCase
     public function testCreateType($typeStr, $collation, $options)
     {
         $this->optionsTypeFactoryAsserts(
-            '\MilesAsylum\Schnoop\Schema\MySQL\DataType\EnumType',
+            EnumType::class,
             $collation,
             $options,
-            EnumTypeFactory::create($typeStr, $collation)
+            $this->enumTypeFactory->create($typeStr, $collation)
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse(EnumTypeFactory::create('binary(254)'));
+        $this->assertFalse($this->enumTypeFactory->create('binary(254)'));
     }
 
     /**

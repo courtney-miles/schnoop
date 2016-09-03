@@ -1,25 +1,32 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 20/07/16
- * Time: 5:02 PM
- */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\TextTypeFactory;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\TextType;
 
 class TextTypeFactoryTest extends SchnoopTestCase
 {
+    /**
+     * @var TextTypeFactory
+     */
+    protected $textTypeFactory;
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->textTypeFactory = new TextTypeFactory();
+    }
+
     /**
      * @dataProvider doRecogniseProvider
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
     {
-        $this->assertTrue(TextTypeFactory::doRecognise($typeStr));
+        $this->assertTrue($this->textTypeFactory->doRecognise($typeStr));
     }
 
     /**
@@ -28,7 +35,7 @@ class TextTypeFactoryTest extends SchnoopTestCase
      */
     public function testDoNotRecognise($typeStr)
     {
-        $this->assertFalse(TextTypeFactory::doRecognise($typeStr));
+        $this->assertFalse($this->textTypeFactory->doRecognise($typeStr));
     }
 
     /**
@@ -39,16 +46,16 @@ class TextTypeFactoryTest extends SchnoopTestCase
     public function testCreateType($typeStr, $collation)
     {
         $this->stringTypeFactoryAsserts(
-            '\MilesAsylum\Schnoop\Schema\MySQL\DataType\TextType',
+            TextType::class,
             $collation,
             null,
-            TextTypeFactory::create($typeStr, $collation)
+            $this->textTypeFactory->create($typeStr, $collation)
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse(TextTypeFactory::create('varchar(254)'));
+        $this->assertFalse($this->textTypeFactory->create('varchar(254)'));
     }
 
     /**

@@ -1,18 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 21/07/16
- * Time: 7:27 AM
- */
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
+use MilesAsylum\Schnoop\SchemaFactory\DataTypeFactoryInterface;
 
 abstract class AbstractTimeTypeFactory implements DataTypeFactoryInterface
 {
-    protected static function getPrecision($typeStr)
+    protected function getPrecision($typeStr)
     {
         $precision = 0;
 

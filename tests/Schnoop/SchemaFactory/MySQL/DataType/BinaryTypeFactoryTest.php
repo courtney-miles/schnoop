@@ -10,16 +10,65 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BinaryTypeFactory;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\BinaryType;
 
 class BinaryTypeFactoryTest extends SchnoopTestCase
 {
+    /**
+     * @var BinaryTypeFactory
+     */
+    protected $binaryTypeFactory;
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->binaryTypeFactory = new BinaryTypeFactory();
+    }
+
+    public function testNewType()
+    {
+        $this->assertInstanceOf(BinaryType::class, $this->binaryTypeFactory->newType());
+    }
+
+    /**
+     * @dataProvider createTypeProvider
+     * @param int $expectedLength
+     * @param string $typeStr
+     */
+    public function testPopulate($expectedLength, $typeStr)
+    {
+        $mockBinaryType = $this->createMockBinaryType($expectedLength);
+
+        $this->assertSame($mockBinaryType, $this->binaryTypeFactory->populate($mockBinaryType, $typeStr));
+    }
+
+    /**
+     * @dataProvider createTypeProvider
+     * @param int $expectedLength
+     * @param string $typeStr
+     */
+    public function testCreate($expectedLength, $typeStr)
+    {
+        $mockBinaryType = $this->createMockBinaryType($expectedLength);
+
+        /** @var BinaryTypeFactory|\PHPUnit_Framework_MockObject_MockObject $mockBinaryTypeFactory */
+        $mockBinaryTypeFactory = $this->getMockBuilder(BinaryTypeFactory::class)
+            ->setMethods(['newType'])
+            ->getMock();
+        $mockBinaryTypeFactory->method('newType')
+            ->willReturn($mockBinaryType);
+
+        $this->assertSame($mockBinaryType, $mockBinaryTypeFactory->create($typeStr));
+    }
+
     /**
      * @dataProvider doRecogniseProvider
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
     {
-        $this->assertTrue(BinaryTypeFactory::doRecognise($typeStr));
+        $this->assertTrue($this->binaryTypeFactory->doRecognise($typeStr));
     }
 
     /**
@@ -28,27 +77,12 @@ class BinaryTypeFactoryTest extends SchnoopTestCase
      */
     public function testDoNotRecognise($typeStr)
     {
-        $this->assertFalse(BinaryTypeFactory::doRecognise($typeStr));
-    }
-
-    /**
-     * @dataProvider createTypeProvider
-     * @param $typeStr
-     * @param $length
-     */
-    public function testCreateType($typeStr, $length)
-    {
-        $this->stringTypeFactoryAsserts(
-            '\MilesAsylum\Schnoop\Schema\MySQL\DataType\BinaryType',
-            null,
-            $length,
-            BinaryTypeFactory::create($typeStr)
-        );
+        $this->assertFalse($this->binaryTypeFactory->doRecognise($typeStr));
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse(BinaryTypeFactory::create('varchar(254)'));
+        $this->assertFalse($this->binaryTypeFactory->create('varchar(254)'));
     }
 
     /**
@@ -79,13 +113,27 @@ class BinaryTypeFactoryTest extends SchnoopTestCase
     {
         return [
             [
+                123,
                 'binary(123)',
-                123
             ],
             [
+                123,
                 'BINARY(123)',
-                123
             ]
         ];
+    }
+
+    /**
+     * @param $expectedLength
+     * @return BinaryType|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function createMockBinaryType($expectedLength)
+    {
+        $mockBinaryType = $this->createMock(BinaryType::class);
+        $mockBinaryType->expects($this->once())
+            ->method('setLength')
+            ->with($expectedLength);
+
+        return $mockBinaryType;
     }
 }

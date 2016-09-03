@@ -1,37 +1,42 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 20/07/16
- * Time: 7:10 PM
- */
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\BitType;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\AbstractStringTypeFactory;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\BitType;
 
-class BitTypeFactory extends AbstractStringTypeFactory
+class BitTypeFactory extends AbstractCharTypeFactory
 {
     /**
      * @param $typeStr
      * @param null $collation
      * @return BitType|bool
      */
-    public static function create($typeStr, $collation = null)
+    public function create($typeStr, $collation = null)
     {
-        if (!self::doRecognise($typeStr)) {
+        if (!$this->doRecognise($typeStr)) {
             return false;
         }
 
-        return new BitType(self::getLength($typeStr));
+        return $this->populate($this->newType(), $typeStr);
+    }
+
+    public function populate(BitType $bitType, $typeStr)
+    {
+        $bitType->setLength($this->extractLength($typeStr));
+
+        return $bitType;
+    }
+
+    public function newType()
+    {
+        return new BitType();
     }
 
     /**
      * @param $typeStr
      * @return bool
      */
-    public static function doRecognise($typeStr)
+    public function doRecognise($typeStr)
     {
         return preg_match('/^bit\(\d+\)/i', $typeStr) === 1;
     }

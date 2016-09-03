@@ -1,14 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 20/07/16
- * Time: 9:57 PM
- */
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
+use MilesAsylum\Schnoop\SchemaFactory\DataTypeFactoryInterface;
 
 abstract class AbstractOptionsTypeFactory implements DataTypeFactoryInterface
 {

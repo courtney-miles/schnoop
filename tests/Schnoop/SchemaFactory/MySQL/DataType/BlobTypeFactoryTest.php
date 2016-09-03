@@ -10,16 +10,29 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BlobTypeFactory;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\BlobType;
 
 class BlobTypeFactoryTest extends SchnoopTestCase
 {
+    /**
+     * @var BlobTypeFactory
+     */
+    protected $blobTypeFactory;
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->blobTypeFactory = new BlobTypeFactory();
+    }
+
     /**
      * @dataProvider doRecogniseProvider
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
     {
-        $this->assertTrue(BlobTypeFactory::doRecognise($typeStr));
+        $this->assertTrue($this->blobTypeFactory->doRecognise($typeStr));
     }
 
     /**
@@ -28,7 +41,7 @@ class BlobTypeFactoryTest extends SchnoopTestCase
      */
     public function testDoNotRecognise($typeStr)
     {
-        $this->assertFalse(BlobTypeFactory::doRecognise($typeStr));
+        $this->assertFalse($this->blobTypeFactory->doRecognise($typeStr));
     }
 
     /**
@@ -38,14 +51,14 @@ class BlobTypeFactoryTest extends SchnoopTestCase
     public function testCreateType($typeStr)
     {
         $this->binaryTypeFactoryAsserts(
-            '\MilesAsylum\Schnoop\Schema\MySQL\DataType\BlobType',
-            BlobTypeFactory::create($typeStr)
+            BlobType::class,
+            $this->blobTypeFactory->create($typeStr)
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse(BlobTypeFactory::create('varchar(254)'));
+        $this->assertFalse($this->blobTypeFactory->create('varchar(254)'));
     }
 
     /**

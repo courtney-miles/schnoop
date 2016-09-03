@@ -10,16 +10,29 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DateTypeFactory;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\DateType;
 
 class DateTypeFactoryTest extends SchnoopTestCase
 {
+    /**
+     * @var DateTypeFactory
+     */
+    protected $dateTypeFactory;
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->dateTypeFactory = new DateTypeFactory();
+    }
+
     /**
      * @dataProvider doRecogniseProvider
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
     {
-        $this->assertTrue(DateTypeFactory::doRecognise($typeStr));
+        $this->assertTrue($this->dateTypeFactory->doRecognise($typeStr));
     }
 
     /**
@@ -28,7 +41,7 @@ class DateTypeFactoryTest extends SchnoopTestCase
      */
     public function testDoNotRecognise($typeStr)
     {
-        $this->assertFalse(DateTypeFactory::doRecognise($typeStr));
+        $this->assertFalse($this->dateTypeFactory->doRecognise($typeStr));
     }
 
     /**
@@ -38,14 +51,14 @@ class DateTypeFactoryTest extends SchnoopTestCase
     public function testCreateType($typeStr)
     {
         $this->assertInstanceOf(
-            '\MilesAsylum\Schnoop\Schema\MySQL\DataType\DateType',
-            DateTypeFactory::create($typeStr)
+            DateType::class,
+            $this->dateTypeFactory->create($typeStr)
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse(DateTypeFactory::create('binary(254)'));
+        $this->assertFalse($this->dateTypeFactory->create('binary(254)'));
     }
 
     /**

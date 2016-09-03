@@ -8,30 +8,41 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\BinaryType;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\AbstractStringTypeFactory;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\BinaryType;
 
-class BinaryTypeFactory extends AbstractStringTypeFactory
+class BinaryTypeFactory extends AbstractCharTypeFactory
 {
     /**
      * @param $typeStr
      * @param null $collation
      * @return BinaryType|bool
      */
-    public static function create($typeStr, $collation = null)
+    public function create($typeStr, $collation = null)
     {
-        if (!self::doRecognise($typeStr)) {
+        if (!$this->doRecognise($typeStr)) {
             return false;
         }
 
-        return new BinaryType(self::getLength($typeStr));
+        return $this->populate($this->newType(), $typeStr);
+    }
+
+    public function populate(BinaryType $binaryType, $typeStr)
+    {
+        $binaryType->setLength($this->extractLength($typeStr));
+
+        return $binaryType;
+    }
+
+    public function newType()
+    {
+        return new BinaryType();
     }
 
     /**
      * @param $typeStr
      * @return bool
      */
-    public static function doRecognise($typeStr)
+    public function doRecognise($typeStr)
     {
         return preg_match('/^binary\(\d+\)/i', $typeStr) === 1;
     }

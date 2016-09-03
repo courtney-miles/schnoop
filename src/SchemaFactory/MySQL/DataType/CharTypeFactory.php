@@ -1,37 +1,38 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 20/07/16
- * Time: 7:23 PM
- */
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\CharType;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\AbstractStringTypeFactory;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\CharType;
 
-class CharTypeFactory extends AbstractStringTypeFactory
+class CharTypeFactory extends AbstractCharTypeFactory
 {
-    /**
-     * @param $typeStr
-     * @param null $collation
-     * @return CharType|bool
-     */
-    public static function create($typeStr, $collation = null)
+    public function create($typeStr, $collation = null)
     {
-        if (!self::doRecognise($typeStr)) {
+        if (!$this->doRecognise($typeStr)) {
             return false;
         }
 
-        return new CharType(self::getLength($typeStr), $collation);
+        return $this->populate($this->newType(), $typeStr, $collation);
+    }
+
+    public function populate(CharType $charType, $typeStr, $collation)
+    {
+        $charType->setLength($this->extractLength($typeStr));
+        $charType->setCollation($collation);
+
+        return $charType;
+    }
+
+    public function newType()
+    {
+        return new CharType();
     }
 
     /**
      * @param $typeStr
      * @return bool
      */
-    public static function doRecognise($typeStr)
+    public function doRecognise($typeStr)
     {
         return preg_match('/^char\(\d+\)/i', $typeStr) === 1;
     }

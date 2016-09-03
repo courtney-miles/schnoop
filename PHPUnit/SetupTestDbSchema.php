@@ -27,7 +27,11 @@ class SetupTestDbSchema
             !empty($_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_PORT']) ? $_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_PORT'] : 3306
         );
 
-        $pdo = new \PDO($dsn, $_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_USERNAME'], $_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_PASSWORD']);
+        $pdo = new \PDO(
+            $dsn,
+            $_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_USERNAME'],
+            $_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_PASSWORD']
+        );
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         return $pdo;

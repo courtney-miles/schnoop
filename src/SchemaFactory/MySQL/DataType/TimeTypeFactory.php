@@ -1,15 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 21/07/16
- * Time: 4:21 PM
- */
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\TimeType;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\AbstractTimeTypeFactory;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\TimeType;
 
 class TimeTypeFactory extends AbstractTimeTypeFactory
 {
@@ -18,20 +11,23 @@ class TimeTypeFactory extends AbstractTimeTypeFactory
      * @param null $collation
      * @return TimeType|bool
      */
-    public static function create($typeStr, $collation = null)
+    public function create($typeStr, $collation = null)
     {
-        if (!self::doRecognise($typeStr)) {
+        if (!$this->doRecognise($typeStr)) {
             return false;
         }
 
-        return new TimeType(self::getPrecision($typeStr));
+        $timeType = new TimeType();
+        $timeType->setPrecision($this->getPrecision($typeStr));
+
+        return $timeType;
     }
 
     /**
      * @param $typeStr
      * @return bool
      */
-    public static function doRecognise($typeStr)
+    public function doRecognise($typeStr)
     {
         return preg_match('/^time(\(\d+\))?$/i', $typeStr) === 1;
     }

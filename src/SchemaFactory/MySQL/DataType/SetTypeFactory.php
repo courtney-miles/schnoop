@@ -1,16 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: courtney
- * Date: 20/07/16
- * Time: 9:51 PM
- */
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\DataTypeInterface;
-use MilesAsylum\Schnoop\Schema\MySQL\DataType\SetType;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\AbstractOptionsTypeFactory;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\SetType;
 
 class SetTypeFactory extends AbstractOptionsTypeFactory
 {
@@ -19,20 +12,24 @@ class SetTypeFactory extends AbstractOptionsTypeFactory
      * @param null $collation
      * @return DataTypeInterface|bool
      */
-    public static function create($typeStr, $collation = null)
+    public function create($typeStr, $collation = null)
     {
-        if (!self::doRecognise($typeStr)) {
+        if (!$this->doRecognise($typeStr)) {
             return false;
         }
 
-        return new SetType(self::getOptions($typeStr), $collation);
+        $setType = new SetType();
+        $setType->setOptions($this->getOptions($typeStr));
+        $setType->setCollation($collation);
+
+        return $setType;
     }
 
     /**
      * @param $typeStr
      * @return bool
      */
-    public static function doRecognise($typeStr)
+    public function doRecognise($typeStr)
     {
         return preg_match('/^set\(.+\)$/i', $typeStr) === 1;
     }
