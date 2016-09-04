@@ -56,13 +56,13 @@ class SetTypeFactoryTest extends SchnoopTestCase
             SetType::class,
             $collation,
             $options,
-            $this->setTypeFactory->create($typeStr, $collation)
+            $this->setTypeFactory->createType($typeStr, $collation)
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse($this->setTypeFactory->create('binary(254)'));
+        $this->assertFalse($this->setTypeFactory->createType('binary(254)'));
     }
 
     /**

@@ -55,13 +55,13 @@ class LongTextTypeFactoryTest extends SchnoopTestCase
             LongTextType::class,
             $collation,
             null,
-            $this->longTextTypeFactory->create($typeStr, $collation)
+            $this->longTextTypeFactory->createType($typeStr, $collation)
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse($this->longTextTypeFactory->create('varchar(254)'));
+        $this->assertFalse($this->longTextTypeFactory->createType('varchar(254)'));
     }
 
     /**

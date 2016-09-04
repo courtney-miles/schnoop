@@ -75,14 +75,45 @@ SQL
      * @param string $alterDDL
      * @param array $expectedRawIndexes
      */
-    public function testFetchRawForTable($alterDDL, array $expectedRawIndexes)
+    public function testFetchRaw($alterDDL, array $expectedRawIndexes)
     {
         $alterDDL = sprintf($alterDDL, $this->databaseName, $this->tableName);
         $this->getConnection()->query($alterDDL);
 
-        $rawIndexes = $this->indexMapper->fetchRawForTable($this->databaseName, $this->tableName);
+        $rawIndexes = $this->indexMapper->fetchRaw($this->databaseName, $this->tableName);
 
         $this->assertSame($expectedRawIndexes, $rawIndexes);
+    }
+
+    public function testFetch()
+    {
+        $databaseName = 'schnoop_do';
+        $tableName = 'schnoop_tbl';
+
+        $raw = ['foo'];
+
+        $mockIndex = $this->createMock(Index::class);
+
+        /** @var IndexMapper|PHPUnit_Framework_MockObject_MockObject $mockIndexMapper */
+        $mockIndexMapper = $this->getMockBuilder(IndexMapper::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['fetchRaw', 'createFromRaw'])
+            ->getMock();
+
+        $mockIndexMapper->expects($this->once())
+            ->method('fetchRaw')
+            ->with($databaseName, $tableName)
+            ->willReturn($raw);
+
+        $mockIndexMapper->expects($this->once())
+            ->method('createFromRaw')
+            ->with($raw)
+            ->willReturn($mockIndex);
+
+        $this->assertSame(
+            $mockIndex,
+            $mockIndexMapper->fetch($databaseName, $tableName)
+        );
     }
 
     /**
@@ -219,7 +250,7 @@ SQL
                 [
                     [
                         'indexName' => 'ux_name',
-                        'indexType' => IndexInterface::CONSTRAINT_UNIQUE_INDEX,
+                        'indexType' => IndexInterface::CONSTRAINT_INDEX_UNIQUE,
                         'comment' => 'Unique index comment.'
                     ]
                 ],
@@ -248,7 +279,7 @@ SQL
                 [
                     [
                         'indexName' => 'ftx_name',
-                        'indexType' => IndexInterface::CONSTRAINT_FULLTEXT_INDEX,
+                        'indexType' => IndexInterface::CONSTRAINT_INDEX_FULLTEXT,
                         'comment' => 'Fulltext index comment.'
                     ]
                 ],
@@ -277,7 +308,7 @@ SQL
                 [
                     [
                         'indexName' => 'spx_name',
-                        'indexType' => IndexInterface::CONSTRAINT_SPATIAL_INDEX,
+                        'indexType' => IndexInterface::CONSTRAINT_INDEX_SPATIAL,
                         'comment' => 'Spatial index comment.'
                     ]
                 ],
@@ -411,22 +442,22 @@ SQL
                 Index::class
             ],
             [
-                IndexInterface::CONSTRAINT_UNIQUE_INDEX,
+                IndexInterface::CONSTRAINT_INDEX_UNIQUE,
                 'schnoop_idx',
                 UniqueIndex::class
             ],
             [
-                IndexInterface::CONSTRAINT_FULLTEXT_INDEX,
+                IndexInterface::CONSTRAINT_INDEX_FULLTEXT,
                 'schnoop_idx',
                 FullTextIndex::class
             ],
             [
-                IndexInterface::CONSTRAINT_SPATIAL_INDEX,
+                IndexInterface::CONSTRAINT_INDEX_SPATIAL,
                 'schnoop_idx',
                 SpatialIndex::class
             ],
             [
-                IndexInterface::CONSTRAINT_UNIQUE_INDEX,
+                IndexInterface::CONSTRAINT_INDEX_UNIQUE,
                 'primary',
                 PrimaryKey::class
             ]

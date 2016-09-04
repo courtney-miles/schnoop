@@ -52,13 +52,13 @@ class BlobTypeFactoryTest extends SchnoopTestCase
     {
         $this->binaryTypeFactoryAsserts(
             BlobType::class,
-            $this->blobTypeFactory->create($typeStr)
+            $this->blobTypeFactory->createType($typeStr)
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse($this->blobTypeFactory->create('varchar(254)'));
+        $this->assertFalse($this->blobTypeFactory->createType('varchar(254)'));
     }
 
     /**

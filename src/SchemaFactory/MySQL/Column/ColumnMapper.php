@@ -4,7 +4,7 @@ namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\Column;
 
 use MilesAsylum\Schnoop\SchemaFactory\ColumnMapperInterface;
 use MilesAsylum\Schnoop\SchemaFactory\DataTypeFactoryInterface;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactory;
+use MilesAsylum\Schnoop\SchemaFactory\DataTypeFactory;
 use MilesAsylum\SchnoopSchema\MySQL\Column\Column;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\NumericTypeInterface;
@@ -30,12 +30,12 @@ class ColumnMapper implements ColumnMapperInterface
     /**
      * ColumnMapper constructor.
      * @param PDO $pdo
-     * @param DataTypeFactoryInterface $dataTypeMapper
+     * @param DataTypeFactoryInterface $dataTypeFactory
      */
-    public function __construct(PDO $pdo, DataTypeFactoryInterface $dataTypeMapper)
+    public function __construct(PDO $pdo, DataTypeFactoryInterface $dataTypeFactory)
     {
         $this->pdo = $pdo;
-        $this->dataTypeMapper = $dataTypeMapper;
+        $this->dataTypeMapper = $dataTypeFactory;
 
         $this->sqlShowFullColumns = <<< SQL
 SHOW FULL COLUMNS FROM `%s`.`%s`
@@ -47,10 +47,10 @@ SQL;
      * @param $tableName
      * @return Column[]
      */
-    public function fetchForTable($databaseName, $tableName)
+    public function fetch($databaseName, $tableName)
     {
         $columns = [];
-        $rows = $this->fetchRawForTable($databaseName, $tableName);
+        $rows = $this->fetchRaw($databaseName, $tableName);
 
         foreach ($rows as $row) {
             $column = $this->createFromRaw($row);
@@ -61,7 +61,7 @@ SQL;
         return $columns;
     }
 
-    public function fetchRawForTable($databaseName, $tableName)
+    public function fetchRaw($databaseName, $tableName)
     {
         $rawColumns = [];
 
@@ -103,7 +103,7 @@ SQL;
     {
         $rawColumn = $this->keysToLower($rawColumn);
 
-        $dataType = $this->dataTypeMapper->create($rawColumn['type'], $rawColumn['collation']);
+        $dataType = $this->dataTypeMapper->createType($rawColumn['type'], $rawColumn['collation']);
 
         $column = $this->newColumn($rawColumn['field'], $dataType);
         $column->setNullable(strtolower($rawColumn['null']) == 'yes');

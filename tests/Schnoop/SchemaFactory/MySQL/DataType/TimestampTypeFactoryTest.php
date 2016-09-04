@@ -54,13 +54,13 @@ class TimestampTypeFactoryTest extends SchnoopTestCase
         $this->timeTypeFactoryAsserts(
             TimestampType::class,
             $precision,
-            $this->timestampTypeFactory->create($typeStr)
+            $this->timestampTypeFactory->createType($typeStr)
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse($this->timestampTypeFactory->create('binary(254)'));
+        $this->assertFalse($this->timestampTypeFactory->createType('binary(254)'));
     }
 
     /**

@@ -49,13 +49,13 @@ class TextTypeFactoryTest extends SchnoopTestCase
             TextType::class,
             $collation,
             null,
-            $this->textTypeFactory->create($typeStr, $collation)
+            $this->textTypeFactory->createType($typeStr, $collation)
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse($this->textTypeFactory->create('varchar(254)'));
+        $this->assertFalse($this->textTypeFactory->createType('varchar(254)'));
     }
 
     /**

@@ -90,14 +90,14 @@ abstract class AbstractIntTypeFactoryTestCase extends TestCase
 
         $this->assertSame(
             $mockIntType,
-            $intTypeFactory->create($typeStr),
+            $intTypeFactory->createType($typeStr),
             "Supplied string was '$typeStr'."
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse($this->intTypeFactory->create('bogus'));
+        $this->assertFalse($this->intTypeFactory->createType('bogus'));
     }
 
     /**

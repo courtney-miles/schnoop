@@ -12,7 +12,7 @@ class TinyBlobTypeFactory implements DataTypeFactoryInterface
      * @param null $collation
      * @return TinyBlobType|bool
      */
-    public function create($typeStr, $collation = null)
+    public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
             return false;

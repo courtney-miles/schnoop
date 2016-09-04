@@ -12,7 +12,7 @@ class MediumBlobTypeFactory implements DataTypeFactoryInterface
      * @param null $collation
      * @return MediumBlobType|bool
      */
-    public function create($typeStr, $collation = null)
+    public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
             return false;

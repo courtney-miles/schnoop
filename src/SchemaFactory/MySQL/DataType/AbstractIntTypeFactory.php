@@ -7,7 +7,7 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\IntTypeInterface;
 
 abstract class AbstractIntTypeFactory implements IntTypeFactoryInterface
 {
-    public function create($typeStr, $collation = null)
+    public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
             return false;

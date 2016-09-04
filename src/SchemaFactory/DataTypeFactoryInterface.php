@@ -11,7 +11,7 @@ interface DataTypeFactoryInterface
      * @param null $collation
      * @return DataTypeInterface|bool
      */
-    public function create($typeStr, $collation = null);
+    public function createType($typeStr, $collation = null);
 
     /**
      * @param $typeStr

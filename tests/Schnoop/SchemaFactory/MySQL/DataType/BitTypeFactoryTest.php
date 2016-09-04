@@ -60,7 +60,7 @@ class BitTypeFactoryTest extends SchnoopTestCase
         $mockBitTypeFactory->method('newType')
             ->willReturn($mockBitType);
 
-        $this->assertSame($mockBitType, $mockBitTypeFactory->create($typeStr));
+        $this->assertSame($mockBitType, $mockBitTypeFactory->createType($typeStr));
     }
 
     /**
@@ -83,7 +83,7 @@ class BitTypeFactoryTest extends SchnoopTestCase
 
     public function testCreateWrongType()
     {
-        $this->assertFalse($this->bitTypeFactory->create('varchar(254)'));
+        $this->assertFalse($this->bitTypeFactory->createType('varchar(254)'));
     }
 
     /**

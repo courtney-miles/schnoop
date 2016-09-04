@@ -59,7 +59,7 @@ class BinaryTypeFactoryTest extends SchnoopTestCase
         $mockBinaryTypeFactory->method('newType')
             ->willReturn($mockBinaryType);
 
-        $this->assertSame($mockBinaryType, $mockBinaryTypeFactory->create($typeStr));
+        $this->assertSame($mockBinaryType, $mockBinaryTypeFactory->createType($typeStr));
     }
 
     /**
@@ -82,7 +82,7 @@ class BinaryTypeFactoryTest extends SchnoopTestCase
 
     public function testCreateWrongType()
     {
-        $this->assertFalse($this->binaryTypeFactory->create('varchar(254)'));
+        $this->assertFalse($this->binaryTypeFactory->createType('varchar(254)'));
     }
 
     /**

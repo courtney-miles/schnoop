@@ -46,13 +46,13 @@ class TinyBlobTypeFactoryTest extends SchnoopTestCase
     {
         $this->binaryTypeFactoryAsserts(
             TinyBlobType::class,
-            $this->tinyBlobTypeFactory->create($typeStr)
+            $this->tinyBlobTypeFactory->createType($typeStr)
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse($this->tinyBlobTypeFactory->create('varchar(254)'));
+        $this->assertFalse($this->tinyBlobTypeFactory->createType('varchar(254)'));
     }
 
     /**

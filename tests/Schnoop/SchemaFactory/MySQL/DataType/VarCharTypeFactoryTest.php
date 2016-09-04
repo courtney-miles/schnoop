@@ -50,13 +50,13 @@ class VarCharTypeFactoryTest extends SchnoopTestCase
             VarCharType::class,
             $collation,
             $length,
-            $this->varCharTypeFactory->create($typeStr, $collation)
+            $this->varCharTypeFactory->createType($typeStr, $collation)
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse($this->varCharTypeFactory->create('binary(254)'));
+        $this->assertFalse($this->varCharTypeFactory->createType('binary(254)'));
     }
 
     /**

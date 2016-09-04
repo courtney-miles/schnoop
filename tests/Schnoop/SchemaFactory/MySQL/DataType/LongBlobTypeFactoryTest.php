@@ -46,13 +46,13 @@ class LongBlobTypeFactoryTest extends SchnoopTestCase
     {
         $this->binaryTypeFactoryAsserts(
             LongBlobType::class,
-            $this->longBlobTypeFactory->create($typeStr)
+            $this->longBlobTypeFactory->createType($typeStr)
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse($this->longBlobTypeFactory->create('varchar(254)'));
+        $this->assertFalse($this->longBlobTypeFactory->createType('varchar(254)'));
     }
 
     /**

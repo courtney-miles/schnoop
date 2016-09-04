@@ -52,13 +52,13 @@ class DateTypeFactoryTest extends SchnoopTestCase
     {
         $this->assertInstanceOf(
             DateType::class,
-            $this->dateTypeFactory->create($typeStr)
+            $this->dateTypeFactory->createType($typeStr)
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse($this->dateTypeFactory->create('binary(254)'));
+        $this->assertFalse($this->dateTypeFactory->createType('binary(254)'));
     }
 
     /**

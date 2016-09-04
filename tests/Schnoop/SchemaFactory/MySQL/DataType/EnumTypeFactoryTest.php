@@ -50,13 +50,13 @@ class EnumTypeFactoryTest extends SchnoopTestCase
             EnumType::class,
             $collation,
             $options,
-            $this->enumTypeFactory->create($typeStr, $collation)
+            $this->enumTypeFactory->createType($typeStr, $collation)
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse($this->enumTypeFactory->create('binary(254)'));
+        $this->assertFalse($this->enumTypeFactory->createType('binary(254)'));
     }
 
     /**

@@ -46,13 +46,13 @@ class YearTypeFactoryTest extends SchnoopTestCase
     {
         $this->assertInstanceOf(
             YearType::class,
-            $this->yearTypeFactory->create($typeStr)
+            $this->yearTypeFactory->createType($typeStr)
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse($this->yearTypeFactory->create('binary(254)'));
+        $this->assertFalse($this->yearTypeFactory->createType('binary(254)'));
     }
 
     /**

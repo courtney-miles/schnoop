@@ -2,87 +2,53 @@
 
 namespace MilesAsylum\Schnoop;
 
-use MilesAsylum\Schnoop\DbInspector\DbInspectorInterface;
-use MilesAsylum\Schnoop\Exception\SchnoopException;
-use MilesAsylum\Schnoop\Schema\DatabaseInterface;
+use MilesAsylum\Schnoop\Inspector\InspectorInterface;
+use MilesAsylum\Schnoop\Inspector\MySQLInspector;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Column\ColumnMapper;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint\ForeignKeyMapper;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint\IndexMapper;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Database\DatabaseMapper;
+use MilesAsylum\Schnoop\SchemaFactory\DataTypeFactory;
+use MilesAsylum\Schnoop\SchemaAdapter\DatabaseAdapter;
+use MilesAsylum\Schnoop\SchemaFactory\SchemaBuilder;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Table\TableMapper;
+use MilesAsylum\SchnoopSchema\MySQL\Database\DatabaseInterface;
 use PDO;
-use MilesAsylum\Schnoop\Schema\FactoryInterface;
-use MilesAsylum\Schnoop\Schema\TableInterface;
+use MilesAsylum\Schnoop\SchemaFactory\SchemaBuilderInterface;
 
 class Schnoop
 {
     /**
-     * @var PDO
-     */
-    protected $pdo;
-
-    /**
-     * @var DbInspectorInterface
+     * @var InspectorInterface
      */
     protected $dbInspector;
 
     /**
-     * @var FactoryInterface
+     * @var SchemaBuilderInterface
      */
-    protected $schemaFactory;
+    protected $dbBuilder;
 
     /**
-     * @var string
+     * @var DatabaseAdapter[]
      */
-    protected $activeDatabaseName;
-
-    /**
-     * @var array
-     */
-    protected $databaseList;
+    protected $loadedDatabase = [];
 
     /**
      * Schnoop constructor.
-     * @param PDO $pdo
-     * @param DbInspectorInterface $dbAdapter
-     * @param FactoryInterface $factoryInterface
+     * @param InspectorInterface $dbInspector
+     * @param SchemaBuilderInterface $dbBuilder
      */
     public function __construct(
-        PDO $pdo,
-        DbInspectorInterface $dbAdapter,
-        FactoryInterface $factoryInterface
+        InspectorInterface $dbInspector,
+        SchemaBuilderInterface $dbBuilder
     ) {
-        $this->pdo = $pdo;
-        $this->dbInspector = $dbAdapter;
-        $this->schemaFactory = $factoryInterface;
-
-        $this->loadDatabaseList();
-
-        $activeDatabaseName = $this->dbInspector->fetchActiveDatabase();
-
-        if (!empty($activeDatabaseName)) {
-            $this->setActiveDatabase($activeDatabaseName);
-        }
-    }
-
-    public function getActiveDatabaseName()
-    {
-        return $this->activeDatabaseName;
-    }
-
-    /**
-     * @param $databaseName
-     * @throws SchnoopException
-     */
-    public function setActiveDatabase($databaseName)
-    {
-        if (!$this->hasDatabase($databaseName)) {
-            throw new SchnoopException(
-                "Unknown database, `$databaseName`."
-            );
-        }
-
-        $this->activeDatabaseName = $databaseName;
+        $this->dbInspector = $dbInspector;
+        $this->dbBuilder = $dbBuilder;
     }
 
     public function getDatabaseList()
     {
-        return array_values($this->databaseList);
+        return $this->dbInspector->fetchDatabaseList();
     }
 
     /**
@@ -91,56 +57,50 @@ class Schnoop
      */
     public function hasDatabase($databaseName)
     {
-        return isset($this->databaseList[$databaseName]);
+        return in_array($databaseName, $this->dbInspector->fetchDatabaseList());
     }
 
-    /**
-     * @return DatabaseInterface|null
-     */
-    public function getDatabase()
+    public function getDatabase($databaseName)
     {
-        $this->ensureActiveDatabaseSet();
+        $databaseName = strtolower($databaseName);
 
-        return $this->schemaFactory->createDatabase($this->dbInspector->fetchDatabase($this->activeDatabaseName));
-    }
-
-    /**
-     * @return array
-     */
-    public function getTableList()
-    {
-        $this->ensureActiveDatabaseSet();
-
-        return $this->dbInspector->fetchTableList($this->activeDatabaseName);
-    }
-
-    /**
-     * @param $tableName
-     * @return TableInterface
-     */
-    public function getTable($tableName)
-    {
-        $this->ensureActiveDatabaseSet();
-
-        return $this->schemaFactory->createTable(
-            $this->dbInspector->fetchTable($this->activeDatabaseName, $tableName),
-            $this->dbInspector->fetchColumns($this->activeDatabaseName, $tableName),
-            $this->dbInspector->fetchIndexes($this->activeDatabaseName, $tableName)
-        );
-    }
-    
-    protected function loadDatabaseList()
-    {
-        $databaseList = $this->dbInspector->fetchDatabaseList();
-        $this->databaseList = array_combine($databaseList, $databaseList);
-    }
-
-    protected function ensureActiveDatabaseSet($failMessage = '')
-    {
-        if (empty($this->activeDatabaseName)) {
-            throw new SchnoopException(
-                !empty($failMessage) ? $failMessage : 'The active database has not been set.'
+        if (!isset($this->loadedDatabase[$databaseName])) {
+            $this->loadedDatabase[$databaseName] = $this->createDatabaseAdapter(
+                $this->dbBuilder->fetchDatabase($databaseName)
             );
         }
+
+        return $this->loadedDatabase[$databaseName];
+    }
+
+    public function getTableList($databaseName)
+    {
+        return $this->dbInspector->fetchTableList($databaseName);
+    }
+
+    public function getTable($databaseName, $tableName)
+    {
+        return $this->dbBuilder->fetchTable($databaseName, $tableName);
+    }
+
+    public function createDatabaseAdapter(DatabaseInterface $database)
+    {
+        return new DatabaseAdapter($database, $this);
+    }
+
+    public static function create(PDO $pdo)
+    {
+        return new self(
+            new MySQLInspector(
+                $pdo
+            ),
+            new SchemaBuilder(
+                new DatabaseMapper($pdo),
+                new TableMapper($pdo),
+                new ColumnMapper($pdo, new DataTypeFactory($pdo)),
+                new IndexMapper($pdo),
+                new ForeignKeyMapper($pdo)
+            )
+        );
     }
 }

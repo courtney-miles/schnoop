@@ -38,12 +38,12 @@ SQL
         );
     }
 
-    public function fetchForTable($databaseName, $tableName)
+    public function fetch($databaseName, $tableName)
     {
-        return $this->createFromRaw($this->fetchRawForTable($databaseName, $tableName));
+        return $this->createFromRaw($this->fetchRaw($databaseName, $tableName));
     }
 
-    public function fetchRawForTable($databaseName, $tableName)
+    public function fetchRaw($databaseName, $tableName)
     {
         $this->stmtSelectForeignKeys->execute([':database' => $databaseName, ':table' => $tableName]);
 

@@ -52,7 +52,7 @@ SQL
         $this->columnMapper = new ColumnMapper($this->getConnection(), $this->mockDataTypeMapper);
     }
 
-    public function testFetchRawForTable()
+    public function testFetchRaw()
     {
         $expectedRaw = [
             [
@@ -77,7 +77,7 @@ SQL
 
         $this->assertSame(
             $expectedRaw,
-            $this->columnMapper->fetchRawForTable($this->databaseName, $this->tableName)
+            $this->columnMapper->fetchRaw($this->databaseName, $this->tableName)
         );
     }
 
@@ -104,7 +104,7 @@ SQL
         $mockDataType = $this->createMock(DataTypeInterface::class);
 
         $this->mockDataTypeMapper->expects($this->once())
-            ->method('create')
+            ->method('createType')
             ->with($rawColumn['Type'], $rawColumn['Collation'])
             ->willReturn($mockDataType);
 
@@ -140,7 +140,7 @@ SQL
         $this->assertSame($mockColumn, $mockColumnMapper->createFromRaw($rawColumn));
     }
 
-    public function testFetchForTable()
+    public function testFetch()
     {
         $databaseName = 'schnoop_db';
         $tableName = 'schnoop_tbl';
@@ -158,7 +158,7 @@ SQL
         $mockColumnMapper = $this->getMockBuilder(ColumnMapper::class)
             ->setMethods(
                 [
-                    'fetchRawForTable',
+                    'fetchRaw',
                     'createFromRaw'
                 ]
             )
@@ -170,7 +170,7 @@ SQL
             )
             ->getMock();
         $mockColumnMapper->expects($this->once())
-            ->method('fetchRawForTable')
+            ->method('fetchRaw')
             ->with($databaseName, $tableName)
             ->willReturn($rawForTable);
         $mockColumnMapper->expects($this->exactly(count($rawForTable)))
@@ -186,7 +186,7 @@ SQL
 
         $this->assertSame(
             [$mockColumn, $mockColumn],
-            $mockColumnMapper->fetchForTable($databaseName, $tableName)
+            $mockColumnMapper->fetch($databaseName, $tableName)
         );
     }
 

@@ -55,13 +55,13 @@ class MediumTextTypeFactoryTest extends SchnoopTestCase
             MediumTextType::class,
             $collation,
             null,
-            $this->mediumTextTypeFactory->create($typeStr, $collation)
+            $this->mediumTextTypeFactory->createType($typeStr, $collation)
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse($this->mediumTextTypeFactory->create('varchar(254)'));
+        $this->assertFalse($this->mediumTextTypeFactory->createType('varchar(254)'));
     }
 
     /**

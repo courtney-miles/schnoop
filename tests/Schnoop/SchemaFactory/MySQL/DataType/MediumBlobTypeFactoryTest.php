@@ -52,13 +52,13 @@ class MediumBlobTypeFactoryTest extends SchnoopTestCase
     {
         $this->binaryTypeFactoryAsserts(
             MediumBlobType::class,
-            $this->mediumBlobTypeFactory->create($typeStr)
+            $this->mediumBlobTypeFactory->createType($typeStr)
         );
     }
 
     public function testCreateWrongType()
     {
-        $this->assertFalse($this->mediumBlobTypeFactory->create('varchar(254)'));
+        $this->assertFalse($this->mediumBlobTypeFactory->createType('varchar(254)'));
     }
 
     /**

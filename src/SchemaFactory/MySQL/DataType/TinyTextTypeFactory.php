@@ -2,16 +2,18 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
+use MilesAsylum\Schnoop\SchemaFactory\DataTypeFactoryInterface;
+use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\TinyTextType;
 
-class TinyTextTypeFactory
+class TinyTextTypeFactory implements DataTypeFactoryInterface
 {
     /**
      * @param $typeStr
      * @param null $collation
      * @return TinyTextType|bool
      */
-    public function create($typeStr, $collation = null)
+    public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
             return false;

@@ -12,7 +12,7 @@ class EnumTypeFactory extends AbstractOptionsTypeFactory
      * @param null $collation
      * @return DataTypeInterface|bool
      */
-    public function create($typeStr, $collation = null)
+    public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
             return false;

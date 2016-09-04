@@ -62,7 +62,7 @@ class CharTypeFactoryTest extends SchnoopTestCase
         $mockCharTypeFactory->method('newType')
             ->willReturn($mockCharType);
 
-        $this->assertSame($mockCharType, $mockCharTypeFactory->create($typeStr, $expectedCollation));
+        $this->assertSame($mockCharType, $mockCharTypeFactory->createType($typeStr, $expectedCollation));
     }
 
     /**
@@ -85,7 +85,7 @@ class CharTypeFactoryTest extends SchnoopTestCase
 
     public function testCreateWrongType()
     {
-        $this->assertFalse($this->charTypeFactory->create('varchar(254)'));
+        $this->assertFalse($this->charTypeFactory->createType('varchar(254)'));
     }
 
     /**

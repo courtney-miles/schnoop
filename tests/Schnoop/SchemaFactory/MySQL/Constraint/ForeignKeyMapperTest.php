@@ -82,7 +82,7 @@ SQL
         $this->assertSame($referenceColumnName, $foreignKeyColumn->getReferenceColumnName());
     }
 
-    public function testFetchRawForTable()
+    public function testFetchRaw()
     {
         $this->getConnection()->query(<<<SQL
 ALTER TABLE `{$this->databaseName}`.`{$this->tableName}`
@@ -107,7 +107,7 @@ SQL
 
         $this->assertSame(
             $expectedRaw,
-            $this->foreignKeyMapper->fetchRawForTable($this->databaseName, $this->tableName)
+            $this->foreignKeyMapper->fetchRaw($this->databaseName, $this->tableName)
         );
     }
 
@@ -157,7 +157,7 @@ SQL
         $mockForeignKeyMapper->createFromRaw($rawForeignKeys);
     }
 
-    public function testFetchForTable()
+    public function testFetch()
     {
         $databaseName = 'schnoop_do';
         $tableName = 'schnoop_tbl';
@@ -169,11 +169,11 @@ SQL
         /** @var ForeignKeyMapper|PHPUnit_Framework_MockObject_MockObject $mockForeignKeyMapper */
         $mockForeignKeyMapper = $this->getMockBuilder(ForeignKeyMapper::class)
             ->disableOriginalConstructor()
-            ->setMethods(['fetchRawForTable', 'createFromRaw'])
+            ->setMethods(['fetchRaw', 'createFromRaw'])
             ->getMock();
 
         $mockForeignKeyMapper->expects($this->once())
-            ->method('fetchRawForTable')
+            ->method('fetchRaw')
             ->with($databaseName, $tableName)
             ->willReturn($raw);
 
@@ -184,7 +184,7 @@ SQL
 
         $this->assertSame(
             $mockForeignKey,
-            $mockForeignKeyMapper->fetchForTable($databaseName, $tableName)
+            $mockForeignKeyMapper->fetch($databaseName, $tableName)
         );
     }
 

@@ -4,5 +4,5 @@ namespace MilesAsylum\Schnoop\SchemaFactory;
 
 interface ColumnMapperInterface
 {
-    public function fetchForTable($databaseName, $tableName);
+    public function fetch($databaseName, $tableName);
 }

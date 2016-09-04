@@ -44,15 +44,15 @@ SQL;
      * @param $tableName
      * @return ConstraintInterface[]
      */
-    public function fetchForTable($databaseName, $tableName)
+    public function fetch($databaseName, $tableName)
     {
-        $rows = $this->fetchRawForTable($databaseName, $tableName);
+        $rows = $this->fetchRaw($databaseName, $tableName);
         $indexes = $this->createFromRaw($rows);
 
         return $indexes;
     }
 
-    public function fetchRawForTable($databaseName, $tableName)
+    public function fetchRaw($databaseName, $tableName)
     {
         $rawIndexes = [];
 
@@ -105,14 +105,14 @@ SQL;
 
             if (!isset($indexes[$keyName])) {
                 if ($rawTableIndex['non_unique'] == 0) {
-                    $index = $this->newIndex(IndexInterface::CONSTRAINT_UNIQUE_INDEX, $keyName);
+                    $index = $this->newIndex(IndexInterface::CONSTRAINT_INDEX_UNIQUE, $keyName);
                 } else {
                     switch (strtolower($rawTableIndex['index_type'])) {
                         case 'fulltext':
-                            $index = $this->newIndex(IndexInterface::CONSTRAINT_FULLTEXT_INDEX, $keyName);
+                            $index = $this->newIndex(IndexInterface::CONSTRAINT_INDEX_FULLTEXT, $keyName);
                             break;
                         case 'rtree':
-                            $index = $this->newIndex(IndexInterface::CONSTRAINT_SPATIAL_INDEX, $keyName);
+                            $index = $this->newIndex(IndexInterface::CONSTRAINT_INDEX_SPATIAL, $keyName);
                             break;
                         case 'btree':
                         case 'hash':
@@ -148,17 +148,17 @@ SQL;
             case IndexInterface::CONSTRAINT_INDEX:
                 return new Index($indexName);
                 break;
-            case IndexInterface::CONSTRAINT_UNIQUE_INDEX:
+            case IndexInterface::CONSTRAINT_INDEX_UNIQUE:
                 if (strtolower($indexName) == 'primary') {
                     return new PrimaryKey($indexName);
                 } else {
                     return new UniqueIndex($indexName);
                 }
                 break;
-            case IndexInterface::CONSTRAINT_FULLTEXT_INDEX:
+            case IndexInterface::CONSTRAINT_INDEX_FULLTEXT:
                 return new FullTextIndex($indexName);
                 break;
-            case IndexInterface::CONSTRAINT_SPATIAL_INDEX:
+            case IndexInterface::CONSTRAINT_INDEX_SPATIAL:
                 return new SpatialIndex($indexName);
                 break;
             default:

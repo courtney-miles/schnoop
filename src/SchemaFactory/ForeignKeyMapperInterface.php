@@ -4,5 +4,5 @@ namespace MilesAsylum\Schnoop\SchemaFactory;
 
 interface ForeignKeyMapperInterface
 {
-    public function fetchForTable($databaseName, $tableName);
+    public function fetch($databaseName, $tableName);
 }

@@ -111,13 +111,13 @@ abstract class AbstractNumericPointTypeFactoryTestCase extends TestCase
 
         $mockNumericPointTypeFactory = $this->newMockNumericPointTypeFactory($mockNumericPointType);
 
-        $this->assertSame($mockNumericPointType, $mockNumericPointTypeFactory->create($typeStr));
+        $this->assertSame($mockNumericPointType, $mockNumericPointTypeFactory->createType($typeStr));
     }
 
 
     public function testCreateWrongType()
     {
-        $this->assertFalse($this->numericPointTypeFactory->create('bogus'));
+        $this->assertFalse($this->numericPointTypeFactory->createType('bogus'));
     }
 
     /**

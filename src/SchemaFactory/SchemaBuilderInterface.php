@@ -4,7 +4,7 @@ namespace MilesAsylum\Schnoop\SchemaFactory;
 
 interface SchemaBuilderInterface
 {
-    public function createDatabase($databaseName);
+    public function fetchDatabase($databaseName);
 
-    public function createTable($databaseName, $tableName);
+    public function fetchTable($databaseName, $tableName);
 }
