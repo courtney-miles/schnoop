@@ -11,9 +11,12 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop;
 use MilesAsylum\Schnoop\Inspector\InspectorInterface;
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\PHPUnit\Schnoop\MockPdo;
+use MilesAsylum\Schnoop\SchemaAdapter\DatabaseAdapter;
 use MilesAsylum\Schnoop\SchemaAdapter\DatabaseAdapterInterface;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Database\DatabaseMapper;
 use MilesAsylum\Schnoop\SchemaFactory\SchemaBuilderInterface;
 use MilesAsylum\Schnoop\Schnoop;
+use MilesAsylum\SchnoopSchema\MySQL\Database\Database;
 use MilesAsylum\SchnoopSchema\MySQL\Database\DatabaseInterface;
 use PHPUnit_Framework_MockObject_MockObject;
 
@@ -126,5 +129,21 @@ class SchnoopTest extends SchnoopTestCase
             ->willReturn($newTableReturn);
 
         $this->assertSame($newTableReturn, $this->schnoop->getTable($fetchDb, $fetchTable));
+    }
+
+    public function testNewDatabaseAdapter()
+    {
+        $mockDatabase = $this->createMock(Database::class);
+
+        $databaseAdapter = $this->schnoop->createDatabaseAdapter($mockDatabase);
+
+        $this->assertInstanceOf(DatabaseAdapter::class, $databaseAdapter);
+    }
+
+    public function testCreateSelf()
+    {
+        $mockPdo = $this->createMock(MockPdo::class);
+
+        $this->assertInstanceOf(Schnoop::class, Schnoop::createSelf($mockPdo));
     }
 }

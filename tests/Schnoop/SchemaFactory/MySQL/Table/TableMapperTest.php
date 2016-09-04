@@ -6,7 +6,6 @@ use MilesAsylum\Schnoop\PHPUnit\Framework\TestMySQLCase;
 use MilesAsylum\Schnoop\PHPUnit\Schnoop\MockPdo;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Table\TableMapper;
 use MilesAsylum\SchnoopSchema\MySQL\Table\Table;
-use MilesAsylum\SchnoopSchema\MySQL\Table\TableInterface;
 use PHPUnit_Framework_MockObject_MockObject;
 
 class TableMapperTest extends TestMySQLCase

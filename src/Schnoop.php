@@ -88,7 +88,7 @@ class Schnoop
         return new DatabaseAdapter($database, $this);
     }
 
-    public static function create(PDO $pdo)
+    public static function createSelf(PDO $pdo)
     {
         return new self(
             new MySQLInspector(

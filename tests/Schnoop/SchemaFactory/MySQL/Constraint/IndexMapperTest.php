@@ -2,6 +2,7 @@
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\Constraint;
 
+use MilesAsylum\Schnoop\Exception\SchnoopException;
 use MilesAsylum\Schnoop\PHPUnit\Framework\TestMySQLCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint\IndexMapper;
 use MilesAsylum\SchnoopSchema\MySQL\Constraint\FullTextIndex;
@@ -159,6 +160,31 @@ SQL
         );
 
         $mockIndexMapper->createFromRaw($rawForTable);
+    }
+
+    /**
+     * @expectedException \MilesAsylum\Schnoop\Exception\SchnoopException
+     */
+    public function testExceptionOnNewBogusIndex()
+    {
+        $this->indexMapper->newIndex('bogus', 'foo');
+    }
+
+    /**
+     * @expectedException \MilesAsylum\Schnoop\Exception\SchnoopException
+     * @expectedExceptionMessage Unknown index type, bogus.
+     */
+    public function testExceptionOnBogusTypeCreateFromRaw()
+    {
+        $rawIndexes = [
+            [
+                'key_name' => 'foo',
+                'non_unique' => 1,
+                'index_type' => 'bogus'
+            ]
+        ];
+
+        $this->indexMapper->createFromRaw($rawIndexes);
     }
 
     /**
