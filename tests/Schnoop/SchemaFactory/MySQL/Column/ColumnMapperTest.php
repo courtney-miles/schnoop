@@ -31,7 +31,7 @@ class ColumnMapperTest extends TestMySQLCase
     {
         parent::setUp();
 
-        $this->tableName = 'schenoop_tbl';
+        $this->tableName = 'schnoop_tbl';
         $this->databaseName = $this->getDatabaseName();
 
         $this->getConnection()->query(<<<SQL

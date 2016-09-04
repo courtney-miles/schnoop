@@ -8,7 +8,6 @@
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop;
 
-use MilesAsylum\Schnoop\DbInspector\DbInspectorInterface;
 use MilesAsylum\Schnoop\Inspector\InspectorInterface;
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\PHPUnit\Schnoop\MockPdo;

@@ -6,7 +6,6 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\BinaryTypeInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\FloatType;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\IntTypeInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\OptionsTypeInterface;
-use MilesAsylum\SchnoopSchema\MySQL\DataType\StringTypeInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\TimeTypeInterface;
 use PHPUnit\Framework\TestCase;
 

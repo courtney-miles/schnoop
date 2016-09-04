@@ -144,7 +144,7 @@ abstract class AbstractNumericPointTypeFactoryTestCase extends TestCase
      * @param int|null $expectedPrecision
      * @param int|null $expectedScale
      * @param bool $expectedZeroFill
-     * @return PHPUnit_Framework_MockObject_MockObject
+     * @return NumericPointTypeInterface|PHPUnit_Framework_MockObject_MockObject
      */
     protected function createMockNumericPointType(
         $expectedSigned,
