@@ -13,18 +13,23 @@ class DatabaseMapper implements DatabaseMapperInterface
      */
     protected $pdo;
 
-    protected $sqlSelectDatabaseAttributes;
+    /**
+     * @var \PDOStatement
+     */
+    protected $sqlSelectSchemata;
 
     public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
 
-        $this->sqlSelectDatabaseAttributes = <<< SQL
+        $this->sqlSelectSchemata = $this->pdo->prepare(<<< SQL
 SELECT
-  DATABASE()               AS `name`,
-  @@character_set_database AS `character_set_database`,
-  @@collation_database     AS `collation_database`
-SQL;
+  schema_name,
+  default_collation_name
+FROM information_schema.SCHEMATA
+WHERE SCHEMA_NAME = :databaseName
+SQL
+        );
     }
 
     public function fetch($databaseName)
@@ -34,38 +39,21 @@ SQL;
 
     public function fetchRaw($databaseName)
     {
-        $activeDatabaseName = $this->fetchActiveDatabaseName();
+        $this->sqlSelectSchemata->execute([':databaseName' => $databaseName]);
 
-        if ($activeDatabaseName != $databaseName) {
-            $this->setActiveDatabase($databaseName);
-        }
-
-        $row = $this->pdo
-            ->query($this->sqlSelectDatabaseAttributes)
-            ->fetch(PDO::FETCH_ASSOC);
-
-        if ($activeDatabaseName != $databaseName) {
-            $this->setActiveDatabase($activeDatabaseName);
-        }
-
-        return $row;
+        return $this->sqlSelectSchemata->fetch(PDO::FETCH_ASSOC);
     }
 
     public function createFromRaw(array $rawDatabase)
     {
-        return new Database(
-            $rawDatabase['name'],
-            $rawDatabase['collation_database']
-        );
+        $database = $this->newDatabase($rawDatabase['schema_name']);
+        $database->setDefaultCollation($rawDatabase['default_collation_name']);
+
+        return $database;
     }
 
-    protected function setActiveDatabase($databaseName)
+    public function newDatabase($databaseName)
     {
-        $this->pdo->query("USE `$databaseName`");
-    }
-
-    protected function fetchActiveDatabaseName()
-    {
-        return $this->pdo->query('SELECT DATABASE()')->fetchColumn();
+        return new Database($databaseName);
     }
 }
