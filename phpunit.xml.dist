@@ -1,6 +1,8 @@
 <?xml version="1.0" ?>
 <phpunit bootstrap="./PHPUnit/bootstrap.php">
     <php>
+        <ini name="display_errors" value="On" />
+        <ini name="error_reporting" value="E_ALL" />
         <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_ENABLED" value="true" />
         <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_HOST" value="localhost" />
         <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_USERNAME" value="root" />
