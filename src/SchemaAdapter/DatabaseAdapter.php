@@ -52,6 +52,11 @@ class DatabaseAdapter implements DatabaseAdapterInterface
         return $this->schnoop->getTable($this->database->getName(), $tableName);
     }
 
+    public function hasTable($tableName)
+    {
+        return $this->schnoop->hasTable($this->database->getName(), $tableName);
+    }
+
     public function __toString()
     {
         return (string)$this->database;
