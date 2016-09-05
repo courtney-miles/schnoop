@@ -9,9 +9,20 @@ class MySQLInspector implements InspectorInterface
      */
     protected $pdo;
 
+    /**
+     * @var \PDOStatement
+     */
     protected $stmtSelectDatabaseNames;
 
+    /**
+     * @var string
+     */
     protected $querySelectTableNames;
+
+    /**
+     * @var \PDOStatement
+     */
+    protected $stmtSelectActiveDatabase;
 
     public function __construct(\PDO $pdo)
     {
@@ -25,6 +36,11 @@ SQL
         $this->querySelectTableNames = <<<SQL
 SHOW TABLES FROM `%s`;
 SQL;
+
+        $this->stmtSelectActiveDatabase = $this->pdo->prepare(<<<SQL
+SELECT DATABASE()
+SQL
+        );
     }
 
     public function fetchDatabaseList()
@@ -44,5 +60,12 @@ SQL;
         );
 
         return $stmt->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
+    public function fetchActiveDatabase()
+    {
+        $this->stmtSelectActiveDatabase->execute();
+
+        return $this->stmtSelectActiveDatabase->fetchColumn();
     }
 }

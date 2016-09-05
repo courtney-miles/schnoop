@@ -45,4 +45,9 @@ SQL
     {
         $this->assertSame([$this->tableName], $this->mySQLInspector->fetchTableList($this->getDatabaseName()));
     }
+
+    public function testFetchActiveDatabase()
+    {
+        $this->assertSame($this->getDatabaseName(), $this->mySQLInspector->fetchActiveDatabase());
+    }
 }
