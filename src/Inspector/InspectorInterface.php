@@ -6,7 +6,7 @@ interface InspectorInterface
 {
     public function fetchDatabaseList();
 
-    public function fetchTableList($database);
+    public function fetchTableList($databaseName);
 
     public function fetchActiveDatabase();
 }

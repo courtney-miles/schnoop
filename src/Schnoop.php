@@ -63,7 +63,7 @@ class Schnoop
     public function getDatabase($databaseName = null)
     {
         if ($databaseName === null) {
-            $databaseName = $this->dbInspector->testFetchActiveDatabase();
+            $databaseName = $this->dbInspector->fetchActiveDatabase();
         }
 
         $databaseName = strtolower($databaseName);
@@ -85,6 +85,11 @@ class Schnoop
     public function getTable($databaseName, $tableName)
     {
         return $this->dbBuilder->fetchTable($databaseName, $tableName);
+    }
+
+    public function hasTable($databaseName, $tableName)
+    {
+        return in_array($tableName, $this->dbInspector->fetchTableList($databaseName));
     }
 
     public function createDatabaseAdapter(DatabaseInterface $database)

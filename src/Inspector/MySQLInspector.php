@@ -50,12 +50,12 @@ SQL
         return $this->stmtSelectDatabaseNames->fetchAll(\PDO::FETCH_COLUMN);
     }
 
-    public function fetchTableList($database)
+    public function fetchTableList($databaseName)
     {
         $stmt = $this->pdo->query(
             sprintf(
                 $this->querySelectTableNames,
-                $database
+                $databaseName
             )
         );
 
