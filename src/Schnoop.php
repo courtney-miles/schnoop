@@ -106,7 +106,7 @@ class Schnoop
             new SchemaBuilder(
                 new DatabaseMapper($pdo),
                 new TableMapper($pdo),
-                new ColumnMapper($pdo, new DataTypeFactory($pdo)),
+                new ColumnMapper($pdo, DataTypeFactory::createSelf()),
                 new IndexMapper($pdo),
                 new ForeignKeyMapper($pdo)
             )
