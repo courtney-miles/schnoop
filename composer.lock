@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/courtney-miles/schnoop-schema.git",
-                "reference": "14d6986fe35f1a2244dcb187c1256deb73ccbf15"
+                "reference": "6d6cdae5414c4c714998a6fce97e882e5a2a4fa7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/courtney-miles/schnoop-schema/zipball/14d6986fe35f1a2244dcb187c1256deb73ccbf15",
-                "reference": "14d6986fe35f1a2244dcb187c1256deb73ccbf15",
+                "url": "https://api.github.com/repos/courtney-miles/schnoop-schema/zipball/6d6cdae5414c4c714998a6fce97e882e5a2a4fa7",
+                "reference": "6d6cdae5414c4c714998a6fce97e882e5a2a4fa7",
                 "shasum": ""
             },
             "require": {
@@ -47,7 +47,7 @@
             ],
             "description": "Schnoop schema is a representation of a database schema using PHP objects.",
             "homepage": "https://github.com/courtney-miles/schnoop-schema",
-            "time": "2016-09-04 06:29:14"
+            "time": "2016-09-06 12:23:12"
         }
     ],
     "packages-dev": [
