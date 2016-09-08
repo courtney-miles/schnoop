@@ -109,6 +109,7 @@ SQL;
         $column->setNullable(strtolower($rawColumn['null']) == 'yes');
         $column->setAutoIncrement($rawColumn['extra'] == 'auto_increment');
         $column->setDefault($rawColumn['default']);
+        $column->setOnUpdateCurrentTimestamp(strcasecmp($rawColumn['extra'], 'on update CURRENT_TIMESTAMP') == 0);
         $column->setComment($rawColumn['comment']);
 
         return $column;

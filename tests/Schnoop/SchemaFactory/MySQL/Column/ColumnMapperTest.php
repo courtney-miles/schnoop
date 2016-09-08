@@ -98,9 +98,14 @@ SQL
      * @param array $rawColumn
      * @param bool $expectedNullable
      * @param bool $expectedAutoIncrement
+     * @param bool $expectedOnUpdateCurrentTimestamp
      */
-    public function testCreateFromRaw(array $rawColumn, $expectedNullable, $expectedAutoIncrement)
-    {
+    public function testCreateFromRaw(
+        array $rawColumn,
+        $expectedNullable,
+        $expectedAutoIncrement,
+        $expectedOnUpdateCurrentTimestamp
+    ) {
         $mockDataType = $this->createMock(DataTypeInterface::class);
 
         $this->mockDataTypeMapper->expects($this->once())
@@ -118,6 +123,9 @@ SQL
         $mockColumn->expects($this->once())
             ->method('setDefault')
             ->with($rawColumn['Default']);
+        $mockColumn->expects($this->once())
+            ->method('setOnUpdateCurrentTimestamp')
+            ->with($expectedOnUpdateCurrentTimestamp);
         $mockColumn->expects($this->once())
             ->method('setComment')
             ->with($rawColumn['Comment']);
@@ -207,6 +215,21 @@ SQL
                     'Extra' => 'auto_increment',
                     'Comment' => 'ID comment.'
                 ],
+                false,
+                true,
+                false
+            ],
+            [
+                [
+                    'Field' => 'id',
+                    'Type' => 'timestamp',
+                    'Collation' => null,
+                    'Null' => 'NO',
+                    'Default' => ColumnInterface::DEFAULT_CURRENT_TIMESTAMP,
+                    'Extra' => 'on update CURRENT_TIMESTAMP',
+                    'Comment' => 'ID comment.'
+                ],
+                false,
                 false,
                 true
             ]
