@@ -45,9 +45,9 @@ class MySQLTestHelper
         return $_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_PASSWORD'];
     }
 
-    public function getConnectedUser()
+    public function getDatabaseHost()
     {
-        return $this->pdo->query('SELECT USER()')->fetchColumn();
+        return $_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_HOST'];
     }
 
     public function raiseTestSchema()

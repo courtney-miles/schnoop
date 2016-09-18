@@ -44,4 +44,14 @@ abstract class TestMySQLCase extends TestCase
     {
         return self::$mysqlHelper->getDatabaseName();
     }
+
+    public function getDatabaseUser()
+    {
+        return self::$mysqlHelper->getDatabaseUser();
+    }
+
+    public function getDatabaseHost()
+    {
+        return self::$mysqlHelper->getDatabaseHost();
+    }
 }
