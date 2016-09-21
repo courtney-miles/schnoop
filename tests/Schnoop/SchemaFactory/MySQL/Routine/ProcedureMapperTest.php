@@ -8,6 +8,7 @@ use MilesAsylum\Schnoop\SchemaFactory\DataTypeFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\FunctionMapper;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\ParametersFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\ProcedureMapper;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\SetVar\SqlModeFactory;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
 use MilesAsylum\SchnoopSchema\MySQL\Routine\FunctionRoutine;
 use MilesAsylum\SchnoopSchema\MySQL\Routine\ProcedureParameterInterface;
@@ -29,6 +30,11 @@ class ProcedureMapperTest extends TestMySQLCase
     protected $mockParametersFactory;
 
     /**
+     * @var SqlModeFactory|PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $mockSqlModeFactory;
+
+    /**
      * @var ProcedureMapper
      */
     protected $procedureMapper;
@@ -41,6 +47,7 @@ class ProcedureMapperTest extends TestMySQLCase
         $this->databaseName = $this->getDatabaseName();
         $this->definer = $this->getDatabaseUser() . '@' . $this->getDatabaseHost();
         $this->mockParametersFactory = $this->createMock(ParametersFactory::class);
+        $this->mockSqlModeFactory = $this->createMock(SqlModeFactory::class);
 
         $this->getConnection()->exec(<<<SQL
 DROP PROCEDURE IF EXISTS `{$this->databaseName}`.`{$this->procedureName}` 
@@ -57,16 +64,11 @@ END
 SQL
         );
 
-        $this->procedureMapper = new ProcedureMapper($this->getConnection(), $this->mockParametersFactory);
-    }
-
-    public function testNewSqlMode()
-    {
-        $mode = 'FOO';
-        $sqlMode = $this->procedureMapper->newSqlMode($mode);
-
-        $this->assertInstanceOf(SqlMode::class, $sqlMode);
-        $this->assertSame($mode, $sqlMode->getMode());
+        $this->procedureMapper = new ProcedureMapper(
+            $this->getConnection(),
+            $this->mockParametersFactory,
+            $this->mockSqlModeFactory
+        );
     }
 
     public function testNewFunction()
@@ -121,6 +123,10 @@ END',
 
         $mockSqlMode = $this->createMock(SqlMode::class);
 
+        $this->mockSqlModeFactory->method('newSqlMode')
+            ->with($raw['sql_mode'])
+            ->willReturn($mockSqlMode);
+
         $mockProcedure = $this->createMock(ProcedureRoutine::class);
         $mockProcedure->expects($this->once())
             ->method('setDefiner')
@@ -153,15 +159,18 @@ END',
 
         /** @var ProcedureMapper|PHPUnit_Framework_MockObject_MockObject $procedureMapper */
         $procedureMapper = $this->getMockBuilder(ProcedureMapper::class)
-            ->setConstructorArgs([$this->createMock(MockPdo::class), $this->mockParametersFactory])
+            ->setConstructorArgs(
+                [
+                    $this->createMock(MockPdo::class),
+                    $this->mockParametersFactory,
+                    $this->mockSqlModeFactory
+                ]
+            )
             ->setMethods(['newProcedure', 'newSqlMode'])
             ->getMock();
         $procedureMapper->method('newProcedure')
             ->with($raw['name'])
             ->willReturn($mockProcedure);
-        $procedureMapper->method('newSqlMode')
-            ->with($raw['sql_mode'])
-            ->willReturn($mockSqlMode);
 
         $this->assertSame($mockProcedure, $procedureMapper->createFromRaw($raw));
     }
@@ -174,7 +183,13 @@ END',
 
         /** @var ProcedureMapper|PHPUnit_Framework_MockObject_MockObject $procedureMapper */
         $procedureMapper = $this->getMockBuilder(ProcedureMapper::class)
-            ->setConstructorArgs([$this->createMock(MockPdo::class), $this->mockParametersFactory])
+            ->setConstructorArgs(
+                [
+                    $this->createMock(MockPdo::class),
+                    $this->mockParametersFactory,
+                    $this->mockSqlModeFactory
+                ]
+            )
             ->setMethods(['fetchRaw', 'createFromRaw'])
             ->getMock();
         $procedureMapper->expects($this->once())

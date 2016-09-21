@@ -3,6 +3,7 @@
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine;
 
 use MilesAsylum\Schnoop\SchemaFactory\DataTypeFactoryInterface;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\SetVar\SqlModeFactory;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
 use MilesAsylum\SchnoopSchema\MySQL\Routine\FunctionRoutine;
 
@@ -16,9 +17,10 @@ class FunctionMapper extends AbstractRoutineMapper
     public function __construct(
         \PDO $pdo,
         ParametersFactory $parametersFactory,
+        SqlModeFactory $sqlModeFactory,
         DataTypeFactoryInterface $dataTypeFactory
     ) {
-        parent::__construct($pdo, $parametersFactory);
+        parent::__construct($pdo, $parametersFactory, $sqlModeFactory);
 
         $this->dataTypeFactory = $dataTypeFactory;
     }

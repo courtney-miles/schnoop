@@ -2,6 +2,7 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine;
 
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\SetVar\SqlModeFactory;
 use MilesAsylum\SchnoopSchema\MySQL\Routine\RoutineInterface;
 use MilesAsylum\SchnoopSchema\MySQL\SetVar\SqlMode;
 
@@ -22,10 +23,16 @@ abstract class AbstractRoutineMapper
      */
     protected $parametersFactory;
 
-    public function __construct(\PDO $pdo, ParametersFactory $parametersFactory)
+    /**
+     * @var SqlModeFactory
+     */
+    protected $sqlModeFactory;
+
+    public function __construct(\PDO $pdo, ParametersFactory $parametersFactory, SqlModeFactory $sqlModeFactory)
     {
         $this->pdo = $pdo;
         $this->parametersFactory = $parametersFactory;
+        $this->sqlModeFactory = $sqlModeFactory;
 
         $this->stmtSelectFunction = $this->pdo->prepare(<<<SQL
 SELECT
@@ -47,11 +54,6 @@ SQL
         );
     }
 
-    public function newSqlMode($mode)
-    {
-        return new SqlMode($mode);
-    }
-
     protected function hydrateRoutine(RoutineInterface $routine, array $raw)
     {
         $routine->setDefiner($raw['definer']);
@@ -59,7 +61,7 @@ SQL
         $routine->setDeterministic(strtolower($raw['is_deterministic']) == 'yes');
         $routine->setSqlSecurity($raw['security_type']);
         $routine->setComment($raw['comment']);
-        $routine->setSqlMode($this->newSqlMode($raw['sql_mode']));
+        $routine->setSqlMode($this->sqlModeFactory->newSqlMode($raw['sql_mode']));
 
         $body = $raw['body'];
         $body = preg_replace('/^(BEGIN\s)/i', '', $body);

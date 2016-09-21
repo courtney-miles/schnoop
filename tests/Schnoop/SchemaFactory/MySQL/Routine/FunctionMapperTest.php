@@ -7,6 +7,7 @@ use MilesAsylum\Schnoop\PHPUnit\Schnoop\MockPdo;
 use MilesAsylum\Schnoop\SchemaFactory\DataTypeFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\FunctionMapper;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\ParametersFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\SetVar\SqlModeFactory;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
 use MilesAsylum\SchnoopSchema\MySQL\Routine\FunctionParameter;
 use MilesAsylum\SchnoopSchema\MySQL\Routine\FunctionParameterInterface;
@@ -33,6 +34,11 @@ class FunctionMapperTest extends TestMySQLCase
     protected $mockParametersFactory;
 
     /**
+     * @var SqlModeFactory|PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $mockSqlModeFactory;
+
+    /**
      * @var FunctionMapper
      */
     protected $functionMapper;
@@ -46,6 +52,7 @@ class FunctionMapperTest extends TestMySQLCase
         $this->definer = $this->getDatabaseUser() . '@' . $this->getDatabaseHost();
         $this->mockDataTypeFactory = $this->createMock(DataTypeFactoryInterface::class);
         $this->mockParametersFactory = $this->createMock(ParametersFactory::class);
+        $this->mockSqlModeFactory = $this->createMock(SqlModeFactory::class);
 
         $this->getConnection()->exec(<<<SQL
 DROP FUNCTION IF EXISTS `{$this->databaseName}`.`{$this->functionName}` 
@@ -66,17 +73,9 @@ SQL
         $this->functionMapper = new FunctionMapper(
             $this->getConnection(),
             $this->mockParametersFactory,
+            $this->mockSqlModeFactory,
             $this->mockDataTypeFactory
         );
-    }
-
-    public function testNewSqlMode()
-    {
-        $mode = 'FOO';
-        $sqlMode = $this->functionMapper->newSqlMode($mode);
-
-        $this->assertInstanceOf(SqlMode::class, $sqlMode);
-        $this->assertSame($mode, $sqlMode->getMode());
     }
 
     public function testNewFunction()
@@ -134,6 +133,11 @@ END',
         $mockReturnType = $this->createMock(DataTypeInterface::class);
         $mockSqlMode = $this->createMock(SqlMode::class);
 
+        $this->mockSqlModeFactory->expects($this->once())
+            ->method('newSqlMode')
+            ->with($raw['sql_mode'])
+            ->willReturn($mockSqlMode);
+
         $mockFunction = $this->createMock(FunctionRoutine::class);
         $mockFunction->expects($this->once())
             ->method('setDefiner')
@@ -170,15 +174,19 @@ END',
 
         /** @var FunctionMapper|PHPUnit_Framework_MockObject_MockObject $functionMapper */
         $functionMapper = $this->getMockBuilder(FunctionMapper::class)
-            ->setConstructorArgs([$this->createMock(MockPdo::class), $this->mockParametersFactory, $mockDataTypeFactory])
+            ->setConstructorArgs(
+                [
+                    $this->createMock(MockPdo::class),
+                    $this->mockParametersFactory,
+                    $this->mockSqlModeFactory,
+                    $mockDataTypeFactory
+                ]
+            )
             ->setMethods(['newFunction', 'newSqlMode'])
             ->getMock();
         $functionMapper->method('newFunction')
             ->with($raw['name'], $mockReturnType)
             ->willReturn($mockFunction);
-        $functionMapper->method('newSqlMode')
-            ->with($raw['sql_mode'])
-            ->willReturn($mockSqlMode);
 
         $this->assertSame($mockFunction, $functionMapper->createFromRaw($raw));
     }
@@ -193,7 +201,14 @@ END',
 
         /** @var FunctionMapper|PHPUnit_Framework_MockObject_MockObject $functionMapper */
         $functionMapper = $this->getMockBuilder(FunctionMapper::class)
-            ->setConstructorArgs([$this->createMock(MockPdo::class), $this->mockParametersFactory, $mockDataTypeFactory])
+            ->setConstructorArgs(
+                [
+                    $this->createMock(MockPdo::class),
+                    $this->mockParametersFactory,
+                    $this->mockSqlModeFactory,
+                    $mockDataTypeFactory
+                ]
+            )
             ->setMethods(['fetchRaw', 'createFromRaw'])
             ->getMock();
         $functionMapper->expects($this->once())
