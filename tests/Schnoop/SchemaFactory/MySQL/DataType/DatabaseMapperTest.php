@@ -4,7 +4,7 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\TestMySQLCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Database\DatabaseMapper;
-use MilesAsylum\SchnoopSchema\MySQL\Database\Database;
+use MilesAsylum\Schnoop\Schema\Database;
 use PHPUnit_Framework_MockObject_MockObject;
 
 class DatabaseMapperTest extends TestMySQLCase

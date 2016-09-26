@@ -11,13 +11,10 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop;
 use MilesAsylum\Schnoop\Inspector\InspectorInterface;
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\PHPUnit\Schnoop\MockPdo;
-use MilesAsylum\Schnoop\SchemaAdapter\DatabaseAdapter;
-use MilesAsylum\Schnoop\SchemaAdapter\DatabaseAdapterInterface;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\Database\DatabaseMapper;
+use MilesAsylum\Schnoop\Schema\Database;
+use MilesAsylum\Schnoop\Schema\DatabaseInterface;
 use MilesAsylum\Schnoop\SchemaFactory\SchemaBuilderInterface;
 use MilesAsylum\Schnoop\Schnoop;
-use MilesAsylum\SchnoopSchema\MySQL\Database\Database;
-use MilesAsylum\SchnoopSchema\MySQL\Database\DatabaseInterface;
 use PHPUnit_Framework_MockObject_MockObject;
 
 class SchnoopTest extends SchnoopTestCase
@@ -79,29 +76,14 @@ class SchnoopTest extends SchnoopTestCase
     public function testGetDatabase()
     {
         $fetchDb = $this->databaseList[0];
-        $fetchDbReturn = array('Something');
         $mockDatabase = $this->createMock(DatabaseInterface::class);
-        $mockDatabaseAdapter = $this->createMock(DatabaseAdapterInterface::class);
 
         $this->mockSchemaBuilder->expects($this->atLeastOnce())
             ->method('fetchDatabase')
             ->with($fetchDb)
             ->willReturn($mockDatabase);
 
-        /** @var Schnoop|PHPUnit_Framework_MockObject_MockObject $schnoop */
-        $schnoop = $this->getMockBuilder(Schnoop::class)
-            ->setConstructorArgs(
-                [
-                    $this->mockInspector,
-                    $this->mockSchemaBuilder
-                ]
-            )->setMethods(['createDatabaseAdapter'])
-            ->getMock();
-        $schnoop->method('createDatabaseAdapter')
-            ->with($mockDatabase)
-            ->willReturn($mockDatabaseAdapter);
-
-        $this->assertSame($mockDatabaseAdapter, $schnoop->getDatabase($fetchDb));
+        $this->assertSame($mockDatabase, $this->schnoop->getDatabase($fetchDb));
     }
 
     public function testGetTableList()
@@ -129,15 +111,6 @@ class SchnoopTest extends SchnoopTestCase
             ->willReturn($newTableReturn);
 
         $this->assertSame($newTableReturn, $this->schnoop->getTable($fetchDb, $fetchTable));
-    }
-
-    public function testNewDatabaseAdapter()
-    {
-        $mockDatabase = $this->createMock(Database::class);
-
-        $databaseAdapter = $this->schnoop->createDatabaseAdapter($mockDatabase);
-
-        $this->assertInstanceOf(DatabaseAdapter::class, $databaseAdapter);
     }
 
     public function testCreateSelf()

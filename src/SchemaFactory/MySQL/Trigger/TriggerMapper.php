@@ -3,10 +3,11 @@
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\Trigger;
 
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\SetVar\SqlModeFactory;
+use MilesAsylum\Schnoop\SchemaFactory\TriggerMapperInterface;
 use MilesAsylum\SchnoopSchema\MySQL\Trigger\Trigger;
 use PDO;
 
-class TriggerMapper
+class TriggerMapper implements TriggerMapperInterface
 {
     protected $pdo;
 
@@ -27,6 +28,9 @@ SHOW TRIGGERS FROM `%s` WHERE `Table` = :tableName
 SQL;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function fetch($databaseName, $tableName)
     {
         return $this->createFromRaw($this->fetchRaw($databaseName, $tableName), $databaseName);

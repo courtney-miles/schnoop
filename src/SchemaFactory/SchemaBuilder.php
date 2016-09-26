@@ -2,6 +2,9 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory;
 
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Trigger\TriggerMapper;
+use MilesAsylum\Schnoop\Schnoop;
+
 class SchemaBuilder implements SchemaBuilderInterface
 {
     /**
@@ -29,28 +32,55 @@ class SchemaBuilder implements SchemaBuilderInterface
      */
     private $foreignKeyMapper;
 
+    /**
+     * @var TriggerMapperInterface
+     */
+    private $triggerMapper;
+
+    /**
+     * @var Schnoop
+     */
+    private $schnoop;
+
     public function __construct(
         DatabaseMapperInterface $databaseMapper,
         TableMapperInterface $tableMapper,
         ColumnMapperInterface $columnMapper,
         IndexMapperInterface $indexMapper,
-        ForeignKeyMapperInterface $foreignKeyMapper
+        ForeignKeyMapperInterface $foreignKeyMapper,
+        TriggerMapperInterface $triggerMapper
     ) {
         $this->databaseMapper = $databaseMapper;
         $this->tableMapper = $tableMapper;
         $this->columnMapper = $columnMapper;
         $this->indexMapper = $indexMapper;
         $this->foreignKeyMapper = $foreignKeyMapper;
+        $this->triggerMapper = $triggerMapper;
     }
 
+    public function setSchnoop(Schnoop $schnoop)
+    {
+        $this->schnoop = $schnoop;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function fetchDatabase($databaseName)
     {
-        return $this->databaseMapper->fetch($databaseName);
+        $database = $this->databaseMapper->fetch($databaseName);
+        $database->setSchnoop($this->schnoop);
+
+        return $database;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function fetchTable($databaseName, $tableName)
     {
         $table = $this->tableMapper->fetch($databaseName, $tableName);
+        $table->setSchnoop($this->schnoop);
         $table->setColumns(
             $this->fetchColumns($databaseName, $tableName)
         );
@@ -62,6 +92,14 @@ class SchemaBuilder implements SchemaBuilderInterface
         );
 
         return $table;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function fetchTriggers($databaseName, $tableName)
+    {
+        return $this->triggerMapper->fetch($databaseName, $tableName);
     }
 
     protected function fetchColumns($databaseName, $tableName)

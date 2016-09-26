@@ -2,7 +2,7 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory;
 
-use MilesAsylum\SchnoopSchema\MySQL\Table\TableInterface;
+use MilesAsylum\Schnoop\Schema\TableInterface;
 
 interface TableMapperInterface
 {

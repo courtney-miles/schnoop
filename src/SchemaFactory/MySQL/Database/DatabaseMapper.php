@@ -3,7 +3,7 @@
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\Database;
 
 use MilesAsylum\Schnoop\SchemaFactory\DatabaseMapperInterface;
-use MilesAsylum\SchnoopSchema\MySQL\Database\Database;
+use MilesAsylum\Schnoop\Schema\Database;
 use PDO;
 
 class DatabaseMapper implements DatabaseMapperInterface
@@ -52,6 +52,9 @@ SQL
         return $database;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function newDatabase($databaseName)
     {
         return new Database($databaseName);

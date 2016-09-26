@@ -5,7 +5,7 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\Table;
 use MilesAsylum\Schnoop\PHPUnit\Framework\TestMySQLCase;
 use MilesAsylum\Schnoop\PHPUnit\Schnoop\MockPdo;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Table\TableMapper;
-use MilesAsylum\SchnoopSchema\MySQL\Table\Table;
+use MilesAsylum\Schnoop\Schema\Table;
 use PHPUnit_Framework_MockObject_MockObject;
 
 class TableMapperTest extends TestMySQLCase
@@ -59,7 +59,7 @@ SQL
 
     public function testNewTable()
     {
-        $table = $this->tableMapper->newTable($this->tableName);
+        $table = $this->tableMapper->newTable($this->databaseName, $this->tableName);
 
         $this->assertInstanceOf(Table::class, $table);
         $this->assertSame($this->tableName, $table->getName());
@@ -95,10 +95,10 @@ SQL
             ->setConstructorArgs([$this->createMock(MockPdo::class)])
             ->getMock();
         $mockTableMapper->method('newTable')
-            ->with($this->tableName)
+            ->with($this->databaseName, $this->tableName)
             ->willReturn($mockTable);
 
-        $this->assertSame($mockTable, $mockTableMapper->createFromRaw($raw));
+        $this->assertSame($mockTable, $mockTableMapper->createFromRaw($raw, $this->databaseName));
     }
 
     public function testFetch()

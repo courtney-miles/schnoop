@@ -1,0 +1,72 @@
+<?php
+
+namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema;
+
+use MilesAsylum\Schnoop\Schema\Database;
+use MilesAsylum\Schnoop\Schnoop;
+use MilesAsylum\SchnoopSchema\MySQL\Table\TableInterface;
+use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_MockObject_MockObject;
+
+class DatabaseTest extends TestCase
+{
+    protected $name = 'schnoop_db';
+
+    /**
+     * @var Database
+     */
+    protected $database;
+
+    /**
+     * @var Schnoop|PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $mockSchnoop;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->mockSchnoop = $this->createMock(Schnoop::class);
+
+        $this->database = new Database($this->name);
+        $this->database->setSchnoop($this->mockSchnoop);
+    }
+
+    public function testGetTableList()
+    {
+        $tableList = ['schnoop_tbl'];
+
+        $this->mockSchnoop->expects($this->once())
+            ->method('getTableList')
+            ->with($this->name)
+            ->willReturn($tableList);
+
+        $this->assertSame($tableList, $this->database->getTableList());
+    }
+
+    public function testGetTable()
+    {
+        $tableName = 'schnoop_tbl';
+
+        $mockTable = $this->createMock(TableInterface::class);
+
+        $this->mockSchnoop->expects($this->once())
+            ->method('getTable')
+            ->with($this->name, $tableName)
+            ->willReturn($mockTable);
+
+        $this->assertSame($mockTable, $this->database->getTable($tableName));
+    }
+
+    public function testHasTable()
+    {
+        $tableName = 'schnoop_tbl';
+
+        $this->mockSchnoop->expects($this->once())
+            ->method('hasTable')
+            ->with($this->name, $tableName)
+            ->willReturn(true);
+
+        $this->assertTrue($this->database->hasTable($tableName));
+    }
+}

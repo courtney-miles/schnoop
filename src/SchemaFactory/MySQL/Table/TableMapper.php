@@ -3,7 +3,7 @@
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\Table;
 
 use MilesAsylum\Schnoop\SchemaFactory\TableMapperInterface;
-use MilesAsylum\SchnoopSchema\MySQL\Table\Table;
+use MilesAsylum\Schnoop\Schema\Table;
 use PDO;
 
 class TableMapper implements TableMapperInterface
@@ -29,7 +29,7 @@ SQL;
 
     public function fetch($databaseName, $tableName)
     {
-        return $this->createFromRaw($this->fetchRaw($databaseName, $tableName));
+        return $this->createFromRaw($this->fetchRaw($databaseName, $tableName), $databaseName);
     }
 
     public function fetchRaw($databaseName, $tableName)
@@ -65,11 +65,11 @@ SQL;
         return $raw;
     }
 
-    public function createFromRaw(array $rawTable)
+    public function createFromRaw(array $rawTable, $databaseName)
     {
         $rawTable = $this->keysToLower($rawTable);
 
-        $table = $this->newTable($rawTable['name']);
+        $table = $this->newTable($databaseName, $rawTable['name']);
         $table->setEngine($rawTable['engine']);
         $table->setRowFormat($rawTable['row_format']);
         $table->setDefaultCollation($rawTable['collation']);
@@ -78,9 +78,9 @@ SQL;
         return $table;
     }
 
-    public function newTable($tableName)
+    public function newTable($databaseName, $tableName)
     {
-        return new Table($tableName);
+        return new Table($databaseName, $tableName);
     }
 
     protected function keysToLower(array $arr)
