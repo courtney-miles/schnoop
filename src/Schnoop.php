@@ -48,6 +48,7 @@ class Schnoop
     ) {
         $this->dbInspector = $dbInspector;
         $this->dbBuilder = $dbBuilder;
+        $this->dbBuilder->setSchnoop($this);
     }
 
     public function getDatabaseList()

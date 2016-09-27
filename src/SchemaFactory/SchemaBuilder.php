@@ -58,6 +58,9 @@ class SchemaBuilder implements SchemaBuilderInterface
         $this->triggerMapper = $triggerMapper;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setSchnoop(Schnoop $schnoop)
     {
         $this->schnoop = $schnoop;
