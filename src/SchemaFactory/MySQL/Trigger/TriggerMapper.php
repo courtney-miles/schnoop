@@ -87,7 +87,14 @@ SQL;
             );
 
             $trigger->setDefiner($rawTrigger['definer']);
-            $trigger->setStatement($rawTrigger['statement']);
+
+            $statement = preg_replace(
+                ['/^BEGIN\s/i', '/\sEND$/i'],
+                ['', ''],
+                $rawTrigger['statement']
+            );
+            $trigger->setBody($statement);
+
             $trigger->setDatabaseName($databaseName);
             $trigger->setSqlMode($this->sqlModeFactory->newSqlMode($rawTrigger['sql_mode']));
 

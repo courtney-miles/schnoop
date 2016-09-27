@@ -92,13 +92,17 @@ END",
 
     public function testCreateFromRaw()
     {
+        $trimmedStatement = <<<SQL
+DECLARE id INT;
+SELECT 1 INTO id;
+SQL;
+
         $raw = [
             'Trigger' => $this->triggerName,
             'Event' => 'INSERT',
             'Table' => $this->tableName,
             'Statement' => "BEGIN
-DECLARE id INT;
-SELECT 1 INTO id;
+{$trimmedStatement}
 END",
             'Timing' => 'AFTER',
             'sql_mode' => '',
@@ -129,8 +133,8 @@ END",
             ->method('setDefiner')
             ->with($raw['Definer']);
         $mockTrigger->expects($this->once())
-            ->method('setStatement')
-            ->with($raw['Statement']);
+            ->method('setBody')
+            ->with($trimmedStatement);
         $mockTrigger->expects($this->once())
             ->method('setDatabaseName')
             ->with($this->databaseName);

@@ -65,6 +65,10 @@ class Schnoop
         return in_array($databaseName, $this->dbInspector->fetchDatabaseList());
     }
 
+    /**
+     * @param null $databaseName
+     * @return Database
+     */
     public function getDatabase($databaseName = null)
     {
         if ($databaseName === null) {
