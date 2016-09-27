@@ -14,7 +14,7 @@ interface TableInterface extends SSTableInterface
     public function setSchnoop(Schnoop $schnoop);
 
     /**
-     * @return TriggerInterface
+     * @return TriggerInterface[]
      */
     public function getTriggers();
 }

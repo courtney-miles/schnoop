@@ -21,6 +21,7 @@ use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\LongBlobTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\LongTextTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\MediumBlobTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\MediumIntTypeFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\MediumTextTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\SetTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\SmallIntTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\TextTypeFactory;
@@ -191,7 +192,7 @@ class DataTypeFactoryTest extends TestCase
             // Text type mappers.
             'tinytext' => ['tinytext', TinyTextTypeFactory::class],
             'text' => ['text', TextTypeFactory::class],
-            'mediumtext' => ['mediumtext', MediumIntTypeFactory::class],
+            'mediumtext' => ['mediumtext', MediumTextTypeFactory::class],
             'longtext' => ['longtext', LongTextTypeFactory::class],
             // Option type mappers.
             'enum' => ['enum', EnumTypeFactory::class],

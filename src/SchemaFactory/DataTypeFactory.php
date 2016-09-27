@@ -19,6 +19,7 @@ use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\LongBlobTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\LongTextTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\MediumBlobTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\MediumIntTypeFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\MediumTextTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\SetTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\SmallIntTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\TextTypeFactory;
@@ -125,7 +126,7 @@ class DataTypeFactory implements DataTypeFactoryInterface
         // Text type mappers.
         $dataTypeFactory->addFactoryTypeHandler('tinytext', new TinyTextTypeFactory());
         $dataTypeFactory->addFactoryTypeHandler('text', new TextTypeFactory());
-        $dataTypeFactory->addFactoryTypeHandler('mediumtext', new MediumIntTypeFactory());
+        $dataTypeFactory->addFactoryTypeHandler('mediumtext', new MediumTextTypeFactory());
         $dataTypeFactory->addFactoryTypeHandler('longtext', new LongTextTypeFactory());
         // Option type mappers.
         $dataTypeFactory->addFactoryTypeHandler('enum', new EnumTypeFactory());
