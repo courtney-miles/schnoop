@@ -8,8 +8,14 @@ use MilesAsylum\SchnoopSchema\MySQL\Table\TableInterface;
 
 interface DatabaseInterface extends SSDatabaseInterface
 {
+    /**
+     * @param Schnoop $schnoop
+     */
     public function setSchnoop(Schnoop $schnoop);
 
+    /**
+     * @return array
+     */
     public function getTableList();
 
     /**
@@ -18,5 +24,9 @@ interface DatabaseInterface extends SSDatabaseInterface
      */
     public function getTable($tableName);
 
+    /**
+     * @param $tableName
+     * @return bool
+     */
     public function hasTable($tableName);
 }

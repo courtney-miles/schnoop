@@ -14,16 +14,16 @@ To construct the Schnoop object, first establish a PDO connection to your databa
 
 ```php
 <?php
+use \MilesAsylum\Schnoop;
 
 $conn = new \PDO('mysql:host=localhost', 'root');
-$schnoop = SchnoopFactory::create($conn);
+$schnoop = Schnoop::createSelf($conn);
 ```
 
 ### Get a list of databases
 
 ```php
 <?php
-
 // ...
 
 $databaseList = $schnoop->getDatabaseList;
@@ -35,7 +35,6 @@ print_r($databaseList);
 
 ```php
 <?php
-
 // ...
 
 $databaseName = 'acme_db';
@@ -55,7 +54,6 @@ if ($schnoop->hasDatabase($databaseName)) {
 
 ```php
 <?php
-
 // ...
 
 $tableName = 'acme_tbl';
@@ -67,8 +65,8 @@ if ($database->hasTable($tableName){
     echo $table->getEngine(); // I.e. InnoDB
     echo $table->getDefaultCollation(); // I.e. utf8mb_general_ci
     echo $table->getRowFormat(); // I.e. dynamic
-    print_r($table->getColumnList()) // Array of column names;
-    print_r($table->getIndexList()) // Array of index names;
+    print_r($table->getColumnList()); // Array of column names;
+    print_r($table->getIndexList()); // Array of index names;
 } else {
     echo "A table named, $tableName, cannot be found in {$database->getName()}";
 }
@@ -78,7 +76,6 @@ if ($database->hasTable($tableName){
 
 ```php
 <?php
-
 // ...
 
 $columnName = 'acme_col';
@@ -88,7 +85,7 @@ if ($table->hasColumn($columnName) {
     
     echo $column->getName(); // The name of the column.
     echo $column->getDefault(); // I.e. The default value of the column.
-    var_export($column->isAllowNull()); // true == NULL, false == NOT NULL.
+    var_export($column->isNullable()); // true == NULL, false == NOT NULL.
 } else {
     echo "A column named, $columnName, does not exists for table {$table->getName()}.";
 }
@@ -98,19 +95,17 @@ if ($table->hasColumn($columnName) {
 
 ```php
 <?php
-
 // ...
 
 $dataType = $column->getDataType();
 
-echo $dataType->getName(); // INT, VARCHAR, TEXT or BLOB, etc.
+echo $dataType->getType(); // INT, VARCHAR, TEXT or BLOB, etc.
 ```
 
 ### Inspect table indexes
 
 ```php
 <?php
-
 // ...
 
 $indexName = 'PRIMARY KEY';
@@ -118,23 +113,41 @@ $indexName = 'PRIMARY KEY';
 if ($table->hasIndex($indexName)) {
     $index = $table->getIndex($indexName);
     
-    echo $index->getType(); // index, unique, fulltext or spatial.
+    echo $index->getConstraintType(); // index, unique, fulltext or spatial.
     echo $index->getIndexType(); // hash, btree, rtree or fulltext.
     
     foreach ($index->getIndexedColumns as $indexedColumn) {
-        echo $indexedColumn->getColumn()->getName(); // The name of the column in the index.
+        echo $indexedColumn->getColumnName(); // The name of the column in the index.
+        echo $indexedColumn->getLength(); // The index prefix length.
         echo $indexedColumn->getCollation(); // The collation (i.e. Asc) of the index on the column.
     }
 }
 ```
 
+### Inspect table triggers
+```php
+<?php
+// ...
+
+$triggers = $table->getTriggers();
+
+foreach ($triggers as $trigger)
+{
+    echo $trigger->getName(); // The trigger name.
+    echo $trigger->getEvent(); // INSERT, UPDATE or DELETE.
+    echo $trigger->getTiming(); // BEFORE or AFTER.
+    echo $trigger->getBody(); // The trigger logic.     
+}
+
+````
+
 ## Changelog
 
-<!--
+
 ### Version 0.1.0-alpha.3
 
-* Objects for describing a database schema has been shifted into a separate package, [schnoop-schema](https://github.com/courtney-miles/schnoop-schema).
--->
+* Triggers can be examined.
+* Procedures and functions can be examined.
 
 ### Version 0.1.0-alpha.2
 
