@@ -4,5 +4,5 @@ namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint;
 
 interface ForeignKeyFactoryInterface
 {
-    public function fetch($databaseName, $tableName);
+    public function fetch($tableName, $databaseName);
 }

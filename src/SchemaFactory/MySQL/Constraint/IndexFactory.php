@@ -40,11 +40,11 @@ SQL;
     }
 
     /**
-     * @param $databaseName
      * @param $tableName
-     * @return ConstraintInterface[]
+     * @param $databaseName
+     * @return \MilesAsylum\SchnoopSchema\MySQL\Constraint\ConstraintInterface[]
      */
-    public function fetch($databaseName, $tableName)
+    public function fetch($tableName, $databaseName)
     {
         $rows = $this->fetchRaw($databaseName, $tableName);
         $indexes = $this->createFromRaw($rows);

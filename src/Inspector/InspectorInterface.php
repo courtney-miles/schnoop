@@ -8,5 +8,11 @@ interface InspectorInterface
 
     public function fetchTableList($databaseName);
 
+    public function fetchFunctionList($databaseName);
+
+    public function fetchProcedureList($databaseName);
+
+    public function fetchTriggerList($databaseName, $tableName = null);
+
     public function fetchActiveDatabase();
 }

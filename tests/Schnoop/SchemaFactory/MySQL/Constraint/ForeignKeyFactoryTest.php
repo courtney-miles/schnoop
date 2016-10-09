@@ -184,7 +184,7 @@ SQL
 
         $this->assertSame(
             $mockForeignKey,
-            $mockForeignKeyMapper->fetch($databaseName, $tableName)
+            $mockForeignKeyMapper->fetch($tableName, $databaseName)
         );
     }
 

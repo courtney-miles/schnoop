@@ -32,7 +32,7 @@ class Database extends \MilesAsylum\SchnoopSchema\MySQL\Database\Database implem
      */
     public function getTable($tableName)
     {
-        return $this->schnoop->getTable($this->getName(), $tableName);
+        return $this->schnoop->getTable($tableName, $this->getName());
     }
 
     /**
@@ -40,6 +40,6 @@ class Database extends \MilesAsylum\SchnoopSchema\MySQL\Database\Database implem
      */
     public function hasTable($tableName)
     {
-        return $this->schnoop->hasTable($this->getName(), $tableName);
+        return $this->schnoop->hasTable($tableName, $this->getName());
     }
 }

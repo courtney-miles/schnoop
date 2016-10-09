@@ -52,7 +52,7 @@ class DatabaseTest extends TestCase
 
         $this->mockSchnoop->expects($this->once())
             ->method('getTable')
-            ->with($this->name, $tableName)
+            ->with($tableName, $this->name)
             ->willReturn($mockTable);
 
         $this->assertSame($mockTable, $this->database->getTable($tableName));
@@ -64,7 +64,7 @@ class DatabaseTest extends TestCase
 
         $this->mockSchnoop->expects($this->once())
             ->method('hasTable')
-            ->with($this->name, $tableName)
+            ->with($tableName, $this->name)
             ->willReturn(true);
 
         $this->assertTrue($this->database->hasTable($tableName));

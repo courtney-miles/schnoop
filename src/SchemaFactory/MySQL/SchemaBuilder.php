@@ -40,6 +40,16 @@ class SchemaBuilder implements SchemaBuilderInterface
     private $triggerMapper;
 
     /**
+     * @var FunctionFactoryInterface
+     */
+    private $functionFactory;
+
+    /**
+     * @var ProcedureFactoryInterface
+     */
+    private $procedureFactory;
+
+    /**
      * @var Schnoop
      */
     private $schnoop;
@@ -50,7 +60,9 @@ class SchemaBuilder implements SchemaBuilderInterface
         ColumnFactoryInterface $columnMapper,
         IndexFactoryInterface $indexMapper,
         ForeignKeyFactoryInterface $foreignKeyMapper,
-        TriggerFactoryInterface $triggerMapper
+        TriggerFactoryInterface $triggerMapper,
+        FunctionFactoryInterface $functionFactory,
+        ProcedureFactoryInterface $procedureFactory
     ) {
         $this->databaseMapper = $databaseMapper;
         $this->tableMapper = $tableMapper;
@@ -58,6 +70,8 @@ class SchemaBuilder implements SchemaBuilderInterface
         $this->indexMapper = $indexMapper;
         $this->foreignKeyMapper = $foreignKeyMapper;
         $this->triggerMapper = $triggerMapper;
+        $this->functionFactory = $functionFactory;
+        $this->procedureFactory = $procedureFactory;
     }
 
     /**
@@ -82,18 +96,18 @@ class SchemaBuilder implements SchemaBuilderInterface
     /**
      * {@inheritdoc}
      */
-    public function fetchTable($databaseName, $tableName)
+    public function fetchTable($tableName, $databaseName)
     {
-        $table = $this->tableMapper->fetch($databaseName, $tableName);
+        $table = $this->tableMapper->fetch($tableName, $databaseName);
         $table->setSchnoop($this->schnoop);
         $table->setColumns(
-            $this->fetchColumns($databaseName, $tableName)
+            $this->fetchColumns($tableName, $databaseName)
         );
         $table->setIndexes(
-            $this->fetchIndexes($databaseName, $tableName)
+            $this->fetchIndexes($tableName, $databaseName)
         );
         $table->setForeignKeys(
-            $this->fetchForeignKeys($databaseName, $tableName)
+            $this->fetchForeignKeys($tableName, $databaseName)
         );
 
         return $table;
@@ -102,23 +116,39 @@ class SchemaBuilder implements SchemaBuilderInterface
     /**
      * {@inheritdoc}
      */
-    public function fetchTriggers($databaseName, $tableName)
+    public function fetchTriggers($tableName, $databaseName)
     {
-        return $this->triggerMapper->fetch($databaseName, $tableName);
+        return $this->triggerMapper->fetch($tableName, $databaseName);
     }
 
-    protected function fetchColumns($databaseName, $tableName)
+    /**
+     * {@inheritdoc}
+     */
+    public function fetchFunction($functionName, $databaseName)
     {
-        return $this->columnMapper->fetch($databaseName, $tableName);
+        return $this->functionFactory->fetch($functionName, $databaseName);
     }
 
-    protected function fetchIndexes($databaseName, $tableName)
+    /**
+     * {@inheritdoc}
+     */
+    public function fetchProcedure($procedureName, $databaseName)
     {
-        return $this->indexMapper->fetch($databaseName, $tableName);
+        return $this->procedureFactory->fetch($procedureName, $databaseName);
     }
 
-    protected function fetchForeignKeys($databaseName, $tableName)
+    protected function fetchColumns($tableName, $databaseName)
     {
-        return $this->foreignKeyMapper->fetch($databaseName, $tableName);
+        return $this->columnMapper->fetch($tableName, $databaseName);
+    }
+
+    protected function fetchIndexes($tableName, $databaseName)
+    {
+        return $this->indexMapper->fetch($tableName, $databaseName);
+    }
+
+    protected function fetchForeignKeys($tableName, $databaseName)
+    {
+        return $this->foreignKeyMapper->fetch($tableName, $databaseName);
     }
 }

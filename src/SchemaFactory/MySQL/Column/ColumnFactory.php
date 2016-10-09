@@ -42,11 +42,11 @@ SQL;
     }
 
     /**
-     * @param $databaseName
      * @param $tableName
-     * @return Column[]
+     * @param $databaseName
+     * @return \MilesAsylum\SchnoopSchema\MySQL\Column\Column[]
      */
-    public function fetch($databaseName, $tableName)
+    public function fetch($tableName, $databaseName)
     {
         $columns = [];
         $rows = $this->fetchRaw($databaseName, $tableName);

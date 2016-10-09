@@ -27,12 +27,12 @@ SHOW TRIGGERS FROM `%s` WHERE `Table` = :tableName
 SQL;
     }
 
-    public function fetch($databaseName, $tableName)
+    public function fetch($tableName, $databaseName)
     {
-        return $this->createFromRaw($this->fetchRaw($databaseName, $tableName), $databaseName);
+        return $this->createFromRaw($this->fetchRaw($tableName, $databaseName), $databaseName);
     }
 
-    public function fetchRaw($databaseName, $tableName)
+    public function fetchRaw($tableName, $databaseName)
     {
         $stmt = $this->pdo->prepare(
             sprintf(

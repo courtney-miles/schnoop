@@ -194,7 +194,7 @@ SQL
 
         $this->assertSame(
             [$mockColumn, $mockColumn],
-            $mockColumnMapper->fetch($databaseName, $tableName)
+            $mockColumnMapper->fetch($tableName, $databaseName)
         );
     }
 

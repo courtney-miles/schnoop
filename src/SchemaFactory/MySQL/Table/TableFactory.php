@@ -26,12 +26,12 @@ SHOW TABLE STATUS FROM `%s` WHERE `Name` = :table AND `Engine` IS NOT NULL
 SQL;
     }
 
-    public function fetch($databaseName, $tableName)
+    public function fetch($tableName, $databaseName)
     {
-        return $this->createFromRaw($this->fetchRaw($databaseName, $tableName), $databaseName);
+        return $this->createFromRaw($this->fetchRaw($tableName, $databaseName), $databaseName);
     }
 
-    public function fetchRaw($databaseName, $tableName)
+    public function fetchRaw($tableName, $databaseName)
     {
         $raw = null;
 
@@ -68,7 +68,7 @@ SQL;
     {
         $rawTable = $this->keysToLower($rawTable);
 
-        $table = $this->newTable($databaseName, $rawTable['name']);
+        $table = $this->newTable($rawTable['name'], $databaseName);
         $table->setEngine($rawTable['engine']);
         $table->setRowFormat($rawTable['row_format']);
         $table->setDefaultCollation($rawTable['collation']);
@@ -77,7 +77,7 @@ SQL;
         return $table;
     }
 
-    public function newTable($databaseName, $tableName)
+    public function newTable($tableName, $databaseName)
     {
         return new Table($databaseName, $tableName);
     }

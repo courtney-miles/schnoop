@@ -6,6 +6,8 @@ use MilesAsylum\Schnoop\SchemaFactory\MySQL\Column\ColumnFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DatabaseFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint\ForeignKeyFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint\IndexFactoryInterface;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\FunctionFactoryInterface;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\ProcedureFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\SchemaBuilder;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\TableFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\TriggerFactoryInterface;
@@ -25,32 +27,42 @@ class SchemaBuilderTest extends \PHPUnit_Framework_TestCase
     /**
      * @var DatabaseFactoryInterface|PHPUnit_Framework_MockObject_MockObject
      */
-    protected $mockDatabaseMapper;
+    protected $mockDatabaseFactory;
 
     /**
      * @var TableFactoryInterface|PHPUnit_Framework_MockObject_MockObject
      */
-    protected $mockTableMapper;
+    protected $mockTableFactory;
 
     /**
      * @var ColumnFactoryInterface|PHPUnit_Framework_MockObject_MockObject
      */
-    protected $mockColumnMapper;
+    protected $mockColumnFactory;
 
     /**
      * @var IndexFactoryInterface|PHPUnit_Framework_MockObject_MockObject
      */
-    protected $mockIndexMapper;
+    protected $mockIndexFactory;
 
     /**
      * @var ForeignKeyFactoryInterface|PHPUnit_Framework_MockObject_MockObject
      */
-    protected $mockForeignKeyMapper;
+    protected $mockForeignKeyFactory;
 
     /**
      * @var TriggerFactoryInterface|PHPUnit_Framework_MockObject_MockObject
      */
-    protected $mockTriggerMapper;
+    protected $mockTriggerFactory;
+
+    /**
+     * @var FunctionFactoryInterface|PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $mockFunctionFactory;
+
+    /**
+     * @var ProcedureFactoryInterface|PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $mockProcedureFactory;
 
     /**
      * @var Schnoop|PHPUnit_Framework_MockObject_MockObject
@@ -61,21 +73,25 @@ class SchemaBuilderTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->mockDatabaseMapper = $this->createMock(DatabaseFactoryInterface::class);
-        $this->mockTableMapper = $this->createMock(TableFactoryInterface::class);
-        $this->mockColumnMapper = $this->createMock(ColumnFactoryInterface::class);
-        $this->mockIndexMapper = $this->createMock(IndexFactoryInterface::class);
-        $this->mockForeignKeyMapper = $this->createMock(ForeignKeyFactoryInterface::class);
-        $this->mockTriggerMapper = $this->createMock(TriggerFactoryInterface::class);
+        $this->mockDatabaseFactory = $this->createMock(DatabaseFactoryInterface::class);
+        $this->mockTableFactory = $this->createMock(TableFactoryInterface::class);
+        $this->mockColumnFactory = $this->createMock(ColumnFactoryInterface::class);
+        $this->mockIndexFactory = $this->createMock(IndexFactoryInterface::class);
+        $this->mockForeignKeyFactory = $this->createMock(ForeignKeyFactoryInterface::class);
+        $this->mockTriggerFactory = $this->createMock(TriggerFactoryInterface::class);
+        $this->mockFunctionFactory = $this->createMock(FunctionFactoryInterface::class);
+        $this->mockProcedureFactory = $this->createMock(ProcedureFactoryInterface::class);
         $this->mockSchnoop = $this->createMock(Schnoop::class);
 
         $this->schemaBuilder = new SchemaBuilder(
-            $this->mockDatabaseMapper,
-            $this->mockTableMapper,
-            $this->mockColumnMapper,
-            $this->mockIndexMapper,
-            $this->mockForeignKeyMapper,
-            $this->mockTriggerMapper
+            $this->mockDatabaseFactory,
+            $this->mockTableFactory,
+            $this->mockColumnFactory,
+            $this->mockIndexFactory,
+            $this->mockForeignKeyFactory,
+            $this->mockTriggerFactory,
+            $this->mockFunctionFactory,
+            $this->mockProcedureFactory
         );
 
         $this->schemaBuilder->setSchnoop($this->mockSchnoop);
@@ -89,7 +105,7 @@ class SchemaBuilderTest extends \PHPUnit_Framework_TestCase
             ->method('setSchnoop')
             ->with($this->mockSchnoop);
 
-        $this->mockDatabaseMapper->expects($this->once())
+        $this->mockDatabaseFactory->expects($this->once())
             ->method('fetch')
             ->with($databaseName)
             ->willReturn($mockDatabase);
@@ -106,19 +122,19 @@ class SchemaBuilderTest extends \PHPUnit_Framework_TestCase
         $indexes = ['foo_indexes'];
         $foreignKeys = ['foo_foreign_keys'];
 
-        $this->mockColumnMapper->expects($this->once())
+        $this->mockColumnFactory->expects($this->once())
             ->method('fetch')
-            ->with($databaseName, $tableName)
+            ->with($tableName, $databaseName)
             ->willReturn($columns);
 
-        $this->mockIndexMapper->expects($this->once())
+        $this->mockIndexFactory->expects($this->once())
             ->method('fetch')
-            ->with($databaseName, $tableName)
+            ->with($tableName, $databaseName)
             ->willReturn($indexes);
 
-        $this->mockForeignKeyMapper->expects($this->once())
+        $this->mockForeignKeyFactory->expects($this->once())
             ->method('fetch')
-            ->with($databaseName, $tableName)
+            ->with($tableName, $databaseName)
             ->willReturn($foreignKeys);
 
         $mockTable = $this->createMock(TableInterface::class);
@@ -135,12 +151,12 @@ class SchemaBuilderTest extends \PHPUnit_Framework_TestCase
             ->method('setSchnoop')
             ->with($this->mockSchnoop);
 
-        $this->mockTableMapper->expects($this->once())
+        $this->mockTableFactory->expects($this->once())
             ->method('fetch')
-            ->with($databaseName, $tableName)
+            ->with($tableName, $databaseName)
             ->willReturn($mockTable);
 
-        $this->assertSame($mockTable, $this->schemaBuilder->fetchTable($databaseName, $tableName));
+        $this->assertSame($mockTable, $this->schemaBuilder->fetchTable($tableName, $databaseName));
     }
 
     public function testFetchTriggers()
@@ -150,11 +166,11 @@ class SchemaBuilderTest extends \PHPUnit_Framework_TestCase
 
         $mockTriggers = [$this->createMock(TriggerInterface::class)];
 
-        $this->mockTriggerMapper->expects($this->once())
+        $this->mockTriggerFactory->expects($this->once())
             ->method('fetch')
-            ->with($databaseName, $tableName)
+            ->with($tableName, $databaseName)
             ->willReturn($mockTriggers);
 
-        $this->assertSame($mockTriggers, $this->schemaBuilder->fetchTriggers($databaseName, $tableName));
+        $this->assertSame($mockTriggers, $this->schemaBuilder->fetchTriggers($tableName, $databaseName));
     }
 }

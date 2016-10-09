@@ -5,7 +5,7 @@ use MilesAsylum\Schnoop\SchemaAdapter\MySQL\RoutineProcedure;
 
 interface ProcedureFactoryInterface extends \MilesAsylum\Schnoop\SchemaFactory\MySQL\ProcedureFactoryInterface
 {
-    public function fetchRaw($databaseName, $functionName);
+    public function fetchRaw($functionName, $databaseName);
 
     /**
      * @param array $raw

@@ -7,9 +7,9 @@ interface TriggerFactoryInterface
 {
     /**
      * Fetch the triggers for the specified table.
-     * @param string $databaseName
      * @param string $tableName
-     * @return TriggerInterface[]
+     * @param string $databaseName
+     * @return \MilesAsylum\Schnoop\SchemaAdapter\MySQL\TriggerInterface[]
      */
-    public function fetch($databaseName, $tableName);
+    public function fetch($tableName, $databaseName);
 }

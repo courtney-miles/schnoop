@@ -86,7 +86,7 @@ END",
 
         $this->assertSame(
             $expectedRaw,
-            $this->triggerMapper->fetchRaw($this->databaseName, $this->tableName)
+            $this->triggerMapper->fetchRaw($this->tableName, $this->databaseName)
         );
     }
 
@@ -158,14 +158,14 @@ END",
 
         $triggerMapper->expects($this->once())
             ->method('fetchRaw')
-            ->with($this->databaseName, $this->tableName)
+            ->with($this->tableName, $this->databaseName)
             ->willReturn($expectedRaw);
         $triggerMapper->expects($this->once())
             ->method('createFromRaw')
             ->with($expectedRaw)
             ->willReturn($mockTrigger);
 
-        $this->assertSame($mockTrigger, $triggerMapper->fetch($this->databaseName, $this->tableName));
+        $this->assertSame($mockTrigger, $triggerMapper->fetch($this->tableName, $this->databaseName));
     }
 
     public function testNewTrigger()

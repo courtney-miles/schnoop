@@ -2,6 +2,8 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL;
 
+use MilesAsylum\Schnoop\SchemaAdapter\MySQL\RoutineFunctionInterface;
+use MilesAsylum\Schnoop\SchemaAdapter\MySQL\RoutineProcedureInterface;
 use MilesAsylum\Schnoop\Schnoop;
 use MilesAsylum\Schnoop\SchemaAdapter\MySQL\DatabaseInterface;
 use MilesAsylum\Schnoop\SchemaAdapter\MySQL\TableInterface;
@@ -21,16 +23,30 @@ interface SchemaBuilderInterface
     public function fetchDatabase($databaseName);
 
     /**
-     * @param $databaseName
      * @param $tableName
+     * @param $databaseName
      * @return TableInterface
      */
-    public function fetchTable($databaseName, $tableName);
+    public function fetchTable($tableName, $databaseName);
 
     /**
-     * @param $databaseName
      * @param $tableName
-     * @return TriggerInterface[]
+     * @param $databaseName
+     * @return \MilesAsylum\Schnoop\SchemaAdapter\MySQL\TriggerInterface[]
      */
-    public function fetchTriggers($databaseName, $tableName);
+    public function fetchTriggers($tableName, $databaseName);
+
+    /**
+     * @param $functionName
+     * @param $databaseName
+     * @return RoutineFunctionInterface
+     */
+    public function fetchFunction($functionName, $databaseName);
+
+    /**
+     * @param $procedureName
+     * @param $databaseName
+     * @return RoutineProcedureInterface
+     */
+    public function fetchProcedure($procedureName, $databaseName);
 }

@@ -6,14 +6,14 @@ use MilesAsylum\Schnoop\SchemaAdapter\MySQL\RoutineProcedure;
 
 class ProcedureFactory extends AbstractRoutineFactory implements ProcedureFactoryInterface
 {
-    public function fetch($databaseName, $functionName)
+    public function fetch($procedureName, $databaseName)
     {
         return $this->createFromRaw(
-            $this->fetchRaw($databaseName, $functionName)
+            $this->fetchRaw($procedureName, $databaseName)
         );
     }
 
-    public function fetchRaw($databaseName, $functionName)
+    public function fetchRaw($functionName, $databaseName)
     {
         $this->stmtSelectFunction->execute(
             [

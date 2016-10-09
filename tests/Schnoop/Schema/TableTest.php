@@ -42,7 +42,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
 
         $this->mockSchnoop->expects($this->once())
             ->method('getTriggers')
-            ->with($this->databaseName, $this->name)
+            ->with($this->name, $this->databaseName)
             ->willReturn($expectedTriggers);
 
         $this->assertSame($expectedTriggers, $this->table->getTriggers());

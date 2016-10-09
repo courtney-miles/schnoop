@@ -104,7 +104,7 @@ END',
             'comment' => 'Function comment.'
         ];
 
-        $this->assertSame($expectedRaw, $this->functionMapper->fetchRaw($this->databaseName, $this->functionName));
+        $this->assertSame($expectedRaw, $this->functionMapper->fetchRaw($this->functionName, $this->databaseName));
     }
 
     public function testCreateFromRaw()
@@ -212,7 +212,7 @@ END',
             ->getMock();
         $functionMapper->expects($this->once())
             ->method('fetchRaw')
-            ->with($this->databaseName, $this->functionName)
+            ->with($this->functionName, $this->databaseName)
             ->willReturn($raw);
         $functionMapper->expects($this->once())
             ->method('createFromRaw')
@@ -221,7 +221,7 @@ END',
 
         $this->assertSame(
             $mockFunction,
-            $functionMapper->fetch($this->databaseName, $this->functionName)
+            $functionMapper->fetch($this->functionName, $this->databaseName)
         );
     }
 }

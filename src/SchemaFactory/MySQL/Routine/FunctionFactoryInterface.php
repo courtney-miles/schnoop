@@ -6,14 +6,7 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
 
 interface FunctionFactoryInterface extends \MilesAsylum\Schnoop\SchemaFactory\MySQL\FunctionFactoryInterface
 {
-    /**
-     * @param $databaseName
-     * @param $functionName
-     * @return RoutineFunction
-     */
-    public function fetch($databaseName, $functionName);
-
-    public function fetchRaw($databaseName, $functionName);
+    public function fetchRaw($functionName, $databaseName);
 
     /**
      * @param array $raw

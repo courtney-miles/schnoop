@@ -53,13 +53,13 @@ SQL
 
         $this->assertSame(
             $expectedRaw,
-            $this->tableMapper->fetchRaw($this->databaseName, $this->tableName)
+            $this->tableMapper->fetchRaw($this->tableName, $this->databaseName)
         );
     }
 
     public function testNewTable()
     {
-        $table = $this->tableMapper->newTable($this->databaseName, $this->tableName);
+        $table = $this->tableMapper->newTable($this->tableName, $this->databaseName);
 
         $this->assertInstanceOf(Table::class, $table);
         $this->assertSame($this->tableName, $table->getName());
@@ -95,7 +95,7 @@ SQL
             ->setConstructorArgs([$this->createMock(MockPdo::class)])
             ->getMock();
         $mockTableMapper->method('newTable')
-            ->with($this->databaseName, $this->tableName)
+            ->with($this->tableName, $this->databaseName)
             ->willReturn($mockTable);
 
         $this->assertSame($mockTable, $mockTableMapper->createFromRaw($raw, $this->databaseName));
@@ -113,13 +113,13 @@ SQL
             ->getMock();
         $mockTableMapper->expects($this->once())
             ->method('fetchRaw')
-            ->with($this->databaseName, $this->tableName)
+            ->with($this->tableName, $this->databaseName)
             ->willReturn($raw);
         $mockTableMapper->expects($this->once())
             ->method('createFromRaw')
             ->with($raw)
             ->willReturn($mockTable);
 
-        $this->assertSame($mockTable, $mockTableMapper->fetch($this->databaseName, $this->tableName));
+        $this->assertSame($mockTable, $mockTableMapper->fetch($this->tableName, $this->databaseName));
     }
 }

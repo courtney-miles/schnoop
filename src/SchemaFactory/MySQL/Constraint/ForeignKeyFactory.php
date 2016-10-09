@@ -38,7 +38,7 @@ SQL
         );
     }
 
-    public function fetch($databaseName, $tableName)
+    public function fetch($tableName, $databaseName)
     {
         return $this->createFromRaw($this->fetchRaw($databaseName, $tableName));
     }

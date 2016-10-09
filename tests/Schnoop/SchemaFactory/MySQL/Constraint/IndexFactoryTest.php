@@ -113,7 +113,7 @@ SQL
 
         $this->assertSame(
             $mockIndex,
-            $mockIndexMapper->fetch($databaseName, $tableName)
+            $mockIndexMapper->fetch($tableName, $databaseName)
         );
     }
 

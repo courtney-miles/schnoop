@@ -4,5 +4,5 @@ namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\Column;
 
 interface ColumnFactoryInterface
 {
-    public function fetch($databaseName, $tableName);
+    public function fetch($tableName, $databaseName);
 }

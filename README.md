@@ -141,23 +141,7 @@ foreach ($triggers as $trigger)
 
 ````
 
-## Changelog
+## Todo
 
-
-### Version 0.1.0-alpha.3
-
-* Triggers can be examined.
-* Procedures and functions can be examined.
-
-### Version 0.1.0-alpha.2
-
-* Indexes on a table can be examined. 
-
-### Version 0.1.0-alpha.1
-
-* Databases can be listed.
-* Properties of a database can be examined.
-* Tables can be listed for a database.
-* Properties of a table can be examined.
-* Table columns can be listed.
-* Properties of a column can be examined.
+* Introduced a repository to prevent duplicate resources from being constructed.
+* Add support for Views.

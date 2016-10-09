@@ -49,7 +49,7 @@ class SchnoopTest extends SchnoopTestCase
         $this->mockInspector = $this->createMock(InspectorInterface::class);
         $this->mockInspector->method('fetchDatabaseList')
             ->willReturn($this->databaseList);
-        
+
         $this->mockSchemaBuilder = $this->createMock(SchemaBuilderInterface::class);
 
         $this->schnoop = new Schnoop(
@@ -86,6 +86,38 @@ class SchnoopTest extends SchnoopTestCase
         $this->assertSame($mockDatabase, $this->schnoop->getDatabase($fetchDb));
     }
 
+    public function testGetActiveDatabase()
+    {
+        $activeDatabaseName = $this->databaseList[0];
+
+        $mockDatabase = $this->createMock(DatabaseInterface::class);
+
+        $this->mockInspector->expects($this->atLeastOnce())
+            ->method('fetchActiveDatabase')
+            ->willReturn($activeDatabaseName);
+
+        $this->mockSchemaBuilder->expects($this->atLeastOnce())
+            ->method('fetchDatabase')
+            ->with($activeDatabaseName)
+            ->willReturn($mockDatabase);
+
+        $this->assertSame($mockDatabase, $this->schnoop->getDatabase());
+    }
+
+    public function testGetNonExistentDatabase()
+    {
+        $this->assertNull($this->schnoop->getDatabase('bogus_db'));
+    }
+
+    /**
+     * @expectedException \MilesAsylum\Schnoop\Exception\SchnoopException
+     * @expectedExceptionMessage Unable to get the active database. A database has not been selected.
+     */
+    public function testExceptionGetNoActiveDatabase()
+    {
+        $this->schnoop->getDatabase();
+    }
+
     public function testGetTableList()
     {
         $fetchDb = $this->databaseList[0];
@@ -107,10 +139,52 @@ class SchnoopTest extends SchnoopTestCase
 
         $this->mockSchemaBuilder->expects($this->atLeastOnce())
             ->method('fetchTable')
-            ->with($fetchDb, $fetchTable)
+            ->with($fetchTable, $fetchDb)
             ->willReturn($newTableReturn);
 
-        $this->assertSame($newTableReturn, $this->schnoop->getTable($fetchDb, $fetchTable));
+        $this->assertSame($newTableReturn, $this->schnoop->getTable($fetchTable, $fetchDb));
+    }
+
+    public function testHasTable()
+    {
+        $tableName = 'schnoop_tbl';
+        $databaseName = $this->databaseList[0];
+
+        $this->mockInspector->method('fetchTableList')
+            ->with($databaseName)
+            ->willReturn([$tableName]);
+
+        $this->assertTrue($this->schnoop->hasTable($tableName, $databaseName));
+    }
+
+    public function testHasNotTable()
+    {
+        $tableName = 'bogus_tbl';
+        $databaseName = $this->databaseList[0];
+
+        $this->mockInspector->method('fetchTableList')
+            ->with($databaseName)
+            ->willReturn(['schnoop_tbl']);
+
+        $this->assertFalse($this->schnoop->hasTable($tableName, $databaseName));
+    }
+
+    public function testFetchTriggers()
+    {
+        $tableName = 'schnoop_tbl';
+        $databaseName = $this->databaseList[0];
+
+        $triggers = ['__tiggers__'];
+
+        $this->mockInspector->method('fetchTableList')
+            ->with($databaseName)
+            ->willReturn([$tableName]);
+
+        $this->mockSchemaBuilder->method('fetchTriggers')
+            ->with($tableName, $databaseName)
+            ->willReturn($triggers);
+
+        $this->assertSame($triggers, $this->schnoop->getTriggers($tableName, $databaseName));
     }
 
     public function testCreateSelf()

@@ -25,14 +25,14 @@ class FunctionFactory extends AbstractRoutineFactory implements FunctionFactoryI
         $this->dataTypeFactory = $dataTypeFactory;
     }
 
-    public function fetch($databaseName, $functionName)
+    public function fetch($functionName, $databaseName)
     {
         return $this->createFromRaw(
-            $this->fetchRaw($databaseName, $functionName)
+            $this->fetchRaw($functionName, $databaseName)
         );
     }
 
-    public function fetchRaw($databaseName, $functionName)
+    public function fetchRaw($functionName, $databaseName)
     {
         $this->stmtSelectFunction->execute(
             [
