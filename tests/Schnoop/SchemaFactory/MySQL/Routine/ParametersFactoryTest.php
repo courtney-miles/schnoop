@@ -2,7 +2,7 @@
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\Routine;
 
-use MilesAsylum\Schnoop\SchemaFactory\DataTypeFactoryInterface;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\ParametersFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\ParametersParser;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;

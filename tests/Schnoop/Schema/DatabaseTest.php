@@ -2,7 +2,7 @@
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema;
 
-use MilesAsylum\Schnoop\Schema\Database;
+use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Database;
 use MilesAsylum\Schnoop\Schnoop;
 use MilesAsylum\SchnoopSchema\MySQL\Table\TableInterface;
 use PHPUnit\Framework\TestCase;

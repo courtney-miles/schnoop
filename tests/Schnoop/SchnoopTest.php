@@ -11,9 +11,9 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop;
 use MilesAsylum\Schnoop\Inspector\InspectorInterface;
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\PHPUnit\Schnoop\MockPdo;
-use MilesAsylum\Schnoop\Schema\Database;
-use MilesAsylum\Schnoop\Schema\DatabaseInterface;
-use MilesAsylum\Schnoop\SchemaFactory\SchemaBuilderInterface;
+use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Database;
+use MilesAsylum\Schnoop\SchemaAdapter\MySQL\DatabaseInterface;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\SchemaBuilderInterface;
 use MilesAsylum\Schnoop\Schnoop;
 use PHPUnit_Framework_MockObject_MockObject;
 

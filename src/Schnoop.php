@@ -4,21 +4,21 @@ namespace MilesAsylum\Schnoop;
 
 use MilesAsylum\Schnoop\Inspector\InspectorInterface;
 use MilesAsylum\Schnoop\Inspector\MySQLInspector;
-use MilesAsylum\Schnoop\Schema\Table;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\Column\ColumnMapper;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint\ForeignKeyMapper;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint\IndexMapper;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\Database\DatabaseMapper;
-use MilesAsylum\Schnoop\SchemaFactory\DataTypeFactory;
-use MilesAsylum\Schnoop\Schema\Database;
+use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Table;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Column\ColumnFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint\ForeignKeyFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint\IndexFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Database\DatabaseFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactory;
+use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Database;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\SetVar\SqlModeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\Trigger\TriggerMapper;
-use MilesAsylum\Schnoop\SchemaFactory\SchemaBuilder;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\Table\TableMapper;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Trigger\TriggerFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\SchemaBuilder;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Table\TableFactory;
 use MilesAsylum\SchnoopSchema\MySQL\Database\DatabaseInterface;
 use MilesAsylum\SchnoopSchema\MySQL\Table\TableInterface;
 use PDO;
-use MilesAsylum\Schnoop\SchemaFactory\SchemaBuilderInterface;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\SchemaBuilderInterface;
 
 class Schnoop
 {
@@ -111,12 +111,12 @@ class Schnoop
                 $pdo
             ),
             new SchemaBuilder(
-                new DatabaseMapper($pdo),
-                new TableMapper($pdo),
-                new ColumnMapper($pdo, DataTypeFactory::createSelf()),
-                new IndexMapper($pdo),
-                new ForeignKeyMapper($pdo),
-                new TriggerMapper($pdo, new SqlModeFactory())
+                new DatabaseFactory($pdo),
+                new TableFactory($pdo),
+                new ColumnFactory($pdo, DataTypeFactory::createSelf()),
+                new IndexFactory($pdo),
+                new ForeignKeyFactory($pdo),
+                new TriggerFactory($pdo, new SqlModeFactory())
             )
         );
     }

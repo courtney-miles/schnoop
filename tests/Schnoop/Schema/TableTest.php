@@ -2,7 +2,7 @@
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema;
 
-use MilesAsylum\Schnoop\Schema\Table;
+use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Table;
 use MilesAsylum\Schnoop\Schnoop;
 use MilesAsylum\SchnoopSchema\MySQL\Column\ColumnInterface;
 use MilesAsylum\SchnoopSchema\MySQL\Constraint\IndexInterface;
