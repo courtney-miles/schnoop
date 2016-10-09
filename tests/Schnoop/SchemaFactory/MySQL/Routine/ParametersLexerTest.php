@@ -61,4 +61,38 @@ class ParametersLexerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($expectedTokens, $actualTokens);
     }
+
+    /**
+     * @dataProvider getTokenNameTestData
+     * @param $const
+     * @param $expectedName
+     */
+    public function testGetTokenName($const, $expectedName)
+    {
+        $this->assertSame($expectedName, $this->parametersLexer->getTokenName($const));
+    }
+
+    public function getTokenNameTestData()
+    {
+        return [
+            [ParametersLexer::T_BRACKET_OPEN, 'T_BRACKET_OPEN'],
+            [ParametersLexer::T_BRACKET_CLOSE, 'T_BRACKET_CLOSE'],
+            [ParametersLexer::T_WHITESPACE, 'T_WHITESPACE'],
+            [ParametersLexer::T_WORD, 'T_WORD'],
+            [ParametersLexer::T_COMMA, 'T_COMMA'],
+            [ParametersLexer::T_ENCAPSED_STRING, 'T_ENCAPSED_STRING'],
+            [ParametersLexer::T_TICK, 'T_TICK'],
+        ];
+    }
+
+    /**
+     * @expectedException \MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\Exception\ParametersLexerException
+     * @expectedExceptionMessage There is an error in the syntax for the parameters string. Check the syntax near '$ `bar`)'.
+     */
+    public function testExceptionOnInvalidString()
+    {
+        $invalidString = "('Foo123',  $ `bar`)";
+
+        $this->parametersLexer->tokenise($invalidString);
+    }
 }

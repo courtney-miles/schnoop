@@ -11,7 +11,7 @@ use MilesAsylum\Schnoop\SchemaFactory\MySQL\SetVar\SqlModeFactory;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
 use MilesAsylum\SchnoopSchema\MySQL\Routine\FunctionParameter;
 use MilesAsylum\SchnoopSchema\MySQL\Routine\FunctionParameterInterface;
-use MilesAsylum\SchnoopSchema\MySQL\Routine\FunctionRoutine;
+use MilesAsylum\SchnoopSchema\MySQL\Routine\RoutineFunction;
 use MilesAsylum\SchnoopSchema\MySQL\SetVar\SqlMode;
 use PHPUnit_Framework_MockObject_MockObject;
 
@@ -83,9 +83,9 @@ SQL
         $returns = $this->createMock(DataTypeInterface::class);
         $function = $this->functionMapper->newFunction($this->functionName, $returns);
 
-        $this->assertInstanceOf(FunctionRoutine::class, $function);
+        $this->assertInstanceOf(RoutineFunction::class, $function);
         $this->assertSame($this->functionName, $function->getName());
-        $this->assertSame($returns, $function->getReturns());
+        $this->assertSame($returns, $function->getReturnType());
     }
 
     public function testFetchRaw()
@@ -138,7 +138,7 @@ END',
             ->with($raw['sql_mode'])
             ->willReturn($mockSqlMode);
 
-        $mockFunction = $this->createMock(FunctionRoutine::class);
+        $mockFunction = $this->createMock(RoutineFunction::class);
         $mockFunction->expects($this->once())
             ->method('setDefiner')
             ->with($raw['definer']);
@@ -197,7 +197,7 @@ END',
 
         $mockDataTypeFactory = $this->createMock(DataTypeFactoryInterface::class);
 
-        $mockFunction = $this->createMock(FunctionRoutine::class);
+        $mockFunction = $this->createMock(RoutineFunction::class);
 
         /** @var FunctionMapper|PHPUnit_Framework_MockObject_MockObject $functionMapper */
         $functionMapper = $this->getMockBuilder(FunctionMapper::class)

@@ -5,14 +5,11 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\Routine;
 use MilesAsylum\Schnoop\PHPUnit\Framework\TestMySQLCase;
 use MilesAsylum\Schnoop\PHPUnit\Schnoop\MockPdo;
 use MilesAsylum\Schnoop\SchemaFactory\DataTypeFactoryInterface;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\FunctionMapper;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\ParametersFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\ProcedureMapper;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\SetVar\SqlModeFactory;
-use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
-use MilesAsylum\SchnoopSchema\MySQL\Routine\FunctionRoutine;
 use MilesAsylum\SchnoopSchema\MySQL\Routine\ProcedureParameterInterface;
-use MilesAsylum\SchnoopSchema\MySQL\Routine\ProcedureRoutine;
+use MilesAsylum\SchnoopSchema\MySQL\Routine\RoutineProcedure;
 use MilesAsylum\SchnoopSchema\MySQL\SetVar\SqlMode;
 use PHPUnit_Framework_MockObject_MockObject;
 
@@ -75,7 +72,7 @@ SQL
     {
         $function = $this->procedureMapper->newProcedure($this->procedureName);
 
-        $this->assertInstanceOf(ProcedureRoutine::class, $function);
+        $this->assertInstanceOf(RoutineProcedure::class, $function);
         $this->assertSame($this->procedureName, $function->getName());
     }
 
@@ -127,7 +124,7 @@ END',
             ->with($raw['sql_mode'])
             ->willReturn($mockSqlMode);
 
-        $mockProcedure = $this->createMock(ProcedureRoutine::class);
+        $mockProcedure = $this->createMock(RoutineProcedure::class);
         $mockProcedure->expects($this->once())
             ->method('setDefiner')
             ->with($raw['definer']);
@@ -179,7 +176,7 @@ END',
     {
         $raw = ['foo'];
 
-        $mockProcedure = $this->createMock(ProcedureRoutine::class);
+        $mockProcedure = $this->createMock(RoutineProcedure::class);
 
         /** @var ProcedureMapper|PHPUnit_Framework_MockObject_MockObject $procedureMapper */
         $procedureMapper = $this->getMockBuilder(ProcedureMapper::class)

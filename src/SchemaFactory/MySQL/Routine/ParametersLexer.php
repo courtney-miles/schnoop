@@ -2,6 +2,8 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine;
 
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\Exception\ParametersLexerException;
+
 class ParametersLexer
 {
     protected $terminals = [
@@ -41,7 +43,12 @@ class ParametersLexer
             $result = $this->match($source, $offset);
 
             if ($result === false) {
-                throw new \Exception('Unable to parse supplied parameter string');
+                throw new ParametersLexerException(
+                    sprintf(
+                        "There is an error in the syntax for the parameters string. Check the syntax near '%s'.",
+                        substr($source, $offset, 10)
+                    )
+                );
             }
 
             $tokens[] = $result;
@@ -66,10 +73,7 @@ class ParametersLexer
 
         foreach ($this->terminals as $pattern => $name) {
             if (preg_match($pattern, $source, $matches)) {
-                return [
-                    $name,
-                    $matches[0]
-                ];
+                return [$name, $matches[0]];
             }
         }
 

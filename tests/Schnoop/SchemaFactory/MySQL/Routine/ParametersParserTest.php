@@ -218,4 +218,86 @@ class ParametersParserTest extends TestCase
             $this->parameterParser->parse($parameterStr)
         );
     }
+
+    /**
+     * @expectedException \MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\Exception\ParametersParserException
+     * @expectedExceptionMessage A parameter name was expected but found '`' instead.
+     */
+    public function testUnexpectedTokenAfterTick()
+    {
+        $parameterStr = '``';
+        $tokens = [
+            [ParametersLexer::T_TICK, '`'],
+            [ParametersLexer::T_TICK, '`']
+        ];
+
+        $this->mockLexer->method('tokenise')
+            ->with(trim($parameterStr))
+            ->willReturn($tokens);
+
+        $this->parameterParser->parse($parameterStr);
+    }
+
+    /**
+     * @expectedException \MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\Exception\ParametersParserException
+     * @expectedExceptionMessage Parameter name was expected to terminate with '`' but found ',' instead.
+     */
+    public function testUnexpectedTokenBeforeTick()
+    {
+        $parameterStr = '`foo,`';
+        $tokens = [
+            [ParametersLexer::T_TICK, '`'],
+            [ParametersLexer::T_WORD, 'foo'],
+            [ParametersLexer::T_COMMA, ','],
+            [ParametersLexer::T_TICK, '`']
+        ];
+
+        $this->mockLexer->method('tokenise')
+            ->with(trim($parameterStr))
+            ->willReturn($tokens);
+
+        $this->parameterParser->parse($parameterStr);
+    }
+
+    /**
+     * @expectedException \MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\Exception\ParametersParserException
+     * @expectedExceptionMessage A parameter name was expected, but found ',' instead.
+     */
+    public function testUnexpectedTokenBeforeParameterName()
+    {
+        $parameterStr = ',`foo`';
+        $tokens = [
+            [ParametersLexer::T_COMMA, ','],
+            [ParametersLexer::T_TICK, '`'],
+            [ParametersLexer::T_WORD, 'foo'],
+            [ParametersLexer::T_TICK, '`']
+        ];
+
+        $this->mockLexer->method('tokenise')
+            ->with(trim($parameterStr))
+            ->willReturn($tokens);
+
+        $this->parameterParser->parse($parameterStr);
+    }
+
+    /**
+     * @expectedException \MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\Exception\ParametersParserException
+     * @expectedExceptionMessage Data type was expected after the parameter name, but found ',' instead.
+     */
+    public function testUnexpectedTokenAfterParameterName()
+    {
+        $parameterStr = '`foo`,';
+        $tokens = [
+            [ParametersLexer::T_TICK, '`'],
+            [ParametersLexer::T_WORD, 'foo'],
+            [ParametersLexer::T_TICK, '`'],
+            [ParametersLexer::T_COMMA, ',']
+        ];
+
+        $this->mockLexer->method('tokenise')
+            ->with(trim($parameterStr))
+            ->willReturn($tokens);
+
+        $this->parameterParser->parse($parameterStr);
+    }
 }

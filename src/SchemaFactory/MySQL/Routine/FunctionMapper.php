@@ -5,7 +5,7 @@ namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine;
 use MilesAsylum\Schnoop\SchemaFactory\DataTypeFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\SetVar\SqlModeFactory;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
-use MilesAsylum\SchnoopSchema\MySQL\Routine\FunctionRoutine;
+use MilesAsylum\SchnoopSchema\MySQL\Routine\RoutineFunction;
 
 class FunctionMapper extends AbstractRoutineMapper
 {
@@ -28,7 +28,7 @@ class FunctionMapper extends AbstractRoutineMapper
     /**
      * @param $databaseName
      * @param $functionName
-     * @return FunctionRoutine
+     * @return RoutineFunction
      */
     public function fetch($databaseName, $functionName)
     {
@@ -52,7 +52,7 @@ class FunctionMapper extends AbstractRoutineMapper
 
     /**
      * @param array $raw
-     * @return FunctionRoutine
+     * @return RoutineFunction
      */
     public function createFromRaw(array $raw)
     {
@@ -68,10 +68,10 @@ class FunctionMapper extends AbstractRoutineMapper
     /**
      * @param $name
      * @param DataTypeInterface $returns
-     * @return FunctionRoutine
+     * @return RoutineFunction
      */
     public function newFunction($name, DataTypeInterface $returns)
     {
-        return new FunctionRoutine($name, $returns);
+        return new RoutineFunction($name, $returns);
     }
 }

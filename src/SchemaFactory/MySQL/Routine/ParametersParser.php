@@ -2,6 +2,8 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine;
 
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\Exception\ParametersParserException;
+
 class ParametersParser
 {
     /**
@@ -54,7 +56,7 @@ class ParametersParser
             $token = $this->nextToken();
 
             if ($token[0] !== ParametersLexer::T_WORD) {
-                throw new \Exception(
+                throw new ParametersParserException(
                     "A parameter name was expected but found '{$token[1]}' instead."
                 );
             }
@@ -63,14 +65,14 @@ class ParametersParser
             $token = $this->nextToken();
 
             if ($token[0] !== ParametersLexer::T_TICK) {
-                throw new \Exception(
-                    "Parameter name was expected to terminate with '`' but found '{$token[1]} instead."
+                throw new ParametersParserException(
+                    "Parameter name was expected to terminate with '`' but found '{$token[1]}' instead."
                 );
             }
         } elseif ($token[0] == ParametersLexer::T_WORD) {
             $name = $token[1];
         } else {
-            throw new \Exception(
+            throw new ParametersParserException(
                 "A parameter name was expected, but found '{$token[1]}' instead."
             );
         }
@@ -80,8 +82,9 @@ class ParametersParser
         $token = $this->nextToken();
 
         if ($token[0] != ParametersLexer::T_WORD) {
-            // TODO Throw an appropriate exception, with appropriate messages.
-            throw new \Exception("Data type was expected after the parameter name, but found '{$token[1]}'.");
+            throw new ParametersParserException(
+                "Data type was expected after the parameter name, but found '{$token[1]}' instead."
+            );
         }
 
         $dataType = $token[1];
@@ -167,10 +170,5 @@ class ParametersParser
         }
 
         return $buffer;
-    }
-
-    protected function countRemainingTokens()
-    {
-        return count($this->tokenised) - $this->pointer;
     }
 }

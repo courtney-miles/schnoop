@@ -2,14 +2,14 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine;
 
-use MilesAsylum\SchnoopSchema\MySQL\Routine\ProcedureRoutine;
+use MilesAsylum\SchnoopSchema\MySQL\Routine\RoutineProcedure;
 
 class ProcedureMapper extends AbstractRoutineMapper
 {
     /**
      * @param $databaseName
      * @param $functionName
-     * @return ProcedureRoutine
+     * @return RoutineProcedure
      */
     public function fetch($databaseName, $functionName)
     {
@@ -33,7 +33,7 @@ class ProcedureMapper extends AbstractRoutineMapper
 
     /**
      * @param array $raw
-     * @return ProcedureRoutine
+     * @return RoutineProcedure
      */
     public function createFromRaw(array $raw)
     {
@@ -46,10 +46,10 @@ class ProcedureMapper extends AbstractRoutineMapper
 
     /**
      * @param $name
-     * @return ProcedureRoutine
+     * @return RoutineProcedure
      */
     public function newProcedure($name)
     {
-        return new ProcedureRoutine($name);
+        return new RoutineProcedure($name);
     }
 }

@@ -3,8 +3,8 @@
 namespace MilesAsylum\Schnoop\SchemaFactory;
 
 use MilesAsylum\Schnoop\Schnoop;
-use MilesAsylum\SchnoopSchema\MySQL\Database\DatabaseInterface;
-use MilesAsylum\SchnoopSchema\MySQL\Table\TableInterface;
+use MilesAsylum\Schnoop\Schema\DatabaseInterface;
+use MilesAsylum\Schnoop\Schema\TableInterface;
 use MilesAsylum\SchnoopSchema\MySQL\Trigger\TriggerInterface;
 
 interface SchemaBuilderInterface
