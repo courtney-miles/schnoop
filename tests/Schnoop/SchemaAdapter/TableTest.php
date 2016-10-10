@@ -1,6 +1,6 @@
 <?php
 
-namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema;
+namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaAdapter;
 
 use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Table;
 use MilesAsylum\Schnoop\Schnoop;
@@ -46,5 +46,15 @@ class TableTest extends \PHPUnit_Framework_TestCase
             ->willReturn($expectedTriggers);
 
         $this->assertSame($expectedTriggers, $this->table->getTriggers());
+    }
+
+    public function testHasTriggers()
+    {
+        $this->mockSchnoop->expects($this->once())
+            ->method('hasTriggers')
+            ->with($this->name, $this->databaseName)
+            ->willReturn(true);
+
+        $this->assertTrue($this->table->hasTriggers());
     }
 }

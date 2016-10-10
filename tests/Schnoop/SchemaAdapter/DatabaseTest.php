@@ -1,6 +1,6 @@
 <?php
 
-namespace MilesAsylum\Schnoop\Tests\Schnoop\Schema;
+namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaAdapter;
 
 use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Database;
 use MilesAsylum\Schnoop\Schnoop;

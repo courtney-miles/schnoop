@@ -2,6 +2,8 @@
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL;
 
+use MilesAsylum\Schnoop\SchemaAdapter\MySQL\RoutineFunction;
+use MilesAsylum\Schnoop\SchemaAdapter\MySQL\RoutineProcedure;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Column\ColumnFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DatabaseFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint\ForeignKeyFactoryInterface;
@@ -172,5 +174,35 @@ class SchemaBuilderTest extends \PHPUnit_Framework_TestCase
             ->willReturn($mockTriggers);
 
         $this->assertSame($mockTriggers, $this->schemaBuilder->fetchTriggers($tableName, $databaseName));
+    }
+
+    public function testFetchFunction()
+    {
+        $databaseName = 'schnoop_db';
+        $functionName = 'schnoop_func';
+
+        $mockFunction = $this->createMock(RoutineFunction::class);
+
+        $this->mockFunctionFactory->expects($this->once())
+            ->method('fetch')
+            ->with($functionName, $databaseName)
+            ->willReturn($mockFunction);
+
+        $this->assertSame($mockFunction, $this->schemaBuilder->fetchFunction($functionName, $databaseName));
+    }
+
+    public function testFetchProcedure()
+    {
+        $databaseName = 'schnoop_db';
+        $procedureName = 'schnoop_proc';
+
+        $mockProcedure = $this->createMock(RoutineProcedure::class);
+
+        $this->mockProcedureFactory->expects($this->once())
+            ->method('fetch')
+            ->with($procedureName, $databaseName)
+            ->willReturn($mockProcedure);
+
+        $this->assertSame($mockProcedure, $this->schemaBuilder->fetchProcedure($procedureName, $databaseName));
     }
 }
