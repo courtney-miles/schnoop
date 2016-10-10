@@ -5,7 +5,6 @@ namespace MilesAsylum\Schnoop;
 use MilesAsylum\Schnoop\Exception\SchnoopException;
 use MilesAsylum\Schnoop\Inspector\InspectorInterface;
 use MilesAsylum\Schnoop\Inspector\MySQLInspector;
-use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Table;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Column\ColumnFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint\ForeignKeyFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint\IndexFactory;
@@ -21,8 +20,6 @@ use MilesAsylum\Schnoop\SchemaFactory\MySQL\SetVar\SqlModeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Trigger\TriggerFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\SchemaBuilder;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Table\TableFactory;
-use MilesAsylum\SchnoopSchema\MySQL\Database\DatabaseInterface;
-use MilesAsylum\SchnoopSchema\MySQL\Table\TableInterface;
 use PDO;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\SchemaBuilderInterface;
 
@@ -116,6 +113,15 @@ class Schnoop
         return in_array($tableName, $this->dbInspector->fetchTableList($databaseName));
     }
 
+    public function hasTriggers($tableName, $databaseName = null)
+    {
+        $databaseName = $this->ensureResolveDatabaseName($databaseName);
+
+        $this->ensureTableExists($tableName, $databaseName);
+
+        return (bool)count($this->dbInspector->fetchTriggerList($databaseName, $tableName));
+    }
+
     public function getTriggers($tableName, $databaseName = null)
     {
         $databaseName = $this->ensureResolveDatabaseName($databaseName);
@@ -195,7 +201,7 @@ class Schnoop
         $databaseName = $this->dbInspector->fetchActiveDatabase();
 
         if (empty($databaseName)) {
-            throw new SchnoopException('Unable to get the active database. A database has not been selected.');
+            throw new SchnoopException('Database not specified and an active database has not been set.');
         }
 
         return $databaseName;
@@ -211,7 +217,7 @@ class Schnoop
     protected function ensureTableExists($tableName, $databaseName)
     {
         if (!$this->hasTable($tableName, $databaseName)) {
-            throw new SchnoopException("A table '$tableName' does not exist in database '$databaseName'.");
+            throw new SchnoopException("A table named '$tableName' does not exist in database '$databaseName'.");
         }
     }
 }

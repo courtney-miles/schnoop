@@ -32,4 +32,9 @@ class Table extends \MilesAsylum\SchnoopSchema\MySQL\Table\Table implements Tabl
     {
         return $this->schnoop->getTriggers($this->getName(), $this->getDatabaseName());
     }
+
+    public function hasTriggers()
+    {
+        return $this->schnoop->hasTriggers($this->getName(), $this->getDatabaseName());
+    }
 }

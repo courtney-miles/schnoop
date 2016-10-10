@@ -67,12 +67,8 @@ SHOW PROCEDURE STATUS WHERE Db = :databaseName
 SQL
         );
 
-        $this->querySelectTriggerNamesForDatabase = <<<SQL
-SHOW TRIGGERS FROM `%s`
-SQL;
-
         $this->querySelectTriggerNamesForTable = <<<SQL
-SHOW TRIGGERS FROM `%s` WHERE Table = :tableName
+SHOW TRIGGERS FROM `%s` WHERE `Table` = :tableName
 SQL;
 
         $this->stmtSelectActiveDatabase = $this->pdo->prepare(<<<SQL
@@ -111,35 +107,26 @@ SQL
     {
         $this->stmtSelectFunctionNames->execute([':databaseName' => $databaseName]);
 
-        return $this->stmtSelectFunctionNames->fetchColumn(1);
+        return $this->stmtSelectFunctionNames->fetchAll(\PDO::FETCH_COLUMN, 1);
     }
 
     public function fetchProcedureList($databaseName)
     {
         $this->stmtSelectProcedureNames->execute([':databaseName' => $databaseName]);
 
-        return $this->stmtSelectProcedureNames->fetchColumn(2);
+        return $this->stmtSelectProcedureNames->fetchAll(\PDO::FETCH_COLUMN, 1);
     }
 
-    public function fetchTriggerList($databaseName, $tableName = null)
+    public function fetchTriggerList($databaseName, $tableName)
     {
-        if ($tableName === null) {
-            $query = sprintf(
-                $this->querySelectTriggerNamesForDatabase,
-                $databaseName
-            );
+        $query = sprintf(
+            $this->querySelectTriggerNamesForTable,
+            $databaseName
+        );
 
-            $stmt = $this->pdo->query($query);
-        } else {
-            $query = sprintf(
-                $this->querySelectTriggerNamesForTable,
-                $databaseName
-            );
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute([':tableName' => $tableName]);
 
-            $stmt = $this->pdo->prepare($query);
-            $stmt->execute([':tableName' => $tableName]);
-        }
-
-        return $stmt->fetchColumn(0);
+        return $stmt->fetchAll(\PDO::FETCH_COLUMN);
     }
 }

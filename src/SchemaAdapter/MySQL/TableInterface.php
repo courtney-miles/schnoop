@@ -15,4 +15,6 @@ interface TableInterface extends \MilesAsylum\SchnoopSchema\MySQL\Table\TableInt
      * @return TriggerInterface[]
      */
     public function getTriggers();
+
+    public function hasTriggers();
 }
