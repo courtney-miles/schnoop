@@ -163,7 +163,7 @@ SQL
     }
 
     /**
-     * @expectedException \MilesAsylum\Schnoop\Exception\SchnoopException
+     * @expectedException \MilesAsylum\Schnoop\SchemaFactory\Exception\FactoryException
      */
     public function testExceptionOnNewBogusIndex()
     {
@@ -171,7 +171,7 @@ SQL
     }
 
     /**
-     * @expectedException \MilesAsylum\Schnoop\Exception\SchnoopException
+     * @expectedException \MilesAsylum\Schnoop\SchemaFactory\Exception\FactoryException
      * @expectedExceptionMessage Unknown index type, bogus.
      */
     public function testExceptionOnBogusTypeCreateFromRaw()
