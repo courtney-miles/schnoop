@@ -11,14 +11,32 @@ class ParametersParser
      */
     private $lexer;
 
+    /**
+     * Tokenised parameter string.
+     * @var array
+     */
     protected $tokenised = [];
+
+    /**
+     * Pointer for the parameter string.
+     * @var int
+     */
     protected $pointer = 0;
 
+    /**
+     * ParametersParser constructor.
+     * @param ParametersLexer $lexer
+     */
     public function __construct(ParametersLexer $lexer)
     {
         $this->lexer = $lexer;
     }
 
+    /**
+     * Parse the supplied parameter string to it's tokens.
+     * @param $parametersString
+     * @return array Tokens
+     */
     public function parse($parametersString)
     {
         $params = [];
@@ -36,6 +54,11 @@ class ParametersParser
         return $params;
     }
 
+    /**
+     * Parse the next parameter from the string, leaving the pointer at the next parameter.
+     * @return array
+     * @throws ParametersParserException
+     */
     protected function parseNextParameter()
     {
         $direction = null;
@@ -107,13 +130,22 @@ class ParametersParser
         ];
     }
 
-    protected function tokenise($parameterString)
+    /**
+     * Tokenise the parameters string.
+     * @param $parametersString
+     * @return int
+     */
+    protected function tokenise($parametersString)
     {
-        $this->tokenised = $this->lexer->tokenise(trim($parameterString));
+        $this->tokenised = $this->lexer->tokenise(trim($parametersString));
 
         return count($this->tokenised);
     }
 
+    /**
+     * Get the next token for the parameters string.
+     * @return array|null Token.
+     */
     protected function nextToken()
     {
         $token = null;
@@ -126,6 +158,10 @@ class ParametersParser
         return $token;
     }
 
+    /**
+     * Get the next token without moving the the pointer.
+     * @return array|null Token.
+     */
     protected function lookAhead()
     {
         $token = null;
@@ -137,6 +173,10 @@ class ParametersParser
         return $token;
     }
 
+    /**
+     * Move the pointer past all white space, and return the next token.
+     * @return array|null Token
+     */
     protected function clearWhitespace()
     {
         if ($this->lookAhead()[0] == ParametersLexer::T_WHITESPACE) {
@@ -146,6 +186,14 @@ class ParametersParser
         return null;
     }
 
+    /**
+     * Read all tokens until we reach an instance of the specified token.
+     * @param int $tokenId The token to stop at.
+     * @param bool $inclusive Set to true to include the specified token in
+     * the returned results. Otherwise the pointer will be positioned at the
+     * token ready for the next read.
+     * @return string
+     */
     protected function readUntil($tokenId, $inclusive = true)
     {
         $buffer = '';
@@ -161,6 +209,11 @@ class ParametersParser
         return $buffer;
     }
 
+    /**
+     * Consume all tokens that until one is found that is not included in the supplied array of token IDs.
+     * @param array $tokenIds
+     * @return string
+     */
     protected function consume(array $tokenIds)
     {
         $buffer = '';

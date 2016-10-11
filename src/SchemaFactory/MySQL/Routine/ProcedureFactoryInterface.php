@@ -5,16 +5,24 @@ use MilesAsylum\Schnoop\SchemaAdapter\MySQL\RoutineProcedure;
 
 interface ProcedureFactoryInterface extends \MilesAsylum\Schnoop\SchemaFactory\MySQL\ProcedureFactoryInterface
 {
+    /**
+     * Fetch the raw rows from the database for the stored procedure.
+     * @param string $functionName
+     * @param string $databaseName
+     * @return array Row data that defines the stored procedure.
+     */
     public function fetchRaw($functionName, $databaseName);
 
     /**
-     * @param array $raw
+     * Create a stored procedure from the supplied row data.
+     * @param array $raw Row data.
      * @return RoutineProcedure
      */
     public function createFromRaw(array $raw);
 
     /**
-     * @param $name
+     * Create a new stored procedure.
+     * @param string $name Procedure name.
      * @return RoutineProcedure
      */
     public function newProcedure($name);

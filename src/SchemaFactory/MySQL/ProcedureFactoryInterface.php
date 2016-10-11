@@ -7,8 +7,9 @@ use MilesAsylum\Schnoop\SchemaAdapter\MySQL\RoutineProcedure;
 interface ProcedureFactoryInterface
 {
     /**
-     * @param $procedureName
-     * @param $databaseName
+     * Fetch a procedure from the database.
+     * @param string $procedureName
+     * @param string $databaseName
      * @return RoutineProcedure
      */
     public function fetch($procedureName, $databaseName);

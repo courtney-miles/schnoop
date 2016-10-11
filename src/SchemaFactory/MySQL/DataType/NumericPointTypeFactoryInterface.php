@@ -8,14 +8,12 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\NumericPointTypeInterface;
 interface NumericPointTypeFactoryInterface extends DataTypeFactoryInterface
 {
     /**
-     * @param NumericPointTypeInterface $numericPointType
-     * @param $typeStr
-     * @return NumericPointTypeInterface
+     * {@inheritdoc}
      */
     public function populate(NumericPointTypeInterface $numericPointType, $typeStr);
 
     /**
-     * @return NumericPointTypeInterface
+     * {@inheritdoc}
      */
     public function newType();
 }

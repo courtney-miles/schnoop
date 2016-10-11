@@ -15,8 +15,15 @@ class ForeignKeyFactory implements ForeignKeyFactoryInterface
      */
     protected $pdo;
 
+    /**
+     * @var \PDOStatement
+     */
     protected $stmtSelectForeignKeys;
 
+    /**
+     * ForeignKeyFactory constructor.
+     * @param PDO $pdo
+     */
     public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
@@ -38,11 +45,17 @@ SQL
         );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function fetch($tableName, $databaseName)
     {
         return $this->createFromRaw($this->fetchRaw($databaseName, $tableName));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function fetchRaw($databaseName, $tableName)
     {
         $this->stmtSelectForeignKeys->execute([':database' => $databaseName, ':table' => $tableName]);
@@ -50,6 +63,9 @@ SQL
         return $this->stmtSelectForeignKeys->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function createFromRaw(array $rawTableFKs)
     {
         /** @var ForeignKey[] $foreignKeys */
@@ -82,11 +98,17 @@ SQL
         return $foreignKeys;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function newForeignKey($keyName)
     {
         return new ForeignKey($keyName);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function newForeignKeyColumn($columnName, $referenceColumnName)
     {
         return new ForeignKeyColumn($columnName, $referenceColumnName);

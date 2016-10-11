@@ -6,14 +6,16 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\FloatType;
 
 class FloatTypeFactory extends AbstractNumericPointTypeFactory
 {
+    /**
+     * {@inheritdoc}
+     */
     public function newType()
     {
         return new FloatType();
     }
 
     /**
-     * @param $typeStr
-     * @return bool
+     * {@inheritdoc}
      */
     public function doRecognise($typeStr)
     {

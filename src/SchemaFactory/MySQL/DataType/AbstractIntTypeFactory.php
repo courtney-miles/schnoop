@@ -7,6 +7,9 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\IntTypeInterface;
 
 abstract class AbstractIntTypeFactory implements IntTypeFactoryInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
@@ -16,6 +19,9 @@ abstract class AbstractIntTypeFactory implements IntTypeFactoryInterface
         return $this->populate($this->newType(), $typeStr);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function populate(IntTypeInterface $intType, $typeStr)
     {
         $intType->setSigned($this->extractSigned($typeStr));
@@ -25,6 +31,12 @@ abstract class AbstractIntTypeFactory implements IntTypeFactoryInterface
         return $intType;
     }
 
+    /**
+     * Checks the integer type string against the supplied pattern and that it confirms to an expected structure.
+     * @param string $pattern I.e. /^int|integer/i or /^bigint/i
+     * @param string $typeStr
+     * @return bool True if the type string matches the supplied pattern and conforms to an expected structure.
+     */
     protected function matchIntPattern($pattern, $typeStr)
     {
         $r = preg_match($pattern, $typeStr);
@@ -39,8 +51,9 @@ abstract class AbstractIntTypeFactory implements IntTypeFactoryInterface
     }
 
     /**
+     * Extract the display width from an integer type string.
      * @param string $typeStr
-     * @return int
+     * @return int Display width.
      */
     protected function extractDisplayWidth($typeStr)
     {
@@ -50,8 +63,9 @@ abstract class AbstractIntTypeFactory implements IntTypeFactoryInterface
     }
 
     /**
+     * Extract if the type string is for an signed integer.
      * @param string $typeStr
-     * @return bool
+     * @return bool True if the type string specifies the integer is signed.
      */
     protected function extractSigned($typeStr)
     {
@@ -59,8 +73,9 @@ abstract class AbstractIntTypeFactory implements IntTypeFactoryInterface
     }
 
     /**
+     * Extract if the type string is for a zero-filled integer.
      * @param string $typeStr
-     * @return bool
+     * @return bool True if the type string specifies zero-filling.
      */
     protected function extractZeroFill($typeStr)
     {

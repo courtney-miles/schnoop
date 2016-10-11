@@ -7,10 +7,11 @@ use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
 abstract class AbstractOptionsTypeFactory implements DataTypeFactoryInterface
 {
     /**
-     * @param $typeStr
-     * @return array
+     * Extract the options from the supplied type string.
+     * @param string $typeStr
+     * @return array Options.
      */
-    protected static function getOptions($typeStr)
+    protected static function extractOptions($typeStr)
     {
         preg_match('/\((.*)\)/', $typeStr, $options);
 

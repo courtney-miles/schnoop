@@ -143,5 +143,6 @@ foreach ($triggers as $trigger)
 
 ## Todo
 
+* Add method `DataTypeFactoryInterface::getTypeName()` to be used with `DataTypeFactory::addHandler()`.
 * Introduced a repository to prevent duplicate resources from being constructed.
 * Add support for Views.

@@ -8,9 +8,7 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\MediumTextType;
 class MediumTextTypeFactory implements DataTypeFactoryInterface
 {
     /**
-     * @param $typeStr
-     * @param null $collation
-     * @return MediumTextType|bool
+     * {@inheritdoc}
      */
     public function createType($typeStr, $collation = null)
     {
@@ -25,8 +23,7 @@ class MediumTextTypeFactory implements DataTypeFactoryInterface
     }
 
     /**
-     * @param $typeStr
-     * @return bool
+     * {@inheritdoc}
      */
     public function doRecognise($typeStr)
     {

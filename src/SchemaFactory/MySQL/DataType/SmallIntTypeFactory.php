@@ -6,14 +6,16 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\SmallIntType;
 
 class SmallIntTypeFactory extends AbstractIntTypeFactory
 {
+    /**
+     * {@inheritdoc}
+     */
     public function newType()
     {
         return new SmallIntType();
     }
 
     /**
-     * @param $typeStr
-     * @return bool
+     * {@inheritdoc}
      */
     public function doRecognise($typeStr)
     {

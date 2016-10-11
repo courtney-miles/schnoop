@@ -6,7 +6,12 @@ use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
 
 abstract class AbstractTimeTypeFactory implements DataTypeFactoryInterface
 {
-    protected function getPrecision($typeStr)
+    /**
+     * Extract the precision from the time type string.
+     * @param string $typeStr
+     * @return int Precision
+     */
+    protected function extractPrecision($typeStr)
     {
         $precision = 0;
 

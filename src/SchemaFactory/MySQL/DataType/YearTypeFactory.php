@@ -8,9 +8,7 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\YearType;
 class YearTypeFactory implements DataTypeFactoryInterface
 {
     /**
-     * @param $typeStr
-     * @param null $collation
-     * @return YearType|bool
+     * {@inheritdoc}
      */
     public function createType($typeStr, $collation = null)
     {
@@ -22,8 +20,7 @@ class YearTypeFactory implements DataTypeFactoryInterface
     }
 
     /**
-     * @param $typeStr
-     * @return bool
+     * {@inheritdoc}
      */
     public function doRecognise($typeStr)
     {

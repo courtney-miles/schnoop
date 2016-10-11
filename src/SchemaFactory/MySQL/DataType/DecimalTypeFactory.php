@@ -7,14 +7,16 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\DecimalType;
 class DecimalTypeFactory extends AbstractNumericPointTypeFactory
 {
 
+    /**
+     * {@inheritdoc}
+     */
     public function newType()
     {
         return new DecimalType();
     }
 
     /**
-     * @param $typeStr
-     * @return bool
+     * {@inheritdoc}
      */
     public function doRecognise($typeStr)
     {

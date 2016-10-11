@@ -8,9 +8,7 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\LongBlobType;
 class LongBlobTypeFactory implements DataTypeFactoryInterface
 {
     /**
-     * @param $typeStr
-     * @param null $collation
-     * @return LongBlobType|bool
+     * {@inheritdoc}
      */
     public function createType($typeStr, $collation = null)
     {
@@ -22,8 +20,7 @@ class LongBlobTypeFactory implements DataTypeFactoryInterface
     }
 
     /**
-     * @param $typeStr
-     * @return bool
+     * {@inheritdoc}
      */
     public function doRecognise($typeStr)
     {

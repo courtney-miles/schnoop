@@ -30,6 +30,11 @@ class ParametersFactory
         $this->dataTypeFactory = $dataTypeFactory;
     }
 
+    /**
+     * Create collection of parameter objects from the supplied string.
+     * @param string $parametersString
+     * @return FunctionParameter[]|ProcedureParameter[]
+     */
     public function createParameters($parametersString)
     {
         $parameters = [];
@@ -56,11 +61,25 @@ class ParametersFactory
         return $parameters;
     }
 
+    /**
+     * Create a new parameter for a function.
+     * @param string $name Parameter name.
+     * @param DataTypeInterface $dataType
+     * @return FunctionParameter
+     */
     public function newFunctionParameter($name, DataTypeInterface $dataType)
     {
         return new FunctionParameter($name, $dataType);
     }
 
+    /**
+     * Create a new parameter for a procedure.
+     * @param string $name Parameter name.
+     * @param DataTypeInterface $dataType
+     * @param string $direction The parameter value direction.  One of
+     * ProcedureParameterInterface::DIRECTION_* constants.
+     * @return ProcedureParameter
+     */
     public function newProcedureParameter($name, DataTypeInterface $dataType, $direction)
     {
         return new ProcedureParameter($name, $dataType, $direction);

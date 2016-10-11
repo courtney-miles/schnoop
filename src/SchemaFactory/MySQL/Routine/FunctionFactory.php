@@ -14,6 +14,13 @@ class FunctionFactory extends AbstractRoutineFactory implements FunctionFactoryI
      */
     protected $dataTypeFactory;
 
+    /**
+     * FunctionFactory constructor.
+     * @param \PDO $pdo
+     * @param ParametersFactory $parametersFactory
+     * @param SqlModeFactory $sqlModeFactory
+     * @param DataTypeFactoryInterface $dataTypeFactory
+     */
     public function __construct(
         \PDO $pdo,
         ParametersFactory $parametersFactory,
@@ -25,6 +32,9 @@ class FunctionFactory extends AbstractRoutineFactory implements FunctionFactoryI
         $this->dataTypeFactory = $dataTypeFactory;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function fetch($functionName, $databaseName)
     {
         return $this->createFromRaw(
@@ -32,6 +42,9 @@ class FunctionFactory extends AbstractRoutineFactory implements FunctionFactoryI
         );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function fetchRaw($functionName, $databaseName)
     {
         $this->stmtSelectFunction->execute(
@@ -45,6 +58,9 @@ class FunctionFactory extends AbstractRoutineFactory implements FunctionFactoryI
         return $this->stmtSelectFunction->fetch(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function createFromRaw(array $raw)
     {
         $returnType = $this->dataTypeFactory->createType($raw['returns']);
@@ -56,6 +72,9 @@ class FunctionFactory extends AbstractRoutineFactory implements FunctionFactoryI
         return $function;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function newFunction($name, DataTypeInterface $returns)
     {
         return new RoutineFunction($name, $returns);

@@ -42,9 +42,7 @@ SQL;
     }
 
     /**
-     * @param $tableName
-     * @param $databaseName
-     * @return \MilesAsylum\SchnoopSchema\MySQL\Column\Column[]
+     * {@inheritdoc}
      */
     public function fetch($tableName, $databaseName)
     {
@@ -60,6 +58,9 @@ SQL;
         return $columns;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function fetchRaw($databaseName, $tableName)
     {
         $rawColumns = [];
@@ -95,8 +96,7 @@ SQL;
     }
 
     /**
-     * @param array $rawColumn
-     * @return Column
+     * {@inheritdoc}
      */
     public function createFromRaw(array $rawColumn)
     {
@@ -114,6 +114,9 @@ SQL;
         return $column;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function newColumn($name, DataTypeInterface $dataType)
     {
         return new Column(
@@ -122,6 +125,11 @@ SQL;
         );
     }
 
+    /**
+     * Convert associative array keys to lower case.
+     * @param array $arr Associative array.
+     * @return array A copy of the supplied array with all keys changed to lower case.
+     */
     protected function keysToLower(array $arr)
     {
         $keysToLower = [];

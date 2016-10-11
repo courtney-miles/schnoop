@@ -13,9 +13,7 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\BinaryType;
 class BinaryTypeFactory extends AbstractCharTypeFactory
 {
     /**
-     * @param $typeStr
-     * @param null $collation
-     * @return BinaryType|bool
+     * {@inheritdoc}
      */
     public function createType($typeStr, $collation = null)
     {
@@ -26,6 +24,12 @@ class BinaryTypeFactory extends AbstractCharTypeFactory
         return $this->populate($this->newType(), $typeStr);
     }
 
+    /**
+     * Populate the properties of the supplied binary type from the type string.
+     * @param BinaryType $binaryType
+     * @param string $typeStr
+     * @return BinaryType
+     */
     public function populate(BinaryType $binaryType, $typeStr)
     {
         $binaryType->setLength($this->extractLength($typeStr));
@@ -33,14 +37,17 @@ class BinaryTypeFactory extends AbstractCharTypeFactory
         return $binaryType;
     }
 
+    /**
+     * Create a new binary type.
+     * @return BinaryType
+     */
     public function newType()
     {
         return new BinaryType();
     }
 
     /**
-     * @param $typeStr
-     * @return bool
+     * {@inheritdoc}
      */
     public function doRecognise($typeStr)
     {

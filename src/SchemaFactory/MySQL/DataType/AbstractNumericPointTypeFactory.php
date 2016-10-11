@@ -6,11 +6,17 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\NumericPointTypeInterface;
 
 abstract class AbstractNumericPointTypeFactory implements NumericPointTypeFactoryInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function createType($typeStr, $collation = null)
     {
         return $this->populate($this->newType(), $typeStr);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function populate(NumericPointTypeInterface $numericPointType, $typeStr)
     {
         if (!$this->doRecognise($typeStr)) {
@@ -24,6 +30,12 @@ abstract class AbstractNumericPointTypeFactory implements NumericPointTypeFactor
         return $numericPointType;
     }
 
+    /**
+     * Checks the point type string against the supplied pattern and that it confirms to an expected structure.
+     * @param string $pattern I.e. /^decimal/i or /^float/i
+     * @param string $typeStr
+     * @return bool True if the type string matches the supplied pattern and conforms to an expected structure.
+     */
     protected function matchPointPattern($pattern, $typeStr)
     {
         $r = preg_match($pattern, $typeStr);
@@ -38,6 +50,7 @@ abstract class AbstractNumericPointTypeFactory implements NumericPointTypeFactor
     }
 
     /**
+     * Extract the precision and scale from the supplied type string.
      * @param string $typeStr
      * @return array The array will contain two values. The first item is the
      * precision, and the second is the scale. In the case that a precision
@@ -56,8 +69,9 @@ abstract class AbstractNumericPointTypeFactory implements NumericPointTypeFactor
     }
 
     /**
+     * Extract if the type string is for an signed integer.
      * @param string $typeStr
-     * @return bool
+     * @return bool True if the type string specifies the number is signed.
      */
     protected function extractSigned($typeStr)
     {
@@ -65,8 +79,9 @@ abstract class AbstractNumericPointTypeFactory implements NumericPointTypeFactor
     }
 
     /**
+     * Extract if the type string is for a zero-filled number.
      * @param string $typeStr
-     * @return bool
+     * @return bool True if the type string specifies zero-filling.
      */
     protected function extractZeroFill($typeStr)
     {

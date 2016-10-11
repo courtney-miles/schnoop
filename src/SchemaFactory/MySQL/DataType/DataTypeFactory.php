@@ -42,10 +42,7 @@ class DataTypeFactory implements DataTypeFactoryInterface
     protected $factoryTypeHandlers = [];
 
     /**
-     * @param $typeStr
-     * @param null $collation
-     * @return bool|DataTypeInterface
-     * @throws FactoryException
+     * {@inheritdoc}
      */
     public function createType($typeStr, $collation = null)
     {
@@ -59,9 +56,7 @@ class DataTypeFactory implements DataTypeFactoryInterface
     }
 
     /**
-     * @param $typeStr
-     * @return bool
-     * @throws FactoryException
+     * {@inheritdoc}
      */
     public function doRecognise($typeStr)
     {
@@ -74,6 +69,11 @@ class DataTypeFactory implements DataTypeFactoryInterface
         return array_key_exists($type, $this->factoryTypeHandlers);
     }
 
+    /**
+     * Add a data type factory.
+     * @param $typeName
+     * @param \MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface $dataTypeFactory
+     */
     public function addFactoryTypeHandler($typeName, DataTypeFactoryInterface $dataTypeFactory)
     {
         if (isset($this->factoryTypeHandlers[$typeName])) {
@@ -85,12 +85,18 @@ class DataTypeFactory implements DataTypeFactoryInterface
         $this->factoryTypeHandlers[$typeName] = $dataTypeFactory;
     }
 
+    /**
+     * Get the handler for the supplied type name.
+     * @param string $typeName
+     * @return \MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface
+     */
     public function getFactoryHandlerForType($typeName)
     {
         return $this->factoryTypeHandlers[$typeName];
     }
 
     /**
+     * Factory method for constructing this object with all known type handlers added.
      * @return DataTypeFactory
      */
     public static function createSelf()
@@ -136,6 +142,11 @@ class DataTypeFactory implements DataTypeFactoryInterface
         return $dataTypeFactory;
     }
 
+    /**
+     * Extract the type name from the type string.
+     * @param string $typeStr
+     * @return bool|string The type name. False if the type string has an unrecognised format.
+     */
     protected function extractTypeName($typeStr)
     {
         if (preg_match('/^(\w+)/', $typeStr, $matches)) {

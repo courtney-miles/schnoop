@@ -6,6 +6,9 @@ use MilesAsylum\Schnoop\SchemaAdapter\MySQL\RoutineProcedure;
 
 class ProcedureFactory extends AbstractRoutineFactory implements ProcedureFactoryInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function fetch($procedureName, $databaseName)
     {
         return $this->createFromRaw(
@@ -13,6 +16,9 @@ class ProcedureFactory extends AbstractRoutineFactory implements ProcedureFactor
         );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function fetchRaw($functionName, $databaseName)
     {
         $this->stmtSelectFunction->execute(
@@ -26,6 +32,9 @@ class ProcedureFactory extends AbstractRoutineFactory implements ProcedureFactor
         return $this->stmtSelectFunction->fetch(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function createFromRaw(array $raw)
     {
         $procedure = $this->newProcedure($raw['name']);
@@ -35,6 +44,9 @@ class ProcedureFactory extends AbstractRoutineFactory implements ProcedureFactor
         return $procedure;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function newProcedure($name)
     {
         return new RoutineProcedure($name);

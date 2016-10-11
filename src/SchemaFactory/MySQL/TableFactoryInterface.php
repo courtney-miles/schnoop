@@ -7,8 +7,9 @@ use MilesAsylum\Schnoop\SchemaAdapter\MySQL\TableInterface;
 interface TableFactoryInterface
 {
     /**
-     * @param $tableName
-     * @param $databaseName
+     * Fetch a table from the database.
+     * @param string $tableName
+     * @param string $databaseName
      * @return TableInterface
      */
     public function fetch($tableName, $databaseName);

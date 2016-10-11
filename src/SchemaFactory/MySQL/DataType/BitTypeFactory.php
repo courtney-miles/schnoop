@@ -7,9 +7,7 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\BitType;
 class BitTypeFactory extends AbstractCharTypeFactory
 {
     /**
-     * @param $typeStr
-     * @param null $collation
-     * @return BitType|bool
+     * {@inheritdoc}
      */
     public function createType($typeStr, $collation = null)
     {
@@ -20,6 +18,12 @@ class BitTypeFactory extends AbstractCharTypeFactory
         return $this->populate($this->newType(), $typeStr);
     }
 
+    /**
+     * Populate the properties of the supplied bit type from the type string
+     * @param BitType $bitType
+     * @param string $typeStr
+     * @return BitType
+     */
     public function populate(BitType $bitType, $typeStr)
     {
         $bitType->setLength($this->extractLength($typeStr));
@@ -27,14 +31,17 @@ class BitTypeFactory extends AbstractCharTypeFactory
         return $bitType;
     }
 
+    /**
+     * Create a new Bit type object.
+     * @return BitType
+     */
     public function newType()
     {
         return new BitType();
     }
 
     /**
-     * @param $typeStr
-     * @return bool
+     * {@inheritdoc}
      */
     public function doRecognise($typeStr)
     {

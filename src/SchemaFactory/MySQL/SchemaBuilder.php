@@ -54,6 +54,17 @@ class SchemaBuilder implements SchemaBuilderInterface
      */
     private $schnoop;
 
+    /**
+     * SchemaBuilder constructor.
+     * @param DatabaseFactoryInterface $databaseMapper
+     * @param TableFactoryInterface $tableMapper
+     * @param ColumnFactoryInterface $columnMapper
+     * @param IndexFactoryInterface $indexMapper
+     * @param ForeignKeyFactoryInterface $foreignKeyMapper
+     * @param TriggerFactoryInterface $triggerMapper
+     * @param FunctionFactoryInterface $functionFactory
+     * @param ProcedureFactoryInterface $procedureFactory
+     */
     public function __construct(
         DatabaseFactoryInterface $databaseMapper,
         TableFactoryInterface $tableMapper,
@@ -137,16 +148,34 @@ class SchemaBuilder implements SchemaBuilderInterface
         return $this->procedureFactory->fetch($procedureName, $databaseName);
     }
 
+    /**
+     * Fetch columns for a table.
+     * @param string $tableName
+     * @param string $databaseName
+     * @return \MilesAsylum\SchnoopSchema\MySQL\Column\Column[]
+     */
     protected function fetchColumns($tableName, $databaseName)
     {
         return $this->columnMapper->fetch($tableName, $databaseName);
     }
 
+    /**
+     * Fetch indexes for a table.
+     * @param string $tableName
+     * @param string $databaseName
+     * @return \MilesAsylum\SchnoopSchema\MySQL\Constraint\IndexInterface[]
+     */
     protected function fetchIndexes($tableName, $databaseName)
     {
         return $this->indexMapper->fetch($tableName, $databaseName);
     }
 
+    /**
+     * Fetch foreign keys for a table.
+     * @param string $tableName
+     * @param string $databaseName
+     * @return \MilesAsylum\SchnoopSchema\MySQL\Constraint\ForeignKey[]
+     */
     protected function fetchForeignKeys($tableName, $databaseName)
     {
         return $this->foreignKeyMapper->fetch($tableName, $databaseName);

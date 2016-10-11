@@ -7,14 +7,16 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\DoubleType;
 
 class DoubleTypeFactory extends AbstractNumericPointTypeFactory
 {
+    /**
+     * {@inheritdoc}
+     */
     public function newType()
     {
         return new DoubleType();
     }
 
     /**
-     * @param $typeStr
-     * @return bool
+     * {@inheritdoc}
      */
     public function doRecognise($typeStr)
     {

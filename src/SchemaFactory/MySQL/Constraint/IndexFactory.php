@@ -2,9 +2,7 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint;
 
-use MilesAsylum\Schnoop\Exception\SchnoopException;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint\IndexFactoryInterface;
-use MilesAsylum\SchnoopSchema\MySQL\Constraint\ConstraintInterface;
+use MilesAsylum\Schnoop\SchemaFactory\Exception\FactoryException;
 use MilesAsylum\SchnoopSchema\MySQL\Constraint\FullTextIndex;
 use MilesAsylum\SchnoopSchema\MySQL\Constraint\Index;
 use MilesAsylum\SchnoopSchema\MySQL\Constraint\IndexedColumn;
@@ -20,6 +18,7 @@ class IndexFactory implements IndexFactoryInterface
      * @var IndexFactoryInterface[]
      */
     protected $mapHandlers = [];
+
     /**
      * @var PDO
      */
@@ -30,6 +29,10 @@ class IndexFactory implements IndexFactoryInterface
      */
     protected $sqlShowIndexes;
 
+    /**
+     * IndexFactory constructor.
+     * @param PDO $pdo
+     */
     public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
@@ -40,9 +43,7 @@ SQL;
     }
 
     /**
-     * @param $tableName
-     * @param $databaseName
-     * @return \MilesAsylum\SchnoopSchema\MySQL\Constraint\ConstraintInterface[]
+     * {@inheritdoc}
      */
     public function fetch($tableName, $databaseName)
     {
@@ -52,6 +53,9 @@ SQL;
         return $indexes;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function fetchRaw($databaseName, $tableName)
     {
         $rawIndexes = [];
@@ -88,9 +92,8 @@ SQL;
     }
 
     /**
-     * @param array $rawTableIndexes
-     * @return \MilesAsylum\SchnoopSchema\MySQL\Constraint\IndexInterface[]
-     * @throws SchnoopException
+     * {@inheritdoc}
+     * @throws FactoryException
      */
     public function createFromRaw(array $rawTableIndexes)
     {
@@ -119,7 +122,7 @@ SQL;
                             $index = $this->newIndex(IndexInterface::CONSTRAINT_INDEX, $keyName);
                             break;
                         default:
-                            throw new SchnoopException("Unknown index type, {$rawTableIndex['index_type']}.");
+                            throw new FactoryException("Unknown index type, {$rawTableIndex['index_type']}.");
                     }
                 }
 
@@ -142,6 +145,12 @@ SQL;
         return $indexes;
     }
 
+    /**
+     * @param string $indexType One of IndexInterface::CONSTRAIN_* constants.
+     * @param string $indexName
+     * @return FullTextIndex|Index|PrimaryKey|SpatialIndex|UniqueIndex
+     * @throws FactoryException
+     */
     public function newIndex($indexType, $indexName)
     {
         switch ($indexType) {
@@ -162,15 +171,25 @@ SQL;
                 return new SpatialIndex($indexName);
                 break;
             default:
-                throw new SchnoopException("Unrecognised index, $indexType");
+                throw new FactoryException("Unrecognised index, $indexType");
         }
     }
 
+    /**
+     * Create a new Indexed Column.
+     * @param string $columnName
+     * @return IndexedColumn
+     */
     public function newIndexedColumn($columnName)
     {
         return new IndexedColumn($columnName);
     }
 
+    /**
+     * Convert the associative keys of the supplied array to lower case.
+     * @param array $array Associative array.
+     * @return array Copy of array with associative keys changed to lower case.
+     */
     protected function keysToLower(array $array)
     {
         $newArray = [];

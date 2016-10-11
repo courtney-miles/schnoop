@@ -7,9 +7,7 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\VarBinaryType;
 class VarBinaryTypeFactory extends AbstractCharTypeFactory
 {
     /**
-     * @param $typeStr
-     * @param null $collation
-     * @return VarBinaryType|bool
+     * {@inheritdoc}
      */
     public function createType($typeStr, $collation = null)
     {
@@ -26,8 +24,7 @@ class VarBinaryTypeFactory extends AbstractCharTypeFactory
     }
 
     /**
-     * @param $typeStr
-     * @return bool
+     * {@inheritdoc}
      */
     public function doRecognise($typeStr)
     {

@@ -6,14 +6,16 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\MediumIntType;
 
 class MediumIntTypeFactory extends AbstractIntTypeFactory
 {
+    /**
+     * {@inheritdoc}
+     */
     public function newType()
     {
         return new MediumIntType();
     }
 
     /**
-     * @param $typeStr
-     * @return bool
+     * {@inheritdoc}
      */
     public function doRecognise($typeStr)
     {

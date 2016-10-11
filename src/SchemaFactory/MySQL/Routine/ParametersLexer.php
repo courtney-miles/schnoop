@@ -34,19 +34,25 @@ class ParametersLexer
     const T_ENCAPSED_STRING = 6;
     const T_TICK = 7;
 
-    public function tokenise($source)
+    /**
+     * Tokenise a parameter string
+     * @param string $paramString Parameter string
+     * @return array Tokens.
+     * @throws ParametersLexerException
+     */
+    public function tokenise($paramString)
     {
         $tokens = [];
         $offset = 0;
 
-        while ($offset < strlen($source)) {
-            $result = $this->match($source, $offset);
+        while ($offset < strlen($paramString)) {
+            $result = $this->match($paramString, $offset);
 
             if ($result === false) {
                 throw new ParametersLexerException(
                     sprintf(
                         "There is an error in the syntax for the parameters string. Check the syntax near '%s'.",
-                        substr($source, $offset, 10)
+                        substr($paramString, $offset, 10)
                     )
                 );
             }
@@ -59,7 +65,8 @@ class ParametersLexer
     }
 
     /**
-     * @param int $token
+     * Get the name of the supplied token.
+     * @param int $token One of self::T_* constants.
      * @return string
      */
     public function getTokenName($token)
@@ -67,6 +74,13 @@ class ParametersLexer
         return $this->tokenNames[$token];
     }
 
+    /**
+     * Returns the first match of terminal pattern.
+     * @param $source
+     * @param $offset
+     * @return array|bool First array element is the matching token name, and
+     * the second is the matching value.  False if there was no match.
+     */
     protected function match($source, $offset)
     {
         $source = substr($source, $offset);

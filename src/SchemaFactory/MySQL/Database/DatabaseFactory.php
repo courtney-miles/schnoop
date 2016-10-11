@@ -17,6 +17,10 @@ class DatabaseFactory implements DatabaseFactoryInterface
      */
     protected $sqlSelectSchemata;
 
+    /**
+     * DatabaseFactory constructor.
+     * @param PDO $pdo
+     */
     public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
@@ -31,11 +35,17 @@ SQL
         );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function fetch($databaseName)
     {
         return $this->createFromRaw($this->fetchRaw($databaseName));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function fetchRaw($databaseName)
     {
         $this->sqlSelectSchemata->execute([':databaseName' => $databaseName]);
@@ -43,6 +53,9 @@ SQL
         return $this->sqlSelectSchemata->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function createFromRaw(array $rawDatabase)
     {
         $database = $this->newDatabase($rawDatabase['schema_name']);
@@ -51,6 +64,9 @@ SQL
         return $database;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function newDatabase($databaseName)
     {
         return new Database($databaseName);

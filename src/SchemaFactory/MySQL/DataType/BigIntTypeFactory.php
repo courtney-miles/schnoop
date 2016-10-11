@@ -7,14 +7,16 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\BigIntType;
 class BigIntTypeFactory extends AbstractIntTypeFactory
 {
     /**
-     * @param $typeStr
-     * @return bool
+     * {@inheritdoc}
      */
     public function doRecognise($typeStr)
     {
         return $this->matchIntPattern('/^bigint?/i', $typeStr);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function newType()
     {
         return new BigIntType();

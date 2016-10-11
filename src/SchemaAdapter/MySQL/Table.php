@@ -11,6 +11,11 @@ class Table extends \MilesAsylum\SchnoopSchema\MySQL\Table\Table implements Tabl
      */
     private $schnoop;
 
+    /**
+     * Table constructor.
+     * @param string $databaseName
+     * @param string $name
+     */
     public function __construct($databaseName, $name)
     {
         parent::__construct($name);
@@ -33,6 +38,9 @@ class Table extends \MilesAsylum\SchnoopSchema\MySQL\Table\Table implements Tabl
         return $this->schnoop->getTriggers($this->getName(), $this->getDatabaseName());
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function hasTriggers()
     {
         return $this->schnoop->hasTriggers($this->getName(), $this->getDatabaseName());

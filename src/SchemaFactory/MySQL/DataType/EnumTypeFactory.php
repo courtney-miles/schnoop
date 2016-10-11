@@ -8,9 +8,7 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\EnumType;
 class EnumTypeFactory extends AbstractOptionsTypeFactory
 {
     /**
-     * @param $typeStr
-     * @param null $collation
-     * @return DataTypeInterface|bool
+     * {@inheritdoc}
      */
     public function createType($typeStr, $collation = null)
     {
@@ -19,15 +17,14 @@ class EnumTypeFactory extends AbstractOptionsTypeFactory
         }
 
         $enumType = new EnumType();
-        $enumType->setOptions($this->getOptions($typeStr));
+        $enumType->setOptions($this->extractOptions($typeStr));
         $enumType->setCollation($collation);
 
         return $enumType;
     }
 
     /**
-     * @param $typeStr
-     * @return bool
+     * {@inheritdoc}
      */
     public function doRecognise($typeStr)
     {

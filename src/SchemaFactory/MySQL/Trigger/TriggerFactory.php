@@ -8,6 +8,9 @@ use PDO;
 
 class TriggerFactory implements TriggerFactoryInterface
 {
+    /**
+     * @var \PDO
+     */
     protected $pdo;
 
     /**
@@ -15,8 +18,16 @@ class TriggerFactory implements TriggerFactoryInterface
      */
     protected $sqlModeFactory;
 
+    /**
+     * @var string
+     */
     protected $qShowTriggerForTable;
 
+    /**
+     * TriggerFactory constructor.
+     * @param PDO $pdo
+     * @param SqlModeFactory $sqlModeFactory
+     */
     public function __construct(\PDO $pdo, SqlModeFactory $sqlModeFactory)
     {
         $this->pdo = $pdo;
@@ -27,11 +38,17 @@ SHOW TRIGGERS FROM `%s` WHERE `Table` = :tableName
 SQL;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function fetch($tableName, $databaseName)
     {
         return $this->createFromRaw($this->fetchRaw($tableName, $databaseName), $databaseName);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function fetchRaw($tableName, $databaseName)
     {
         $stmt = $this->pdo->prepare(
@@ -68,6 +85,9 @@ SQL;
         return $rows;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function createFromRaw(array $rawTriggers, $databaseName)
     {
         $triggers = [];
@@ -100,11 +120,19 @@ SQL;
         return $triggers;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function newTrigger($name, $timing, $event, $tableName)
     {
         return new Trigger($name, $timing, $event, $tableName);
     }
 
+    /**
+     * Convert the associate keys of an array to lower-case.
+     * @param array $arr
+     * @return array Copy the supplied array with lower-case keys.
+     */
     protected function keysToLower(array $arr)
     {
         $keysToLower = [];

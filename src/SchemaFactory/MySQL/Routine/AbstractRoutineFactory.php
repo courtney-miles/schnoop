@@ -28,6 +28,12 @@ abstract class AbstractRoutineFactory
      */
     protected $sqlModeFactory;
 
+    /**
+     * AbstractRoutineFactory constructor.
+     * @param \PDO $pdo
+     * @param ParametersFactory $parametersFactory
+     * @param SqlModeFactory $sqlModeFactory
+     */
     public function __construct(\PDO $pdo, ParametersFactory $parametersFactory, SqlModeFactory $sqlModeFactory)
     {
         $this->pdo = $pdo;
@@ -54,6 +60,11 @@ SQL
         );
     }
 
+    /**
+     * Populate the properties of the routine with the supplied row data.
+     * @param RoutineInterface $routine
+     * @param array $raw Row data that defines a routine.
+     */
     protected function hydrateRoutine(RoutineInterface $routine, array $raw)
     {
         $routine->setDefiner($raw['definer']);

@@ -8,9 +8,7 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\SetType;
 class SetTypeFactory extends AbstractOptionsTypeFactory
 {
     /**
-     * @param $typeStr
-     * @param null $collation
-     * @return DataTypeInterface|bool
+     * {@inheritdoc}
      */
     public function createType($typeStr, $collation = null)
     {
@@ -19,15 +17,14 @@ class SetTypeFactory extends AbstractOptionsTypeFactory
         }
 
         $setType = new SetType();
-        $setType->setOptions($this->getOptions($typeStr));
+        $setType->setOptions($this->extractOptions($typeStr));
         $setType->setCollation($collation);
 
         return $setType;
     }
 
     /**
-     * @param $typeStr
-     * @return bool
+     * {@inheritdoc}
      */
     public function doRecognise($typeStr)
     {

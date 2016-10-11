@@ -7,9 +7,7 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\TimestampType;
 class TimestampTypeFactory extends AbstractTimeTypeFactory
 {
     /**
-     * @param $typeStr
-     * @param null $collation
-     * @return TimestampType|bool
+     * {@inheritdoc}
      */
     public function createType($typeStr, $collation = null)
     {
@@ -18,14 +16,13 @@ class TimestampTypeFactory extends AbstractTimeTypeFactory
         }
 
         $timestampType = new TimestampType();
-        $timestampType->setPrecision($this->getPrecision($typeStr));
+        $timestampType->setPrecision($this->extractPrecision($typeStr));
 
         return $timestampType;
     }
 
     /**
-     * @param $typeStr
-     * @return bool
+     * {@inheritdoc}
      */
     public function doRecognise($typeStr)
     {

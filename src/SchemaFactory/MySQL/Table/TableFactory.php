@@ -17,6 +17,10 @@ class TableFactory implements TableFactoryInterface
      */
     protected $sqlShowTableStatus;
 
+    /**
+     * TableFactory constructor.
+     * @param PDO $pdo
+     */
     public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
@@ -26,11 +30,17 @@ SHOW TABLE STATUS FROM `%s` WHERE `Name` = :table AND `Engine` IS NOT NULL
 SQL;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function fetch($tableName, $databaseName)
     {
         return $this->createFromRaw($this->fetchRaw($tableName, $databaseName), $databaseName);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function fetchRaw($tableName, $databaseName)
     {
         $raw = null;
@@ -64,6 +74,9 @@ SQL;
         return $raw;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function createFromRaw(array $rawTable, $databaseName)
     {
         $rawTable = $this->keysToLower($rawTable);
@@ -77,11 +90,19 @@ SQL;
         return $table;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function newTable($tableName, $databaseName)
     {
         return new Table($databaseName, $tableName);
     }
 
+    /**
+     * Convert the associate keys of an array to lower-case.
+     * @param array $arr
+     * @return array Copy the supplied array with lower-case keys.
+     */
     protected function keysToLower(array $arr)
     {
         $keysToLower = [];
