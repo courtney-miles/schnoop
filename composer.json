@@ -1,6 +1,7 @@
 {
   "name": "milesasylum/schnoop",
   "description": "Schnoop provides a convenient PHP interface for inspecting a database schema.",
+  "keywords": ["database","sql","ddl","mysql"],
   "homepage": "https://github.com/courtney-miles/schnoop",
   "minimum-stability": "stable",
   "license": "MIT",
@@ -12,7 +13,7 @@
   ],
   "require": {
     "php" : "~5.6.0",
-    "milesasylum/schnoop-schema": "dev-master"
+    "milesasylum/schnoop-schema": "~0.1.0"
   },
   "require-dev": {
     "phpunit/phpunit" : "~5.0",

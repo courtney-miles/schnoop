@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3facf3eb1bd8dfc64e4d6103244af6f8",
-    "content-hash": "b367621518a2ba276ace192919d714ee",
+    "hash": "474c6037b7be7ae2880926964cf45a9d",
+    "content-hash": "933b1153fc938455aa6e9ec1602ba9de",
     "packages": [
         {
             "name": "milesasylum/schnoop-schema",
-            "version": "dev-master",
+            "version": "0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/courtney-miles/schnoop-schema.git",
-                "reference": "b2fed4ea9f6415fe0ef5f3cbf99b40bd91a24bf7"
+                "reference": "b5e5932154ca5f0be5caaf820d709c92b20ff9c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/courtney-miles/schnoop-schema/zipball/b2fed4ea9f6415fe0ef5f3cbf99b40bd91a24bf7",
-                "reference": "b2fed4ea9f6415fe0ef5f3cbf99b40bd91a24bf7",
+                "url": "https://api.github.com/repos/courtney-miles/schnoop-schema/zipball/b5e5932154ca5f0be5caaf820d709c92b20ff9c4",
+                "reference": "b5e5932154ca5f0be5caaf820d709c92b20ff9c4",
                 "shasum": ""
             },
             "require": {
@@ -45,9 +45,15 @@
                     "email": "courtney@milesasylum.com"
                 }
             ],
-            "description": "Schnoop schema is a representation of a database schema using PHP objects.",
+            "description": "Schnoop Schema is a collection of PHP classes for describing a MySQL database schema.",
             "homepage": "https://github.com/courtney-miles/schnoop-schema",
-            "time": "2016-10-08 22:44:30"
+            "keywords": [
+                "database",
+                "ddl",
+                "mysql",
+                "sql"
+            ],
+            "time": "2016-10-13 07:29:52"
         }
     ],
     "packages-dev": [
@@ -834,16 +840,16 @@
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "3.3.1",
+            "version": "3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "03500345483e1e17b52e2e4d34a89c9408ab2902"
+                "reference": "238d7a2723bce689c79eeac9c7d5e1d623bb9dc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/03500345483e1e17b52e2e4d34a89c9408ab2902",
-                "reference": "03500345483e1e17b52e2e4d34a89c9408ab2902",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/238d7a2723bce689c79eeac9c7d5e1d623bb9dc2",
+                "reference": "238d7a2723bce689c79eeac9c7d5e1d623bb9dc2",
                 "shasum": ""
             },
             "require": {
@@ -889,20 +895,20 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2016-10-04 11:03:26"
+            "time": "2016-10-09 07:01:45"
         },
         {
             "name": "psr/log",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "5277094ed527a1c4477177d102fe4c53551953e0"
+                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/5277094ed527a1c4477177d102fe4c53551953e0",
-                "reference": "5277094ed527a1c4477177d102fe4c53551953e0",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
+                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
                 "shasum": ""
             },
             "require": {
@@ -936,7 +942,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-09-19 16:02:08"
+            "time": "2016-10-10 12:19:37"
         },
         {
             "name": "satooshi/php-coveralls",
@@ -1999,9 +2005,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "milesasylum/schnoop-schema": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
