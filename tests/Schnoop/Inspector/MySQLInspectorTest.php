@@ -77,6 +77,11 @@ SQL
         $this->mySQLInspector = new MySQLInspector($this->getConnection());
     }
 
+    public function testGetPDO()
+    {
+        $this->assertSame($this->getConnection(), $this->mySQLInspector->getPDO());
+    }
+
     public function testFetchDatabaseList()
     {
         $this->assertContains($this->getDatabaseName(), $this->mySQLInspector->fetchDatabaseList());

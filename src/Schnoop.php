@@ -219,6 +219,15 @@ class Schnoop
     }
 
     /**
+     * Get the PDO connection used to schnoop the database.
+     * @return PDO
+     */
+    public function getPDO()
+    {
+        return $this->dbInspector->getPDO();
+    }
+
+    /**
      * Factory for constructing this object.
      * @param PDO $pdo
      * @return Schnoop

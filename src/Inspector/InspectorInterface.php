@@ -44,4 +44,10 @@ interface InspectorInterface
      * @return string
      */
     public function fetchActiveDatabase();
+
+    /**
+     * Get the PDO connection used to inspect the database.
+     * @return \PDO
+     */
+    public function getPDO();
 }

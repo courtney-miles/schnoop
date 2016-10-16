@@ -58,6 +58,16 @@ class SchnoopTest extends SchnoopTestCase
         );
     }
 
+    public function testGetPDO()
+    {
+        $mockPDO = $this->createMock(MockPdo::class);
+        $this->mockInspector->expects($this->once())
+            ->method('getPDO')
+            ->willReturn($mockPDO);
+
+        $this->assertSame($mockPDO, $this->schnoop->getPDO());
+    }
+
     public function testDatabaseList()
     {
         $this->assertSame(array_values($this->databaseList), $this->schnoop->getDatabaseList());

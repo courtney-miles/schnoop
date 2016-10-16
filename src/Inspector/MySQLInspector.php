@@ -151,4 +151,12 @@ SQL
 
         return $stmt->fetchAll(\PDO::FETCH_COLUMN);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPDO()
+    {
+        return $this->pdo;
+    }
 }
