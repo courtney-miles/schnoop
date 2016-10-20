@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "474c6037b7be7ae2880926964cf45a9d",
+    "hash": "4a6b7135d6e02f031bf040c0cb2710f3",
     "content-hash": "933b1153fc938455aa6e9ec1602ba9de",
     "packages": [
         {
             "name": "milesasylum/schnoop-schema",
-            "version": "0.1.0",
+            "version": "v0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/courtney-miles/schnoop-schema.git",
-                "reference": "b5e5932154ca5f0be5caaf820d709c92b20ff9c4"
+                "reference": "bb3ff206493b2aa18b586144a02afd5d82dbf4a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/courtney-miles/schnoop-schema/zipball/b5e5932154ca5f0be5caaf820d709c92b20ff9c4",
-                "reference": "b5e5932154ca5f0be5caaf820d709c92b20ff9c4",
+                "url": "https://api.github.com/repos/courtney-miles/schnoop-schema/zipball/bb3ff206493b2aa18b586144a02afd5d82dbf4a8",
+                "reference": "bb3ff206493b2aa18b586144a02afd5d82dbf4a8",
                 "shasum": ""
             },
             "require": {
@@ -53,7 +53,7 @@
                 "mysql",
                 "sql"
             ],
-            "time": "2016-10-13 07:29:52"
+            "time": "2016-10-20 10:04:52"
         }
     ],
     "packages-dev": [
