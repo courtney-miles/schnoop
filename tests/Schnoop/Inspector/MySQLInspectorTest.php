@@ -20,6 +20,8 @@ class MySQLInspectorTest extends TestMySQLCase
 
     protected $procedureName = 'schnoop_proc';
 
+    protected $viewName = 'schnoop_view';
+
     public function setUp()
     {
         parent::setUp();
@@ -71,6 +73,15 @@ SQL
 CREATE PROCEDURE `{$this->procedureName}` ()
 BEGIN
 END
+SQL
+        );
+
+        $this->getConnection()->exec(<<<SQL
+DROP VIEW IF EXISTS `{$this->viewName}`
+SQL
+        );
+        $this->getConnection()->exec(<<<SQL
+CREATE VIEW `{$this->viewName}` AS SELECT 1
 SQL
         );
 

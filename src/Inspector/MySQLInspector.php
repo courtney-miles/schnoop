@@ -53,12 +53,12 @@ class MySQLInspector implements InspectorInterface
         $this->pdo = $pdo;
 
         $this->stmtSelectDatabaseNames = $this->pdo->prepare(<<<SQL
-SHOW DATABASES;
+SHOW DATABASES
 SQL
         );
 
         $this->querySelectTableNames = <<<SQL
-SHOW TABLES FROM `%s`;
+SHOW FULL TABLES FROM `%s` WHERE Table_type = 'BASE TABLE'
 SQL;
 
         $this->stmtSelectFunctionNames = $this->pdo->prepare(<<<SQL
