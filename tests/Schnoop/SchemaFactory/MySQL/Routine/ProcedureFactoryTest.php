@@ -89,7 +89,7 @@ SQL
   SELECT 1;
 END',
             'definer' => $this->definer,
-            'sql_mode' => '',
+            'sql_mode' => $this->sqlMode,
             'comment' => 'Function comment.'
         ];
 
@@ -109,7 +109,7 @@ END',
   SELECT 1;
 END',
             'definer' => $this->definer,
-            'sql_mode' => '',
+            'sql_mode' => $this->sqlMode,
             'comment' => 'Function comment.'
         ];
 

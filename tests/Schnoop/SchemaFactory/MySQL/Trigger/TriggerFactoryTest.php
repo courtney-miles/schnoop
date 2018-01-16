@@ -79,7 +79,7 @@ SQL
   SELECT 1 INTO id;
 END",
                 'Timing' => 'AFTER',
-                'sql_mode' => '',
+                'sql_mode' => $this->sqlMode,
                 'Definer' => $this->definer
             ]
         ];

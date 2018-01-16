@@ -23,7 +23,7 @@ class ForeignKeyFactoryTest extends TestMySQLCase
 
     protected $databaseName;
 
-    protected function setUp()
+    public function setUp()
     {
         parent::setUp();
 
