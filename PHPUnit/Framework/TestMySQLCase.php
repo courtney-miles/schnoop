@@ -17,6 +17,11 @@ abstract class TestMySQLCase extends TestCase
      */
     protected static $mysqlHelper;
 
+    /**
+     * @var string The SQL Mode used for the connection.
+     */
+    protected $sqlMode = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
+
     public static function setUpBeforeClass()
     {
         self::$mysqlHelper = new MySQLTestHelper();
@@ -30,6 +35,16 @@ abstract class TestMySQLCase extends TestCase
     {
         self::$mysqlHelper = null;
         self::$pdo = null;
+    }
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->getConnection()->prepare(<<<SQL
+SET SESSION sql_mode=?
+SQL
+        )->execute([$this->sqlMode]);
     }
 
     /**

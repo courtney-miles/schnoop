@@ -100,7 +100,7 @@ SQL
   RETURN true;
 END',
             'definer' => $this->definer,
-            'sql_mode' => '',
+            'sql_mode' => $this->sqlMode,
             'comment' => 'Function comment.'
         ];
 
@@ -120,7 +120,7 @@ END',
   RETURN true;
 END',
             'definer' => $this->definer,
-            'sql_mode' => 'TRADITIONAL',
+            'sql_mode' => $this->sqlMode,
             'comment' => 'Function comment.'
         ];
 
