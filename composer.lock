@@ -4,24 +4,24 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "954b6ffee7258098105dd9abe8715cab",
+    "content-hash": "74bc2f0a9fe3ed84d597d16b70340554",
     "packages": [
         {
             "name": "milesasylum/schnoop-schema",
-            "version": "v0.1.1",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/courtney-miles/schnoop-schema.git",
-                "reference": "bb3ff206493b2aa18b586144a02afd5d82dbf4a8"
+                "reference": "f96e9922257860171ecdcdbb6b78182276e2f60d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/courtney-miles/schnoop-schema/zipball/bb3ff206493b2aa18b586144a02afd5d82dbf4a8",
-                "reference": "bb3ff206493b2aa18b586144a02afd5d82dbf4a8",
+                "url": "https://api.github.com/repos/courtney-miles/schnoop-schema/zipball/f96e9922257860171ecdcdbb6b78182276e2f60d",
+                "reference": "f96e9922257860171ecdcdbb6b78182276e2f60d",
                 "shasum": ""
             },
             "require": {
-                "php": "~5.6.0"
+                "php": "5.6 - 7.2"
             },
             "require-dev": {
                 "phpunit/dbunit": "~2.0",
@@ -52,7 +52,7 @@
                 "mysql",
                 "sql"
             ],
-            "time": "2016-10-20T10:04:52+00:00"
+            "time": "2018-01-15T20:41:37+00:00"
         }
     ],
     "packages-dev": [
@@ -2046,7 +2046,8 @@
     "prefer-lowest": false,
     "platform": {
         "php": "5.6 - 7.2",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "ext-mysqlnd": "*"
     },
     "platform-dev": []
 }
