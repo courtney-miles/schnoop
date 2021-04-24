@@ -2,7 +2,6 @@
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\Constraint;
 
-use MilesAsylum\Schnoop\Exception\SchnoopException;
 use MilesAsylum\Schnoop\PHPUnit\Framework\TestMySQLCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint\IndexFactory;
 use MilesAsylum\SchnoopSchema\MySQL\Constraint\FullTextIndex;
@@ -13,7 +12,7 @@ use MilesAsylum\SchnoopSchema\MySQL\Constraint\IndexInterface;
 use MilesAsylum\SchnoopSchema\MySQL\Constraint\PrimaryKey;
 use MilesAsylum\SchnoopSchema\MySQL\Constraint\SpatialIndex;
 use MilesAsylum\SchnoopSchema\MySQL\Constraint\UniqueIndex;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class IndexFactoryTest extends TestMySQLCase
 {
@@ -95,7 +94,7 @@ SQL
 
         $mockIndex = $this->createMock(Index::class);
 
-        /** @var IndexFactory|PHPUnit_Framework_MockObject_MockObject $mockIndexMapper */
+        /** @var IndexFactory|MockObject $mockIndexMapper */
         $mockIndexMapper = $this->getMockBuilder(IndexFactory::class)
             ->disableOriginalConstructor()
             ->setMethods(['fetchRaw', 'createFromRaw'])
@@ -151,7 +150,7 @@ SQL
             );
         }
 
-        /** @var IndexFactory|PHPUnit_Framework_MockObject_MockObject $mockIndexMapper */
+        /** @var IndexFactory|MockObject $mockIndexMapper */
         $mockIndexMapper = $this->createMockIndexMapper(
             $newIndexArgs,
             $mockIndexes,
@@ -495,7 +494,7 @@ SQL
      * @param IndexInterface[] $indexes
      * @param array $newIndexedColumnArgs
      * @param IndexedColumnInterface[] $indexedColumns
-     * @return IndexFactory|PHPUnit_Framework_MockObject_MockObject
+     * @return IndexFactory|MockObject
      */
     protected function createMockIndexMapper(
         array $newIndexArgs,
@@ -503,7 +502,7 @@ SQL
         array $newIndexedColumnArgs,
         array $indexedColumns
     ) {
-        /** @var IndexFactory|PHPUnit_Framework_MockObject_MockObject $mockIndexMapper */
+        /** @var IndexFactory|MockObject $mockIndexMapper */
         $mockIndexMapper = $this->getMockBuilder(IndexFactory::class)
             ->disableOriginalConstructor()
             ->setMethods(['newIndex', 'newIndexedColumn'])
@@ -523,11 +522,11 @@ SQL
     /**
      * @param $expectedComment
      * @param IndexedColumnInterface[] $indexedColumns
-     * @return IndexInterface|PHPUnit_Framework_MockObject_MockObject
+     * @return IndexInterface|MockObject
      */
     protected function createMockIndex($expectedComment, array $indexedColumns)
     {
-        /** @var IndexInterface|PHPUnit_Framework_MockObject_MockObject $mockIndex */
+        /** @var IndexInterface|MockObject $mockIndex */
         $mockIndex = $this->createMock(IndexInterface::class);
         $mockIndex->expects($this->once())
             ->method('setComment')
@@ -544,11 +543,11 @@ SQL
 
     /**
      * @param int $expectedLength
-     * @return IndexedColumnInterface|PHPUnit_Framework_MockObject_MockObject
+     * @return IndexedColumnInterface|MockObject
      */
     protected function createMockIndexedColumn($expectedLength)
     {
-        /** @var IndexedColumnInterface|PHPUnit_Framework_MockObject_MockObject $mockIndexedColumn */
+        /** @var IndexedColumnInterface|MockObject $mockIndexedColumn */
         $mockIndexedColumn = $this->createMock(IndexedColumnInterface::class);
         $mockIndexedColumn->expects($this->once())
             ->method('setLength')

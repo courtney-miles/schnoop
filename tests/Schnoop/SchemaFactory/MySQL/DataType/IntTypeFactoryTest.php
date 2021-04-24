@@ -6,7 +6,7 @@ use MilesAsylum\Schnoop\PHPUnit\Framework\AbstractIntTypeFactoryTestCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\IntTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\IntTypeFactoryInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\IntType;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject ;
 
 class IntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
 {
@@ -19,7 +19,7 @@ class IntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
         return new IntTypeFactory();
     }
 
-    protected function newMockedIntTypeFactory(PHPUnit_Framework_MockObject_MockObject $mockIntType = null)
+    protected function newMockedIntTypeFactory(MockObject $mockIntType = null)
     {
         $intTypeFactory = $this->getMockBuilder(IntTypeFactory::class)
             ->setMethods(['newType'])

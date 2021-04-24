@@ -2,9 +2,11 @@
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\Routine;
 
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\Exception\ParametersLexerException;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\ParametersLexer;
+use PHPUnit\Framework\TestCase;
 
-class ParametersLexerTest extends \PHPUnit_Framework_TestCase
+class ParametersLexerTest extends TestCase
 {
     /**
      * @var ParametersLexer
@@ -85,12 +87,10 @@ class ParametersLexerTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    /**
-     * @expectedException \MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\Exception\ParametersLexerException
-     * @expectedExceptionMessage There is an error in the syntax for the parameters string. Check the syntax near '$ `bar`)'.
-     */
     public function testExceptionOnInvalidString()
     {
+        $this->expectException(ParametersLexerException::class);
+        $this->expectExceptionMessage('There is an error in the syntax for the parameters string. Check the syntax near \'$ `bar`)\'.');
         $invalidString = "('Foo123',  $ `bar`)";
 
         $this->parametersLexer->tokenise($invalidString);

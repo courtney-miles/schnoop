@@ -5,7 +5,7 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\VarBinaryTypeFactory;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\VarBinaryType;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class VarBinaryTypeFactoryTest extends SchnoopTestCase
 {
@@ -39,7 +39,7 @@ class VarBinaryTypeFactoryTest extends SchnoopTestCase
     {
         $mockVarBinaryType = $this->createMock(VarBinaryType::class);
 
-        /** @var VarBinaryTypeFactory|PHPUnit_Framework_MockObject_MockObject $mockVarBinaryTypeFactory */
+        /** @var VarBinaryTypeFactory|MockObject $mockVarBinaryTypeFactory */
         $mockVarBinaryTypeFactory = $this->getMockBuilder(VarBinaryTypeFactory::class)
             ->setMethods(['newType'])
             ->getMock();

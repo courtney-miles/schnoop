@@ -18,9 +18,9 @@
     "milesasylum/schnoop-schema": "^0.2"
   },
   "require-dev": {
-    "phpunit/phpunit" : "~5.0",
-    "phpunit/dbunit": "~2.0",
-    "satooshi/php-coveralls": "^1.0"
+    "php-coveralls/php-coveralls": "^2.4",
+    "phpunit/phpunit": "^7.0",
+    "phpunit/dbunit": "^4.0"
   },
   "autoload": {
     "psr-4": {
@@ -32,5 +32,10 @@
       "MilesAsylum\\Schnoop\\Tests\\": "tests/",
       "MilesAsylum\\Schnoop\\PHPUnit\\": "PHPUnit/"
     }
+  },
+  "scripts": {
+    "test": [
+      "vendor/bin/phpunit -c phpunit.xml.dist --testsuite unit_tests --coverage-html build/coverage-report"
+    ]
   }
 }

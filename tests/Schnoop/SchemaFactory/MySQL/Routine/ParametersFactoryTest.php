@@ -10,8 +10,8 @@ use MilesAsylum\SchnoopSchema\MySQL\Routine\FunctionParameter;
 use MilesAsylum\SchnoopSchema\MySQL\Routine\FunctionParameterInterface;
 use MilesAsylum\SchnoopSchema\MySQL\Routine\ProcedureParameter;
 use MilesAsylum\SchnoopSchema\MySQL\Routine\ProcedureParameterInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 class ParametersFactoryTest extends TestCase
 {
@@ -21,12 +21,12 @@ class ParametersFactoryTest extends TestCase
     protected $parametersFactory;
 
     /**
-     * @var ParametersParser|PHPUnit_Framework_MockObject_MockObject
+     * @var ParametersParser|MockObject
      */
     protected $mockParser;
 
     /**
-     * @var DataTypeFactoryInterface|PHPUnit_Framework_MockObject_MockObject
+     * @var DataTypeFactoryInterface|MockObject
      */
     protected $mockDataTypeFactory;
 
@@ -86,7 +86,7 @@ class ParametersFactoryTest extends TestCase
             $this->createMock(DataTypeInterface::class)
         ];
 
-        /** @var ParametersFactory|PHPUnit_Framework_MockObject_MockObject $parametersFactory */
+        /** @var ParametersFactory|MockObject $parametersFactory */
         $parametersFactory = $this->getMockBuilder(ParametersFactory::class)
             ->setConstructorArgs([$this->mockParser, $this->mockDataTypeFactory])
             ->setMethods(['newFunctionParameter', 'newProcedureParameter'])

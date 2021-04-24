@@ -11,6 +11,7 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BinaryTypeFactory;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\BinaryType;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class BinaryTypeFactoryTest extends SchnoopTestCase
 {
@@ -52,7 +53,7 @@ class BinaryTypeFactoryTest extends SchnoopTestCase
     {
         $mockBinaryType = $this->createMockBinaryType($expectedLength);
 
-        /** @var BinaryTypeFactory|\PHPUnit_Framework_MockObject_MockObject $mockBinaryTypeFactory */
+        /** @var BinaryTypeFactory|MockObject $mockBinaryTypeFactory */
         $mockBinaryTypeFactory = $this->getMockBuilder(BinaryTypeFactory::class)
             ->setMethods(['newType'])
             ->getMock();
@@ -125,7 +126,7 @@ class BinaryTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @param $expectedLength
-     * @return BinaryType|\PHPUnit_Framework_MockObject_MockObject
+     * @return BinaryType|MockObject
      */
     protected function createMockBinaryType($expectedLength)
     {

@@ -12,7 +12,7 @@ use MilesAsylum\Schnoop\PHPUnit\Framework\AbstractNumericPointTypeFactoryTestCas
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DoubleTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\NumericPointTypeFactoryInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\DoubleType;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class DoubleTypeFactoryTest extends AbstractNumericPointTypeFactoryTestCase
 {
@@ -25,11 +25,11 @@ class DoubleTypeFactoryTest extends AbstractNumericPointTypeFactoryTestCase
     }
 
     /**
-     * @param PHPUnit_Framework_MockObject_MockObject $mockNumericPointType
-     * @return NumericPointTypeFactoryInterface|PHPUnit_Framework_MockObject_MockObject
+     * @param MockObject $mockNumericPointType
+     * @return NumericPointTypeFactoryInterface|MockObject
      */
     protected function newMockNumericPointTypeFactory(
-        PHPUnit_Framework_MockObject_MockObject $mockNumericPointType
+        MockObject $mockNumericPointType
     ) {
         $mockDoubleTypeFactory = $this->getMockBuilder(DoubleTypeFactory::class)
             ->setMethods(['newType'])

@@ -11,7 +11,7 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BitTypeFactory;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\BitType;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class BitTypeFactoryTest extends SchnoopTestCase
 {
@@ -53,7 +53,7 @@ class BitTypeFactoryTest extends SchnoopTestCase
     {
         $mockBitType = $this->createMockBitType($expectedLength);
 
-        /** @var BitTypeFactory|PHPUnit_Framework_MockObject_MockObject $mockBitTypeFactory */
+        /** @var BitTypeFactory|PHPUnit\Framework\MockObject\MockObject $mockBitTypeFactory */
         $mockBitTypeFactory = $this->getMockBuilder(BitTypeFactory::class)
             ->setMethods(['newType'])
             ->getMock();
@@ -126,7 +126,7 @@ class BitTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @param $expectedLength
-     * @return BitType|\PHPUnit_Framework_MockObject_MockObject
+     * @return BitType|MockObject
      */
     protected function createMockBitType($expectedLength)
     {

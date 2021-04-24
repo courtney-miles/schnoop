@@ -9,11 +9,10 @@
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\AbstractNumericPointTypeFactoryTestCase;
-use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\FloatTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\NumericPointTypeFactoryInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\FloatType;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject ;
 
 class FloatTypeFactoryTest extends AbstractNumericPointTypeFactoryTestCase
 {
@@ -26,11 +25,11 @@ class FloatTypeFactoryTest extends AbstractNumericPointTypeFactoryTestCase
     }
 
     /**
-     * @param PHPUnit_Framework_MockObject_MockObject $mockNumericPointType
-     * @return NumericPointTypeFactoryInterface|PHPUnit_Framework_MockObject_MockObject
+     * @param MockObject $mockNumericPointType
+     * @return NumericPointTypeFactoryInterface|MockObject
      */
     protected function newMockNumericPointTypeFactory(
-        PHPUnit_Framework_MockObject_MockObject $mockNumericPointType
+        MockObject $mockNumericPointType
     ) {
         $mockFloatTypeFactory = $this->getMockBuilder(FloatTypeFactory::class)
             ->setMethods(['newType'])
