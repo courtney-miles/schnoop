@@ -4,29 +4,30 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f01b2da08bb1a1c9389c08e39f817704",
+    "content-hash": "7223199e59880c501556144d0611e17f",
     "packages": [
         {
             "name": "milesasylum/schnoop-schema",
-            "version": "v0.2.0",
+            "version": "v0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/courtney-miles/schnoop-schema.git",
-                "reference": "f96e9922257860171ecdcdbb6b78182276e2f60d"
+                "reference": "f940b28e90358cb06e895066da00258d243ddd3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/courtney-miles/schnoop-schema/zipball/f96e9922257860171ecdcdbb6b78182276e2f60d",
-                "reference": "f96e9922257860171ecdcdbb6b78182276e2f60d",
+                "url": "https://api.github.com/repos/courtney-miles/schnoop-schema/zipball/f940b28e90358cb06e895066da00258d243ddd3c",
+                "reference": "f940b28e90358cb06e895066da00258d243ddd3c",
                 "shasum": ""
             },
             "require": {
-                "php": "5.6 - 7.2"
+                "php": "7.2 - 7.4"
             },
             "require-dev": {
-                "phpunit/dbunit": "~2.0",
-                "phpunit/phpunit": "~5.0",
-                "satooshi/php-coveralls": "^1.0"
+                "friendsofphp/php-cs-fixer": "^2.18",
+                "php-coveralls/php-coveralls": "^2.4",
+                "phpunit/dbunit": "^4.0",
+                "phpunit/phpunit": "^7.0"
             },
             "type": "library",
             "autoload": {
@@ -52,7 +53,11 @@
                 "mysql",
                 "sql"
             ],
-            "time": "2018-01-15T20:41:37+00:00"
+            "support": {
+                "issues": "https://github.com/courtney-miles/schnoop-schema/issues",
+                "source": "https://github.com/courtney-miles/schnoop-schema/tree/v0.3.0"
+            },
+            "time": "2021-04-21T22:04:11+00:00"
         }
     ],
     "packages-dev": [
@@ -3197,36 +3202,32 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.4.3",
+            "version": "v4.4.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "25c192f25721a74084272671f658797d9e0e0146"
+                "reference": "3871c720871029f008928244e56cf43497da7e9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/25c192f25721a74084272671f658797d9e0e0146",
-                "reference": "25c192f25721a74084272671f658797d9e0e0146",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/3871c720871029f008928244e56cf43497da7e9d",
+                "reference": "3871c720871029f008928244e56cf43497da7e9d",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5.9|>=7.0.8"
+                "php": ">=7.1.3",
+                "symfony/polyfill-ctype": "~1.8"
             },
             "conflict": {
                 "symfony/console": "<3.4"
             },
             "require-dev": {
-                "symfony/console": "~3.4|~4.0"
+                "symfony/console": "^3.4|^4.0|^5.0"
             },
             "suggest": {
                 "symfony/console": "For validating YAML files using the lint command"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.4-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Yaml\\": ""
@@ -3249,9 +3250,26 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Symfony Yaml Component",
+            "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
-            "time": "2018-01-03T07:37:34+00:00"
+            "support": {
+                "source": "https://github.com/symfony/yaml/tree/v4.4.21"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-03-05T17:58:50+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -3368,7 +3386,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "5.6 - 7.2",
+        "php": "7.2 - 7.4",
         "ext-pdo": "*",
         "ext-mysqlnd": "*"
     },

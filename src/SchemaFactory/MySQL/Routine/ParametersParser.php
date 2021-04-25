@@ -48,7 +48,7 @@ class ParametersParser
                 $params[] = $this->parseNextParameter();
                 $this->clearWhitespace();
                 $token = $this->nextToken();
-            } while ($token[0] == ParametersLexer::T_COMMA);
+            } while ($token !== null && $token[0] == ParametersLexer::T_COMMA);
         }
 
         return $params;
@@ -179,6 +179,10 @@ class ParametersParser
      */
     protected function clearWhitespace()
     {
+        if ($this->lookAhead() === null) {
+            return null;
+        }
+
         if ($this->lookAhead()[0] == ParametersLexer::T_WHITESPACE) {
             return $this->nextToken()[1];
         }
@@ -217,6 +221,10 @@ class ParametersParser
     protected function consume(array $tokenIds)
     {
         $buffer = '';
+
+        if ($this->lookAhead() === null) {
+            return $buffer;
+        }
 
         while (in_array($this->lookAhead()[0], $tokenIds)) {
             $buffer .= $this->nextToken()[1];
