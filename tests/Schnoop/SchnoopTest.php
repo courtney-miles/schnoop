@@ -11,11 +11,10 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop;
 use MilesAsylum\Schnoop\Inspector\InspectorInterface;
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\PHPUnit\Schnoop\MockPdo;
-use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Database;
 use MilesAsylum\Schnoop\SchemaAdapter\MySQL\DatabaseInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\SchemaBuilderInterface;
 use MilesAsylum\Schnoop\Schnoop;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class SchnoopTest extends SchnoopTestCase
 {
@@ -30,12 +29,12 @@ class SchnoopTest extends SchnoopTestCase
     ];
 
     /**
-     * @var InspectorInterface|PHPUnit_Framework_MockObject_MockObject
+     * @var InspectorInterface|MockObject
      */
     protected $mockInspector;
 
     /**
-     * @var SchemaBuilderInterface|PHPUnit_Framework_MockObject_MockObject
+     * @var SchemaBuilderInterface|MockObject
      */
     protected $mockSchemaBuilder;
 

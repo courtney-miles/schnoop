@@ -4,8 +4,9 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\SetVar;
 
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\SetVar\SqlModeFactory;
 use MilesAsylum\SchnoopSchema\MySQL\SetVar\SqlMode;
+use PHPUnit\Framework\TestCase;
 
-class SqlModeFactoryTest extends \PHPUnit_Framework_TestCase
+class SqlModeFactoryTest extends TestCase
 {
     /**
      * @var SqlModeFactory

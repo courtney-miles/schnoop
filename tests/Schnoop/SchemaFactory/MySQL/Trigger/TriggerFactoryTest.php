@@ -4,11 +4,11 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\Trigger;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\TestMySQLCase;
 use MilesAsylum\Schnoop\PHPUnit\Schnoop\MockPdo;
+use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Trigger;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\SetVar\SqlModeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Trigger\TriggerFactory;
 use MilesAsylum\SchnoopSchema\MySQL\SetVar\SqlMode;
-use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Trigger;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class TriggerFactoryTest extends TestMySQLCase
 {
@@ -18,7 +18,7 @@ class TriggerFactoryTest extends TestMySQLCase
     protected $triggerMapper;
 
     /**
-     * @var SqlModeFactory|PHPUnit_Framework_MockObject_MockObject
+     * @var SqlModeFactory|MockObject
      */
     protected $mockSqlModeFactory;
 
@@ -35,7 +35,14 @@ class TriggerFactoryTest extends TestMySQLCase
         parent::setUp();
 
         $this->databaseName = $this->getDatabaseName();
-        $this->definer = $this->getDatabaseUser() . '@' . $this->getDatabaseHost();
+
+        if (getenv('TESTS_SCHNOOP_DBADAPTER_MYSQL_HOST') === 'localhost') {
+            // In Travis, the hostname is resolved explicitly.
+            $this->definer = $this->getDatabaseUser() . '@localhost';
+        } else {
+            $this->definer = $this->getDatabaseUser() . '@%';
+        }
+
 
         $this->getConnection()->exec(<<<SQL
 DROP TRIGGER IF EXISTS `$this->databaseName`.`{$this->triggerName}`
@@ -69,6 +76,7 @@ SQL
 
     public function testFetchRaw()
     {
+        var_dump(getenv('TESTS_SCHNOOP_DBADAPTER_MYSQL_HOST'));
         $expectedRaw = [
             [
                 'Trigger' => $this->triggerName,
@@ -118,7 +126,7 @@ END",
             ->with($raw['sql_mode'])
             ->willReturn($mockSqlMode);
 
-        /** @var TriggerFactory|PHPUnit_Framework_MockObject_MockObject $triggerMapper */
+        /** @var TriggerFactory|MockObject $triggerMapper */
         $triggerMapper = $this->getMockBuilder(TriggerFactory::class)
             ->setConstructorArgs([$this->createMock(MockPdo::class), $mockSqlModeFactory])
             ->setMethods(['newTrigger'])
@@ -150,7 +158,7 @@ END",
         $expectedRaw = ['foo'];
         $mockTrigger = $this->createMock(Trigger::class);
 
-        /** @var TriggerFactory|PHPUnit_Framework_MockObject_MockObject $triggerMapper */
+        /** @var TriggerFactory|MockObject $triggerMapper */
         $triggerMapper = $this->getMockBuilder(TriggerFactory::class)
             ->setConstructorArgs([$this->createMock(MockPdo::class), $this->createMock(SqlModeFactory::class)])
             ->setMethods(['fetchRaw', 'createFromRaw'])

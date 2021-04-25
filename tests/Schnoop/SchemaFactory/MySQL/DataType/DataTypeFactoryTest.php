@@ -2,14 +2,13 @@
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
-use MilesAsylum\Schnoop\SchemaFactory\Exception\FactoryException;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BigIntTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BinaryTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BitTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BlobTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\CharTypeFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DateTimeTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DateTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DecimalTypeFactory;
@@ -34,8 +33,9 @@ use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\VarBinaryTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\VarCharTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\YearTypeFactory;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
+use PHPUnit\Framework\Error\Notice;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 class DataTypeFactoryTest extends TestCase
 {
@@ -45,7 +45,7 @@ class DataTypeFactoryTest extends TestCase
     protected $dataTypeFactory;
 
     /**
-     * @var DataTypeFactoryInterface|PHPUnit_Framework_MockObject_MockObject
+     * @var DataTypeFactoryInterface|MockObject
      */
     protected $mockFactoryHandler;
 
@@ -121,12 +121,11 @@ class DataTypeFactoryTest extends TestCase
         $this->dataTypeFactory->doRecognise('$%^');
     }
 
-    /**
-     * @expectedException \PHPUnit_Framework_Error_Notice
-     * @expectedExceptionMessage A handler had already been set for, foo. The handler has been replaced.
-     */
     public function testNoticeWhenAddHandlerForAlreadyHandledType()
     {
+        $this->expectException(Notice::class);
+        $this->expectExceptionMessage('A handler had already been set for, foo. The handler has been replaced.');
+
         $this->dataTypeFactory->addFactoryTypeHandler('foo', $this->mockFactoryHandler);
         $this->dataTypeFactory->addFactoryTypeHandler('foo', $this->mockFactoryHandler);
     }

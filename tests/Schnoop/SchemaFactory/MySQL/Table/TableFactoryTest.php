@@ -4,9 +4,9 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\Table;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\TestMySQLCase;
 use MilesAsylum\Schnoop\PHPUnit\Schnoop\MockPdo;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\Table\TableFactory;
 use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Table;
-use PHPUnit_Framework_MockObject_MockObject;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Table\TableFactory;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class TableFactoryTest extends TestMySQLCase
 {
@@ -89,7 +89,7 @@ SQL
             ->method('setComment')
             ->with($raw['Comment']);
 
-        /** @var TableFactory|PHPUnit_Framework_MockObject_MockObject $mockTableMapper */
+        /** @var TableFactory|MockObject $mockTableMapper */
         $mockTableMapper = $this->getMockBuilder(TableFactory::class)
             ->setMethods(['newTable'])
             ->setConstructorArgs([$this->createMock(MockPdo::class)])
@@ -106,7 +106,7 @@ SQL
         $raw = [];
         $mockTable = $this->createMock(Table::class);
 
-        /** @var TableFactory|PHPUnit_Framework_MockObject_MockObject $mockTableMapper */
+        /** @var TableFactory|MockObject $mockTableMapper */
         $mockTableMapper = $this->getMockBuilder(TableFactory::class)
             ->setMethods(['fetchRaw', 'createFromRaw'])
             ->setConstructorArgs([$this->createMock(MockPdo::class)])

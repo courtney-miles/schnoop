@@ -6,7 +6,7 @@ use MilesAsylum\Schnoop\PHPUnit\Framework\AbstractNumericPointTypeFactoryTestCas
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DecimalTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\NumericPointTypeFactoryInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\DecimalType;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class DecimalTypeFactoryTest extends AbstractNumericPointTypeFactoryTestCase
 {
@@ -20,11 +20,11 @@ class DecimalTypeFactoryTest extends AbstractNumericPointTypeFactoryTestCase
     }
 
     /**
-     * @param PHPUnit_Framework_MockObject_MockObject $mockNumericPointType
-     * @return NumericPointTypeFactoryInterface|PHPUnit_Framework_MockObject_MockObject
+     * @param MockObject $mockNumericPointType
+     * @return NumericPointTypeFactoryInterface|MockObject
      */
     protected function newMockNumericPointTypeFactory(
-        PHPUnit_Framework_MockObject_MockObject $mockNumericPointType
+        MockObject $mockNumericPointType
     ) {
         $mockDecimalTypeFactory = $this->getMockBuilder(DecimalTypeFactory::class)
             ->setMethods(['newType'])

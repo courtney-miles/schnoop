@@ -4,12 +4,12 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\Column;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\TestMySQLCase;
 use MilesAsylum\Schnoop\PHPUnit\Schnoop\MockPdo;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Column\ColumnFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
 use MilesAsylum\SchnoopSchema\MySQL\Column\Column;
 use MilesAsylum\SchnoopSchema\MySQL\Column\ColumnInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class ColumnFactoryTest extends TestMySQLCase
 {
@@ -19,7 +19,7 @@ class ColumnFactoryTest extends TestMySQLCase
     protected $columnMapper;
 
     /**
-     * @var DataTypeFactoryInterface|PHPUnit_Framework_MockObject_MockObject
+     * @var DataTypeFactoryInterface|MockObject
      */
     protected $mockDataTypeMapper;
 
@@ -130,7 +130,7 @@ SQL
             ->method('setComment')
             ->with($rawColumn['Comment']);
 
-        /** @var ColumnFactory|PHPUnit_Framework_MockObject_MockObject $mockColumnMapper */
+        /** @var ColumnFactory|MockObject $mockColumnMapper */
         $mockColumnMapper = $this->getMockBuilder(ColumnFactory::class)
             ->setMethods(['newColumn'])
             ->setConstructorArgs(
@@ -162,7 +162,7 @@ SQL
             ->method('setTableName')
             ->with($tableName);
 
-        /** @var ColumnFactory|PHPUnit_Framework_MockObject_MockObject $mockColumnMapper */
+        /** @var ColumnFactory|MockObject $mockColumnMapper */
         $mockColumnMapper = $this->getMockBuilder(ColumnFactory::class)
             ->setMethods(
                 [

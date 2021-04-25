@@ -4,14 +4,14 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\Routine;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\TestMySQLCase;
 use MilesAsylum\Schnoop\PHPUnit\Schnoop\MockPdo;
+use MilesAsylum\Schnoop\SchemaAdapter\MySQL\RoutineProcedure;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\ParametersFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\ProcedureFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\SetVar\SqlModeFactory;
 use MilesAsylum\SchnoopSchema\MySQL\Routine\ProcedureParameterInterface;
-use MilesAsylum\Schnoop\SchemaAdapter\MySQL\RoutineProcedure;
 use MilesAsylum\SchnoopSchema\MySQL\SetVar\SqlMode;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class ProcedureFactoryTest extends TestMySQLCase
 {
@@ -22,12 +22,12 @@ class ProcedureFactoryTest extends TestMySQLCase
     protected $definer;
 
     /**
-     * @var ParametersFactory|PHPUnit_Framework_MockObject_MockObject
+     * @var ParametersFactory|MockObject
      */
     protected $mockParametersFactory;
 
     /**
-     * @var SqlModeFactory|PHPUnit_Framework_MockObject_MockObject
+     * @var SqlModeFactory|MockObject
      */
     protected $mockSqlModeFactory;
 
@@ -154,7 +154,7 @@ END',
             ->with($raw['param_list'])
             ->willReturn($mockParameters);
 
-        /** @var ProcedureFactory|PHPUnit_Framework_MockObject_MockObject $procedureMapper */
+        /** @var ProcedureFactory|MockObject $procedureMapper */
         $procedureMapper = $this->getMockBuilder(ProcedureFactory::class)
             ->setConstructorArgs(
                 [
@@ -178,7 +178,7 @@ END',
 
         $mockProcedure = $this->createMock(RoutineProcedure::class);
 
-        /** @var ProcedureFactory|PHPUnit_Framework_MockObject_MockObject $procedureMapper */
+        /** @var ProcedureFactory|MockObject $procedureMapper */
         $procedureMapper = $this->getMockBuilder(ProcedureFactory::class)
             ->setConstructorArgs(
                 [

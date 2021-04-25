@@ -3,10 +3,9 @@
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\AbstractIntTypeFactoryTestCase;
-use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BigIntTypeFactory;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\BigIntType;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class BigIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
 {
@@ -15,7 +14,7 @@ class BigIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
         return new BigIntTypeFactory();
     }
 
-    protected function newMockedIntTypeFactory(PHPUnit_Framework_MockObject_MockObject $mockIntType = null)
+    protected function newMockedIntTypeFactory(MockObject $mockIntType = null)
     {
         $bigIntTypeFactory = $this->getMockBuilder(BigIntTypeFactory::class)
             ->setMethods(['newType'])

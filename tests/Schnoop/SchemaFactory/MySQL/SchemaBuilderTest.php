@@ -2,24 +2,25 @@
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL;
 
+use MilesAsylum\Schnoop\SchemaAdapter\MySQL\DatabaseInterface;
 use MilesAsylum\Schnoop\SchemaAdapter\MySQL\RoutineFunction;
 use MilesAsylum\Schnoop\SchemaAdapter\MySQL\RoutineProcedure;
+use MilesAsylum\Schnoop\SchemaAdapter\MySQL\TableInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Column\ColumnFactoryInterface;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DatabaseFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint\ForeignKeyFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint\IndexFactoryInterface;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\DatabaseFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\FunctionFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\ProcedureFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\SchemaBuilder;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\TableFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\TriggerFactoryInterface;
-use MilesAsylum\Schnoop\SchemaAdapter\MySQL\DatabaseInterface;
-use MilesAsylum\Schnoop\SchemaAdapter\MySQL\TableInterface;
 use MilesAsylum\Schnoop\Schnoop;
 use MilesAsylum\SchnoopSchema\MySQL\Trigger\TriggerInterface;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
-class SchemaBuilderTest extends \PHPUnit_Framework_TestCase
+class SchemaBuilderTest extends TestCase
 {
     /**
      * @var SchemaBuilder
@@ -27,47 +28,47 @@ class SchemaBuilderTest extends \PHPUnit_Framework_TestCase
     protected $schemaBuilder;
 
     /**
-     * @var DatabaseFactoryInterface|PHPUnit_Framework_MockObject_MockObject
+     * @var DatabaseFactoryInterface|MockObject
      */
     protected $mockDatabaseFactory;
 
     /**
-     * @var TableFactoryInterface|PHPUnit_Framework_MockObject_MockObject
+     * @var TableFactoryInterface|MockObject
      */
     protected $mockTableFactory;
 
     /**
-     * @var ColumnFactoryInterface|PHPUnit_Framework_MockObject_MockObject
+     * @var ColumnFactoryInterface|MockObject
      */
     protected $mockColumnFactory;
 
     /**
-     * @var IndexFactoryInterface|PHPUnit_Framework_MockObject_MockObject
+     * @var IndexFactoryInterface|MockObject
      */
     protected $mockIndexFactory;
 
     /**
-     * @var ForeignKeyFactoryInterface|PHPUnit_Framework_MockObject_MockObject
+     * @var ForeignKeyFactoryInterface|MockObject
      */
     protected $mockForeignKeyFactory;
 
     /**
-     * @var TriggerFactoryInterface|PHPUnit_Framework_MockObject_MockObject
+     * @var TriggerFactoryInterface|MockObject
      */
     protected $mockTriggerFactory;
 
     /**
-     * @var FunctionFactoryInterface|PHPUnit_Framework_MockObject_MockObject
+     * @var FunctionFactoryInterface|MockObject
      */
     protected $mockFunctionFactory;
 
     /**
-     * @var ProcedureFactoryInterface|PHPUnit_Framework_MockObject_MockObject
+     * @var ProcedureFactoryInterface|MockObject
      */
     protected $mockProcedureFactory;
 
     /**
-     * @var Schnoop|PHPUnit_Framework_MockObject_MockObject
+     * @var Schnoop|MockObject
      */
     private $mockSchnoop;
 

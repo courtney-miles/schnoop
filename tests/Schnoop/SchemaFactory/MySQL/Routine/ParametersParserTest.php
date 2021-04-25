@@ -4,8 +4,8 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\Routine;
 
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\ParametersLexer;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\ParametersParser;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 class ParametersParserTest extends TestCase
 {
@@ -15,7 +15,7 @@ class ParametersParserTest extends TestCase
     protected $parameterParser;
 
     /**
-     * @var ParametersLexer|PHPUnit_Framework_MockObject_MockObject
+     * @var ParametersLexer|MockObject
      */
     protected $mockLexer;
 

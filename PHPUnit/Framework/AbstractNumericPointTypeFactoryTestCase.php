@@ -4,8 +4,8 @@ namespace MilesAsylum\Schnoop\PHPUnit\Framework;
 
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\NumericPointTypeFactoryInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\NumericPointTypeInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 abstract class AbstractNumericPointTypeFactoryTestCase extends TestCase
 {
@@ -20,11 +20,11 @@ abstract class AbstractNumericPointTypeFactoryTestCase extends TestCase
     abstract protected function newNumericFloatTypeFactory();
 
     /**
-     * @param PHPUnit_Framework_MockObject_MockObject $mockNumericPointType
-     * @return NumericPointTypeFactoryInterface|PHPUnit_Framework_MockObject_MockObject
+     * @param MockObject $mockNumericPointType
+     * @return NumericPointTypeFactoryInterface|MockObject
      */
     abstract protected function newMockNumericPointTypeFactory(
-        PHPUnit_Framework_MockObject_MockObject $mockNumericPointType
+        MockObject $mockNumericPointType
     );
 
     /**
@@ -144,7 +144,7 @@ abstract class AbstractNumericPointTypeFactoryTestCase extends TestCase
      * @param int|null $expectedPrecision
      * @param int|null $expectedScale
      * @param bool $expectedZeroFill
-     * @return NumericPointTypeInterface|PHPUnit_Framework_MockObject_MockObject
+     * @return NumericPointTypeInterface|MockObject
      */
     protected function createMockNumericPointType(
         $expectedSigned,

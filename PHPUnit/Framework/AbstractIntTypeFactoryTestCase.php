@@ -4,8 +4,8 @@ namespace MilesAsylum\Schnoop\PHPUnit\Framework;
 
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\IntTypeFactoryInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\IntTypeInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 abstract class AbstractIntTypeFactoryTestCase extends TestCase
 {
@@ -20,10 +20,10 @@ abstract class AbstractIntTypeFactoryTestCase extends TestCase
     abstract protected function newIntTypeFactory();
 
     /**
-     * @param PHPUnit_Framework_MockObject_MockObject $mockIntType
+     * @param MockObject $mockIntType
      * @return IntTypeFactoryInterface
      */
-    abstract protected function newMockedIntTypeFactory(PHPUnit_Framework_MockObject_MockObject $mockIntType = null);
+    abstract protected function newMockedIntTypeFactory(MockObject $mockIntType = null);
 
     /**
      * @return string
@@ -122,7 +122,7 @@ abstract class AbstractIntTypeFactoryTestCase extends TestCase
      * @param int $expectedDisplayWidth
      * @param bool $expectedSigned
      * @param bool $expectedZeroFill
-     * @return IntTypeInterface|PHPUnit_Framework_MockObject_MockObject
+     * @return IntTypeInterface|MockObject
      */
     protected function createMockIntType($expectedDisplayWidth, $expectedSigned, $expectedZeroFill)
     {

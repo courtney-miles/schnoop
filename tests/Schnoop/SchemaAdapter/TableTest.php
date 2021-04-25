@@ -4,13 +4,10 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaAdapter;
 
 use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Table;
 use MilesAsylum\Schnoop\Schnoop;
-use MilesAsylum\SchnoopSchema\MySQL\Column\ColumnInterface;
-use MilesAsylum\SchnoopSchema\MySQL\Constraint\IndexInterface;
-use MilesAsylum\SchnoopSchema\MySQL\Table\TableInterface;
-use PHPUnit_Framework_MockObject_Matcher_InvokedCount;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
-class TableTest extends \PHPUnit_Framework_TestCase
+class TableTest extends TestCase
 {
     protected $name = 'schnoop_tbl';
 
@@ -22,7 +19,7 @@ class TableTest extends \PHPUnit_Framework_TestCase
     protected $table;
 
     /**
-     * @var Schnoop|PHPUnit_Framework_MockObject_MockObject
+     * @var Schnoop|MockObject
      */
     protected $mockSchnoop;
 

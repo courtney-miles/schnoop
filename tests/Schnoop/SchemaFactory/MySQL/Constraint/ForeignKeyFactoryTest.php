@@ -8,7 +8,7 @@ use MilesAsylum\SchnoopSchema\MySQL\Constraint\ForeignKey;
 use MilesAsylum\SchnoopSchema\MySQL\Constraint\ForeignKeyColumn;
 use MilesAsylum\SchnoopSchema\MySQL\Constraint\ForeignKeyColumnInterface;
 use MilesAsylum\SchnoopSchema\MySQL\Constraint\ForeignKeyInterface;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class ForeignKeyFactoryTest extends TestMySQLCase
 {
@@ -166,7 +166,7 @@ SQL
 
         $mockForeignKey = $this->createMock(ForeignKey::class);
 
-        /** @var ForeignKeyFactory|PHPUnit_Framework_MockObject_MockObject $mockForeignKeyMapper */
+        /** @var ForeignKeyFactory|MockObject $mockForeignKeyMapper */
         $mockForeignKeyMapper = $this->getMockBuilder(ForeignKeyFactory::class)
             ->disableOriginalConstructor()
             ->setMethods(['fetchRaw', 'createFromRaw'])
@@ -288,7 +288,7 @@ SQL
      * @param ForeignKeyInterface[] $foreignKeys
      * @param array $newForeignKeyColumnArgs
      * @param ForeignKeyColumnInterface[] $foreignKeyColumns
-     * @return ForeignKeyFactory|PHPUnit_Framework_MockObject_MockObject
+     * @return ForeignKeyFactory|MockObject
      */
     protected function createMockForeignKeyMapper(
         array $newForeignKeyArgs,
@@ -315,7 +315,7 @@ SQL
     /**
      * @param string $expectedTableName
      * @param string $expectedReferenceTableName
-     * @return ForeignKeyInterface|PHPUnit_Framework_MockObject_MockObject
+     * @return ForeignKeyInterface|MockObject
      */
     protected function createMockForeignKey($expectedTableName, $expectedReferenceTableName)
     {
@@ -331,7 +331,7 @@ SQL
     }
 
     /**
-     * @return ForeignKeyColumnInterface|PHPUnit_Framework_MockObject_MockObject
+     * @return ForeignKeyColumnInterface|MockObject
      */
     protected function createMockForeignKeyColumn()
     {

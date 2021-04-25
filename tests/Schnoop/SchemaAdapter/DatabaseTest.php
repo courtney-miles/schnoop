@@ -5,8 +5,8 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaAdapter;
 use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Database;
 use MilesAsylum\Schnoop\Schnoop;
 use MilesAsylum\SchnoopSchema\MySQL\Table\TableInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 class DatabaseTest extends TestCase
 {
@@ -18,7 +18,7 @@ class DatabaseTest extends TestCase
     protected $database;
 
     /**
-     * @var Schnoop|PHPUnit_Framework_MockObject_MockObject
+     * @var Schnoop|MockObject
      */
     protected $mockSchnoop;
 

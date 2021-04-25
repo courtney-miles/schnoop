@@ -3,9 +3,9 @@
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\Database;
 
 use MilesAsylum\Schnoop\PHPUnit\Framework\TestMySQLCase;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\Database\DatabaseFactory;
 use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Database;
-use PHPUnit_Framework_MockObject_MockObject;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Database\DatabaseFactory;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class DatabaseFactoryTest extends TestMySQLCase
 {
@@ -53,7 +53,7 @@ class DatabaseFactoryTest extends TestMySQLCase
             ->method('setDefaultCollation')
             ->with($raw['default_collation_name']);
 
-        /** @var DatabaseFactory|PHPUnit_Framework_MockObject_MockObject $mockDatabaseMapper */
+        /** @var DatabaseFactory|MockObject $mockDatabaseMapper */
         $mockDatabaseMapper = $this->getMockBuilder(DatabaseFactory::class)
             ->disableOriginalConstructor()
             ->setMethods(['newDatabase'])
@@ -74,7 +74,7 @@ class DatabaseFactoryTest extends TestMySQLCase
 
         $mockDatabase = $this->createMock(Database::class);
 
-        /** @var DatabaseFactory|PHPUnit_Framework_MockObject_MockObject $mockDatabaseMapper */
+        /** @var DatabaseFactory|MockObject $mockDatabaseMapper */
         $mockDatabaseMapper = $this->getMockBuilder(DatabaseFactory::class)
             ->disableOriginalConstructor()
             ->setMethods(['fetchRaw', 'createFromRaw'])

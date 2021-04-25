@@ -5,7 +5,7 @@ namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 use MilesAsylum\Schnoop\PHPUnit\Framework\SchnoopTestCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\CharTypeFactory;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\CharType;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class CharTypeFactoryTest extends SchnoopTestCase
 {
@@ -49,7 +49,7 @@ class CharTypeFactoryTest extends SchnoopTestCase
     {
         $mockCharType = $this->createMockCharType($expectedLength, $expectedCollation);
 
-        /** @var CharTypeFactory|PHPUnit_Framework_MockObject_MockObject $mockCharTypeFactory */
+        /** @var CharTypeFactory|MockObject $mockCharTypeFactory */
         $mockCharTypeFactory = $this->getMockBuilder(CharTypeFactory::class)
             ->setMethods(['newType'])
             ->getMock();
@@ -125,7 +125,7 @@ class CharTypeFactoryTest extends SchnoopTestCase
     /**
      * @param $expectedLength
      * @param $expectedCollation
-     * @return CharType|PHPUnit_Framework_MockObject_MockObject
+     * @return CharType|MockObject
      */
     protected function createMockCharType($expectedLength, $expectedCollation)
     {
