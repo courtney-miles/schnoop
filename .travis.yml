@@ -3,7 +3,7 @@ language: php
 env:
     global:
         - XDEBUG_MODE=coverage
-        - TESTS_SLURP_DBADAPTER_MYSQL_HOST="localhost"
+        - TESTS_SCHNOOP_DBADAPTER_MYSQL_HOST="localhost"
 
 php:
     - '7.2'
