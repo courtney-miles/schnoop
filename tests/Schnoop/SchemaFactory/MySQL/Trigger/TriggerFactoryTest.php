@@ -35,7 +35,14 @@ class TriggerFactoryTest extends TestMySQLCase
         parent::setUp();
 
         $this->databaseName = $this->getDatabaseName();
-        $this->definer = $this->getDatabaseUser() . '@%';
+
+        if (getenv('TESTS_SCHNOOP_DBADAPTER_MYSQL_HOST') === 'localhost') {
+            // In Travis, the hostname is resolved explicitly.
+            $this->definer = $this->getDatabaseUser() . '@localhost';
+        } else {
+            $this->definer = $this->getDatabaseUser() . '@%';
+        }
+
 
         $this->getConnection()->exec(<<<SQL
 DROP TRIGGER IF EXISTS `$this->databaseName`.`{$this->triggerName}`
@@ -69,6 +76,7 @@ SQL
 
     public function testFetchRaw()
     {
+        var_dump(getenv('TESTS_SCHNOOP_DBADAPTER_MYSQL_HOST'));
         $expectedRaw = [
             [
                 'Trigger' => $this->triggerName,
