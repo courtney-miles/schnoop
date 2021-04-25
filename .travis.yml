@@ -2,6 +2,7 @@ language: php
 
 env:
   - XDEBUG_MODE=coverage
+  - TESTS_SLURP_DBADAPTER_MYSQL_HOST="localhost"
 
 php:
   - '7.2'
