@@ -1,6 +1,6 @@
 # Schnoop: PHP Database Schema Inspector
 
-[![Build Status](https://travis-ci.org/courtney-miles/schnoop.svg?branch=master)](https://travis-ci.org/courtney-miles/schnoop) [![Coverage Status](https://coveralls.io/repos/github/courtney-miles/schnoop/badge.svg?branch=master)](https://coveralls.io/github/courtney-miles/schnoop?branch=master) [![Latest Stable Version](https://poser.pugx.org/milesasylum/schnoop/v/stable)](https://packagist.org/packages/milesasylum/schnoop) [![Total Downloads](https://poser.pugx.org/milesasylum/schnoop/downloads)](https://packagist.org/packages/milesasylum/schnoop) [![License](https://poser.pugx.org/milesasylum/schnoop/license)](https://packagist.org/packages/milesasylum/schnoop)
+[![Tests](https://github.com/courtney-miles/schnoop/actions/workflows/tests.yml/badge.svg)](https://github.com/courtney-miles/schnoop/actions/workflows/tests.yml) [![Coverage Status](https://coveralls.io/repos/github/courtney-miles/schnoop/badge.svg?branch=master)](https://coveralls.io/github/courtney-miles/schnoop?branch=master) [![Latest Stable Version](https://poser.pugx.org/milesasylum/schnoop/v/stable)](https://packagist.org/packages/milesasylum/schnoop) [![Total Downloads](https://poser.pugx.org/milesasylum/schnoop/downloads)](https://packagist.org/packages/milesasylum/schnoop) [![License](https://poser.pugx.org/milesasylum/schnoop/license)](https://packagist.org/packages/milesasylum/schnoop)
 
 Schnoop provides a convenient PHP interface for inspecting a MySQL database schema and producing the DDL statements for the schema.
 
