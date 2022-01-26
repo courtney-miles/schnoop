@@ -35,7 +35,9 @@ SQL;
      */
     public function fetch($tableName, $databaseName)
     {
-        return $this->createFromRaw($this->fetchRaw($tableName, $databaseName), $databaseName);
+        $rawTable = $this->fetchRaw($tableName, $databaseName);
+
+        return $rawTable !== null ? $this->createFromRaw($rawTable, $databaseName) : null;
     }
 
     /**

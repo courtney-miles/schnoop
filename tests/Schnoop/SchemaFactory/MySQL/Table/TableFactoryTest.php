@@ -2,6 +2,7 @@
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\Table;
 
+use InvalidArgumentException;
 use MilesAsylum\Schnoop\PHPUnit\Framework\TestMySQLCase;
 use MilesAsylum\Schnoop\PHPUnit\Schnoop\MockPdo;
 use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Table;
@@ -57,6 +58,13 @@ SQL
         );
     }
 
+    public function testFetchRawForTableNotFound(): void
+    {
+        $this->assertNull(
+            $this->tableMapper->fetchRaw('_bogus_', $this->databaseName)
+        );
+    }
+
     public function testNewTable()
     {
         $table = $this->tableMapper->newTable($this->tableName, $this->databaseName);
@@ -106,20 +114,37 @@ SQL
         $raw = [];
         $mockTable = $this->createMock(Table::class);
 
-        /** @var TableFactory|MockObject $mockTableMapper */
-        $mockTableMapper = $this->getMockBuilder(TableFactory::class)
+        /** @var TableFactory|MockObject $mockTableFactory */
+        $mockTableFactory = $this->getMockBuilder(TableFactory::class)
             ->setMethods(['fetchRaw', 'createFromRaw'])
             ->setConstructorArgs([$this->createMock(MockPdo::class)])
             ->getMock();
-        $mockTableMapper->expects($this->once())
+        $mockTableFactory->expects($this->once())
             ->method('fetchRaw')
             ->with($this->tableName, $this->databaseName)
             ->willReturn($raw);
-        $mockTableMapper->expects($this->once())
+        $mockTableFactory->expects($this->once())
             ->method('createFromRaw')
             ->with($raw)
             ->willReturn($mockTable);
 
-        $this->assertSame($mockTable, $mockTableMapper->fetch($this->tableName, $this->databaseName));
+        $this->assertSame($mockTable, $mockTableFactory->fetch($this->tableName, $this->databaseName));
+    }
+
+    public function testExceptionOnFetchTableNotFound(): void
+    {
+        $bogusTableName = '_bogus_';
+
+        /** @var TableFactory|MockObject $mockTableFactory */
+        $mockTableFactory = $this->getMockBuilder(TableFactory::class)
+            ->setMethods(['fetchRaw'])
+            ->setConstructorArgs([$this->createMock(MockPdo::class)])
+            ->getMock();
+        $mockTableFactory->expects($this->once())
+            ->method('fetchRaw')
+            ->with($bogusTableName, $this->databaseName)
+            ->willReturn(null);
+
+        self::assertNull($mockTableFactory->fetch($bogusTableName, $this->databaseName));
     }
 }
