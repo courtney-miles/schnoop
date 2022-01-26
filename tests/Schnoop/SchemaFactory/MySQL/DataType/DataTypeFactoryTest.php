@@ -2,6 +2,7 @@
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 
+use InvalidArgumentException;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BigIntTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BinaryTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BitTypeFactory;
@@ -16,6 +17,7 @@ use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DoubleTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\EnumTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\FloatTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\IntTypeFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\JsonTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\LongBlobTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\LongTextTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\MediumBlobTypeFactory;
@@ -83,6 +85,14 @@ class DataTypeFactoryTest extends TestCase
             $this->mockFactoryHandler,
             $this->dataTypeFactory->getFactoryHandlerForType($typeName)
         );
+    }
+
+    public function testExceptionOnGetUndefinedTypeHandler(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $sut = new DataTypeFactory();
+        $sut->getFactoryHandlerForType('bogus');
     }
 
     public function testCreateType()
@@ -193,6 +203,7 @@ class DataTypeFactoryTest extends TestCase
             'text' => ['text', TextTypeFactory::class],
             'mediumtext' => ['mediumtext', MediumTextTypeFactory::class],
             'longtext' => ['longtext', LongTextTypeFactory::class],
+            'json' => ['json', JsonTypeFactory::class],
             // Option type mappers.
             'enum' => ['enum', EnumTypeFactory::class],
             'set' => ['set', SetTypeFactory::class],
