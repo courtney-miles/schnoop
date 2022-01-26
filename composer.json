@@ -35,7 +35,7 @@
   },
   "scripts": {
     "test": [
-      "vendor/bin/phpunit -c phpunit.xml.dist --testsuite unit_tests --coverage-html build/coverage-report"
+      "vendor/bin/phpunit --coverage-clover build/logs/clover.xml"
     ]
   }
 }

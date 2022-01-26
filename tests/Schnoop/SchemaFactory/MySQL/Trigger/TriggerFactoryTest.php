@@ -76,7 +76,6 @@ SQL
 
     public function testFetchRaw()
     {
-        var_dump(getenv('TESTS_SCHNOOP_DBADAPTER_MYSQL_HOST'));
         $expectedRaw = [
             [
                 'Trigger' => $this->triggerName,
