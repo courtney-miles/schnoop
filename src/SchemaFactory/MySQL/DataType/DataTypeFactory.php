@@ -2,37 +2,8 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
+use InvalidArgumentException;
 use MilesAsylum\Schnoop\SchemaFactory\Exception\FactoryException;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BigIntTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BinaryTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BitTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BlobTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\CharTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DateTimeTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DateTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DecimalTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DoubleTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\EnumTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\FloatTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\IntTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\LongBlobTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\LongTextTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\MediumBlobTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\MediumIntTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\MediumTextTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\SetTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\SmallIntTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\TextTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\TimestampTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\TimeTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\TinyBlobTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\TinyIntTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\TinyTextTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\VarBinaryTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\VarCharTypeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\YearTypeFactory;
-use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
 
 class DataTypeFactory implements DataTypeFactoryInterface
 {
@@ -92,6 +63,10 @@ class DataTypeFactory implements DataTypeFactoryInterface
      */
     public function getFactoryHandlerForType($typeName)
     {
+        if (!isset($this->factoryTypeHandlers[$typeName])) {
+            throw new InvalidArgumentException("A handler does not exist for type $typeName.");
+        }
+
         return $this->factoryTypeHandlers[$typeName];
     }
 
@@ -138,6 +113,8 @@ class DataTypeFactory implements DataTypeFactoryInterface
         // Option type mappers.
         $dataTypeFactory->addFactoryTypeHandler('enum', new EnumTypeFactory());
         $dataTypeFactory->addFactoryTypeHandler('set', new SetTypeFactory());
+        // Other type mappers.
+        $dataTypeFactory->addFactoryTypeHandler('json', new JsonTypeFactory());
 
         return $dataTypeFactory;
     }

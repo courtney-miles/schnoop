@@ -4,23 +4,24 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7223199e59880c501556144d0611e17f",
+    "content-hash": "d75933bdc14c76aed1a2784a3426d3bd",
     "packages": [
         {
             "name": "milesasylum/schnoop-schema",
-            "version": "v0.3.0",
+            "version": "v0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/courtney-miles/schnoop-schema.git",
-                "reference": "f940b28e90358cb06e895066da00258d243ddd3c"
+                "reference": "87e2acb9869732b0e6f8f74adb4a66dcb604734b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/courtney-miles/schnoop-schema/zipball/f940b28e90358cb06e895066da00258d243ddd3c",
-                "reference": "f940b28e90358cb06e895066da00258d243ddd3c",
+                "url": "https://api.github.com/repos/courtney-miles/schnoop-schema/zipball/87e2acb9869732b0e6f8f74adb4a66dcb604734b",
+                "reference": "87e2acb9869732b0e6f8f74adb4a66dcb604734b",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "php": "7.2 - 7.4"
             },
             "require-dev": {
@@ -55,9 +56,9 @@
             ],
             "support": {
                 "issues": "https://github.com/courtney-miles/schnoop-schema/issues",
-                "source": "https://github.com/courtney-miles/schnoop-schema/tree/v0.3.0"
+                "source": "https://github.com/courtney-miles/schnoop-schema/tree/v0.3.1"
             },
-            "time": "2021-04-21T22:04:11+00:00"
+            "time": "2022-01-26T08:37:25+00:00"
         }
     ],
     "packages-dev": [
@@ -3391,5 +3392,5 @@
         "ext-mysqlnd": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.2.0"
 }
