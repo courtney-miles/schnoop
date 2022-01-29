@@ -28,6 +28,7 @@ class CharTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
+     *
      * @param $expectedLength
      * @param $expectedCollation
      * @param $typeStr
@@ -41,6 +42,7 @@ class CharTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
+     *
      * @param $expectedLength
      * @param $expectedCollation
      * @param $typeStr
@@ -61,6 +63,7 @@ class CharTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
@@ -70,6 +73,7 @@ class CharTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
@@ -84,6 +88,7 @@ class CharTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoRecognise
+     *
      * @return array
      */
     public function doRecogniseProvider()
@@ -96,13 +101,14 @@ class CharTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoNotRecognise
+     *
      * @return array
      */
     public function doNotRecogniseProvider()
     {
         return [
             ['varchar(255)'],
-            ['char']
+            ['char'],
         ];
     }
 
@@ -112,19 +118,20 @@ class CharTypeFactoryTest extends SchnoopTestCase
             [
                 123,
                 'utf8_general_ci',
-                'char(123)'
+                'char(123)',
             ],
             [
                 123,
                 'utf8_general_ci',
                 'CHAR(123)',
-            ]
+            ],
         ];
     }
 
     /**
      * @param $expectedLength
      * @param $expectedCollation
+     *
      * @return CharType|MockObject
      */
     protected function createMockCharType($expectedLength, $expectedCollation)

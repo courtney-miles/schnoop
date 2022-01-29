@@ -19,6 +19,6 @@ class JsonTypeFactory implements DataTypeFactoryInterface
 
     public function doRecognise($typeStr)
     {
-        return preg_match('/^json$/i', $typeStr) === 1;
+        return 1 === preg_match('/^json$/i', $typeStr);
     }
 }

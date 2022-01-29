@@ -62,7 +62,7 @@ SQL
                 'Null' => 'NO',
                 'Default' => null,
                 'Extra' => 'auto_increment',
-                'Comment' => 'ID comment.'
+                'Comment' => 'ID comment.',
             ],
             [
                 'Field' => 'name',
@@ -71,8 +71,8 @@ SQL
                 'Null' => 'YES',
                 'Default' => null,
                 'Extra' => '',
-                'Comment' => 'Name comment.'
-            ]
+                'Comment' => 'Name comment.',
+            ],
         ];
 
         $this->assertSame(
@@ -95,7 +95,7 @@ SQL
 
     /**
      * @dataProvider rawColumnProvider
-     * @param array $rawColumn
+     *
      * @param bool $expectedNullable
      * @param bool $expectedAutoIncrement
      * @param bool $expectedOnUpdateCurrentTimestamp
@@ -136,7 +136,7 @@ SQL
             ->setConstructorArgs(
                 [
                     $this->createMock(MockPdo::class),
-                    $this->mockDataTypeMapper
+                    $this->mockDataTypeMapper,
                 ]
             )
             ->getMock();
@@ -154,7 +154,7 @@ SQL
         $tableName = 'schnoop_tbl';
         $rawForTable = [
             ['foo'],
-            ['bar']
+            ['bar'],
         ];
 
         $mockColumn = $this->createMock(ColumnInterface::class);
@@ -167,13 +167,13 @@ SQL
             ->setMethods(
                 [
                     'fetchRaw',
-                    'createFromRaw'
+                    'createFromRaw',
                 ]
             )
             ->setConstructorArgs(
                 [
                     $this->createMock(MockPdo::class),
-                    $this->mockDataTypeMapper
+                    $this->mockDataTypeMapper,
                 ]
             )
             ->getMock();
@@ -200,6 +200,7 @@ SQL
 
     /**
      * @see testCreateFromRaw
+     *
      * @return array
      */
     public function rawColumnProvider()
@@ -213,11 +214,11 @@ SQL
                     'Null' => 'NO',
                     'Default' => null,
                     'Extra' => 'auto_increment',
-                    'Comment' => 'ID comment.'
+                    'Comment' => 'ID comment.',
                 ],
                 false,
                 true,
-                false
+                false,
             ],
             [
                 [
@@ -227,12 +228,12 @@ SQL
                     'Null' => 'NO',
                     'Default' => ColumnInterface::DEFAULT_CURRENT_TIMESTAMP,
                     'Extra' => 'on update CURRENT_TIMESTAMP',
-                    'Comment' => 'ID comment.'
+                    'Comment' => 'ID comment.',
                 ],
                 false,
                 false,
-                true
-            ]
+                true,
+            ],
         ];
     }
 }

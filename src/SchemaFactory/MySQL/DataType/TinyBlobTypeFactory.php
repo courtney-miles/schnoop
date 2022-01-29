@@ -2,7 +2,6 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\TinyBlobType;
 
 class TinyBlobTypeFactory implements DataTypeFactoryInterface
@@ -24,6 +23,6 @@ class TinyBlobTypeFactory implements DataTypeFactoryInterface
      */
     public function doRecognise($typeStr)
     {
-        return preg_match('/^tinyblob$/i', $typeStr) === 1;
+        return 1 === preg_match('/^tinyblob$/i', $typeStr);
     }
 }

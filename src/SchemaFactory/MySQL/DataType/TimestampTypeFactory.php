@@ -26,6 +26,6 @@ class TimestampTypeFactory extends AbstractTimeTypeFactory
      */
     public function doRecognise($typeStr)
     {
-        return preg_match('/^timestamp(\(\d+\))?$/i', $typeStr) === 1;
+        return 1 === preg_match('/^timestamp(\(\d+\))?$/i', $typeStr);
     }
 }

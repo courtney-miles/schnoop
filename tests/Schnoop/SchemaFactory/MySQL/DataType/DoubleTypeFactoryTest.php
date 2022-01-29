@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: courtney
  * Date: 19/07/16
- * Time: 8:16 PM
+ * Time: 8:16 PM.
  */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
@@ -25,7 +25,6 @@ class DoubleTypeFactoryTest extends AbstractNumericPointTypeFactoryTestCase
     }
 
     /**
-     * @param MockObject $mockNumericPointType
      * @return NumericPointTypeFactoryInterface|MockObject
      */
     protected function newMockNumericPointTypeFactory(
@@ -37,7 +36,7 @@ class DoubleTypeFactoryTest extends AbstractNumericPointTypeFactoryTestCase
         $mockDoubleTypeFactory->method('newType')
             ->willReturn($mockNumericPointType);
 
-        return$mockDoubleTypeFactory;
+        return $mockDoubleTypeFactory;
     }
 
     /**
@@ -59,62 +58,63 @@ class DoubleTypeFactoryTest extends AbstractNumericPointTypeFactoryTestCase
                 null,
                 null,
                 false,
-                'double'
+                'double',
             ],
             [
                 true,
                 6,
                 2,
                 false,
-                'double(6,2)'
+                'double(6,2)',
             ],
             [
                 true,
                 null,
                 null,
                 false,
-                'double signed'
+                'double signed',
             ],
             [
                 false,
                 null,
                 null,
                 false,
-                'double unsigned'
+                'double unsigned',
             ],
             [
                 true,
                 null,
                 null,
                 true,
-                'double zerofill'
+                'double zerofill',
             ],
             [
                 true,
                 null,
                 null,
                 true,
-                'double signed zerofill'
+                'double signed zerofill',
             ],
             [
                 false,
                 null,
                 null,
                 true,
-                'double unsigned zerofill'
+                'double unsigned zerofill',
             ],
             [
                 false,
                 6,
                 2,
                 true,
-                'DOUBLE ( 6 , 2 ) UNSIGNED ZEROFILL'
-            ]
+                'DOUBLE ( 6 , 2 ) UNSIGNED ZEROFILL',
+            ],
         ];
     }
 
     /**
      * @see testDoRecognise
+     *
      * @return array
      */
     public function doRecogniseProvider()
@@ -123,18 +123,19 @@ class DoubleTypeFactoryTest extends AbstractNumericPointTypeFactoryTestCase
             ['double(6,2) unsigned'],
             ['double(6,2)'],
             ['double unsigned'],
-            ['double']
+            ['double'],
         ];
     }
 
     /**
      * @see testDoNotRecognise
+     *
      * @return array
      */
     public function doNotRecogniseProvider()
     {
         return [
-            ['varchar(255)']
+            ['varchar(255)'],
         ];
     }
 }

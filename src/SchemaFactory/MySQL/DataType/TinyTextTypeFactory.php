@@ -2,8 +2,6 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
-use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\TinyTextType;
 
 class TinyTextTypeFactory implements DataTypeFactoryInterface
@@ -28,6 +26,6 @@ class TinyTextTypeFactory implements DataTypeFactoryInterface
      */
     public function doRecognise($typeStr)
     {
-        return preg_match('/^tinytext$/i', $typeStr) === 1;
+        return 1 === preg_match('/^tinytext$/i', $typeStr);
     }
 }

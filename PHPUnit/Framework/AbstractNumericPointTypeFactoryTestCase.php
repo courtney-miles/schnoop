@@ -20,7 +20,6 @@ abstract class AbstractNumericPointTypeFactoryTestCase extends TestCase
     abstract protected function newNumericFloatTypeFactory();
 
     /**
-     * @param MockObject $mockNumericPointType
      * @return NumericPointTypeFactoryInterface|MockObject
      */
     abstract protected function newMockNumericPointTypeFactory(
@@ -61,11 +60,12 @@ abstract class AbstractNumericPointTypeFactoryTestCase extends TestCase
 
     /**
      * @dataProvider populateProvider
-     * @param bool $expectedSigned
+     *
+     * @param bool     $expectedSigned
      * @param int|null $expectedPrecision
      * @param int|null $expectedScale
-     * @param bool $expectedZeroFill
-     * @param string $typeStr
+     * @param bool     $expectedZeroFill
+     * @param string   $typeStr
      */
     public function testPopulate(
         $expectedSigned,
@@ -89,11 +89,12 @@ abstract class AbstractNumericPointTypeFactoryTestCase extends TestCase
 
     /**
      * @dataProvider populateProvider
-     * @param bool $expectedSigned
+     *
+     * @param bool     $expectedSigned
      * @param int|null $expectedPrecision
      * @param int|null $expectedScale
-     * @param bool $expectedZeroFill
-     * @param string $typeStr
+     * @param bool     $expectedZeroFill
+     * @param string   $typeStr
      */
     public function testCreate(
         $expectedSigned,
@@ -114,7 +115,6 @@ abstract class AbstractNumericPointTypeFactoryTestCase extends TestCase
         $this->assertSame($mockNumericPointType, $mockNumericPointTypeFactory->createType($typeStr));
     }
 
-
     public function testCreateWrongType()
     {
         $this->assertFalse($this->numericPointTypeFactory->createType('bogus'));
@@ -122,6 +122,7 @@ abstract class AbstractNumericPointTypeFactoryTestCase extends TestCase
 
     /**
      * @dataProvider doRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
@@ -131,6 +132,7 @@ abstract class AbstractNumericPointTypeFactoryTestCase extends TestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
@@ -138,12 +140,12 @@ abstract class AbstractNumericPointTypeFactoryTestCase extends TestCase
         $this->assertFalse($this->numericPointTypeFactory->doRecognise($typeStr));
     }
 
-
     /**
-     * @param bool $expectedSigned
+     * @param bool     $expectedSigned
      * @param int|null $expectedPrecision
      * @param int|null $expectedScale
-     * @param bool $expectedZeroFill
+     * @param bool     $expectedZeroFill
+     *
      * @return NumericPointTypeInterface|MockObject
      */
     protected function createMockNumericPointType(

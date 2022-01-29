@@ -2,7 +2,6 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\DoubleType;
 
 class DoubleTypeFactory extends AbstractNumericPointTypeFactory

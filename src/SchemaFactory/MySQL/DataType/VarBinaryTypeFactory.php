@@ -28,6 +28,6 @@ class VarBinaryTypeFactory extends AbstractCharTypeFactory
      */
     public function doRecognise($typeStr)
     {
-        return preg_match('/^varbinary\(\d+\)/i', $typeStr) === 1;
+        return 1 === preg_match('/^varbinary\(\d+\)/i', $typeStr);
     }
 }

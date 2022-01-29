@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: courtney
  * Date: 5/06/16
- * Time: 4:32 PM
+ * Time: 4:32 PM.
  */
 
 namespace MilesAsylum\Schnoop\PHPUnit;
@@ -97,23 +97,23 @@ SQL
 //SQL
 //        );
     }
-    
+
     protected function makeDsn()
     {
         $dsn = sprintf(
-            "mysql:host=%s;port=%d",
+            'mysql:host=%s;port=%d',
             $_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_HOST'],
             !empty($_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_PORT']) ? $_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_PORT'] : 3306
         );
 
         return $dsn;
     }
-    
+
     protected function connect($dsn)
     {
         $pdo = new \PDO($dsn, $this->getDatabaseUser(), $this->getDatabasePassword());
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
+
         return $pdo;
     }
 }

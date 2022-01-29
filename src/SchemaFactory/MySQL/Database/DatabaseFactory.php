@@ -19,7 +19,6 @@ class DatabaseFactory implements DatabaseFactoryInterface
 
     /**
      * DatabaseFactory constructor.
-     * @param PDO $pdo
      */
     public function __construct(PDO $pdo)
     {

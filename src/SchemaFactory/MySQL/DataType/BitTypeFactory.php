@@ -19,9 +19,10 @@ class BitTypeFactory extends AbstractCharTypeFactory
     }
 
     /**
-     * Populate the properties of the supplied bit type from the type string
-     * @param BitType $bitType
+     * Populate the properties of the supplied bit type from the type string.
+     *
      * @param string $typeStr
+     *
      * @return BitType
      */
     public function populate(BitType $bitType, $typeStr)
@@ -33,6 +34,7 @@ class BitTypeFactory extends AbstractCharTypeFactory
 
     /**
      * Create a new Bit type object.
+     *
      * @return BitType
      */
     public function newType()
@@ -45,6 +47,6 @@ class BitTypeFactory extends AbstractCharTypeFactory
      */
     public function doRecognise($typeStr)
     {
-        return preg_match('/^bit\(\d+\)/i', $typeStr) === 1;
+        return 1 === preg_match('/^bit\(\d+\)/i', $typeStr);
     }
 }

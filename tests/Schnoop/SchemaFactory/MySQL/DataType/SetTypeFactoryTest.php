@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: courtney
  * Date: 21/07/16
- * Time: 7:05 AM
+ * Time: 7:05 AM.
  */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
@@ -28,6 +28,7 @@ class SetTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
@@ -37,6 +38,7 @@ class SetTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
@@ -46,6 +48,7 @@ class SetTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
+     *
      * @param $typeStr
      * @param $collation
      * @param $options
@@ -67,6 +70,7 @@ class SetTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoRecognise
+     *
      * @return array
      */
     public function doRecogniseProvider()
@@ -79,13 +83,14 @@ class SetTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoNotRecognise
+     *
      * @return array
      */
     public function doNotRecogniseProvider()
     {
         return [
             ['varchar(255)'],
-            ['set']
+            ['set'],
         ];
     }
 
@@ -95,13 +100,13 @@ class SetTypeFactoryTest extends SchnoopTestCase
             [
                 "set('Foo','Bar')",
                 'utf8_general_ci',
-                array('Foo', 'Bar')
+                ['Foo', 'Bar'],
             ],
             [
                 "SET('Foo','Bar')",
                 'utf8_general_ci',
-                array('Foo', 'Bar')
-            ]
+                ['Foo', 'Bar'],
+            ],
         ];
     }
 }

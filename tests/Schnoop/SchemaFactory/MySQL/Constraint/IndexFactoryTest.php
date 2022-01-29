@@ -49,6 +49,7 @@ SQL
 
     /**
      * @dataProvider newIndexProvider
+     *
      * @param $indexType
      * @param $indexName
      * @param $expectedInstanceOf
@@ -72,8 +73,8 @@ SQL
 
     /**
      * @dataProvider rawIndexProvider
+     *
      * @param string $alterDDL
-     * @param array $expectedRawIndexes
      */
     public function testFetchRaw($alterDDL, array $expectedRawIndexes)
     {
@@ -118,9 +119,6 @@ SQL
 
     /**
      * @dataProvider createIndexFromRawTestData
-     * @param array $indexExpectations
-     * @param array $indexedColumnExpectations
-     * @param array $rawForTable
      */
     public function testCreateIndexFromRaw(
         array $indexExpectations,
@@ -142,7 +140,7 @@ SQL
         foreach ($indexExpectations as $index) {
             $newIndexArgs[] = [
                 $index['indexType'],
-                $index['indexName']
+                $index['indexName'],
             ];
             $mockIndexes[] = $this->createMockIndex(
                 $index['comment'],
@@ -179,8 +177,8 @@ SQL
             [
                 'key_name' => 'foo',
                 'non_unique' => 1,
-                'index_type' => 'bogus'
-            ]
+                'index_type' => 'bogus',
+            ],
         ];
 
         $this->indexMapper->createFromRaw($rawIndexes);
@@ -208,7 +206,7 @@ SQL
                         'Column_name' => 'name',
                         'Sub_part' => '3',
                         'Index_type' => 'BTREE',
-                           'Index_comment' => 'Unique index comment.'
+                           'Index_comment' => 'Unique index comment.',
                     ],
                     [
                         'Table' => $this->tableName,
@@ -218,7 +216,7 @@ SQL
                         'Column_name' => 'id',
                         'Sub_part' => null,
                         'Index_type' => 'BTREE',
-                        'Index_comment' => 'Index comment.'
+                        'Index_comment' => 'Index comment.',
                     ],
                     [
                         'Table' => $this->tableName,
@@ -228,15 +226,16 @@ SQL
                         'Column_name' => 'name',
                         'Sub_part' => null,
                         'Index_type' => 'BTREE',
-                        'Index_comment' => 'Index comment.'
-                    ]
-                ]
-            ]
+                        'Index_comment' => 'Index comment.',
+                    ],
+                ],
+            ],
         ];
     }
 
     /**
      * @see testCreateIndexFromRaw
+     *
      * @return array
      */
     public function createIndexFromRawTestData()
@@ -247,16 +246,16 @@ SQL
                     [
                         'indexName' => 'idx_name',
                         'indexType' => IndexInterface::CONSTRAINT_INDEX,
-                        'comment' => 'Index comment.'
-                    ]
+                        'comment' => 'Index comment.',
+                    ],
                 ],
                 [
                     'idx_name' => [
                         [
                             'columnName' => 'name',
-                            'length' => '3'
-                        ]
-                    ]
+                            'length' => '3',
+                        ],
+                    ],
                 ],
                 [
                     [
@@ -267,25 +266,25 @@ SQL
                         'Column_name' => 'name',
                         'Sub_part' => '3',
                         'Index_type' => 'BTREE',
-                        'Index_comment' => 'Index comment.'
-                    ]
-                ]
+                        'Index_comment' => 'Index comment.',
+                    ],
+                ],
             ],
             'Create unique index' => [
                 [
                     [
                         'indexName' => 'ux_name',
                         'indexType' => IndexInterface::CONSTRAINT_INDEX_UNIQUE,
-                        'comment' => 'Unique index comment.'
-                    ]
+                        'comment' => 'Unique index comment.',
+                    ],
                 ],
                 [
                     'ux_name' => [
                         [
                             'columnName' => 'name',
-                            'length' => '3'
-                        ]
-                    ]
+                            'length' => '3',
+                        ],
+                    ],
                 ],
                 [
                     [
@@ -296,25 +295,25 @@ SQL
                         'Column_name' => 'name',
                         'Sub_part' => '3',
                         'Index_type' => 'BTREE',
-                        'Index_comment' => 'Unique index comment.'
-                    ]
-                ]
+                        'Index_comment' => 'Unique index comment.',
+                    ],
+                ],
             ],
             'Create fulltext index' => [
                 [
                     [
                         'indexName' => 'ftx_name',
                         'indexType' => IndexInterface::CONSTRAINT_INDEX_FULLTEXT,
-                        'comment' => 'Fulltext index comment.'
-                    ]
+                        'comment' => 'Fulltext index comment.',
+                    ],
                 ],
                 [
                     'ftx_name' => [
                         [
                             'columnName' => 'name',
-                            'length' => '3'
-                        ]
-                    ]
+                            'length' => '3',
+                        ],
+                    ],
                 ],
                 [
                     [
@@ -325,25 +324,25 @@ SQL
                         'Column_name' => 'name',
                         'Sub_part' => '3',
                         'Index_type' => 'FULLTEXT',
-                        'Index_comment' => 'Fulltext index comment.'
-                    ]
-                ]
+                        'Index_comment' => 'Fulltext index comment.',
+                    ],
+                ],
             ],
             'Create spatial index' => [
                 [
                     [
                         'indexName' => 'spx_name',
                         'indexType' => IndexInterface::CONSTRAINT_INDEX_SPATIAL,
-                        'comment' => 'Spatial index comment.'
-                    ]
+                        'comment' => 'Spatial index comment.',
+                    ],
                 ],
                 [
                     'spx_name' => [
                         [
                             'columnName' => 'name',
-                            'length' => '3'
-                        ]
-                    ]
+                            'length' => '3',
+                        ],
+                    ],
                 ],
                 [
                     [
@@ -354,28 +353,28 @@ SQL
                         'Column_name' => 'name',
                         'Sub_part' => '3',
                         'Index_type' => 'RTREE',
-                        'Index_comment' => 'Spatial index comment.'
-                    ]
-                ]
+                        'Index_comment' => 'Spatial index comment.',
+                    ],
+                ],
             ],
             'Create 1 indexes with 2 columns' => [
                 [
                     [
                         'indexName' => 'idx_name',
                         'indexType' => IndexInterface::CONSTRAINT_INDEX,
-                        'comment' => 'Index comment.'
-                    ]
+                        'comment' => 'Index comment.',
+                    ],
                 ],
                 [
                     'idx_name' => [
                         [
                             'columnName' => 'name01',
-                            'length' => '2'
+                            'length' => '2',
                         ],
                         [
                             'columnName' => 'name02',
-                            'length' => '3'
-                        ]
+                            'length' => '3',
+                        ],
                     ],
                 ],
                 [
@@ -387,7 +386,7 @@ SQL
                         'Column_name' => 'name01',
                         'Sub_part' => '2',
                         'Index_type' => 'BTREE',
-                        'Index_comment' => 'Index comment.'
+                        'Index_comment' => 'Index comment.',
                     ],
                     [
                         'Table' => $this->tableName,
@@ -397,36 +396,36 @@ SQL
                         'Column_name' => 'name02',
                         'Sub_part' => '3',
                         'Index_type' => 'BTREE',
-                        'Index_comment' => 'Index comment.'
-                    ]
-                ]
+                        'Index_comment' => 'Index comment.',
+                    ],
+                ],
             ],
             'Create 2 indexes with 1 column each' => [
                 [
                     [
                         'indexName' => 'idx_name01',
                         'indexType' => IndexInterface::CONSTRAINT_INDEX,
-                        'comment' => 'Index one comment.'
+                        'comment' => 'Index one comment.',
                     ],
                     [
                         'indexName' => 'idx_name02',
                         'indexType' => IndexInterface::CONSTRAINT_INDEX,
-                        'comment' => 'Index two comment.'
-                    ]
+                        'comment' => 'Index two comment.',
+                    ],
                 ],
                 [
                     'idx_name01' => [
                         [
                             'columnName' => 'name01',
-                            'length' => '2'
-                        ]
+                            'length' => '2',
+                        ],
                     ],
                     'idx_name02' => [
                         [
                             'columnName' => 'name02',
-                            'length' => '3'
-                        ]
-                    ]
+                            'length' => '3',
+                        ],
+                    ],
                 ],
                 [
                     [
@@ -437,7 +436,7 @@ SQL
                         'Column_name' => 'name01',
                         'Sub_part' => '2',
                         'Index_type' => 'BTREE',
-                        'Index_comment' => 'Index one comment.'
+                        'Index_comment' => 'Index one comment.',
                     ],
                     [
                         'Table' => $this->tableName,
@@ -447,15 +446,16 @@ SQL
                         'Column_name' => 'name02',
                         'Sub_part' => '3',
                         'Index_type' => 'BTREE',
-                        'Index_comment' => 'Index two comment.'
-                    ]
-                ]
+                        'Index_comment' => 'Index two comment.',
+                    ],
+                ],
             ],
         ];
     }
 
     /**
      * @see testNewIndex
+     *
      * @return array
      */
     public function newIndexProvider()
@@ -464,36 +464,35 @@ SQL
             [
                 IndexInterface::CONSTRAINT_INDEX,
                 'schnoop_idx',
-                Index::class
+                Index::class,
             ],
             [
                 IndexInterface::CONSTRAINT_INDEX_UNIQUE,
                 'schnoop_idx',
-                UniqueIndex::class
+                UniqueIndex::class,
             ],
             [
                 IndexInterface::CONSTRAINT_INDEX_FULLTEXT,
                 'schnoop_idx',
-                FullTextIndex::class
+                FullTextIndex::class,
             ],
             [
                 IndexInterface::CONSTRAINT_INDEX_SPATIAL,
                 'schnoop_idx',
-                SpatialIndex::class
+                SpatialIndex::class,
             ],
             [
                 IndexInterface::CONSTRAINT_INDEX_UNIQUE,
                 'primary',
-                PrimaryKey::class
-            ]
+                PrimaryKey::class,
+            ],
         ];
     }
 
     /**
-     * @param array $newIndexArgs
-     * @param IndexInterface[] $indexes
-     * @param array $newIndexedColumnArgs
+     * @param IndexInterface[]         $indexes
      * @param IndexedColumnInterface[] $indexedColumns
+     *
      * @return IndexFactory|MockObject
      */
     protected function createMockIndexMapper(
@@ -522,6 +521,7 @@ SQL
     /**
      * @param $expectedComment
      * @param IndexedColumnInterface[] $indexedColumns
+     *
      * @return IndexInterface|MockObject
      */
     protected function createMockIndex($expectedComment, array $indexedColumns)
@@ -543,6 +543,7 @@ SQL
 
     /**
      * @param int $expectedLength
+     *
      * @return IndexedColumnInterface|MockObject
      */
     protected function createMockIndexedColumn($expectedLength)

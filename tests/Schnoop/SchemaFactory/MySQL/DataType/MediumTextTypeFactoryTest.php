@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: courtney
  * Date: 20/07/16
- * Time: 6:06 PM
+ * Time: 6:06 PM.
  */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
@@ -28,6 +28,7 @@ class MediumTextTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
@@ -37,6 +38,7 @@ class MediumTextTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
@@ -46,6 +48,7 @@ class MediumTextTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
+     *
      * @param $typeStr
      * @param $collation
      */
@@ -66,6 +69,7 @@ class MediumTextTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoRecognise
+     *
      * @return array
      */
     public function doRecogniseProvider()
@@ -78,13 +82,14 @@ class MediumTextTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoNotRecognise
+     *
      * @return array
      */
     public function doNotRecogniseProvider()
     {
         return [
             ['varchar(255)'],
-            ['text']
+            ['text'],
         ];
     }
 
@@ -93,12 +98,12 @@ class MediumTextTypeFactoryTest extends SchnoopTestCase
         return [
             [
                 'mediumtext',
-                'utf8_general_ci'
+                'utf8_general_ci',
             ],
             [
                 'MEDIUMTEXT',
-                'utf8_general_ci'
-            ]
+                'utf8_general_ci',
+            ],
         ];
     }
 }

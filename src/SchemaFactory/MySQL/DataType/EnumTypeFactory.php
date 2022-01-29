@@ -2,7 +2,6 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\EnumType;
 
 class EnumTypeFactory extends AbstractOptionsTypeFactory
@@ -28,6 +27,6 @@ class EnumTypeFactory extends AbstractOptionsTypeFactory
      */
     public function doRecognise($typeStr)
     {
-        return preg_match('/^enum\(.+\)$/i', $typeStr) === 1;
+        return 1 === preg_match('/^enum\(.+\)$/i', $typeStr);
     }
 }

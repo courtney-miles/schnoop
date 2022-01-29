@@ -22,6 +22,7 @@ class TinyBlobTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
@@ -31,6 +32,7 @@ class TinyBlobTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
@@ -40,6 +42,7 @@ class TinyBlobTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
+     *
      * @param $typeStr
      */
     public function testCreateType($typeStr)
@@ -57,6 +60,7 @@ class TinyBlobTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoRecognise
+     *
      * @return array
      */
     public function doRecogniseProvider()
@@ -69,13 +73,14 @@ class TinyBlobTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoNotRecognise
+     *
      * @return array
      */
     public function doNotRecogniseProvider()
     {
         return [
             ['varchar(255)'],
-            ['blob']
+            ['blob'],
         ];
     }
 
@@ -83,7 +88,7 @@ class TinyBlobTypeFactoryTest extends SchnoopTestCase
     {
         return [
             ['tinyblob'],
-            ['TINYBLOB']
+            ['TINYBLOB'],
         ];
     }
 }

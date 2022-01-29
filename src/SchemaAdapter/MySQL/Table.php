@@ -13,6 +13,7 @@ class Table extends \MilesAsylum\SchnoopSchema\MySQL\Table\Table implements Tabl
 
     /**
      * Table constructor.
+     *
      * @param string $databaseName
      * @param string $name
      */

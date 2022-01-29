@@ -20,7 +20,8 @@
   "require-dev": {
     "php-coveralls/php-coveralls": "^2.4",
     "phpunit/phpunit": "^7.0",
-    "phpunit/dbunit": "^4.0"
+    "phpunit/dbunit": "^4.0",
+    "friendsofphp/php-cs-fixer": "^3.0"
   },
   "autoload": {
     "psr-4": {
@@ -36,6 +37,8 @@
   "scripts": {
     "test": [
       "vendor/bin/phpunit --coverage-clover build/logs/clover.xml"
-    ]
+    ],
+    "style-check": "vendor/bin/php-cs-fixer fix --dry-run --verbose --diff --allow-risky=yes --ansi",
+    "style-fix": "vendor/bin/php-cs-fixer fix --verbose --allow-risky=yes --ansi"
   }
 }

@@ -27,36 +27,36 @@ class ParametersLexerTest extends TestCase
         $expectedTokens = [
             [
                 ParametersLexer::T_BRACKET_OPEN,
-                '('
+                '(',
             ],
             [
                 ParametersLexer::T_ENCAPSED_STRING,
-                "'Foo123'"
+                "'Foo123'",
             ],
             [
                 ParametersLexer::T_COMMA,
-                ','
+                ',',
             ],
             [
                 ParametersLexer::T_WHITESPACE,
-                '   '
+                '   ',
             ],
             [
                 ParametersLexer::T_TICK,
-                '`'
+                '`',
             ],
             [
                 ParametersLexer::T_WORD,
-                'bar'
+                'bar',
             ],
             [
                 ParametersLexer::T_TICK,
-                '`'
+                '`',
             ],
             [
                 ParametersLexer::T_BRACKET_CLOSE,
-                ')'
-            ]
+                ')',
+            ],
         ];
 
         $actualTokens = $this->parametersLexer->tokenise($params);
@@ -66,6 +66,7 @@ class ParametersLexerTest extends TestCase
 
     /**
      * @dataProvider getTokenNameTestData
+     *
      * @param $const
      * @param $expectedName
      */

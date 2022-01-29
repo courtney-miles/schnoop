@@ -10,7 +10,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 class MediumIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
 {
-
     /**
      * @return IntTypeFactoryInterface
      */
@@ -21,6 +20,7 @@ class MediumIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
 
     /**
      * @param MockObject $mockIntType
+     *
      * @return IntTypeFactoryInterface
      */
     protected function newMockedIntTypeFactory(MockObject $mockIntType = null)
@@ -49,43 +49,43 @@ class MediumIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
                 11,
                 true,
                 false,
-                'mediumint(11)'
+                'mediumint(11)',
             ],
             [
                 11,
                 true,
                 false,
-                'mediumint(11) signed'
+                'mediumint(11) signed',
             ],
             [
                 10,
                 false,
                 false,
-                'mediumint(10) unsigned'
+                'mediumint(10) unsigned',
             ],
             [
                 11,
                 true,
                 true,
-                'mediumint(11) zerofill'
+                'mediumint(11) zerofill',
             ],
             [
                 11,
                 true,
                 true,
-                'mediumint(11) signed zerofill'
+                'mediumint(11) signed zerofill',
             ],
             [
                 11,
                 false,
                 true,
-                'mediumint(11) unsigned zerofill'
+                'mediumint(11) unsigned zerofill',
             ],
             [
                 10,
                 false,
                 true,
-                'MEDIUMINT(10) UNSIGNED ZEROFILL'
+                'MEDIUMINT(10) UNSIGNED ZEROFILL',
             ],
         ];
     }
@@ -114,7 +114,7 @@ class MediumIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
         return [
             ['mediumint'],
             ['int(10)'],
-            ['varchar(255)']
+            ['varchar(255)'],
         ];
     }
 }

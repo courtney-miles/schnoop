@@ -36,13 +36,12 @@ class TriggerFactoryTest extends TestMySQLCase
 
         $this->databaseName = $this->getDatabaseName();
 
-        if (getenv('TESTS_SCHNOOP_DBADAPTER_MYSQL_HOST') === 'localhost') {
+        if ('localhost' === getenv('TESTS_SCHNOOP_DBADAPTER_MYSQL_HOST')) {
             // In Travis, the hostname is resolved explicitly.
-            $this->definer = $this->getDatabaseUser() . '@localhost';
+            $this->definer = $this->getDatabaseUser().'@localhost';
         } else {
-            $this->definer = $this->getDatabaseUser() . '@%';
+            $this->definer = $this->getDatabaseUser().'@%';
         }
-
 
         $this->getConnection()->exec(<<<SQL
 DROP TRIGGER IF EXISTS `$this->databaseName`.`{$this->triggerName}`
@@ -81,14 +80,14 @@ SQL
                 'Trigger' => $this->triggerName,
                 'Event' => 'INSERT',
                 'Table' => $this->tableName,
-                'Statement' => "BEGIN
+                'Statement' => 'BEGIN
   DECLARE id INT;
   SELECT 1 INTO id;
-END",
+END',
                 'Timing' => 'AFTER',
                 'sql_mode' => $this->sqlMode,
-                'Definer' => $this->definer
-            ]
+                'Definer' => $this->definer,
+            ],
         ];
 
         $this->assertSame(
@@ -113,7 +112,7 @@ SQL;
 END",
             'Timing' => 'AFTER',
             'sql_mode' => '',
-            'Definer' => $this->definer
+            'Definer' => $this->definer,
         ];
 
         $mockTrigger = $this->createMock(Trigger::class);

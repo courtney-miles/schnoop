@@ -2,7 +2,6 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\SetType;
 
 class SetTypeFactory extends AbstractOptionsTypeFactory
@@ -28,6 +27,6 @@ class SetTypeFactory extends AbstractOptionsTypeFactory
      */
     public function doRecognise($typeStr)
     {
-        return preg_match('/^set\(.+\)$/i', $typeStr) === 1;
+        return 1 === preg_match('/^set\(.+\)$/i', $typeStr);
     }
 }

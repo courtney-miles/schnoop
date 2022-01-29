@@ -21,8 +21,6 @@ class ParametersFactory
 
     /**
      * ParametersFactory constructor.
-     * @param ParametersParser $parametersParser
-     * @param DataTypeFactoryInterface $dataTypeFactory
      */
     public function __construct(ParametersParser $parametersParser, DataTypeFactoryInterface $dataTypeFactory)
     {
@@ -32,7 +30,9 @@ class ParametersFactory
 
     /**
      * Create collection of parameter objects from the supplied string.
+     *
      * @param string $parametersString
+     *
      * @return FunctionParameter[]|ProcedureParameter[]
      */
     public function createParameters($parametersString)
@@ -44,7 +44,7 @@ class ParametersFactory
         foreach ($rawParameters as $rawParameter) {
             $dataType = $this->dataTypeFactory->createType($rawParameter['dataType']);
 
-            if ($rawParameter['direction'] !== null) {
+            if (null !== $rawParameter['direction']) {
                 $parameters[] = $this->newProcedureParameter(
                     $rawParameter['name'],
                     $dataType,
@@ -63,8 +63,9 @@ class ParametersFactory
 
     /**
      * Create a new parameter for a function.
-     * @param string $name Parameter name.
-     * @param DataTypeInterface $dataType
+     *
+     * @param string $name parameter name
+     *
      * @return FunctionParameter
      */
     public function newFunctionParameter($name, DataTypeInterface $dataType)
@@ -74,10 +75,11 @@ class ParametersFactory
 
     /**
      * Create a new parameter for a procedure.
-     * @param string $name Parameter name.
-     * @param DataTypeInterface $dataType
+     *
+     * @param string $name      parameter name
      * @param string $direction The parameter value direction.  One of
-     * ProcedureParameterInterface::DIRECTION_* constants.
+     *                          ProcedureParameterInterface::DIRECTION_* constants.
+     *
      * @return ProcedureParameter
      */
     public function newProcedureParameter($name, DataTypeInterface $dataType, $direction)

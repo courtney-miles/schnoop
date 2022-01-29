@@ -2,8 +2,6 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint;
 
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint\ForeignKeyFactoryInterface;
-use MilesAsylum\SchnoopSchema\MySQL\Constraint\ConstraintInterface;
 use MilesAsylum\SchnoopSchema\MySQL\Constraint\ForeignKey;
 use MilesAsylum\SchnoopSchema\MySQL\Constraint\ForeignKeyColumn;
 use PDO;
@@ -22,7 +20,6 @@ class ForeignKeyFactory implements ForeignKeyFactoryInterface
 
     /**
      * ForeignKeyFactory constructor.
-     * @param PDO $pdo
      */
     public function __construct(PDO $pdo)
     {

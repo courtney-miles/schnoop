@@ -2,9 +2,8 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\Column;
 
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\Column\ColumnFactoryInterface;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
 use MilesAsylum\SchnoopSchema\MySQL\Column\Column;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
 use PDO;
@@ -28,8 +27,6 @@ class ColumnFactory implements ColumnFactoryInterface
 
     /**
      * ColumnMapper constructor.
-     * @param PDO $pdo
-     * @param DataTypeFactoryInterface $dataTypeFactory
      */
     public function __construct(PDO $pdo, DataTypeFactoryInterface $dataTypeFactory)
     {
@@ -74,7 +71,7 @@ SQL;
         )->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($rows as $k => $row) {
-            $autoIncrement = ($row['Extra'] == 'auto_increment');
+            $autoIncrement = ('auto_increment' == $row['Extra']);
             $rawColumns[] = array_intersect_key(
                 $row,
                 array_fill_keys(
@@ -85,7 +82,7 @@ SQL;
                         'Null',
                         'Default',
                         'Extra',
-                        'Comment'
+                        'Comment',
                     ],
                     true
                 )
@@ -105,10 +102,10 @@ SQL;
         $dataType = $this->dataTypeMapper->createType($rawColumn['type'], $rawColumn['collation']);
 
         $column = $this->newColumn($rawColumn['field'], $dataType);
-        $column->setNullable(strtolower($rawColumn['null']) == 'yes');
-        $column->setAutoIncrement($rawColumn['extra'] == 'auto_increment');
+        $column->setNullable('yes' == strtolower($rawColumn['null']));
+        $column->setAutoIncrement('auto_increment' == $rawColumn['extra']);
         $column->setDefault($rawColumn['default']);
-        $column->setOnUpdateCurrentTimestamp(strcasecmp($rawColumn['extra'], 'on update CURRENT_TIMESTAMP') == 0);
+        $column->setOnUpdateCurrentTimestamp(0 == strcasecmp($rawColumn['extra'], 'on update CURRENT_TIMESTAMP'));
         $column->setComment($rawColumn['comment']);
 
         return $column;
@@ -127,8 +124,10 @@ SQL;
 
     /**
      * Convert associative array keys to lower case.
-     * @param array $arr Associative array.
-     * @return array A copy of the supplied array with all keys changed to lower case.
+     *
+     * @param array $arr associative array
+     *
+     * @return array a copy of the supplied array with all keys changed to lower case
      */
     protected function keysToLower(array $arr)
     {

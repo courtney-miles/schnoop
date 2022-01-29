@@ -2,7 +2,6 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\LongTextType;
 
 class LongTextTypeFactory implements DataTypeFactoryInterface
@@ -27,6 +26,6 @@ class LongTextTypeFactory implements DataTypeFactoryInterface
      */
     public function doRecognise($typeStr)
     {
-        return preg_match('/^longtext$/i', $typeStr) === 1;
+        return 1 === preg_match('/^longtext$/i', $typeStr);
     }
 }

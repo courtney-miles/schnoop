@@ -22,6 +22,7 @@ class EnumTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
@@ -31,6 +32,7 @@ class EnumTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
@@ -40,6 +42,7 @@ class EnumTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
+     *
      * @param $typeStr
      * @param $collation
      * @param $options
@@ -61,6 +64,7 @@ class EnumTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoRecognise
+     *
      * @return array
      */
     public function doRecogniseProvider()
@@ -73,13 +77,14 @@ class EnumTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoNotRecognise
+     *
      * @return array
      */
     public function doNotRecogniseProvider()
     {
         return [
             ['varchar(255)'],
-            ['enum']
+            ['enum'],
         ];
     }
 
@@ -89,13 +94,13 @@ class EnumTypeFactoryTest extends SchnoopTestCase
             [
                 "enum('Foo','Bar')",
                 'utf8_general_ci',
-                array('Foo', 'Bar')
+                ['Foo', 'Bar'],
             ],
             [
                 "ENUM('Foo','Bar')",
                 'utf8_general_ci',
-                array('Foo', 'Bar')
-            ]
+                ['Foo', 'Bar'],
+            ],
         ];
     }
 }

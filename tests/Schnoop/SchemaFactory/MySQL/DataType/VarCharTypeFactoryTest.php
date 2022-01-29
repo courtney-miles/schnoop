@@ -22,6 +22,7 @@ class VarCharTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
@@ -31,6 +32,7 @@ class VarCharTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
@@ -40,6 +42,7 @@ class VarCharTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
+     *
      * @param $typeStr
      * @param $collation
      * @param $length
@@ -61,6 +64,7 @@ class VarCharTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoRecognise
+     *
      * @return array
      */
     public function doRecogniseProvider()
@@ -73,13 +77,14 @@ class VarCharTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoNotRecognise
+     *
      * @return array
      */
     public function doNotRecogniseProvider()
     {
         return [
             ['binary(255)'],
-            ['varchar']
+            ['varchar'],
         ];
     }
 
@@ -89,13 +94,13 @@ class VarCharTypeFactoryTest extends SchnoopTestCase
             [
                 'varchar(123)',
                 'utf8_general_ci',
-                123
+                123,
             ],
             [
                 'VARCHAR(123)',
                 'utf8_general_ci',
-                123
-            ]
+                123,
+            ],
         ];
     }
 }

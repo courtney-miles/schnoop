@@ -6,11 +6,10 @@ use MilesAsylum\Schnoop\PHPUnit\Framework\AbstractIntTypeFactoryTestCase;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\IntTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\IntTypeFactoryInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\IntType;
-use PHPUnit\Framework\MockObject\MockObject ;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class IntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
 {
-
     /**
      * @return IntTypeFactoryInterface
      */
@@ -45,43 +44,43 @@ class IntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
                 11,
                 true,
                 false,
-                'int(11)'
+                'int(11)',
             ],
             [
                 11,
                 true,
                 false,
-                'int(11) signed'
+                'int(11) signed',
             ],
             [
                 10,
                 false,
                 false,
-                'int(10) unsigned'
+                'int(10) unsigned',
             ],
             [
                 11,
                 true,
                 true,
-                'int(11) zerofill'
+                'int(11) zerofill',
             ],
             [
                 11,
                 true,
                 true,
-                'int(11) signed zerofill'
+                'int(11) signed zerofill',
             ],
             [
                 11,
                 false,
                 true,
-                'int(11) unsigned zerofill'
+                'int(11) unsigned zerofill',
             ],
             [
                 10,
                 false,
                 true,
-                'INT(10) UNSIGNED ZEROFILL'
+                'INT(10) UNSIGNED ZEROFILL',
             ],
         ];
     }
@@ -110,7 +109,7 @@ class IntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
         return [
             ['int'],
             ['bigint(10)'],
-            ['varchar(255)']
+            ['varchar(255)'],
         ];
     }
 }

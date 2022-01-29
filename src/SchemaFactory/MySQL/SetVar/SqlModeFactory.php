@@ -8,7 +8,9 @@ class SqlModeFactory
 {
     /**
      * Create an SQL Mode object.
+     *
      * @param $mode
+     *
      * @return SqlMode
      */
     public function newSqlMode($mode)

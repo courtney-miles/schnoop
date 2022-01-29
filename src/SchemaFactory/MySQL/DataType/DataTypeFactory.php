@@ -33,7 +33,7 @@ class DataTypeFactory implements DataTypeFactoryInterface
     {
         $type = $this->extractTypeName($typeStr);
 
-        if ($type == false) {
+        if (false == $type) {
             throw new FactoryException("The format of the data-type string, '$typeStr', is not supported.");
         }
 
@@ -42,6 +42,7 @@ class DataTypeFactory implements DataTypeFactoryInterface
 
     /**
      * Add a data type factory.
+     *
      * @param $typeName
      * @param \MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface $dataTypeFactory
      */
@@ -58,7 +59,9 @@ class DataTypeFactory implements DataTypeFactoryInterface
 
     /**
      * Get the handler for the supplied type name.
+     *
      * @param string $typeName
+     *
      * @return \MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface
      */
     public function getFactoryHandlerForType($typeName)
@@ -72,6 +75,7 @@ class DataTypeFactory implements DataTypeFactoryInterface
 
     /**
      * Factory method for constructing this object with all known type handlers added.
+     *
      * @return DataTypeFactory
      */
     public static function createSelf()
@@ -121,7 +125,9 @@ class DataTypeFactory implements DataTypeFactoryInterface
 
     /**
      * Extract the type name from the type string.
+     *
      * @param string $typeStr
+     *
      * @return bool|string The type name. False if the type string has an unrecognised format.
      */
     protected function extractTypeName($typeStr)

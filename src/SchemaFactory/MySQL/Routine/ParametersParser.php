@@ -13,19 +13,20 @@ class ParametersParser
 
     /**
      * Tokenised parameter string.
+     *
      * @var array
      */
     protected $tokenised = [];
 
     /**
      * Pointer for the parameter string.
+     *
      * @var int
      */
     protected $pointer = 0;
 
     /**
      * ParametersParser constructor.
-     * @param ParametersLexer $lexer
      */
     public function __construct(ParametersLexer $lexer)
     {
@@ -34,7 +35,9 @@ class ParametersParser
 
     /**
      * Parse the supplied parameter string to it's tokens.
+     *
      * @param $parametersString
+     *
      * @return array Tokens
      */
     public function parse($parametersString)
@@ -48,7 +51,7 @@ class ParametersParser
                 $params[] = $this->parseNextParameter();
                 $this->clearWhitespace();
                 $token = $this->nextToken();
-            } while ($token !== null && $token[0] == ParametersLexer::T_COMMA);
+            } while (null !== $token && ParametersLexer::T_COMMA == $token[0]);
         }
 
         return $params;
@@ -56,7 +59,9 @@ class ParametersParser
 
     /**
      * Parse the next parameter from the string, leaving the pointer at the next parameter.
+     *
      * @return array
+     *
      * @throws ParametersParserException
      */
     protected function parseNextParameter()
@@ -65,7 +70,7 @@ class ParametersParser
 
         $this->clearWhitespace();
 
-        if ($this->lookAhead()[0] == ParametersLexer::T_WORD
+        if (ParametersLexer::T_WORD == $this->lookAhead()[0]
             && in_array(strtoupper($this->lookAhead()[1]), ['IN', 'OUT', 'INOUT'])
         ) {
             $direction = $this->nextToken()[1];
@@ -75,39 +80,31 @@ class ParametersParser
 
         $token = $this->nextToken();
 
-        if ($token[0] == ParametersLexer::T_TICK) {
+        if (ParametersLexer::T_TICK == $token[0]) {
             $token = $this->nextToken();
 
-            if ($token[0] !== ParametersLexer::T_WORD) {
-                throw new ParametersParserException(
-                    "A parameter name was expected but found '{$token[1]}' instead."
-                );
+            if (ParametersLexer::T_WORD !== $token[0]) {
+                throw new ParametersParserException("A parameter name was expected but found '{$token[1]}' instead.");
             }
 
             $name = $token[1];
             $token = $this->nextToken();
 
-            if ($token[0] !== ParametersLexer::T_TICK) {
-                throw new ParametersParserException(
-                    "Parameter name was expected to terminate with '`' but found '{$token[1]}' instead."
-                );
+            if (ParametersLexer::T_TICK !== $token[0]) {
+                throw new ParametersParserException("Parameter name was expected to terminate with '`' but found '{$token[1]}' instead.");
             }
-        } elseif ($token[0] == ParametersLexer::T_WORD) {
+        } elseif (ParametersLexer::T_WORD == $token[0]) {
             $name = $token[1];
         } else {
-            throw new ParametersParserException(
-                "A parameter name was expected, but found '{$token[1]}' instead."
-            );
+            throw new ParametersParserException("A parameter name was expected, but found '{$token[1]}' instead.");
         }
 
         $this->clearWhitespace();
 
         $token = $this->nextToken();
 
-        if ($token[0] != ParametersLexer::T_WORD) {
-            throw new ParametersParserException(
-                "Data type was expected after the parameter name, but found '{$token[1]}' instead."
-            );
+        if (ParametersLexer::T_WORD != $token[0]) {
+            throw new ParametersParserException("Data type was expected after the parameter name, but found '{$token[1]}' instead.");
         }
 
         $dataType = $token[1];
@@ -126,13 +123,15 @@ class ParametersParser
         return [
             'direction' => $direction,
             'name' => $name,
-            'dataType' => trim($dataType)
+            'dataType' => trim($dataType),
         ];
     }
 
     /**
      * Tokenise the parameters string.
+     *
      * @param $parametersString
+     *
      * @return int
      */
     protected function tokenise($parametersString)
@@ -144,7 +143,8 @@ class ParametersParser
 
     /**
      * Get the next token for the parameters string.
-     * @return array|null Token.
+     *
+     * @return array|null token
      */
     protected function nextToken()
     {
@@ -152,7 +152,7 @@ class ParametersParser
 
         if (isset($this->tokenised[$this->pointer])) {
             $token = $this->tokenised[$this->pointer];
-            $this->pointer++;
+            ++$this->pointer;
         }
 
         return $token;
@@ -160,7 +160,8 @@ class ParametersParser
 
     /**
      * Get the next token without moving the the pointer.
-     * @return array|null Token.
+     *
+     * @return array|null token
      */
     protected function lookAhead()
     {
@@ -175,15 +176,16 @@ class ParametersParser
 
     /**
      * Move the pointer past all white space, and return the next token.
+     *
      * @return array|null Token
      */
     protected function clearWhitespace()
     {
-        if ($this->lookAhead() === null) {
+        if (null === $this->lookAhead()) {
             return null;
         }
 
-        if ($this->lookAhead()[0] == ParametersLexer::T_WHITESPACE) {
+        if (ParametersLexer::T_WHITESPACE == $this->lookAhead()[0]) {
             return $this->nextToken()[1];
         }
 
@@ -192,10 +194,12 @@ class ParametersParser
 
     /**
      * Read all tokens until we reach an instance of the specified token.
-     * @param int $tokenId The token to stop at.
+     *
+     * @param int  $tokenId   the token to stop at
      * @param bool $inclusive Set to true to include the specified token in
-     * the returned results. Otherwise the pointer will be positioned at the
-     * token ready for the next read.
+     *                        the returned results. Otherwise the pointer will be positioned at the
+     *                        token ready for the next read.
+     *
      * @return string
      */
     protected function readUntil($tokenId, $inclusive = true)
@@ -215,14 +219,14 @@ class ParametersParser
 
     /**
      * Consume all tokens that until one is found that is not included in the supplied array of token IDs.
-     * @param array $tokenIds
+     *
      * @return string
      */
     protected function consume(array $tokenIds)
     {
         $buffer = '';
 
-        if ($this->lookAhead() === null) {
+        if (null === $this->lookAhead()) {
             return $buffer;
         }
 

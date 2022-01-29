@@ -8,8 +8,10 @@ interface FunctionFactoryInterface
 {
     /**
      * Fetch a function from the database.
+     *
      * @param string $functionName
      * @param string $databaseName
+     *
      * @return RoutineFunction
      */
     public function fetch($functionName, $databaseName);

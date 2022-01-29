@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: courtney
  * Date: 20/07/16
- * Time: 6:45 PM
+ * Time: 6:45 PM.
  */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
@@ -34,7 +34,8 @@ class BinaryTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
-     * @param int $expectedLength
+     *
+     * @param int    $expectedLength
      * @param string $typeStr
      */
     public function testPopulate($expectedLength, $typeStr)
@@ -46,7 +47,8 @@ class BinaryTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
-     * @param int $expectedLength
+     *
+     * @param int    $expectedLength
      * @param string $typeStr
      */
     public function testCreate($expectedLength, $typeStr)
@@ -65,6 +67,7 @@ class BinaryTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
@@ -74,6 +77,7 @@ class BinaryTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
@@ -88,6 +92,7 @@ class BinaryTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoRecognise
+     *
      * @return array
      */
     public function doRecogniseProvider()
@@ -100,13 +105,14 @@ class BinaryTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoNotRecognise
+     *
      * @return array
      */
     public function doNotRecogniseProvider()
     {
         return [
             ['varchar(255)'],
-            ['binary']
+            ['binary'],
         ];
     }
 
@@ -120,12 +126,13 @@ class BinaryTypeFactoryTest extends SchnoopTestCase
             [
                 123,
                 'BINARY(123)',
-            ]
+            ],
         ];
     }
 
     /**
      * @param $expectedLength
+     *
      * @return BinaryType|MockObject
      */
     protected function createMockBinaryType($expectedLength)

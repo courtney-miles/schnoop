@@ -2,7 +2,6 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\MediumTextType;
 
 class MediumTextTypeFactory implements DataTypeFactoryInterface
@@ -27,6 +26,6 @@ class MediumTextTypeFactory implements DataTypeFactoryInterface
      */
     public function doRecognise($typeStr)
     {
-        return preg_match('/^mediumtext$/i', $typeStr) === 1;
+        return 1 === preg_match('/^mediumtext$/i', $typeStr);
     }
 }

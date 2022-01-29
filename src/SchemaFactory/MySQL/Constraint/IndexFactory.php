@@ -31,7 +31,6 @@ class IndexFactory implements IndexFactoryInterface
 
     /**
      * IndexFactory constructor.
-     * @param PDO $pdo
      */
     public function __construct(PDO $pdo)
     {
@@ -80,7 +79,7 @@ SQL;
                         'Column_name',
                         'Sub_part',
                         'Index_type',
-                        'Index_comment'
+                        'Index_comment',
                     ],
                     true
                 )
@@ -93,6 +92,7 @@ SQL;
 
     /**
      * {@inheritdoc}
+     *
      * @throws FactoryException
      */
     public function createFromRaw(array $rawTableIndexes)
@@ -107,7 +107,7 @@ SQL;
             $keyName = $rawTableIndex['key_name'];
 
             if (!isset($indexes[$keyName])) {
-                if ($rawTableIndex['non_unique'] == 0) {
+                if (0 == $rawTableIndex['non_unique']) {
                     $index = $this->newIndex(IndexInterface::CONSTRAINT_INDEX_UNIQUE, $keyName);
                 } else {
                     switch (strtolower($rawTableIndex['index_type'])) {
@@ -146,9 +146,11 @@ SQL;
     }
 
     /**
-     * @param string $indexType One of IndexInterface::CONSTRAIN_* constants.
+     * @param string $indexType one of IndexInterface::CONSTRAIN_* constants
      * @param string $indexName
+     *
      * @return FullTextIndex|Index|PrimaryKey|SpatialIndex|UniqueIndex
+     *
      * @throws FactoryException
      */
     public function newIndex($indexType, $indexName)
@@ -158,7 +160,7 @@ SQL;
                 return new Index($indexName);
                 break;
             case IndexInterface::CONSTRAINT_INDEX_UNIQUE:
-                if (strtolower($indexName) == 'primary') {
+                if ('primary' == strtolower($indexName)) {
                     return new PrimaryKey($indexName);
                 } else {
                     return new UniqueIndex($indexName);
@@ -177,7 +179,9 @@ SQL;
 
     /**
      * Create a new Indexed Column.
+     *
      * @param string $columnName
+     *
      * @return IndexedColumn
      */
     public function newIndexedColumn($columnName)
@@ -187,8 +191,10 @@ SQL;
 
     /**
      * Convert the associative keys of the supplied array to lower case.
-     * @param array $array Associative array.
-     * @return array Copy of array with associative keys changed to lower case.
+     *
+     * @param array $array associative array
+     *
+     * @return array copy of array with associative keys changed to lower case
      */
     protected function keysToLower(array $array)
     {

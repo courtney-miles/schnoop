@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: courtney
  * Date: 20/07/16
- * Time: 6:19 PM
+ * Time: 6:19 PM.
  */
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
@@ -26,8 +26,9 @@ class BinaryTypeFactory extends AbstractCharTypeFactory
 
     /**
      * Populate the properties of the supplied binary type from the type string.
-     * @param BinaryType $binaryType
+     *
      * @param string $typeStr
+     *
      * @return BinaryType
      */
     public function populate(BinaryType $binaryType, $typeStr)
@@ -39,6 +40,7 @@ class BinaryTypeFactory extends AbstractCharTypeFactory
 
     /**
      * Create a new binary type.
+     *
      * @return BinaryType
      */
     public function newType()
@@ -51,6 +53,6 @@ class BinaryTypeFactory extends AbstractCharTypeFactory
      */
     public function doRecognise($typeStr)
     {
-        return preg_match('/^binary\(\d+\)/i', $typeStr) === 1;
+        return 1 === preg_match('/^binary\(\d+\)/i', $typeStr);
     }
 }

@@ -20,9 +20,10 @@ class CharTypeFactory extends AbstractCharTypeFactory
 
     /**
      * Populate the properties of supplied character type from the type string.
-     * @param CharType $charType
+     *
      * @param string $typeStr
      * @param string $collation
+     *
      * @return CharType
      */
     public function populate(CharType $charType, $typeStr, $collation)
@@ -35,6 +36,7 @@ class CharTypeFactory extends AbstractCharTypeFactory
 
     /**
      * Create a new Character Type object.
+     *
      * @return CharType
      */
     public function newType()
@@ -47,6 +49,6 @@ class CharTypeFactory extends AbstractCharTypeFactory
      */
     public function doRecognise($typeStr)
     {
-        return preg_match('/^char\(\d+\)/i', $typeStr) === 1;
+        return 1 === preg_match('/^char\(\d+\)/i', $typeStr);
     }
 }

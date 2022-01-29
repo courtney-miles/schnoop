@@ -21,6 +21,7 @@ abstract class AbstractIntTypeFactoryTestCase extends TestCase
 
     /**
      * @param MockObject $mockIntType
+     *
      * @return IntTypeFactoryInterface
      */
     abstract protected function newMockedIntTypeFactory(MockObject $mockIntType = null);
@@ -59,9 +60,10 @@ abstract class AbstractIntTypeFactoryTestCase extends TestCase
 
     /**
      * @dataProvider populateProvider
-     * @param int $expectedDisplayWidth
-     * @param bool $expectedSigned
-     * @param bool $expectedZeroFill
+     *
+     * @param int    $expectedDisplayWidth
+     * @param bool   $expectedSigned
+     * @param bool   $expectedZeroFill
      * @param string $typeStr
      */
     public function testPopulate($expectedDisplayWidth, $expectedSigned, $expectedZeroFill, $typeStr)
@@ -77,9 +79,10 @@ abstract class AbstractIntTypeFactoryTestCase extends TestCase
 
     /**
      * @dataProvider populateProvider
-     * @param int $expectedDisplayWidth
-     * @param bool $expectedSigned
-     * @param bool $expectedZeroFill
+     *
+     * @param int    $expectedDisplayWidth
+     * @param bool   $expectedSigned
+     * @param bool   $expectedZeroFill
      * @param string $typeStr
      */
     public function testCreate($expectedDisplayWidth, $expectedSigned, $expectedZeroFill, $typeStr)
@@ -102,6 +105,7 @@ abstract class AbstractIntTypeFactoryTestCase extends TestCase
 
     /**
      * @dataProvider doRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
@@ -111,6 +115,7 @@ abstract class AbstractIntTypeFactoryTestCase extends TestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
@@ -119,9 +124,10 @@ abstract class AbstractIntTypeFactoryTestCase extends TestCase
     }
 
     /**
-     * @param int $expectedDisplayWidth
+     * @param int  $expectedDisplayWidth
      * @param bool $expectedSigned
      * @param bool $expectedZeroFill
+     *
      * @return IntTypeInterface|MockObject
      */
     protected function createMockIntType($expectedDisplayWidth, $expectedSigned, $expectedZeroFill)
