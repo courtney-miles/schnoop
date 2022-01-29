@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: courtney
  * Date: 19/07/16
- * Time: 9:58 PM
+ * Time: 9:58 PM.
  */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
@@ -28,6 +28,7 @@ class BlobTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
@@ -37,6 +38,7 @@ class BlobTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
@@ -46,6 +48,7 @@ class BlobTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
+     *
      * @param $typeStr
      */
     public function testCreateType($typeStr)
@@ -63,6 +66,7 @@ class BlobTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoRecognise
+     *
      * @return array
      */
     public function doRecogniseProvider()
@@ -75,13 +79,14 @@ class BlobTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoNotRecognise
+     *
      * @return array
      */
     public function doNotRecogniseProvider()
     {
         return [
             ['varchar(255)'],
-            ['tinyblob']
+            ['tinyblob'],
         ];
     }
 
@@ -89,7 +94,7 @@ class BlobTypeFactoryTest extends SchnoopTestCase
     {
         return [
             ['blob'],
-            ['BLOB']
+            ['BLOB'],
         ];
     }
 }

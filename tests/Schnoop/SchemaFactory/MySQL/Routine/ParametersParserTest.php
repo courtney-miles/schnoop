@@ -60,8 +60,8 @@ class ParametersParserTest extends TestCase
                 [
                     'direction' => null,
                     'name' => 'foo',
-                    'dataType' => 'varchar(22)'
-                ]
+                    'dataType' => 'varchar(22)',
+                ],
             ],
             $this->parameterParser->parse($parameterStr)
         );
@@ -88,8 +88,8 @@ class ParametersParserTest extends TestCase
                 [
                     'direction' => 'INOUT',
                     'name' => 'foo',
-                    'dataType' => 'varchar(22)'
-                ]
+                    'dataType' => 'varchar(22)',
+                ],
             ],
             $this->parameterParser->parse($parameterStr)
         );
@@ -117,8 +117,8 @@ class ParametersParserTest extends TestCase
                 [
                     'direction' => null,
                     'name' => 'foo',
-                    'dataType' => 'varchar(22)'
-                ]
+                    'dataType' => 'varchar(22)',
+                ],
             ],
             $this->parameterParser->parse($parameterStr)
         );
@@ -152,13 +152,13 @@ class ParametersParserTest extends TestCase
                 [
                     'direction' => null,
                     'name' => 'foo',
-                    'dataType' => 'varchar(22)'
+                    'dataType' => 'varchar(22)',
                 ],
                 [
                     'direction' => null,
                     'name' => 'bar',
-                    'dataType' => 'int(10)'
-                ]
+                    'dataType' => 'int(10)',
+                ],
             ],
             $this->parameterParser->parse($parameterStr)
         );
@@ -195,7 +195,7 @@ class ParametersParserTest extends TestCase
             [ParametersLexer::T_COMMA, ','],
             [ParametersLexer::T_WHITESPACE, ' '],
             [ParametersLexer::T_ENCAPSED_STRING, "'123'"],
-            [ParametersLexer::T_BRACKET_CLOSE, ')']
+            [ParametersLexer::T_BRACKET_CLOSE, ')'],
         ];
 
         $this->mockLexer->method('tokenise')
@@ -207,13 +207,13 @@ class ParametersParserTest extends TestCase
                 [
                     'direction' => 'IN',
                     'name' => 'foo',
-                    'dataType' => 'INT (8) UNSIGNED ZEROFILL'
+                    'dataType' => 'INT (8) UNSIGNED ZEROFILL',
                 ],
                 [
                     'direction' => null,
                     'name' => 'bar',
-                    'dataType' => "ENUM('abc' , '123')"
-                ]
+                    'dataType' => "ENUM('abc' , '123')",
+                ],
             ],
             $this->parameterParser->parse($parameterStr)
         );
@@ -228,7 +228,7 @@ class ParametersParserTest extends TestCase
         $parameterStr = '``';
         $tokens = [
             [ParametersLexer::T_TICK, '`'],
-            [ParametersLexer::T_TICK, '`']
+            [ParametersLexer::T_TICK, '`'],
         ];
 
         $this->mockLexer->method('tokenise')
@@ -249,7 +249,7 @@ class ParametersParserTest extends TestCase
             [ParametersLexer::T_TICK, '`'],
             [ParametersLexer::T_WORD, 'foo'],
             [ParametersLexer::T_COMMA, ','],
-            [ParametersLexer::T_TICK, '`']
+            [ParametersLexer::T_TICK, '`'],
         ];
 
         $this->mockLexer->method('tokenise')
@@ -270,7 +270,7 @@ class ParametersParserTest extends TestCase
             [ParametersLexer::T_COMMA, ','],
             [ParametersLexer::T_TICK, '`'],
             [ParametersLexer::T_WORD, 'foo'],
-            [ParametersLexer::T_TICK, '`']
+            [ParametersLexer::T_TICK, '`'],
         ];
 
         $this->mockLexer->method('tokenise')
@@ -291,7 +291,7 @@ class ParametersParserTest extends TestCase
             [ParametersLexer::T_TICK, '`'],
             [ParametersLexer::T_WORD, 'foo'],
             [ParametersLexer::T_TICK, '`'],
-            [ParametersLexer::T_COMMA, ',']
+            [ParametersLexer::T_COMMA, ','],
         ];
 
         $this->mockLexer->method('tokenise')

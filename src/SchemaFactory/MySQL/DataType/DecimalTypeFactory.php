@@ -6,7 +6,6 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\DecimalType;
 
 class DecimalTypeFactory extends AbstractNumericPointTypeFactory
 {
-
     /**
      * {@inheritdoc}
      */

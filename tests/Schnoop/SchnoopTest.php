@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: courtney
  * Date: 29/06/16
- * Time: 6:54 PM
+ * Time: 6:54 PM.
  */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop;
@@ -22,10 +22,10 @@ class SchnoopTest extends SchnoopTestCase
      * @var Schnoop
      */
     protected $schnoop;
-    
+
     protected $databaseList = [
         'schnoop_db_one',
-        'schnoop_db_two'
+        'schnoop_db_two',
     ];
 
     /**
@@ -41,10 +41,10 @@ class SchnoopTest extends SchnoopTestCase
     public function setUp()
     {
         parent::setUp();
-        
+
         /** @var \PDO $mockPdo */
         $mockPdo = $this->createMock(MockPdo::class);
-        
+
         $this->mockInspector = $this->createMock(InspectorInterface::class);
         $this->mockInspector->method('fetchDatabaseList')
             ->willReturn($this->databaseList);
@@ -316,8 +316,8 @@ class SchnoopTest extends SchnoopTestCase
      * @dataProvider getMethodCallTriggersExceptionForBogusDatabaseData
      * @expectedException \MilesAsylum\Schnoop\Exception\SchnoopException
      * @expectedExceptionMessage A database named 'bogus_db' does not exist.
+     *
      * @param string $method
-     * @param array $params
      */
     public function testMethodCallTriggersExceptionForBogusDatabase($method, array $params = [])
     {
@@ -326,6 +326,7 @@ class SchnoopTest extends SchnoopTestCase
 
     /**
      * @see testMethodCallTriggersExceptionForBogusDatabase
+     *
      * @return array
      */
     public function getMethodCallTriggersExceptionForBogusDatabaseData()
@@ -333,36 +334,36 @@ class SchnoopTest extends SchnoopTestCase
         return [
             [
                 'hasTable',
-                ['schnoop_tbl', 'bogus_db']
+                ['schnoop_tbl', 'bogus_db'],
             ],
             [
                 'getTable',
-                ['schnoop_tbl', 'bogus_db']
+                ['schnoop_tbl', 'bogus_db'],
             ],
             [
                 'hasTriggers',
-                ['schnoop_tbl', 'bogus_db']
+                ['schnoop_tbl', 'bogus_db'],
             ],
             [
                 'getTriggers',
-                ['schnoop_tbl', 'bogus_db']
+                ['schnoop_tbl', 'bogus_db'],
             ],
             [
                 'hasFunction',
-                ['schnoop_func', 'bogus_db']
+                ['schnoop_func', 'bogus_db'],
             ],
             [
                 'getFunction',
-                ['schnoop_func', 'bogus_db']
+                ['schnoop_func', 'bogus_db'],
             ],
             [
                 'hasProcedure',
-                ['schnoop_proc', 'bogus_db']
+                ['schnoop_proc', 'bogus_db'],
             ],
             [
                 'getProcedure',
-                ['schnoop_proc', 'bogus_db']
-            ]
+                ['schnoop_proc', 'bogus_db'],
+            ],
         ];
     }
 
@@ -370,8 +371,8 @@ class SchnoopTest extends SchnoopTestCase
      * @dataProvider getMethodCallTriggersExceptionWithoutActiveDatabaseData
      * @expectedException \MilesAsylum\Schnoop\Exception\SchnoopException
      * @expectedExceptionMessage Database not specified and an active database has not been set.
+     *
      * @param string $method
-     * @param array $params
      */
     public function testMethodCallTriggersExceptionWithoutActiveDatabase($method, array $params = [])
     {
@@ -380,6 +381,7 @@ class SchnoopTest extends SchnoopTestCase
 
     /**
      * @see testMethodCallTriggersExceptionWithoutActiveDatabase
+     *
      * @return array
      */
     public function getMethodCallTriggersExceptionWithoutActiveDatabaseData()
@@ -387,36 +389,36 @@ class SchnoopTest extends SchnoopTestCase
         return [
             [
                 'hasTable',
-                ['schnoop_tbl']
+                ['schnoop_tbl'],
             ],
             [
                 'getTable',
-                ['schnoop_tbl']
+                ['schnoop_tbl'],
             ],
             [
                 'hasTriggers',
-                ['schnoop_tbl']
+                ['schnoop_tbl'],
             ],
             [
                 'getTriggers',
-                ['schnoop_tbl']
+                ['schnoop_tbl'],
             ],
             [
                 'hasFunction',
-                ['schnoop_func']
+                ['schnoop_func'],
             ],
             [
                 'getFunction',
-                ['schnoop_func']
+                ['schnoop_func'],
             ],
             [
                 'hasProcedure',
-                ['schnoop_proc']
+                ['schnoop_proc'],
             ],
             [
                 'getProcedure',
-                ['schnoop_proc']
-            ]
+                ['schnoop_proc'],
+            ],
         ];
     }
 
@@ -424,9 +426,9 @@ class SchnoopTest extends SchnoopTestCase
      * @dataProvider getMethodTriggersExceptionForBogusTableData
      * @expectedException \MilesAsylum\Schnoop\Exception\SchnoopException
      * @expectedExceptionMessage A table named 'bogus_tbl' does not exist in database 'schnoop_db_one'.
+     *
      * @param string $method
      * @param string $validDatabaseName
-     * @param array $params
      */
     public function testMethodTriggersExceptionForBogusTable($method, $validDatabaseName, array $params = [])
     {
@@ -439,6 +441,7 @@ class SchnoopTest extends SchnoopTestCase
 
     /**
      * @see testMethodTriggersExceptionForBogusTable
+     *
      * @return array
      */
     public function getMethodTriggersExceptionForBogusTableData()
@@ -449,12 +452,12 @@ class SchnoopTest extends SchnoopTestCase
             [
                 'hasTriggers',
                 $databaseName,
-                ['bogus_tbl', $databaseName]
+                ['bogus_tbl', $databaseName],
             ],
             [
                 'getTriggers',
                 $databaseName,
-                ['bogus_tbl', $databaseName]
+                ['bogus_tbl', $databaseName],
             ],
         ];
     }

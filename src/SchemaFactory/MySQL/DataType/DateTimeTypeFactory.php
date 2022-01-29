@@ -26,6 +26,6 @@ class DateTimeTypeFactory extends AbstractTimeTypeFactory
      */
     public function doRecognise($typeStr)
     {
-        return preg_match('/^datetime(\(\d\))?$/i', $typeStr) === 1;
+        return 1 === preg_match('/^datetime(\(\d\))?$/i', $typeStr);
     }
 }

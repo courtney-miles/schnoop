@@ -22,6 +22,7 @@ class TimeTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
@@ -31,6 +32,7 @@ class TimeTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
@@ -40,6 +42,7 @@ class TimeTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
+     *
      * @param $typeStr
      * @param $precision
      */
@@ -59,6 +62,7 @@ class TimeTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoRecognise
+     *
      * @return array
      */
     public function doRecogniseProvider()
@@ -67,19 +71,20 @@ class TimeTypeFactoryTest extends SchnoopTestCase
             ['time'],
             ['TIME'],
             ['time(4)'],
-            ['TIME(4)']
+            ['TIME(4)'],
         ];
     }
 
     /**
      * @see testDoNotRecognise
+     *
      * @return array
      */
     public function doNotRecogniseProvider()
     {
         return [
             ['varchar(255)'],
-            ['time(foo)']
+            ['time(foo)'],
         ];
     }
 
@@ -87,13 +92,13 @@ class TimeTypeFactoryTest extends SchnoopTestCase
     {
         return [
             [
-                "time",
-                0
+                'time',
+                0,
             ],
             [
-                "time(4)",
-                4
-            ]
+                'time(4)',
+                4,
+            ],
         ];
     }
 }

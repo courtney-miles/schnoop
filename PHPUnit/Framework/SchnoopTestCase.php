@@ -12,9 +12,9 @@ use PHPUnit\Framework\TestCase;
 class SchnoopTestCase extends TestCase
 {
     /**
-     * @param string $expectedInstanceOf
-     * @param int $expectedDisplayWidth
-     * @param bool $expectedIsSigned
+     * @param string           $expectedInstanceOf
+     * @param int              $expectedDisplayWidth
+     * @param bool             $expectedIsSigned
      * @param IntTypeInterface $actualIntType
      */
     public function intTypeFactoryAsserts(
@@ -29,10 +29,10 @@ class SchnoopTestCase extends TestCase
     }
 
     /**
-     * @param string $expectedInstanceOf
-     * @param bool $expectedIsSigned
-     * @param int|null $expectedPrecision
-     * @param int|null $expectedScale
+     * @param string    $expectedInstanceOf
+     * @param bool      $expectedIsSigned
+     * @param int|null  $expectedPrecision
+     * @param int|null  $expectedScale
      * @param FloatType $actualFloatType
      */
     public function numericPointTypeFactoryAsserts(
@@ -49,9 +49,9 @@ class SchnoopTestCase extends TestCase
     }
 
     /**
-     * @param string $expectedInstanceOf
-     * @param string|null $expectedCollation
-     * @param int|null $expectedLength
+     * @param string              $expectedInstanceOf
+     * @param string|null         $expectedCollation
+     * @param int|null            $expectedLength
      * @param StringTypeInterface $actualStringType
      */
     public function stringTypeFactoryAsserts(
@@ -72,9 +72,8 @@ class SchnoopTestCase extends TestCase
     }
 
     /**
-     * @param string $expectedInstanceOf
-     * @param string $expectedCollation
-     * @param array $expectedOptions
+     * @param string               $expectedInstanceOf
+     * @param string               $expectedCollation
      * @param OptionsTypeInterface $actualOptionType
      */
     public function optionsTypeFactoryAsserts(
@@ -89,7 +88,7 @@ class SchnoopTestCase extends TestCase
     }
 
     /**
-     * @param string $expectedInstanceOf
+     * @param string              $expectedInstanceOf
      * @param BinaryTypeInterface $actualBinaryType
      */
     public function binaryTypeFactoryAsserts(
@@ -100,8 +99,8 @@ class SchnoopTestCase extends TestCase
     }
 
     /**
-     * @param string $expectedInstanceOf
-     * @param int $expectedPrecision
+     * @param string            $expectedInstanceOf
+     * @param int               $expectedPrecision
      * @param TimeTypeInterface $actualTimeType
      */
     public function timeTypeFactoryAsserts(

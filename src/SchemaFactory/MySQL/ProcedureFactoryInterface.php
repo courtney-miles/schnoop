@@ -8,8 +8,10 @@ interface ProcedureFactoryInterface
 {
     /**
      * Fetch a procedure from the database.
+     *
      * @param string $procedureName
      * @param string $databaseName
+     *
      * @return RoutineProcedure
      */
     public function fetch($procedureName, $databaseName);

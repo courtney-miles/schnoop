@@ -5,23 +5,23 @@ namespace MilesAsylum\Schnoop;
 use MilesAsylum\Schnoop\Exception\SchnoopException;
 use MilesAsylum\Schnoop\Inspector\InspectorInterface;
 use MilesAsylum\Schnoop\Inspector\MySQLInspector;
+use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Database;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Column\ColumnFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint\ForeignKeyFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Constraint\IndexFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Database\DatabaseFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactory;
-use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Database;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\FunctionFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\ParametersFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\ParametersLexer;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\ParametersParser;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\Routine\ProcedureFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\SetVar\SqlModeFactory;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\Trigger\TriggerFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\SchemaBuilder;
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\Table\TableFactory;
-use PDO;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\SchemaBuilderInterface;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\SetVar\SqlModeFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Table\TableFactory;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\Trigger\TriggerFactory;
+use PDO;
 
 class Schnoop
 {
@@ -42,8 +42,6 @@ class Schnoop
 
     /**
      * Schnoop constructor.
-     * @param InspectorInterface $dbInspector
-     * @param SchemaBuilderInterface $dbBuilder
      */
     public function __construct(
         InspectorInterface $dbInspector,
@@ -56,7 +54,8 @@ class Schnoop
 
     /**
      * Get the list of database names on the server.
-     * @return array Database names.
+     *
+     * @return array database names
      */
     public function getDatabaseList()
     {
@@ -65,8 +64,10 @@ class Schnoop
 
     /**
      * Check if the named database exists on the server.
+     *
      * @param string $databaseName
-     * @return bool True if the database exists.
+     *
+     * @return bool true if the database exists
      */
     public function hasDatabase($databaseName)
     {
@@ -75,13 +76,16 @@ class Schnoop
 
     /**
      * Get a database from the server.
+     *
      * @param string|null $databaseName The database name. Do not supply a name to get the currently active database.
+     *
      * @return Database
+     *
      * @throws SchnoopException
      */
     public function getDatabase($databaseName = null)
     {
-        if ($databaseName === null) {
+        if (null === $databaseName) {
             $databaseName = $this->ensureFetchActiveDatabaseName();
         }
 
@@ -96,7 +100,9 @@ class Schnoop
 
     /**
      * The the list of table names for the database.
+     *
      * @param string|null $databaseName The database name. Do not supply a name to get the currently active database.
+     *
      * @return array Table names
      */
     public function getTableList($databaseName = null)
@@ -112,8 +118,10 @@ class Schnoop
 
     /**
      * Get a table from the database.
-     * @param string $tableName
+     *
+     * @param string      $tableName
      * @param string|null $databaseName The database name. Do not supply a name to get the currently active database.
+     *
      * @return SchemaAdapter\MySQL\TableInterface
      */
     public function getTable($tableName, $databaseName = null)
@@ -125,9 +133,11 @@ class Schnoop
 
     /**
      * Check if a table exists in the database.
-     * @param string $tableName
+     *
+     * @param string      $tableName
      * @param string|null $databaseName The database name. Do not supply a name to get the currently active database.
-     * @return bool True if the table exists.
+     *
+     * @return bool true if the table exists
      */
     public function hasTable($tableName, $databaseName = null)
     {
@@ -138,9 +148,11 @@ class Schnoop
 
     /**
      * Check if a table has any triggers.
-     * @param string $tableName
+     *
+     * @param string      $tableName
      * @param string|null $databaseName The database name. Do not supply a name to get the currently active database.
-     * @return bool True if the table has triggers.
+     *
+     * @return bool true if the table has triggers
      */
     public function hasTriggers($tableName, $databaseName = null)
     {
@@ -148,13 +160,15 @@ class Schnoop
 
         $this->ensureTableExists($tableName, $databaseName);
 
-        return (bool)count($this->dbInspector->fetchTriggerList($databaseName, $tableName));
+        return (bool) count($this->dbInspector->fetchTriggerList($databaseName, $tableName));
     }
 
     /**
      * Get all the triggers for a table.
-     * @param string $tableName
+     *
+     * @param string      $tableName
      * @param string|null $databaseName The database name. Do not supply a name to get the currently active database.
+     *
      * @return SchemaAdapter\MySQL\TriggerInterface[]
      */
     public function getTriggers($tableName, $databaseName = null)
@@ -168,9 +182,11 @@ class Schnoop
 
     /**
      * Check if the function exists in the database.
-     * @param string $functionName
+     *
+     * @param string      $functionName
      * @param string|null $databaseName The database name. Do not supply a name to get the currently active database.
-     * @return bool True if the function exists.
+     *
+     * @return bool true if the function exists
      */
     public function hasFunction($functionName, $databaseName = null)
     {
@@ -181,8 +197,10 @@ class Schnoop
 
     /**
      * Get a function from the database.
-     * @param string $functionName
+     *
+     * @param string      $functionName
      * @param string|null $databaseName The database name. Do not supply a name to get the currently active database.
+     *
      * @return SchemaAdapter\MySQL\RoutineFunctionInterface
      */
     public function getFunction($functionName, $databaseName = null)
@@ -194,9 +212,11 @@ class Schnoop
 
     /**
      * Check if the named procedure exists in the database.
-     * @param string $procedureName
-     * @param string|null $databaseName The database name. Do not supply a name to get the currently active database.
-     * @return bool True if the named procedure exists.
+     *
+     * @param string      $procedureName
+     * @param string|null $databaseName  The database name. Do not supply a name to get the currently active database.
+     *
+     * @return bool true if the named procedure exists
      */
     public function hasProcedure($procedureName, $databaseName = null)
     {
@@ -207,8 +227,10 @@ class Schnoop
 
     /**
      * Get the named procedure from the database.
-     * @param string $procedureName
-     * @param string|null $databaseName The database name. Do not supply a name to get the currently active database.
+     *
+     * @param string      $procedureName
+     * @param string|null $databaseName  The database name. Do not supply a name to get the currently active database.
+     *
      * @return SchemaAdapter\MySQL\RoutineProcedureInterface
      */
     public function getProcedure($procedureName, $databaseName = null)
@@ -220,6 +242,7 @@ class Schnoop
 
     /**
      * Get the PDO connection used to schnoop the database.
+     *
      * @return PDO
      */
     public function getPDO()
@@ -229,7 +252,7 @@ class Schnoop
 
     /**
      * Factory for constructing this object.
-     * @param PDO $pdo
+     *
      * @return Schnoop
      */
     public static function createSelf(PDO $pdo)
@@ -262,12 +285,14 @@ class Schnoop
      * Checks if the current database exists and throw an exception if it does
      * not. If a database is not supplied it will check for an active database
      * and throw an exception if one is not set.
+     *
      * @param string|null $databaseName
-     * @return string The supplied database name, or the active database if a database name is not supplied.
+     *
+     * @return string the supplied database name, or the active database if a database name is not supplied
      */
     protected function ensureResolveDatabaseName($databaseName = null)
     {
-        if ($databaseName === null) {
+        if (null === $databaseName) {
             $databaseName = $this->ensureFetchActiveDatabaseName();
         } else {
             $this->ensureDatabaseExists($databaseName);
@@ -278,7 +303,9 @@ class Schnoop
 
     /**
      * Fetch the name of the active/selected database, and throw an exception if a database is not selected.
-     * @return string Name of the active/selected database.
+     *
+     * @return string name of the active/selected database
+     *
      * @throws SchnoopException
      */
     protected function ensureFetchActiveDatabaseName()
@@ -294,7 +321,9 @@ class Schnoop
 
     /**
      * Checks if the named database exists on the server and throw an exception if it does not.
+     *
      * @param string $databaseName
+     *
      * @throws SchnoopException
      */
     protected function ensureDatabaseExists($databaseName)
@@ -306,8 +335,10 @@ class Schnoop
 
     /**
      * Checks if the named table exists in the database and throw an exception if it does not.
+     *
      * @param string $tableName
      * @param string $databaseName
+     *
      * @throws SchnoopException
      */
     protected function ensureTableExists($tableName, $databaseName)

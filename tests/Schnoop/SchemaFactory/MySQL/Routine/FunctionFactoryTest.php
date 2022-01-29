@@ -48,7 +48,7 @@ class FunctionFactoryTest extends TestMySQLCase
 
         $this->functionName = 'schnoop_func';
         $this->databaseName = $this->getDatabaseName();
-        $this->definer = $this->getDatabaseUser() . '@' . $this->getDatabaseHost();
+        $this->definer = $this->getDatabaseUser().'@'.$this->getDatabaseHost();
         $this->mockDataTypeFactory = $this->createMock(DataTypeFactoryInterface::class);
         $this->mockParametersFactory = $this->createMock(ParametersFactory::class);
         $this->mockSqlModeFactory = $this->createMock(SqlModeFactory::class);
@@ -101,7 +101,7 @@ SQL
 END',
             'definer' => $this->definer,
             'sql_mode' => $this->sqlMode,
-            'comment' => 'Function comment.'
+            'comment' => 'Function comment.',
         ];
 
         $this->assertSame($expectedRaw, $this->functionMapper->fetchRaw($this->functionName, $this->databaseName));
@@ -121,12 +121,12 @@ END',
 END',
             'definer' => $this->definer,
             'sql_mode' => $this->sqlMode,
-            'comment' => 'Function comment.'
+            'comment' => 'Function comment.',
         ];
 
         $mockParameters = [
             $this->createMock(FunctionParameterInterface::class),
-            $this->createMock(FunctionParameterInterface::class)
+            $this->createMock(FunctionParameterInterface::class),
         ];
 
         $mockReturnType = $this->createMock(DataTypeInterface::class);
@@ -178,7 +178,7 @@ END',
                     $this->createMock(MockPdo::class),
                     $this->mockParametersFactory,
                     $this->mockSqlModeFactory,
-                    $mockDataTypeFactory
+                    $mockDataTypeFactory,
                 ]
             )
             ->setMethods(['newFunction', 'newSqlMode'])
@@ -205,7 +205,7 @@ END',
                     $this->createMock(MockPdo::class),
                     $this->mockParametersFactory,
                     $this->mockSqlModeFactory,
-                    $mockDataTypeFactory
+                    $mockDataTypeFactory,
                 ]
             )
             ->setMethods(['fetchRaw', 'createFromRaw'])

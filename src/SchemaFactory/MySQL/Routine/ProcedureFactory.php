@@ -25,7 +25,7 @@ class ProcedureFactory extends AbstractRoutineFactory implements ProcedureFactor
             [
                 ':database' => $databaseName,
                 ':type' => 'PROCEDURE',
-                ':function' => $functionName
+                ':function' => $functionName,
             ]
         );
 

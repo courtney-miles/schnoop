@@ -10,7 +10,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 class DecimalTypeFactoryTest extends AbstractNumericPointTypeFactoryTestCase
 {
-
     /**
      * @return NumericPointTypeFactoryInterface
      */
@@ -20,7 +19,6 @@ class DecimalTypeFactoryTest extends AbstractNumericPointTypeFactoryTestCase
     }
 
     /**
-     * @param MockObject $mockNumericPointType
      * @return NumericPointTypeFactoryInterface|MockObject
      */
     protected function newMockNumericPointTypeFactory(
@@ -103,18 +101,20 @@ class DecimalTypeFactoryTest extends AbstractNumericPointTypeFactoryTestCase
 
     /**
      * @see testDoRecognise
+     *
      * @return array
      */
     public function doRecogniseProvider()
     {
         return [
             ['decimal(6,2) unsigned'],
-            ['decimal(6,2)']
+            ['decimal(6,2)'],
         ];
     }
 
     /**
      * @see testDoNotRecognise
+     *
      * @return array
      */
     public function doNotRecogniseProvider()

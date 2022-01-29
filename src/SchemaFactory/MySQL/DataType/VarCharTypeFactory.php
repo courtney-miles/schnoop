@@ -2,7 +2,6 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\VarCharType;
 
 class VarCharTypeFactory extends AbstractCharTypeFactory
@@ -21,9 +20,10 @@ class VarCharTypeFactory extends AbstractCharTypeFactory
 
     /**
      * Populate the properties of the supplied varchar type from the type string.
-     * @param VarCharType $varCharType
+     *
      * @param string $typeStr
      * @param string $collation
+     *
      * @return VarCharType
      */
     public function populate(VarCharType $varCharType, $typeStr, $collation)
@@ -36,7 +36,9 @@ class VarCharTypeFactory extends AbstractCharTypeFactory
 
     /**
      * Create a new VarChar type object.
+     *
      * @param int $length Character length
+     *
      * @return VarCharType
      */
     public function newType($length)
@@ -49,6 +51,6 @@ class VarCharTypeFactory extends AbstractCharTypeFactory
      */
     public function doRecognise($typeStr)
     {
-        return preg_match('/^varchar\(\d+\)/i', $typeStr) === 1;
+        return 1 === preg_match('/^varchar\(\d+\)/i', $typeStr);
     }
 }

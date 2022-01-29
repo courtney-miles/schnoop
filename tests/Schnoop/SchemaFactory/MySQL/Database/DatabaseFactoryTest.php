@@ -34,7 +34,7 @@ class DatabaseFactoryTest extends TestMySQLCase
     {
         $expectedRaw = [
             'schema_name' => $this->getDatabaseName(),
-            'default_collation_name' => 'utf8mb4_unicode_ci'
+            'default_collation_name' => 'utf8mb4_unicode_ci',
         ];
 
         $this->assertSame($expectedRaw, $this->databaseMapper->fetchRaw($this->getDatabaseName()));
@@ -44,7 +44,7 @@ class DatabaseFactoryTest extends TestMySQLCase
     {
         $raw = [
             'schema_name' => 'schnoop_db',
-            'default_collation_name' => 'utf8mb4_unicode_ci'
+            'default_collation_name' => 'utf8mb4_unicode_ci',
         ];
 
         $mockDatabase = $this->createMock(Database::class);

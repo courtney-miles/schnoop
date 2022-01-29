@@ -20,6 +20,7 @@ class TinyIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
 
     /**
      * @param MockObject $mockIntType
+     *
      * @return IntTypeFactoryInterface
      */
     protected function newMockedIntTypeFactory(MockObject $mockIntType = null)
@@ -48,43 +49,43 @@ class TinyIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
                 4,
                 true,
                 false,
-                'tinyint(4)'
+                'tinyint(4)',
             ],
             [
                 4,
                 true,
                 false,
-                'tinyint(4) signed'
+                'tinyint(4) signed',
             ],
             [
                 3,
                 false,
                 false,
-                'tinyint(3) unsigned'
+                'tinyint(3) unsigned',
             ],
             [
                 4,
                 true,
                 true,
-                'tinyint(4) zerofill'
+                'tinyint(4) zerofill',
             ],
             [
                 4,
                 true,
                 true,
-                'tinyint(4) signed zerofill'
+                'tinyint(4) signed zerofill',
             ],
             [
                 4,
                 false,
                 true,
-                'tinyint(4) unsigned zerofill'
+                'tinyint(4) unsigned zerofill',
             ],
             [
                 3,
                 false,
                 true,
-                'TINYINT(3) UNSIGNED ZEROFILL'
+                'TINYINT(3) UNSIGNED ZEROFILL',
             ],
         ];
     }
@@ -113,7 +114,7 @@ class TinyIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
         return [
             ['tinyint'],
             ['int(10)'],
-            ['varchar(255)']
+            ['varchar(255)'],
         ];
     }
 }

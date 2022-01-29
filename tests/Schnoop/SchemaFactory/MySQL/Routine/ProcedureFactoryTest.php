@@ -42,7 +42,7 @@ class ProcedureFactoryTest extends TestMySQLCase
 
         $this->procedureName = 'schnoop_proc';
         $this->databaseName = $this->getDatabaseName();
-        $this->definer = $this->getDatabaseUser() . '@' . $this->getDatabaseHost();
+        $this->definer = $this->getDatabaseUser().'@'.$this->getDatabaseHost();
         $this->mockParametersFactory = $this->createMock(ParametersFactory::class);
         $this->mockSqlModeFactory = $this->createMock(SqlModeFactory::class);
 
@@ -90,7 +90,7 @@ SQL
 END',
             'definer' => $this->definer,
             'sql_mode' => $this->sqlMode,
-            'comment' => 'Function comment.'
+            'comment' => 'Function comment.',
         ];
 
         $this->assertSame($expectedRaw, $this->procedureMapper->fetchRaw($this->procedureName, $this->databaseName));
@@ -110,12 +110,12 @@ END',
 END',
             'definer' => $this->definer,
             'sql_mode' => $this->sqlMode,
-            'comment' => 'Function comment.'
+            'comment' => 'Function comment.',
         ];
 
         $mockParameters = [
             $this->createMock(ProcedureParameterInterface::class),
-            $this->createMock(ProcedureParameterInterface::class)
+            $this->createMock(ProcedureParameterInterface::class),
         ];
 
         $mockSqlMode = $this->createMock(SqlMode::class);
@@ -160,7 +160,7 @@ END',
                 [
                     $this->createMock(MockPdo::class),
                     $this->mockParametersFactory,
-                    $this->mockSqlModeFactory
+                    $this->mockSqlModeFactory,
                 ]
             )
             ->setMethods(['newProcedure', 'newSqlMode'])
@@ -184,7 +184,7 @@ END',
                 [
                     $this->createMock(MockPdo::class),
                     $this->mockParametersFactory,
-                    $this->mockSqlModeFactory
+                    $this->mockSqlModeFactory,
                 ]
             )
             ->setMethods(['fetchRaw', 'createFromRaw'])

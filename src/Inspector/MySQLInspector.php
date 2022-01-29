@@ -46,7 +46,6 @@ class MySQLInspector implements InspectorInterface
 
     /**
      * MySQLInspector constructor.
-     * @param \PDO $pdo
      */
     public function __construct(\PDO $pdo)
     {

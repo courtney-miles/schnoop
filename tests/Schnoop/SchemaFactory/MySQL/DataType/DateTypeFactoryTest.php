@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: courtney
  * Date: 21/07/16
- * Time: 4:17 PM
+ * Time: 4:17 PM.
  */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
@@ -28,6 +28,7 @@ class DateTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
@@ -37,6 +38,7 @@ class DateTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
@@ -46,6 +48,7 @@ class DateTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
+     *
      * @param $typeStr
      */
     public function testCreateType($typeStr)
@@ -63,25 +66,27 @@ class DateTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoRecognise
+     *
      * @return array
      */
     public function doRecogniseProvider()
     {
         return [
             ['date'],
-            ['DATE']
+            ['DATE'],
         ];
     }
 
     /**
      * @see testDoNotRecognise
+     *
      * @return array
      */
     public function doNotRecogniseProvider()
     {
         return [
             ['varchar(255)'],
-            ['datetime']
+            ['datetime'],
         ];
     }
 
@@ -89,7 +94,7 @@ class DateTypeFactoryTest extends SchnoopTestCase
     {
         return [
             ['date'],
-            ['DATE']
+            ['DATE'],
         ];
     }
 }

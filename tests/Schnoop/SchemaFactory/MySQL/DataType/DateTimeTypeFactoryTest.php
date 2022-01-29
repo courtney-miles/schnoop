@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: courtney
  * Date: 21/07/16
- * Time: 7:36 AM
+ * Time: 7:36 AM.
  */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
@@ -28,6 +28,7 @@ class DateTimeTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
@@ -37,6 +38,7 @@ class DateTimeTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
@@ -46,6 +48,7 @@ class DateTimeTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
+     *
      * @param $typeStr
      * @param $precision
      */
@@ -65,6 +68,7 @@ class DateTimeTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoRecognise
+     *
      * @return array
      */
     public function doRecogniseProvider()
@@ -73,19 +77,20 @@ class DateTimeTypeFactoryTest extends SchnoopTestCase
             ['datetime'],
             ['DATETIME'],
             ['datetime(4)'],
-            ['DATETIME(4)']
+            ['DATETIME(4)'],
         ];
     }
 
     /**
      * @see testDoNotRecognise
+     *
      * @return array
      */
     public function doNotRecogniseProvider()
     {
         return [
             ['varchar(255)'],
-            ['datetime(foo)']
+            ['datetime(foo)'],
         ];
     }
 
@@ -93,13 +98,13 @@ class DateTimeTypeFactoryTest extends SchnoopTestCase
     {
         return [
             [
-                "datetime",
-                0
+                'datetime',
+                0,
             ],
             [
-                "datetime(4)",
-                4
-            ]
+                'datetime(4)',
+                4,
+            ],
         ];
     }
 }

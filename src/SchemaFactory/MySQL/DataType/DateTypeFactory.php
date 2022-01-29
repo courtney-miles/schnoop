@@ -2,7 +2,6 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\DateType;
 
 class DateTypeFactory implements DataTypeFactoryInterface
@@ -24,6 +23,6 @@ class DateTypeFactory implements DataTypeFactoryInterface
      */
     public function doRecognise($typeStr)
     {
-        return strcasecmp($typeStr, 'date') === 0;
+        return 0 === strcasecmp($typeStr, 'date');
     }
 }

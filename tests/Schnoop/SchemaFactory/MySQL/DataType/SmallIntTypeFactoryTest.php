@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: courtney
  * Date: 19/07/16
- * Time: 7:16 AM
+ * Time: 7:16 AM.
  */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
@@ -16,7 +16,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 class SmallIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
 {
-
     /**
      * @return IntTypeFactoryInterface
      */
@@ -27,6 +26,7 @@ class SmallIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
 
     /**
      * @param MockObject $mockIntType
+     *
      * @return IntTypeFactoryInterface
      */
     protected function newMockedIntTypeFactory(MockObject $mockIntType = null)
@@ -55,43 +55,43 @@ class SmallIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
                 6,
                 true,
                 false,
-                'smallint(6)'
+                'smallint(6)',
             ],
             [
                 6,
                 true,
                 false,
-                'smallint(6) signed'
+                'smallint(6) signed',
             ],
             [
                 5,
                 false,
                 false,
-                'smallint(5) unsigned'
+                'smallint(5) unsigned',
             ],
             [
                 6,
                 true,
                 true,
-                'smallint(6) zerofill'
+                'smallint(6) zerofill',
             ],
             [
                 6,
                 true,
                 true,
-                'smallint(6) signed zerofill'
+                'smallint(6) signed zerofill',
             ],
             [
                 6,
                 false,
                 true,
-                'smallint(6) unsigned zerofill'
+                'smallint(6) unsigned zerofill',
             ],
             [
                 5,
                 false,
                 true,
-                'SMALLINT(5) UNSIGNED ZEROFILL'
+                'SMALLINT(5) UNSIGNED ZEROFILL',
             ],
         ];
     }
@@ -120,7 +120,7 @@ class SmallIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
         return [
             ['smallint'],
             ['int(10)'],
-            ['varchar(255)']
+            ['varchar(255)'],
         ];
     }
 }

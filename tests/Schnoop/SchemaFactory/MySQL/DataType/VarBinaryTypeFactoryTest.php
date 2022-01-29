@@ -33,6 +33,7 @@ class VarBinaryTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
+     *
      * @param $typeStr
      */
     public function testCreate($typeStr)
@@ -51,6 +52,7 @@ class VarBinaryTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
@@ -60,6 +62,7 @@ class VarBinaryTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
@@ -74,6 +77,7 @@ class VarBinaryTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoRecognise
+     *
      * @return array
      */
     public function doRecogniseProvider()
@@ -86,13 +90,14 @@ class VarBinaryTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoNotRecognise
+     *
      * @return array
      */
     public function doNotRecogniseProvider()
     {
         return [
             ['varchar(255)'],
-            ['varbinary']
+            ['varbinary'],
         ];
     }
 
@@ -100,11 +105,11 @@ class VarBinaryTypeFactoryTest extends SchnoopTestCase
     {
         return [
             [
-                'varbinary(123)'
+                'varbinary(123)',
             ],
             [
-                'VARBINARY(123)'
-            ]
+                'VARBINARY(123)',
+            ],
         ];
     }
 }

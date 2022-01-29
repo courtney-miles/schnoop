@@ -153,6 +153,7 @@ class DataTypeFactoryTest extends TestCase
 
     /**
      * @dataProvider staticCreateAddHandlerTextData
+     *
      * @param $typeName
      * @param $expectedHandlerClassName
      */
@@ -165,11 +166,11 @@ class DataTypeFactoryTest extends TestCase
 
     /**
      * @see testStaticCreateAddHandler
+     *
      * @return array
      */
     public function staticCreateAddHandlerTextData()
     {
-
         return [
             'bit' => ['bit', BitTypeFactory::class],
             // Integer type mappers.

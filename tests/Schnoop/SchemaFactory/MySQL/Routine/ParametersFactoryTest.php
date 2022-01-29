@@ -68,22 +68,22 @@ class ParametersFactoryTest extends TestCase
 
     public function testCreateParameters()
     {
-        $parametersStr = "__param_str__";
+        $parametersStr = '__param_str__';
         $parsedParams = [
             [
                 'direction' => null,
                 'name' => 'schnoop_func_param',
-                'dataType' => 'VARCHAR(20)'
+                'dataType' => 'VARCHAR(20)',
             ],
             [
                 'direction' => 'INOUT',
                 'name' => 'schnoop_proc_param',
-                'dataType' => 'INT(10)'
+                'dataType' => 'INT(10)',
             ],
         ];
         $mockDataTypes = [
             $this->createMock(DataTypeInterface::class),
-            $this->createMock(DataTypeInterface::class)
+            $this->createMock(DataTypeInterface::class),
         ];
 
         /** @var ParametersFactory|MockObject $parametersFactory */

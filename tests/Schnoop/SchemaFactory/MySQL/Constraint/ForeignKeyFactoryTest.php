@@ -101,8 +101,8 @@ SQL
                 'column_name' => 'id',
                 'ordinal_position' => '1',
                 'referenced_table_name' => 'schnoop_ref_tbl',
-                'referenced_column_name' => 'ref_id'
-            ]
+                'referenced_column_name' => 'ref_id',
+            ],
         ];
 
         $this->assertSame(
@@ -113,9 +113,6 @@ SQL
 
     /**
      * @dataProvider createFromRawTestData
-     * @param array $foreignKeyExpectations
-     * @param array $foreignKeyColumnExpectations
-     * @param array $rawForeignKeys
      */
     public function testCreateFromRaw(
         array $foreignKeyExpectations,
@@ -129,7 +126,7 @@ SQL
             foreach ($fkColumns as $column) {
                 $newForeignKeyColumnArgs[] = [
                     $column['columnName'],
-                    $column['referenceColumnName']
+                    $column['referenceColumnName'],
                 ];
                 $mockForeignKeyColumn = $this->createMockForeignKeyColumn();
                 $mockForeignKeyColumns[] = $mockForeignKeyColumn;
@@ -139,7 +136,7 @@ SQL
 
         foreach ($foreignKeyExpectations as $foreignKey) {
             $newForeignKeyArgs[] = [
-                $foreignKey['keyName']
+                $foreignKey['keyName'],
             ];
             $mockForeignKeys[] = $this->createMockForeignKey(
                 $foreignKey['tableName'],
@@ -190,6 +187,7 @@ SQL
 
     /**
      * @see testCreateFromRaw
+     *
      * @return array
      */
     public function createFromRawTestData()
@@ -200,20 +198,20 @@ SQL
                     [
                         'keyName' => 'fk_schnoop',
                         'tableName' => 'schnoop_tbl',
-                        'referenceTableName' => 'schnoop_ref_tbl'
-                    ]
+                        'referenceTableName' => 'schnoop_ref_tbl',
+                    ],
                 ],
                 [
                     'fk_schnoop' => [
                         [
                             'columnName' => 'id',
-                            'referenceColumnName' => 'ref_id'
+                            'referenceColumnName' => 'ref_id',
                         ],
                         [
                             'columnName' => 'name',
-                            'referenceColumnName' => 'ref_name'
+                            'referenceColumnName' => 'ref_name',
                         ],
-                    ]
+                    ],
                 ],
                 [
                     [
@@ -222,7 +220,7 @@ SQL
                         'column_name' => 'id',
                         'ordinal_position' => '1',
                         'referenced_table_name' => 'schnoop_ref_tbl',
-                        'referenced_column_name' => 'ref_id'
+                        'referenced_column_name' => 'ref_id',
                     ],
                     [
                         'table_name' => 'schnoop_tbl',
@@ -230,36 +228,36 @@ SQL
                         'column_name' => 'name',
                         'ordinal_position' => '2',
                         'referenced_table_name' => 'schnoop_ref_tbl',
-                        'referenced_column_name' => 'ref_name'
-                    ]
-                ]
+                        'referenced_column_name' => 'ref_name',
+                    ],
+                ],
             ],
             'Create 2 FK with 1 column each' => [
                 [
                     [
                         'keyName' => 'fk_schnoop01',
                         'tableName' => 'schnoop_tbl',
-                        'referenceTableName' => 'schnoop_ref_tbl'
+                        'referenceTableName' => 'schnoop_ref_tbl',
                     ],
                     [
                         'keyName' => 'fk_schnoop02',
                         'tableName' => 'schnoop_tbl',
-                        'referenceTableName' => 'schnoop_ref_tbl'
-                    ]
+                        'referenceTableName' => 'schnoop_ref_tbl',
+                    ],
                 ],
                 [
                     'fk_schnoop01' => [
                         [
                             'columnName' => 'id',
-                            'referenceColumnName' => 'ref_id'
+                            'referenceColumnName' => 'ref_id',
                         ],
                     ],
                     'fk_schnoop02' => [
                         [
                             'columnName' => 'name',
-                            'referenceColumnName' => 'ref_name'
+                            'referenceColumnName' => 'ref_name',
                         ],
-                    ]
+                    ],
                 ],
                 [
                     [
@@ -268,7 +266,7 @@ SQL
                         'column_name' => 'id',
                         'ordinal_position' => '1',
                         'referenced_table_name' => 'schnoop_ref_tbl',
-                        'referenced_column_name' => 'ref_id'
+                        'referenced_column_name' => 'ref_id',
                     ],
                     [
                         'table_name' => 'schnoop_tbl',
@@ -276,18 +274,17 @@ SQL
                         'column_name' => 'name',
                         'ordinal_position' => '1',
                         'referenced_table_name' => 'schnoop_ref_tbl',
-                        'referenced_column_name' => 'ref_name'
-                    ]
-                ]
-            ]
+                        'referenced_column_name' => 'ref_name',
+                    ],
+                ],
+            ],
         ];
     }
 
     /**
-     * @param array $newForeignKeyArgs
-     * @param ForeignKeyInterface[] $foreignKeys
-     * @param array $newForeignKeyColumnArgs
+     * @param ForeignKeyInterface[]       $foreignKeys
      * @param ForeignKeyColumnInterface[] $foreignKeyColumns
+     *
      * @return ForeignKeyFactory|MockObject
      */
     protected function createMockForeignKeyMapper(
@@ -315,6 +312,7 @@ SQL
     /**
      * @param string $expectedTableName
      * @param string $expectedReferenceTableName
+     *
      * @return ForeignKeyInterface|MockObject
      */
     protected function createMockForeignKey($expectedTableName, $expectedReferenceTableName)

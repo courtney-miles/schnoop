@@ -22,6 +22,7 @@ class TextTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
@@ -31,6 +32,7 @@ class TextTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
@@ -40,6 +42,7 @@ class TextTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
+     *
      * @param $typeStr
      * @param $collation
      */
@@ -60,6 +63,7 @@ class TextTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoRecognise
+     *
      * @return array
      */
     public function doRecogniseProvider()
@@ -72,13 +76,14 @@ class TextTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoNotRecognise
+     *
      * @return array
      */
     public function doNotRecogniseProvider()
     {
         return [
             ['varchar(255)'],
-            ['tinytext']
+            ['tinytext'],
         ];
     }
 
@@ -87,12 +92,12 @@ class TextTypeFactoryTest extends SchnoopTestCase
         return [
             [
                 'text',
-                'utf8_general_ci'
+                'utf8_general_ci',
             ],
             [
                 'TEXT',
-                'utf8_general_ci'
-            ]
+                'utf8_general_ci',
+            ],
         ];
     }
 }

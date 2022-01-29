@@ -2,7 +2,6 @@
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\Table;
 
-use InvalidArgumentException;
 use MilesAsylum\Schnoop\PHPUnit\Framework\TestMySQLCase;
 use MilesAsylum\Schnoop\PHPUnit\Schnoop\MockPdo;
 use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Table;
@@ -49,7 +48,7 @@ SQL
             'Engine' => 'InnoDB',
             'Row_format' => 'Compact',
             'Collation' => 'utf8mb4_general_ci',
-            'Comment' => 'Table comment.'
+            'Comment' => 'Table comment.',
         ];
 
         $this->assertSame(
@@ -80,7 +79,7 @@ SQL
             'Engine' => 'InnoDB',
             'Row_format' => 'COMPACT',
             'Collation' => 'utf8mb4_general_ci',
-            'Comment' => 'Table comment.'
+            'Comment' => 'Table comment.',
         ];
 
         $mockTable = $this->createMock(Table::class);

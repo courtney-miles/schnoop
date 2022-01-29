@@ -22,6 +22,7 @@ class YearTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
@@ -31,6 +32,7 @@ class YearTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
@@ -40,6 +42,7 @@ class YearTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
+     *
      * @param $typeStr
      */
     public function testCreateType($typeStr)
@@ -57,25 +60,27 @@ class YearTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoRecognise
+     *
      * @return array
      */
     public function doRecogniseProvider()
     {
         return [
             ['year'],
-            ['YEAR']
+            ['YEAR'],
         ];
     }
 
     /**
      * @see testDoNotRecognise
+     *
      * @return array
      */
     public function doNotRecogniseProvider()
     {
         return [
             ['varchar(255)'],
-            ['year(2)']
+            ['year(2)'],
         ];
     }
 
@@ -83,7 +88,7 @@ class YearTypeFactoryTest extends SchnoopTestCase
     {
         return [
             ['year'],
-            ['YEAR']
+            ['YEAR'],
         ];
     }
 }

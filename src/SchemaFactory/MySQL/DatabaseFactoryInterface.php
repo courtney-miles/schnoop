@@ -8,7 +8,9 @@ interface DatabaseFactoryInterface
 {
     /**
      * Fetch a database from the server.
+     *
      * @param string $databaseName
+     *
      * @return DatabaseInterface
      */
     public function fetch($databaseName);

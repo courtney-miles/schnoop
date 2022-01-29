@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: courtney
  * Date: 21/07/16
- * Time: 4:30 PM
+ * Time: 4:30 PM.
  */
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
@@ -28,6 +28,7 @@ class TimestampTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoRecognise($typeStr)
@@ -37,6 +38,7 @@ class TimestampTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
+     *
      * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
@@ -46,6 +48,7 @@ class TimestampTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
+     *
      * @param $typeStr
      * @param $precision
      */
@@ -65,6 +68,7 @@ class TimestampTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @see testDoRecognise
+     *
      * @return array
      */
     public function doRecogniseProvider()
@@ -73,19 +77,20 @@ class TimestampTypeFactoryTest extends SchnoopTestCase
             ['timestamp'],
             ['TIMESTAMP'],
             ['timestamp(4)'],
-            ['TIMESTAMP(4)']
+            ['TIMESTAMP(4)'],
         ];
     }
 
     /**
      * @see testDoNotRecognise
+     *
      * @return array
      */
     public function doNotRecogniseProvider()
     {
         return [
             ['varchar(255)'],
-            ['timestamp(foo)']
+            ['timestamp(foo)'],
         ];
     }
 
@@ -93,13 +98,13 @@ class TimestampTypeFactoryTest extends SchnoopTestCase
     {
         return [
             [
-                "timestamp",
-                0
+                'timestamp',
+                0,
             ],
             [
-                "timestamp(4)",
-                4
-            ]
+                'timestamp(4)',
+                4,
+            ],
         ];
     }
 }

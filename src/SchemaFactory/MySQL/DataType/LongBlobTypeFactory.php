@@ -2,7 +2,6 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\LongBlobType;
 
 class LongBlobTypeFactory implements DataTypeFactoryInterface
@@ -24,6 +23,6 @@ class LongBlobTypeFactory implements DataTypeFactoryInterface
      */
     public function doRecognise($typeStr)
     {
-        return preg_match('/^longblob$/i', $typeStr) === 1;
+        return 1 === preg_match('/^longblob$/i', $typeStr);
     }
 }

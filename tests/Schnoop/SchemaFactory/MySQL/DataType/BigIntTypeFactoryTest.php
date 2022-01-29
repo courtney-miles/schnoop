@@ -37,49 +37,50 @@ class BigIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
                 11,
                 true,
                 false,
-                'bigint(11)'
+                'bigint(11)',
             ],
             [
                 11,
                 true,
                 false,
-                'bigint(11) signed'
+                'bigint(11) signed',
             ],
             [
                 10,
                 false,
                 false,
-                'bigint(10) unsigned'
+                'bigint(10) unsigned',
             ],
             [
                 11,
                 true,
                 true,
-                'bigint(11) zerofill'
+                'bigint(11) zerofill',
             ],
             [
                 11,
                 true,
                 true,
-                'bigint(11) signed zerofill'
+                'bigint(11) signed zerofill',
             ],
             [
                 11,
                 false,
                 true,
-                'bigint(11) unsigned zerofill'
+                'bigint(11) unsigned zerofill',
             ],
             [
                 10,
                 false,
                 true,
-                'BIGINT(10) UNSIGNED ZEROFILL'
+                'BIGINT(10) UNSIGNED ZEROFILL',
             ],
         ];
     }
 
     /**
      * @see testDoRecognise
+     *
      * @return array
      */
     public function doRecogniseProvider()
@@ -97,6 +98,7 @@ class BigIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
 
     /**
      * @see testDoNotRecognise
+     *
      * @return array
      */
     public function doNotRecogniseProvider()
@@ -104,7 +106,7 @@ class BigIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
         return [
             ['bigint'],
             ['int(10)'],
-            ['varchar(255)']
+            ['varchar(255)'],
         ];
     }
 }

@@ -22,7 +22,7 @@ class SetupTestDbSchema
     protected static function getMySQLConnection()
     {
         $dsn = sprintf(
-            "mysql:host=%s;port=%d",
+            'mysql:host=%s;port=%d',
             $_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_HOST'],
             !empty($_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_PORT']) ? $_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_PORT'] : 3306
         );

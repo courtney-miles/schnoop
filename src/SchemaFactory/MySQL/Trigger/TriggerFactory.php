@@ -2,8 +2,8 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\Trigger;
 
-use MilesAsylum\Schnoop\SchemaFactory\MySQL\SetVar\SqlModeFactory;
 use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Trigger;
+use MilesAsylum\Schnoop\SchemaFactory\MySQL\SetVar\SqlModeFactory;
 use PDO;
 
 class TriggerFactory implements TriggerFactoryInterface
@@ -25,10 +25,8 @@ class TriggerFactory implements TriggerFactoryInterface
 
     /**
      * TriggerFactory constructor.
-     * @param PDO $pdo
-     * @param SqlModeFactory $sqlModeFactory
      */
-    public function __construct(\PDO $pdo, SqlModeFactory $sqlModeFactory)
+    public function __construct(PDO $pdo, SqlModeFactory $sqlModeFactory)
     {
         $this->pdo = $pdo;
         $this->sqlModeFactory = $sqlModeFactory;
@@ -74,7 +72,7 @@ SQL;
                             'Table',
                             'Statement',
                             'sql_mode',
-                            'Definer'
+                            'Definer',
                         ],
                         true
                     )
@@ -130,8 +128,8 @@ SQL;
 
     /**
      * Convert the associate keys of an array to lower-case.
-     * @param array $arr
-     * @return array Copy the supplied array with lower-case keys.
+     *
+     * @return array copy the supplied array with lower-case keys
      */
     protected function keysToLower(array $arr)
     {

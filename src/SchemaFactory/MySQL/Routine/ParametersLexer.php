@@ -13,7 +13,7 @@ class ParametersLexer
         '/^(\w+)/' => self::T_WORD,
         '/^(,)/' => self::T_COMMA,
         '/([\"\'])(?:.*[^\\\\]+)*(?:(?:\\\\{2})*)+\1/xU' => self::T_ENCAPSED_STRING,
-        '/^(`)/' => self::T_TICK
+        '/^(`)/' => self::T_TICK,
     ];
 
     protected $tokenNames = [
@@ -23,21 +23,24 @@ class ParametersLexer
         self::T_WORD => 'T_WORD',
         self::T_COMMA => 'T_COMMA',
         self::T_ENCAPSED_STRING => 'T_ENCAPSED_STRING',
-        self::T_TICK => 'T_TICK'
+        self::T_TICK => 'T_TICK',
     ];
 
-    const T_BRACKET_OPEN = 1;
-    const T_BRACKET_CLOSE = 2;
-    const T_WHITESPACE = 3;
-    const T_WORD = 4;
-    const T_COMMA = 5;
-    const T_ENCAPSED_STRING = 6;
-    const T_TICK = 7;
+    public const T_BRACKET_OPEN = 1;
+    public const T_BRACKET_CLOSE = 2;
+    public const T_WHITESPACE = 3;
+    public const T_WORD = 4;
+    public const T_COMMA = 5;
+    public const T_ENCAPSED_STRING = 6;
+    public const T_TICK = 7;
 
     /**
-     * Tokenise a parameter string
+     * Tokenise a parameter string.
+     *
      * @param string $paramString Parameter string
-     * @return array Tokens.
+     *
+     * @return array tokens
+     *
      * @throws ParametersLexerException
      */
     public function tokenise($paramString)
@@ -48,13 +51,8 @@ class ParametersLexer
         while ($offset < strlen($paramString)) {
             $result = $this->match($paramString, $offset);
 
-            if ($result === false) {
-                throw new ParametersLexerException(
-                    sprintf(
-                        "There is an error in the syntax for the parameters string. Check the syntax near '%s'.",
-                        substr($paramString, $offset, 10)
-                    )
-                );
+            if (false === $result) {
+                throw new ParametersLexerException(sprintf("There is an error in the syntax for the parameters string. Check the syntax near '%s'.", substr($paramString, $offset, 10)));
             }
 
             $tokens[] = $result;
@@ -66,7 +64,9 @@ class ParametersLexer
 
     /**
      * Get the name of the supplied token.
-     * @param int $token One of self::T_* constants.
+     *
+     * @param int $token one of self::T_* constants
+     *
      * @return string
      */
     public function getTokenName($token)
@@ -76,10 +76,12 @@ class ParametersLexer
 
     /**
      * Returns the first match of terminal pattern.
+     *
      * @param $source
      * @param $offset
+     *
      * @return array|bool First array element is the matching token name, and
-     * the second is the matching value.  False if there was no match.
+     *                    the second is the matching value.  False if there was no match.
      */
     protected function match($source, $offset)
     {

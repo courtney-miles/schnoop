@@ -18,7 +18,7 @@ abstract class TestMySQLCase extends TestCase
     protected static $mysqlHelper;
 
     /**
-     * @var string The SQL Mode used for the connection.
+     * @var string the SQL Mode used for the connection
      */
     protected $sqlMode = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
 
