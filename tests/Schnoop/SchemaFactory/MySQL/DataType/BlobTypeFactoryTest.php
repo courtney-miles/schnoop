@@ -19,7 +19,7 @@ class BlobTypeFactoryTest extends SchnoopTestCase
      */
     protected $blobTypeFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

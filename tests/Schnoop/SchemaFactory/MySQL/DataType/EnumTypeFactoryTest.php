@@ -13,7 +13,7 @@ class EnumTypeFactoryTest extends SchnoopTestCase
      */
     protected $enumTypeFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

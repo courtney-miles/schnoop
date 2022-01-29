@@ -42,7 +42,7 @@ class FunctionFactoryTest extends TestMySQLCase
      */
     protected $functionMapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

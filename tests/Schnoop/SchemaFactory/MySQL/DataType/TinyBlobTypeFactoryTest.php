@@ -13,7 +13,7 @@ class TinyBlobTypeFactoryTest extends SchnoopTestCase
      */
     protected $tinyBlobTypeFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

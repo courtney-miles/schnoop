@@ -13,7 +13,7 @@ class YearTypeFactoryTest extends SchnoopTestCase
      */
     protected $yearTypeFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

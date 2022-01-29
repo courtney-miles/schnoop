@@ -14,7 +14,7 @@ class CharTypeFactoryTest extends SchnoopTestCase
      */
     protected $charTypeFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

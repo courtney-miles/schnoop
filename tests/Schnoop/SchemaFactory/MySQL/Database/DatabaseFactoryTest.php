@@ -14,7 +14,7 @@ class DatabaseFactoryTest extends TestMySQLCase
      */
     protected $databaseMapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

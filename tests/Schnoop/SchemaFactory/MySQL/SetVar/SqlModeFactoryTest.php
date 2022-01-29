@@ -13,7 +13,7 @@ class SqlModeFactoryTest extends TestCase
      */
     protected $sqlModeFactory;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

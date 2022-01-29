@@ -72,7 +72,7 @@ class SchemaBuilderTest extends TestCase
      */
     private $mockSchnoop;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

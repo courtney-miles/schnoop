@@ -19,7 +19,7 @@ class MediumBlobTypeFactoryTest extends SchnoopTestCase
      */
     protected $mediumBlobTypeFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

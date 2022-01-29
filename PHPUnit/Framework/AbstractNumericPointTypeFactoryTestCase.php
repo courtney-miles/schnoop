@@ -46,7 +46,7 @@ abstract class AbstractNumericPointTypeFactoryTestCase extends TestCase
      */
     abstract public function doNotRecogniseProvider();
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

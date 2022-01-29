@@ -38,7 +38,7 @@ class SchnoopTest extends SchnoopTestCase
      */
     protected $mockSchemaBuilder;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -314,13 +314,13 @@ class SchnoopTest extends SchnoopTestCase
 
     /**
      * @dataProvider getMethodCallTriggersExceptionForBogusDatabaseData
-     * @expectedException \MilesAsylum\Schnoop\Exception\SchnoopException
-     * @expectedExceptionMessage A database named 'bogus_db' does not exist.
      *
      * @param string $method
      */
     public function testMethodCallTriggersExceptionForBogusDatabase($method, array $params = [])
     {
+        $this->expectExceptionMessage("A database named 'bogus_db' does not exist.");
+        $this->expectException(\MilesAsylum\Schnoop\Exception\SchnoopException::class);
         $this->schnoop->$method(...$params);
     }
 
@@ -369,13 +369,13 @@ class SchnoopTest extends SchnoopTestCase
 
     /**
      * @dataProvider getMethodCallTriggersExceptionWithoutActiveDatabaseData
-     * @expectedException \MilesAsylum\Schnoop\Exception\SchnoopException
-     * @expectedExceptionMessage Database not specified and an active database has not been set.
      *
      * @param string $method
      */
     public function testMethodCallTriggersExceptionWithoutActiveDatabase($method, array $params = [])
     {
+        $this->expectExceptionMessage('Database not specified and an active database has not been set.');
+        $this->expectException(\MilesAsylum\Schnoop\Exception\SchnoopException::class);
         $this->schnoop->$method(...$params);
     }
 
@@ -424,14 +424,14 @@ class SchnoopTest extends SchnoopTestCase
 
     /**
      * @dataProvider getMethodTriggersExceptionForBogusTableData
-     * @expectedException \MilesAsylum\Schnoop\Exception\SchnoopException
-     * @expectedExceptionMessage A table named 'bogus_tbl' does not exist in database 'schnoop_db_one'.
      *
      * @param string $method
      * @param string $validDatabaseName
      */
     public function testMethodTriggersExceptionForBogusTable($method, $validDatabaseName, array $params = [])
     {
+        $this->expectExceptionMessage("A table named 'bogus_tbl' does not exist in database 'schnoop_db_one'.");
+        $this->expectException(\MilesAsylum\Schnoop\Exception\SchnoopException::class);
         $this->mockInspector->method('fetchTableList')
             ->with($validDatabaseName)
             ->willReturn([]);

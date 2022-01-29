@@ -27,7 +27,7 @@ class ColumnFactoryTest extends TestMySQLCase
 
     protected $databaseName;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

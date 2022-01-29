@@ -13,7 +13,7 @@ class VarCharTypeFactoryTest extends SchnoopTestCase
      */
     protected $varCharTypeFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

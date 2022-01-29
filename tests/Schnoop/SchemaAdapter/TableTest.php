@@ -23,7 +23,7 @@ class TableTest extends TestCase
      */
     protected $mockSchnoop;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

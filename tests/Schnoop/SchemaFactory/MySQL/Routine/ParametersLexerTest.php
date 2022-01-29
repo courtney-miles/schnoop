@@ -13,7 +13,7 @@ class ParametersLexerTest extends TestCase
      */
     protected $parametersLexer;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
