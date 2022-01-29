@@ -36,7 +36,7 @@ class ProcedureFactoryTest extends TestMySQLCase
      */
     protected $procedureMapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

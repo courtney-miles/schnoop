@@ -13,7 +13,7 @@ class TimeTypeFactoryTest extends SchnoopTestCase
      */
     protected $timeTypeFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

@@ -30,7 +30,7 @@ class ParametersFactoryTest extends TestCase
      */
     protected $mockDataTypeFactory;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

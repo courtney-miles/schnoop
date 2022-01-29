@@ -13,7 +13,7 @@ class LongBlobTypeFactoryTest extends SchnoopTestCase
      */
     protected $longBlobTypeFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

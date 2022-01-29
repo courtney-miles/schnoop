@@ -3,6 +3,7 @@
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 
 use InvalidArgumentException;
+use MilesAsylum\Schnoop\SchemaFactory\Exception\FactoryException;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BigIntTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BinaryTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BitTypeFactory;
@@ -51,7 +52,7 @@ class DataTypeFactoryTest extends TestCase
      */
     protected $mockFactoryHandler;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -113,21 +114,19 @@ class DataTypeFactoryTest extends TestCase
         $this->assertSame($mockDataType, $this->dataTypeFactory->createType($typeStr, $collation));
     }
 
-    /**
-     * @expectedException \MilesAsylum\Schnoop\SchemaFactory\Exception\FactoryException
-     * @expectedExceptionMessage A data-type mapper was not found for handling type, bogus(123).
-     */
     public function testExceptionOnCreateUnknownType()
     {
+        $this->expectExceptionMessage('A data-type mapper was not found for handling type, bogus(123).');
+        $this->expectException(FactoryException::class);
+
         $this->dataTypeFactory->createType('bogus(123)');
     }
 
-    /**
-     * @expectedException \MilesAsylum\Schnoop\SchemaFactory\Exception\FactoryException
-     * @expectedExceptionMessage The format of the data-type string, '$%^', is not supported.
-     */
     public function testExceptionOnBorkedTypeString()
     {
+        $this->expectExceptionMessage('The format of the data-type string, \'$%^\', is not supported.');
+        $this->expectException(FactoryException::class);
+
         $this->dataTypeFactory->doRecognise('$%^');
     }
 

@@ -19,7 +19,7 @@ class SetTypeFactoryTest extends SchnoopTestCase
      */
     protected $setTypeFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

@@ -19,7 +19,7 @@ class DateTypeFactoryTest extends SchnoopTestCase
      */
     protected $dateTypeFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

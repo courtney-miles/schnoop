@@ -22,7 +22,7 @@ abstract class TestMySQLCase extends TestCase
      */
     protected $sqlMode = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::$mysqlHelper = new MySQLTestHelper();
 
@@ -31,13 +31,13 @@ abstract class TestMySQLCase extends TestCase
         self::$mysqlHelper->raiseTestSchema();
     }
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         self::$mysqlHelper = null;
         self::$pdo = null;
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

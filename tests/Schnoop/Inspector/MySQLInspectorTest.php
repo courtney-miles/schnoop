@@ -22,7 +22,7 @@ class MySQLInspectorTest extends TestMySQLCase
 
     protected $viewName = 'schnoop_view';
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

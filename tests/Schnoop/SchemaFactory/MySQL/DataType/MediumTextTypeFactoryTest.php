@@ -19,7 +19,7 @@ class MediumTextTypeFactoryTest extends SchnoopTestCase
      */
     protected $mediumTextTypeFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

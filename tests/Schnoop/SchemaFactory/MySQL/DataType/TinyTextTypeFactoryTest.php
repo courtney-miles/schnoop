@@ -13,7 +13,7 @@ class TinyTextTypeFactoryTest extends SchnoopTestCase
      */
     protected $tinyTextTypeFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

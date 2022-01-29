@@ -20,7 +20,7 @@ class BinaryTypeFactoryTest extends SchnoopTestCase
      */
     protected $binaryTypeFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
