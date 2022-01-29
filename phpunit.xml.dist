@@ -1,26 +1,28 @@
 <?xml version="1.0" ?>
-<phpunit bootstrap="./PHPUnit/bootstrap.php">
+<phpunit bootstrap="./PHPUnit/bootstrap.php"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
     <php>
-        <ini name="display_errors" value="On" />
-        <ini name="error_reporting" value="E_ALL" />
-        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_ENABLED" value="true" />
-        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_HOST" value="mysql" />
-        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_USERNAME" value="root" />
-        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_PASSWORD" value="" />
-        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_PORT" value="3306" />
-        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_DATABASE" value="schnoop_testing" />
+        <ini name="display_errors" value="On"/>
+        <ini name="error_reporting" value="E_ALL"/>
+        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_ENABLED" value="true"/>
+        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_HOST" value="mysql"/>
+        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_USERNAME" value="root"/>
+        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_PASSWORD" value=""/>
+        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_PORT" value="3306"/>
+        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_DATABASE" value="schnoop_testing"/>
     </php>
     <testsuites>
         <testsuite name="unit_tests">
             <directory>./tests/Schnoop/</directory>
         </testsuite>
         <testsuite name="phpunit_ext_tests">
-            <directory>./tests/PHPUnit/</directory>
+            <directory>./PHPUnit/</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
+    <coverage processUncoveredFiles="true">
+        <include>
             <directory suffix=".php">./src/</directory>
-        </whitelist>
-    </filter>
+        </include>
+    </coverage>
 </phpunit>

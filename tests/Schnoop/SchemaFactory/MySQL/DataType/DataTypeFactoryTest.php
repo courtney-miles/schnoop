@@ -36,7 +36,6 @@ use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\VarBinaryTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\VarCharTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\YearTypeFactory;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
-use PHPUnit\Framework\Error\Notice;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -132,7 +131,7 @@ class DataTypeFactoryTest extends TestCase
 
     public function testNoticeWhenAddHandlerForAlreadyHandledType()
     {
-        $this->expectException(Notice::class);
+        $this->expectNotice();
         $this->expectExceptionMessage('A handler had already been set for, foo. The handler has been replaced.');
 
         $this->dataTypeFactory->addFactoryTypeHandler('foo', $this->mockFactoryHandler);

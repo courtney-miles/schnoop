@@ -84,6 +84,16 @@ SQL;
                     true
                 )
             );
+
+            // Emulate PDO::setAttribute(PDO::ATTR_STRINGIFY_FETCHES, true).
+            // We don't want to screw with connection attributes.
+            $row = array_map(
+                static function ($v) {
+                    return null !== $v ? (string) $v : $v;
+                },
+                $row
+            );
+
             $rawIndexes[$k] = $row;
         }
 

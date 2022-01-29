@@ -57,7 +57,21 @@ SQL
     {
         $this->stmtSelectForeignKeys->execute([':database' => $databaseName, ':table' => $tableName]);
 
-        return $this->stmtSelectForeignKeys->fetchAll(PDO::FETCH_ASSOC);
+        $rows = $this->stmtSelectForeignKeys->fetchAll(PDO::FETCH_ASSOC);
+
+        // Emulate PDO::setAttribute(PDO::ATTR_STRINGIFY_FETCHES, true).
+        // We don't want to screw with connection attributes.
+        foreach ($rows as $k => $row) {
+            $row = array_map(
+                static function ($v) {
+                    return null !== $v ? (string) $v : $v;
+                },
+                $row
+            );
+            $rows[$k] = $row;
+        }
+
+        return $rows;
     }
 
     /**
