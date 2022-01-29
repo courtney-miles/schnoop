@@ -49,12 +49,12 @@ jobs:
                       ${{ runner.os }}-php-
 
             - name: Install Composer dependencies
-              run: composer update ${{ matrix.composer-flag }} --no-interaction --no-progress
+              run: composer update ${{ matrix.composer-flag }} --no-interaction
 
             # This is necessary for older dev packages that do not have
             #   appropriate upper PHP compatibility version constraints.
             - name: Update Composer Dev dependencies
-              run: composer update phpunit/phpunit --prefer-dist --no-interaction --no-progress
+              run: composer update phpunit/phpunit --prefer-dist --no-interaction --with-dependencies
 
             - name: Run Code Style Check for PHP ${{ matrix.php-version }}
               run: composer run-script style-check
