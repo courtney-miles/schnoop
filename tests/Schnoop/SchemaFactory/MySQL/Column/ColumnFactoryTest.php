@@ -27,9 +27,16 @@ class ColumnFactoryTest extends TestMySQLCase
 
     protected $databaseName;
 
+    protected static $mysqlVersion;
+
     public function setUp(): void
     {
         parent::setUp();
+
+        if (!isset(self::$mysqlVersion)) {
+            self::$mysqlVersion = $this->getConnection()->query('SHOW VARIABLES WHERE Variable_name = \'version\'')
+                ->fetchColumn(1);
+        }
 
         $this->tableName = 'schnoop_tbl';
         $this->databaseName = $this->getDatabaseName();
@@ -57,7 +64,7 @@ SQL
         $expectedRaw = [
             [
                 'Field' => 'id',
-                'Type' => 'int(11)',
+                'Type' => self::isMySql8() ? 'int' : 'int(11)',
                 'Collation' => null,
                 'Null' => 'NO',
                 'Default' => null,
@@ -235,5 +242,10 @@ SQL
                 true,
             ],
         ];
+    }
+
+    private static function isMySql8(): bool
+    {
+        return strpos(self::$mysqlVersion, '8.') === 0;
     }
 }
