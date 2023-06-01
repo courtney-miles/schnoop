@@ -77,18 +77,18 @@ SQL
         $foreignKeyForeignKeyColumns = [];
 
         foreach ($rawTableFKs as $rawTableFK) {
-            $keyName = $rawTableFK['constraint_name'];
+            $keyName = $rawTableFK['CONSTRAINT_NAME'];
 
             if (!isset($foreignKeys[$keyName])) {
                 $foreignKey = $this->newForeignKey($keyName);
-                $foreignKey->setTableName($rawTableFK['table_name']);
-                $foreignKey->setReferenceTableName($rawTableFK['referenced_table_name']);
+                $foreignKey->setTableName($rawTableFK['TABLE_NAME']);
+                $foreignKey->setReferenceTableName($rawTableFK['REFERENCED_TABLE_NAME']);
                 $foreignKeys[$keyName] = $foreignKey;
             }
 
-            $foreignKeyForeignKeyColumns[$keyName][$rawTableFK['ordinal_position']] = $this->newForeignKeyColumn(
-                $rawTableFK['column_name'],
-                $rawTableFK['referenced_column_name']
+            $foreignKeyForeignKeyColumns[$keyName][$rawTableFK['ORDINAL_POSITION']] = $this->newForeignKeyColumn(
+                $rawTableFK['COLUMN_NAME'],
+                $rawTableFK['REFERENCED_COLUMN_NAME']
             );
         }
 
