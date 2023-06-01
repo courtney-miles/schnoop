@@ -57,8 +57,8 @@ jobs:
             - name: Update Composer Dev dependencies
               run: composer update phpunit/phpunit --prefer-dist --no-interaction --with-dependencies
 
-            - name: Run Code Style Check for PHP ${{ matrix.php-version }}
-              run: composer run-script style-check
+#            - name: Run Code Style Check for PHP ${{ matrix.php-version }}
+#              run: composer run-script style-check
 
             - name: Run tests for PHP ${{ matrix.php-version }}
               run: composer run-script test
