@@ -78,6 +78,6 @@ SQL
 
     protected static function isMySql8(): bool
     {
-        return strpos(self::$mysqlVersion, '8.') === 0;
+        return 0 === strpos(self::$mysqlVersion, '8.');
     }
 }
