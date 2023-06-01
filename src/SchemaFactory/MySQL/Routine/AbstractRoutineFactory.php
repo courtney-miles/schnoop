@@ -45,7 +45,11 @@ SELECT
   (
     SELECT GROUP_CONCAT(
             CONCAT(
-                IF(PARAMETER_MODE IS NOT NULL, CONCAT(PARAMETER_MODE, ' '), ''),
+                IF (
+                    r.ROUTINE_TYPE = 'PROCEDURE',
+                    IF(PARAMETER_MODE IS NOT NULL, CONCAT(PARAMETER_MODE, ' '), ''),
+                    ''
+                ) ,
                 PARAMETER_NAME,
                 ' ',
                 UPPER(DTD_IDENTIFIER)
