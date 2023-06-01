@@ -24,7 +24,7 @@ jobs:
                     - 3306:3306
                 options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
-        name: Test PHP ${{ matrix.php-version }} / composer ${{ matrix.composer-flag }}
+        name: Test PHP ${{ matrix.php-version }} / MySQL ${{ matrix.mysql-version }} / composer ${{ matrix.composer-flag }}
 
         steps:
             - uses: actions/checkout@v2
