@@ -42,29 +42,12 @@ class DatabaseFactoryTest extends TestMySQLCase
 
     public function testCreateFromRaw()
     {
-        $raw = [
-            'schema_name' => 'schnoop_db',
-            'default_collation_name' => 'utf8mb4_unicode_ci',
-        ];
+        $database = $this->databaseMapper->createFromRaw(
+            $this->databaseMapper->fetchRaw($this->getDatabaseName())
+        );
 
-        $mockDatabase = $this->createMock(Database::class);
-
-        $mockDatabase->expects($this->once())
-            ->method('setDefaultCollation')
-            ->with($raw['default_collation_name']);
-
-        /** @var DatabaseFactory|MockObject $mockDatabaseMapper */
-        $mockDatabaseMapper = $this->getMockBuilder(DatabaseFactory::class)
-            ->disableOriginalConstructor()
-            ->setMethods(['newDatabase'])
-            ->getMock();
-
-        $mockDatabaseMapper->expects($this->once())
-            ->method('newDatabase')
-            ->with($raw['schema_name'])
-            ->willReturn($mockDatabase);
-
-        $this->assertSame($mockDatabase, $mockDatabaseMapper->createFromRaw($raw));
+        $this->assertSame($this->getDatabaseName(), $database->getName());
+        $this->assertSame('utf8mb4_unicode_ci', $database->getDefaultCollation());
     }
 
     public function testFetch()

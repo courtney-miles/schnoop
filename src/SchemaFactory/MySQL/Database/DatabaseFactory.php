@@ -47,8 +47,8 @@ SQL
 
     public function createFromRaw(array $rawDatabase)
     {
-        $database = $this->newDatabase($rawDatabase['schema_name']);
-        $database->setDefaultCollation($rawDatabase['default_collation_name']);
+        $database = $this->newDatabase($rawDatabase['SCHEMA_NAME']);
+        $database->setDefaultCollation($rawDatabase['DEFAULT_COLLATION_NAME']);
 
         return $database;
     }
