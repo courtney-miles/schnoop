@@ -20,7 +20,7 @@ class IndexFactory implements IndexFactoryInterface
     protected $mapHandlers = [];
 
     /**
-     * @var PDO
+     * @var \PDO
      */
     protected $pdo;
 
@@ -32,7 +32,7 @@ class IndexFactory implements IndexFactoryInterface
     /**
      * IndexFactory constructor.
      */
-    public function __construct(PDO $pdo)
+    public function __construct(\PDO $pdo)
     {
         $this->pdo = $pdo;
 
@@ -41,9 +41,6 @@ SHOW INDEXES FROM `%s`.`%s`
 SQL;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetch($tableName, $databaseName)
     {
         $rows = $this->fetchRaw($databaseName, $tableName);
@@ -52,9 +49,6 @@ SQL;
         return $indexes;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetchRaw($databaseName, $tableName)
     {
         $rawIndexes = [];
@@ -65,7 +59,7 @@ SQL;
                 $databaseName,
                 $tableName
             )
-        )->fetchAll(PDO::FETCH_ASSOC);
+        )->fetchAll(\PDO::FETCH_ASSOC);
 
         foreach ($rows as $k => $row) {
             $row = array_intersect_key(
@@ -101,8 +95,6 @@ SQL;
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws FactoryException
      */
     public function createFromRaw(array $rawTableIndexes)

@@ -22,8 +22,6 @@ class TimeTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoRecognise($typeStr)
     {
@@ -32,8 +30,6 @@ class TimeTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
     {
@@ -42,9 +38,6 @@ class TimeTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
-     *
-     * @param $typeStr
-     * @param $precision
      */
     public function testCreateType($typeStr, $precision)
     {

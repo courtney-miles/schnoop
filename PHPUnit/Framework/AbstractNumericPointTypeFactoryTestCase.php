@@ -122,8 +122,6 @@ abstract class AbstractNumericPointTypeFactoryTestCase extends TestCase
 
     /**
      * @dataProvider doRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoRecognise($typeStr)
     {
@@ -132,8 +130,6 @@ abstract class AbstractNumericPointTypeFactoryTestCase extends TestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
     {

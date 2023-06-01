@@ -6,9 +6,6 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\BitType;
 
 class BitTypeFactory extends AbstractCharTypeFactory
 {
-    /**
-     * {@inheritdoc}
-     */
     public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
@@ -42,9 +39,6 @@ class BitTypeFactory extends AbstractCharTypeFactory
         return new BitType();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function doRecognise($typeStr)
     {
         return 1 === preg_match('/^bit\(\d+\)/i', $typeStr);

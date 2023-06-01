@@ -28,8 +28,6 @@ class MediumBlobTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoRecognise($typeStr)
     {
@@ -38,8 +36,6 @@ class MediumBlobTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
     {
@@ -48,8 +44,6 @@ class MediumBlobTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
-     *
-     * @param $typeStr
      */
     public function testCreateType($typeStr)
     {

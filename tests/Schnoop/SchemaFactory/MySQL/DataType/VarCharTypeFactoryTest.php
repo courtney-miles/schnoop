@@ -22,8 +22,6 @@ class VarCharTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoRecognise($typeStr)
     {
@@ -32,8 +30,6 @@ class VarCharTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
     {
@@ -42,10 +38,6 @@ class VarCharTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
-     *
-     * @param $typeStr
-     * @param $collation
-     * @param $length
      */
     public function testCreateType($typeStr, $collation, $length)
     {

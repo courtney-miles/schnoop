@@ -243,7 +243,7 @@ class Schnoop
     /**
      * Get the PDO connection used to schnoop the database.
      *
-     * @return PDO
+     * @return \PDO
      */
     public function getPDO()
     {
@@ -255,7 +255,7 @@ class Schnoop
      *
      * @return Schnoop
      */
-    public static function createSelf(PDO $pdo)
+    public static function createSelf(\PDO $pdo)
     {
         $dataTypeFactory = DataTypeFactory::createSelf();
         $sqlModeFactory = new SqlModeFactory();

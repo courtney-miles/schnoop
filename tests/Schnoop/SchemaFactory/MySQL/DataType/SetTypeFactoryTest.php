@@ -28,8 +28,6 @@ class SetTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoRecognise($typeStr)
     {
@@ -38,8 +36,6 @@ class SetTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
     {
@@ -48,10 +44,6 @@ class SetTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
-     *
-     * @param $typeStr
-     * @param $collation
-     * @param $options
      */
     public function testCreateType($typeStr, $collation, $options)
     {

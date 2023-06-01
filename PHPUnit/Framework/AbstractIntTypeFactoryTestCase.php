@@ -105,8 +105,6 @@ abstract class AbstractIntTypeFactoryTestCase extends TestCase
 
     /**
      * @dataProvider doRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoRecognise($typeStr)
     {
@@ -115,8 +113,6 @@ abstract class AbstractIntTypeFactoryTestCase extends TestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
     {

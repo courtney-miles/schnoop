@@ -33,8 +33,6 @@ interface InspectorInterface
      * Fetch the names of all the procedures within the supplied database;.
      *
      * @param string $databaseName
-     *
-     * @return mixed
      */
     public function fetchProcedureList($databaseName);
 

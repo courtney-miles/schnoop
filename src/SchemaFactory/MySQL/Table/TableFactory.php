@@ -3,24 +3,20 @@
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\Table;
 
 use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Table;
-use PDO;
 
 class TableFactory implements TableFactoryInterface
 {
     /**
-     * @var PDO
+     * @var \PDO
      */
     protected $pdo;
 
-    /**
-     * @var
-     */
     protected $sqlShowTableStatus;
 
     /**
      * TableFactory constructor.
      */
-    public function __construct(PDO $pdo)
+    public function __construct(\PDO $pdo)
     {
         $this->pdo = $pdo;
 
@@ -29,9 +25,6 @@ SHOW TABLE STATUS FROM `%s` WHERE `Name` = :table AND `Engine` IS NOT NULL
 SQL;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetch($tableName, $databaseName)
     {
         $rawTable = $this->fetchRaw($tableName, $databaseName);
@@ -39,9 +32,6 @@ SQL;
         return null !== $rawTable ? $this->createFromRaw($rawTable, $databaseName) : null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetchRaw($tableName, $databaseName)
     {
         $raw = null;
@@ -54,7 +44,7 @@ SQL;
         );
         $stmt->execute([':table' => $tableName]);
 
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         if (!empty($row)) {
             $raw = array_intersect_key(
@@ -75,9 +65,6 @@ SQL;
         return $raw;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createFromRaw(array $rawTable, $databaseName)
     {
         $rawTable = $this->keysToLower($rawTable);
@@ -91,9 +78,6 @@ SQL;
         return $table;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function newTable($tableName, $databaseName)
     {
         return new Table($databaseName, $tableName);

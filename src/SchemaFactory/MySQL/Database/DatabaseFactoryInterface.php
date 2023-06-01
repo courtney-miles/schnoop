@@ -8,10 +8,6 @@ interface DatabaseFactoryInterface extends \MilesAsylum\Schnoop\SchemaFactory\My
 {
     /**
      * Fetch the raw row from the database for a database.
-     *
-     * @param $databaseName
-     *
-     * @return mixed
      */
     public function fetchRaw($databaseName);
 

@@ -33,8 +33,6 @@ class VarBinaryTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
-     *
-     * @param $typeStr
      */
     public function testCreate($typeStr)
     {
@@ -52,8 +50,6 @@ class VarBinaryTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoRecognise($typeStr)
     {
@@ -62,8 +58,6 @@ class VarBinaryTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
     {

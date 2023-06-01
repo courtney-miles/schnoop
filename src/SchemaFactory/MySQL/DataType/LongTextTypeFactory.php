@@ -6,9 +6,6 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\LongTextType;
 
 class LongTextTypeFactory implements DataTypeFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
@@ -21,9 +18,6 @@ class LongTextTypeFactory implements DataTypeFactoryInterface
         return $longTextType;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function doRecognise($typeStr)
     {
         return 1 === preg_match('/^longtext$/i', $typeStr);

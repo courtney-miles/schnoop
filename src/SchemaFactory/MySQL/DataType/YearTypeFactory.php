@@ -6,9 +6,6 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\YearType;
 
 class YearTypeFactory implements DataTypeFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
@@ -18,9 +15,6 @@ class YearTypeFactory implements DataTypeFactoryInterface
         return new YearType();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function doRecognise($typeStr)
     {
         return 0 === strcasecmp($typeStr, 'year');

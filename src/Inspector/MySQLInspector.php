@@ -80,9 +80,6 @@ SQL
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetchDatabaseList()
     {
         $this->stmtSelectDatabaseNames->execute();
@@ -90,9 +87,6 @@ SQL
         return $this->stmtSelectDatabaseNames->fetchAll(\PDO::FETCH_COLUMN);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetchTableList($databaseName)
     {
         $stmt = $this->pdo->query(
@@ -105,9 +99,6 @@ SQL
         return $stmt->fetchAll(\PDO::FETCH_COLUMN);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetchActiveDatabase()
     {
         $this->stmtSelectActiveDatabase->execute();
@@ -115,9 +106,6 @@ SQL
         return $this->stmtSelectActiveDatabase->fetchColumn();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetchFunctionList($databaseName)
     {
         $this->stmtSelectFunctionNames->execute([':databaseName' => $databaseName]);
@@ -125,9 +113,6 @@ SQL
         return $this->stmtSelectFunctionNames->fetchAll(\PDO::FETCH_COLUMN, 1);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetchProcedureList($databaseName)
     {
         $this->stmtSelectProcedureNames->execute([':databaseName' => $databaseName]);
@@ -135,9 +120,6 @@ SQL
         return $this->stmtSelectProcedureNames->fetchAll(\PDO::FETCH_COLUMN, 1);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetchTriggerList($databaseName, $tableName)
     {
         $query = sprintf(
@@ -151,9 +133,6 @@ SQL
         return $stmt->fetchAll(\PDO::FETCH_COLUMN);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPDO()
     {
         return $this->pdo;

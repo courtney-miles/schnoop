@@ -2,7 +2,6 @@
 
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType;
 
-use InvalidArgumentException;
 use MilesAsylum\Schnoop\SchemaFactory\Exception\FactoryException;
 
 class DataTypeFactory implements DataTypeFactoryInterface
@@ -12,9 +11,6 @@ class DataTypeFactory implements DataTypeFactoryInterface
      */
     protected $factoryTypeHandlers = [];
 
-    /**
-     * {@inheritdoc}
-     */
     public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
@@ -26,9 +22,6 @@ class DataTypeFactory implements DataTypeFactoryInterface
         return $this->factoryTypeHandlers[$type]->createType($typeStr, $collation);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function doRecognise($typeStr)
     {
         $type = $this->extractTypeName($typeStr);
@@ -43,7 +36,6 @@ class DataTypeFactory implements DataTypeFactoryInterface
     /**
      * Add a data type factory.
      *
-     * @param $typeName
      * @param \MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface $dataTypeFactory
      */
     public function addFactoryTypeHandler($typeName, DataTypeFactoryInterface $dataTypeFactory)
@@ -67,7 +59,7 @@ class DataTypeFactory implements DataTypeFactoryInterface
     public function getFactoryHandlerForType($typeName)
     {
         if (!isset($this->factoryTypeHandlers[$typeName])) {
-            throw new InvalidArgumentException("A handler does not exist for type $typeName.");
+            throw new \InvalidArgumentException("A handler does not exist for type $typeName.");
         }
 
         return $this->factoryTypeHandlers[$typeName];

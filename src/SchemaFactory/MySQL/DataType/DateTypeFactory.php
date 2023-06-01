@@ -6,9 +6,6 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\DateType;
 
 class DateTypeFactory implements DataTypeFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
@@ -18,9 +15,6 @@ class DateTypeFactory implements DataTypeFactoryInterface
         return new DateType();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function doRecognise($typeStr)
     {
         return 0 === strcasecmp($typeStr, 'date');

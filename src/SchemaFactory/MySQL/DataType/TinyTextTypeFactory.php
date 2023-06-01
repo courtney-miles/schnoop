@@ -6,9 +6,6 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\TinyTextType;
 
 class TinyTextTypeFactory implements DataTypeFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
@@ -21,9 +18,6 @@ class TinyTextTypeFactory implements DataTypeFactoryInterface
         return $tinyTextType;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function doRecognise($typeStr)
     {
         return 1 === preg_match('/^tinytext$/i', $typeStr);

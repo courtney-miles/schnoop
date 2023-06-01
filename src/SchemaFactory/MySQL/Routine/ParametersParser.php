@@ -36,8 +36,6 @@ class ParametersParser
     /**
      * Parse the supplied parameter string to it's tokens.
      *
-     * @param $parametersString
-     *
      * @return array Tokens
      */
     public function parse($parametersString)
@@ -129,8 +127,6 @@ class ParametersParser
 
     /**
      * Tokenise the parameters string.
-     *
-     * @param $parametersString
      *
      * @return int
      */

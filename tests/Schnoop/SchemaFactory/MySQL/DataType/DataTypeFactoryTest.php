@@ -2,7 +2,6 @@
 
 namespace MilesAsylum\Schnoop\Tests\Schnoop\SchemaFactory\MySQL\DataType;
 
-use InvalidArgumentException;
 use MilesAsylum\Schnoop\SchemaFactory\Exception\FactoryException;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BigIntTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\BinaryTypeFactory;
@@ -89,7 +88,7 @@ class DataTypeFactoryTest extends TestCase
 
     public function testExceptionOnGetUndefinedTypeHandler(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $sut = new DataTypeFactory();
         $sut->getFactoryHandlerForType('bogus');
@@ -151,9 +150,6 @@ class DataTypeFactoryTest extends TestCase
 
     /**
      * @dataProvider staticCreateAddHandlerTextData
-     *
-     * @param $typeName
-     * @param $expectedHandlerClassName
      */
     public function testStaticCreateAddHandler($typeName, $expectedHandlerClassName)
     {

@@ -6,9 +6,6 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\VarBinaryType;
 
 class VarBinaryTypeFactory extends AbstractCharTypeFactory
 {
-    /**
-     * {@inheritdoc}
-     */
     public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
@@ -23,9 +20,6 @@ class VarBinaryTypeFactory extends AbstractCharTypeFactory
         return new VarBinaryType($length);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function doRecognise($typeStr)
     {
         return 1 === preg_match('/^varbinary\(\d+\)/i', $typeStr);
