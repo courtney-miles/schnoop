@@ -10,12 +10,13 @@ jobs:
         strategy:
             matrix:
                 php-version: ['7.2', '7.3', '7.4', '8.0', '8.1']
+                mysql-version: ['5.7', '8.0']
                 composer-flag:
                     - '--prefer-dist'
                     - '--prefer-stable --prefer-lowest'
         services:
             mysql:
-                image: mysql:5.7
+                image: mysql:${{ matrix.mysql-version }}
                 env:
                     MYSQL_ALLOW_EMPTY_PASSWORD: yes
                     MYSQL_DATABASE: schnoop_testing
