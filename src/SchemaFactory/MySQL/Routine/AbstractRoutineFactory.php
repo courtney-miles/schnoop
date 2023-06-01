@@ -36,23 +36,32 @@ abstract class AbstractRoutineFactory
         $this->parametersFactory = $parametersFactory;
         $this->sqlModeFactory = $sqlModeFactory;
 
-        $this->stmtSelectFunction = $this->pdo->prepare(<<<SQL
+        $this->stmtSelectFunction = $this->pdo->prepare(<<<TXT
 SELECT
-  name,
-  sql_data_access,
-  is_deterministic,
-  security_type,
-  param_list,
-  returns,
-  body,
-  definer,
-  sql_mode,
-  comment
-FROM mysql.proc
-WHERE db = :database
-  AND type = :type
-  AND name = :function
-SQL
+  ROUTINE_NAME AS name,
+  REPLACE(SQL_DATA_ACCESS, ' ', '_') AS sql_data_access,
+  IS_DETERMINISTIC AS is_deterministic,
+  SECURITY_TYPE AS security_type,
+  (
+    SELECT GROUP_CONCAT(CONCAT(PARAMETER_NAME, ' ', UPPER(DTD_IDENTIFIER)) SEPARATOR ', ')
+    FROM information_schema.parameters p
+    WHERE p.SPECIFIC_NAME = r.ROUTINE_NAME
+        AND p.SPECIFIC_SCHEMA = r.ROUTINE_SCHEMA
+        AND ORDINAL_POSITION > 0
+    ) AS param_list,
+  CONCAT(
+      IFNULL(DTD_IDENTIFIER, ''),
+      IF (CHARACTER_SET_NAME IS NOT NULL, CONCAT(' CHARSET ', CHARACTER_SET_NAME), '')
+  ) AS returns,
+  ROUTINE_DEFINITION AS body,
+  DEFINER AS definer,
+  SQL_MODE AS sql_mode,
+  ROUTINE_COMMENT AS comment
+FROM information_schema.ROUTINES r
+WHERE ROUTINE_SCHEMA = :database
+  AND ROUTINE_TYPE = :type
+  AND ROUTINE_NAME = :function
+TXT
         );
     }
 
