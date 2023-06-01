@@ -33,8 +33,8 @@ class DatabaseFactoryTest extends TestMySQLCase
     public function testFetchRaw()
     {
         $expectedRaw = [
-            'schema_name' => $this->getDatabaseName(),
-            'default_collation_name' => 'utf8mb4_unicode_ci',
+            'SCHEMA_NAME' => $this->getDatabaseName(),
+            'DEFAULT_COLLATION_NAME' => 'utf8mb4_unicode_ci',
         ];
 
         $this->assertSame($expectedRaw, $this->databaseMapper->fetchRaw($this->getDatabaseName()));
