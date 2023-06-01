@@ -17,6 +17,8 @@ abstract class TestMySQLCase extends TestCase
      */
     protected static $mysqlHelper;
 
+    protected static $mysqlVersion;
+
     /**
      * @var string the SQL Mode used for the connection
      */
@@ -27,6 +29,10 @@ abstract class TestMySQLCase extends TestCase
         self::$mysqlHelper = new MySQLTestHelper();
 
         self::$pdo = self::$mysqlHelper->getConnection();
+
+        self::$mysqlVersion = self::$pdo->query(
+            'SHOW VARIABLES WHERE Variable_name = \'version\''
+        )->fetchColumn(1);
 
         self::$mysqlHelper->raiseTestSchema();
     }
@@ -68,5 +74,10 @@ SQL
     public function getDatabaseHost()
     {
         return self::$mysqlHelper->getDatabaseHost();
+    }
+
+    protected static function isMySql8(): bool
+    {
+        return strpos(self::$mysqlVersion, '8.') === 0;
     }
 }
