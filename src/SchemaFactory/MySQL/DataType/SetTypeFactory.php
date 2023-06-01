@@ -6,9 +6,6 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\SetType;
 
 class SetTypeFactory extends AbstractOptionsTypeFactory
 {
-    /**
-     * {@inheritdoc}
-     */
     public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
@@ -22,9 +19,6 @@ class SetTypeFactory extends AbstractOptionsTypeFactory
         return $setType;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function doRecognise($typeStr)
     {
         return 1 === preg_match('/^set\(.+\)$/i', $typeStr);

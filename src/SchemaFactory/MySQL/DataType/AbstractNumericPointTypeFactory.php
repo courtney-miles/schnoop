@@ -6,17 +6,11 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\NumericPointTypeInterface;
 
 abstract class AbstractNumericPointTypeFactory implements NumericPointTypeFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function createType($typeStr, $collation = null)
     {
         return $this->populate($this->newType(), $typeStr);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function populate(NumericPointTypeInterface $numericPointType, $typeStr)
     {
         if (!$this->doRecognise($typeStr)) {

@@ -6,9 +6,6 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\TimeType;
 
 class TimeTypeFactory extends AbstractTimeTypeFactory
 {
-    /**
-     * {@inheritdoc}
-     */
     public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
@@ -21,9 +18,6 @@ class TimeTypeFactory extends AbstractTimeTypeFactory
         return $timeType;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function doRecognise($typeStr)
     {
         return 1 === preg_match('/^time(\(\d+\))?$/i', $typeStr);

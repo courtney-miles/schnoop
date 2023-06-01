@@ -77,17 +77,11 @@ class SchemaBuilder implements SchemaBuilderInterface
         $this->procedureFactory = $procedureFactory;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setSchnoop(Schnoop $schnoop)
     {
         $this->schnoop = $schnoop;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetchDatabase($databaseName)
     {
         $database = $this->databaseMapper->fetch($databaseName);
@@ -96,9 +90,6 @@ class SchemaBuilder implements SchemaBuilderInterface
         return $database;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetchTable($tableName, $databaseName)
     {
         $table = $this->tableMapper->fetch($tableName, $databaseName);
@@ -116,25 +107,16 @@ class SchemaBuilder implements SchemaBuilderInterface
         return $table;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetchTriggers($tableName, $databaseName)
     {
         return $this->triggerMapper->fetch($tableName, $databaseName);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetchFunction($functionName, $databaseName)
     {
         return $this->functionFactory->fetch($functionName, $databaseName);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetchProcedure($procedureName, $databaseName)
     {
         return $this->procedureFactory->fetch($procedureName, $databaseName);

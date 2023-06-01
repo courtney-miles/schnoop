@@ -6,12 +6,11 @@ use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactory;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface;
 use MilesAsylum\SchnoopSchema\MySQL\Column\Column;
 use MilesAsylum\SchnoopSchema\MySQL\DataType\DataTypeInterface;
-use PDO;
 
 class ColumnFactory implements ColumnFactoryInterface
 {
     /**
-     * @var PDO
+     * @var \PDO
      */
     protected $pdo;
 
@@ -28,7 +27,7 @@ class ColumnFactory implements ColumnFactoryInterface
     /**
      * ColumnMapper constructor.
      */
-    public function __construct(PDO $pdo, DataTypeFactoryInterface $dataTypeFactory)
+    public function __construct(\PDO $pdo, DataTypeFactoryInterface $dataTypeFactory)
     {
         $this->pdo = $pdo;
         $this->dataTypeMapper = $dataTypeFactory;
@@ -38,9 +37,6 @@ SHOW FULL COLUMNS FROM `%s`.`%s`
 SQL;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetch($tableName, $databaseName)
     {
         $columns = [];
@@ -55,9 +51,6 @@ SQL;
         return $columns;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetchRaw($databaseName, $tableName)
     {
         $rawColumns = [];
@@ -68,7 +61,7 @@ SQL;
                 $databaseName,
                 $tableName
             )
-        )->fetchAll(PDO::FETCH_ASSOC);
+        )->fetchAll(\PDO::FETCH_ASSOC);
 
         foreach ($rows as $k => $row) {
             $autoIncrement = ('auto_increment' == $row['Extra']);
@@ -92,9 +85,6 @@ SQL;
         return $rawColumns;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createFromRaw(array $rawColumn)
     {
         $rawColumn = $this->keysToLower($rawColumn);
@@ -111,9 +101,6 @@ SQL;
         return $column;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function newColumn($name, DataTypeInterface $dataType)
     {
         return new Column(

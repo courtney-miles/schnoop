@@ -12,9 +12,6 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\BinaryType;
 
 class BinaryTypeFactory extends AbstractCharTypeFactory
 {
-    /**
-     * {@inheritdoc}
-     */
     public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
@@ -48,9 +45,6 @@ class BinaryTypeFactory extends AbstractCharTypeFactory
         return new BinaryType();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function doRecognise($typeStr)
     {
         return 1 === preg_match('/^binary\(\d+\)/i', $typeStr);

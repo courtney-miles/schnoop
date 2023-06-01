@@ -6,9 +6,6 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\MediumTextType;
 
 class MediumTextTypeFactory implements DataTypeFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
@@ -21,9 +18,6 @@ class MediumTextTypeFactory implements DataTypeFactoryInterface
         return $mediumTextType;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function doRecognise($typeStr)
     {
         return 1 === preg_match('/^mediumtext$/i', $typeStr);

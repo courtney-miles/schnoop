@@ -50,10 +50,6 @@ SQL
 
     /**
      * @dataProvider newIndexProvider
-     *
-     * @param $indexType
-     * @param $indexName
-     * @param $expectedInstanceOf
      */
     public function testNewIndex($indexType, $indexName, $expectedInstanceOf)
     {
@@ -516,7 +512,6 @@ SQL
     }
 
     /**
-     * @param $expectedComment
      * @param IndexedColumnInterface[] $indexedColumns
      *
      * @return IndexInterface|MockObject

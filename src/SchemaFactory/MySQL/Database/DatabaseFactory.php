@@ -3,12 +3,11 @@
 namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\Database;
 
 use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Database;
-use PDO;
 
 class DatabaseFactory implements DatabaseFactoryInterface
 {
     /**
-     * @var PDO
+     * @var \PDO
      */
     protected $pdo;
 
@@ -20,7 +19,7 @@ class DatabaseFactory implements DatabaseFactoryInterface
     /**
      * DatabaseFactory constructor.
      */
-    public function __construct(PDO $pdo)
+    public function __construct(\PDO $pdo)
     {
         $this->pdo = $pdo;
 
@@ -34,27 +33,18 @@ SQL
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetch($databaseName)
     {
         return $this->createFromRaw($this->fetchRaw($databaseName));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetchRaw($databaseName)
     {
         $this->sqlSelectSchemata->execute([':databaseName' => $databaseName]);
 
-        return $this->sqlSelectSchemata->fetch(PDO::FETCH_ASSOC);
+        return $this->sqlSelectSchemata->fetch(\PDO::FETCH_ASSOC);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createFromRaw(array $rawDatabase)
     {
         $database = $this->newDatabase($rawDatabase['schema_name']);
@@ -63,9 +53,6 @@ SQL
         return $database;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function newDatabase($databaseName)
     {
         return new Database($databaseName);

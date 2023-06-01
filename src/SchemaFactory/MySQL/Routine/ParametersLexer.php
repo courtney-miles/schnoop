@@ -77,9 +77,6 @@ class ParametersLexer
     /**
      * Returns the first match of terminal pattern.
      *
-     * @param $source
-     * @param $offset
-     *
      * @return array|bool First array element is the matching token name, and
      *                    the second is the matching value.  False if there was no match.
      */

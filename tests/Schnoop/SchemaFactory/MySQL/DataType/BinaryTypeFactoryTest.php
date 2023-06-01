@@ -67,8 +67,6 @@ class BinaryTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoRecognise($typeStr)
     {
@@ -77,8 +75,6 @@ class BinaryTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
     {
@@ -131,8 +127,6 @@ class BinaryTypeFactoryTest extends SchnoopTestCase
     }
 
     /**
-     * @param $expectedLength
-     *
      * @return BinaryType|MockObject
      */
     protected function createMockBinaryType($expectedLength)

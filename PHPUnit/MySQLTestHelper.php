@@ -13,7 +13,7 @@ use PDO;
 class MySQLTestHelper
 {
     /**
-     * @var PDO
+     * @var \PDO
      */
     protected $pdo;
 
@@ -23,7 +23,7 @@ class MySQLTestHelper
     }
 
     /**
-     * @return PDO
+     * @return \PDO
      */
     public function getConnection()
     {
@@ -64,38 +64,38 @@ CREATE DATABASE `$database` CHARACTER SET utf8mb4 COLLATE 'utf8mb4_unicode_ci'
 SQL
         );
 
-//        $this->pdo->query(<<< SQL
-//CREATE TABLE `$database`.`schnoop_tbl` (
-//  id INTEGER UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL COMMENT 'ID comment.'
-//) ENGINE 'InnoDB' COMMENT 'Theworks table comment.'
-//SQL
-//        );
-//
-//        $this->pdo->query(<<< SQL
-//CREATE DEFINER=CURRENT_USER TRIGGER `$database`.`schnoop_tbl_after_insert` AFTER INSERT ON `schnoop_tbl` FOR EACH ROW BEGIN
-//  DECLARE x INT;
-//  SELECT 1 INTO x;
-//END;
-//SQL
-//        );
-//            $this->pdo->query(<<< SQL
-//CREATE DEFINER=CURRENT_USER PROCEDURE `$database`.`schnoop_proc`()
-//    MODIFIES SQL DATA
-//    DETERMINISTIC
-//    COMMENT 'Schnoop procedure'
-//BEGIN
-//END
-//SQL
-//        );
-//        $this->pdo->query(<<< SQL
-//CREATE DEFINER=CURRENT_USER FUNCTION `$database`.`schnoop_func`() RETURNS VARCHAR(255)
-//    DETERMINISTIC
-//    COMMENT 'Schnoop function'
-//BEGIN
-//  RETURN 'Schnoop';
-//END
-//SQL
-//        );
+        //        $this->pdo->query(<<< SQL
+        // CREATE TABLE `$database`.`schnoop_tbl` (
+        //  id INTEGER UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL COMMENT 'ID comment.'
+        // ) ENGINE 'InnoDB' COMMENT 'Theworks table comment.'
+        // SQL
+        //        );
+        //
+        //        $this->pdo->query(<<< SQL
+        // CREATE DEFINER=CURRENT_USER TRIGGER `$database`.`schnoop_tbl_after_insert` AFTER INSERT ON `schnoop_tbl` FOR EACH ROW BEGIN
+        //  DECLARE x INT;
+        //  SELECT 1 INTO x;
+        // END;
+        // SQL
+        //        );
+        //            $this->pdo->query(<<< SQL
+        // CREATE DEFINER=CURRENT_USER PROCEDURE `$database`.`schnoop_proc`()
+        //    MODIFIES SQL DATA
+        //    DETERMINISTIC
+        //    COMMENT 'Schnoop procedure'
+        // BEGIN
+        // END
+        // SQL
+        //        );
+        //        $this->pdo->query(<<< SQL
+        // CREATE DEFINER=CURRENT_USER FUNCTION `$database`.`schnoop_func`() RETURNS VARCHAR(255)
+        //    DETERMINISTIC
+        //    COMMENT 'Schnoop function'
+        // BEGIN
+        //  RETURN 'Schnoop';
+        // END
+        // SQL
+        //        );
     }
 
     protected function makeDsn()
@@ -112,7 +112,7 @@ SQL
     protected function connect($dsn)
     {
         $pdo = new \PDO($dsn, $this->getDatabaseUser(), $this->getDatabasePassword());
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
         return $pdo;
     }

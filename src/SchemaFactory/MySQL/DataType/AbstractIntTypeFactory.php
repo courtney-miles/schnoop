@@ -6,9 +6,6 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\IntTypeInterface;
 
 abstract class AbstractIntTypeFactory implements IntTypeFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
@@ -18,9 +15,6 @@ abstract class AbstractIntTypeFactory implements IntTypeFactoryInterface
         return $this->populate($this->newType(), $typeStr);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function populate(IntTypeInterface $intType, $typeStr)
     {
         $intType->setSigned($this->extractSigned($typeStr));

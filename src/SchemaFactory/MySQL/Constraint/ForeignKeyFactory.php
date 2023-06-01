@@ -9,7 +9,7 @@ use PDO;
 class ForeignKeyFactory implements ForeignKeyFactoryInterface
 {
     /**
-     * @var PDO
+     * @var \PDO
      */
     protected $pdo;
 
@@ -21,7 +21,7 @@ class ForeignKeyFactory implements ForeignKeyFactoryInterface
     /**
      * ForeignKeyFactory constructor.
      */
-    public function __construct(PDO $pdo)
+    public function __construct(\PDO $pdo)
     {
         $this->pdo = $pdo;
 
@@ -42,22 +42,16 @@ SQL
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetch($tableName, $databaseName)
     {
         return $this->createFromRaw($this->fetchRaw($databaseName, $tableName));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetchRaw($databaseName, $tableName)
     {
         $this->stmtSelectForeignKeys->execute([':database' => $databaseName, ':table' => $tableName]);
 
-        $rows = $this->stmtSelectForeignKeys->fetchAll(PDO::FETCH_ASSOC);
+        $rows = $this->stmtSelectForeignKeys->fetchAll(\PDO::FETCH_ASSOC);
 
         // Emulate PDO::setAttribute(PDO::ATTR_STRINGIFY_FETCHES, true).
         // We don't want to screw with connection attributes.
@@ -74,9 +68,6 @@ SQL
         return $rows;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createFromRaw(array $rawTableFKs)
     {
         /** @var ForeignKey[] $foreignKeys */
@@ -109,17 +100,11 @@ SQL
         return $foreignKeys;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function newForeignKey($keyName)
     {
         return new ForeignKey($keyName);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function newForeignKeyColumn($columnName, $referenceColumnName)
     {
         return new ForeignKeyColumn($columnName, $referenceColumnName);

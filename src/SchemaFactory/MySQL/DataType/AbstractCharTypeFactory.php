@@ -7,8 +7,6 @@ abstract class AbstractCharTypeFactory implements DataTypeFactoryInterface
     /**
      * Extract length from a data type string.
      *
-     * @param $typeStr
-     *
      * @return int Length
      */
     protected function extractLength($typeStr)

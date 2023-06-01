@@ -28,10 +28,6 @@ class CharTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
-     *
-     * @param $expectedLength
-     * @param $expectedCollation
-     * @param $typeStr
      */
     public function testPopulate($expectedLength, $expectedCollation, $typeStr)
     {
@@ -42,10 +38,6 @@ class CharTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider createTypeProvider
-     *
-     * @param $expectedLength
-     * @param $expectedCollation
-     * @param $typeStr
      */
     public function testCreate($expectedLength, $expectedCollation, $typeStr)
     {
@@ -63,8 +55,6 @@ class CharTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoRecognise($typeStr)
     {
@@ -73,8 +63,6 @@ class CharTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
     {
@@ -129,9 +117,6 @@ class CharTypeFactoryTest extends SchnoopTestCase
     }
 
     /**
-     * @param $expectedLength
-     * @param $expectedCollation
-     *
      * @return CharType|MockObject
      */
     protected function createMockCharType($expectedLength, $expectedCollation)

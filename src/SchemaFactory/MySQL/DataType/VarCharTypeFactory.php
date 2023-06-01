@@ -6,9 +6,6 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\VarCharType;
 
 class VarCharTypeFactory extends AbstractCharTypeFactory
 {
-    /**
-     * {@inheritdoc}
-     */
     public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
@@ -46,9 +43,6 @@ class VarCharTypeFactory extends AbstractCharTypeFactory
         return new VarCharType($length);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function doRecognise($typeStr)
     {
         return 1 === preg_match('/^varchar\(\d+\)/i', $typeStr);

@@ -2,8 +2,6 @@
 
 namespace MilesAsylum\Schnoop\PHPUnit;
 
-use PDO;
-
 class SetupTestDbSchema
 {
     public static function setup()
@@ -32,12 +30,12 @@ class SetupTestDbSchema
             $_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_USERNAME'],
             $_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_PASSWORD']
         );
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
         return $pdo;
     }
 
-    protected static function createMySQLDatabase(PDO $conn)
+    protected static function createMySQLDatabase(\PDO $conn)
     {
         $database = $_ENV['TESTS_SCHNOOP_DBADAPTER_MYSQL_DATABASE'];
 

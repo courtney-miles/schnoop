@@ -23,25 +23,16 @@ class Table extends \MilesAsylum\SchnoopSchema\MySQL\Table\Table implements Tabl
         $this->setDatabaseName($databaseName);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setSchnoop(Schnoop $schnoop)
     {
         $this->schnoop = $schnoop;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTriggers()
     {
         return $this->schnoop->getTriggers($this->getName(), $this->getDatabaseName());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasTriggers()
     {
         return $this->schnoop->hasTriggers($this->getName(), $this->getDatabaseName());

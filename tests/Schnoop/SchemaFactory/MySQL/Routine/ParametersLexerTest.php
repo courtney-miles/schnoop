@@ -66,9 +66,6 @@ class ParametersLexerTest extends TestCase
 
     /**
      * @dataProvider getTokenNameTestData
-     *
-     * @param $const
-     * @param $expectedName
      */
     public function testGetTokenName($const, $expectedName)
     {

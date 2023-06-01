@@ -6,9 +6,6 @@ use MilesAsylum\SchnoopSchema\MySQL\DataType\EnumType;
 
 class EnumTypeFactory extends AbstractOptionsTypeFactory
 {
-    /**
-     * {@inheritdoc}
-     */
     public function createType($typeStr, $collation = null)
     {
         if (!$this->doRecognise($typeStr)) {
@@ -22,9 +19,6 @@ class EnumTypeFactory extends AbstractOptionsTypeFactory
         return $enumType;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function doRecognise($typeStr)
     {
         return 1 === preg_match('/^enum\(.+\)$/i', $typeStr);

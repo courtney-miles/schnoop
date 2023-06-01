@@ -67,8 +67,6 @@ class BitTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoRecognise($typeStr)
     {
@@ -77,8 +75,6 @@ class BitTypeFactoryTest extends SchnoopTestCase
 
     /**
      * @dataProvider doNotRecogniseProvider
-     *
-     * @param $typeStr
      */
     public function testDoNotRecognise($typeStr)
     {
@@ -131,8 +127,6 @@ class BitTypeFactoryTest extends SchnoopTestCase
     }
 
     /**
-     * @param $expectedLength
-     *
      * @return BitType|MockObject
      */
     protected function createMockBitType($expectedLength)

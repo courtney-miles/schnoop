@@ -4,7 +4,6 @@ namespace MilesAsylum\Schnoop\SchemaFactory\MySQL\Trigger;
 
 use MilesAsylum\Schnoop\SchemaAdapter\MySQL\Trigger;
 use MilesAsylum\Schnoop\SchemaFactory\MySQL\SetVar\SqlModeFactory;
-use PDO;
 
 class TriggerFactory implements TriggerFactoryInterface
 {
@@ -26,7 +25,7 @@ class TriggerFactory implements TriggerFactoryInterface
     /**
      * TriggerFactory constructor.
      */
-    public function __construct(PDO $pdo, SqlModeFactory $sqlModeFactory)
+    public function __construct(\PDO $pdo, SqlModeFactory $sqlModeFactory)
     {
         $this->pdo = $pdo;
         $this->sqlModeFactory = $sqlModeFactory;
@@ -36,17 +35,11 @@ SHOW TRIGGERS FROM `%s` WHERE `Table` = :tableName
 SQL;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetch($tableName, $databaseName)
     {
         return $this->createFromRaw($this->fetchRaw($tableName, $databaseName), $databaseName);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fetchRaw($tableName, $databaseName)
     {
         $stmt = $this->pdo->prepare(
@@ -58,7 +51,7 @@ SQL;
 
         $stmt->execute([':tableName' => $tableName]);
 
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         if (!empty($rows)) {
             foreach ($rows as $k => $row) {
@@ -83,9 +76,6 @@ SQL;
         return $rows;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createFromRaw(array $rawTriggers, $databaseName)
     {
         $triggers = [];
@@ -118,9 +108,6 @@ SQL;
         return $triggers;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function newTrigger($name, $timing, $event, $tableName)
     {
         return new Trigger($name, $timing, $event, $tableName);
