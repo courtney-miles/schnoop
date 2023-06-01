@@ -34,6 +34,12 @@ class BigIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
     {
         return [
             [
+                null,
+                true,
+                false,
+                'bigint',
+            ],
+            [
                 11,
                 true,
                 false,
@@ -86,6 +92,7 @@ class BigIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
     public function doRecogniseProvider()
     {
         return [
+            ['bigint'],
             ['bigint(10)'],
             ['bigint(10) signed'],
             ['bigint(10) signed zerofill'],
@@ -104,7 +111,6 @@ class BigIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
     public function doNotRecogniseProvider()
     {
         return [
-            ['bigint'],
             ['int(10)'],
             ['varchar(255)'],
         ];
