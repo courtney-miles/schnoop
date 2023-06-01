@@ -43,8 +43,16 @@ SELECT
   IS_DETERMINISTIC AS is_deterministic,
   SECURITY_TYPE AS security_type,
   (
-    SELECT GROUP_CONCAT(CONCAT(PARAMETER_NAME, ' ', UPPER(DTD_IDENTIFIER)) SEPARATOR ', ')
-    FROM information_schema.parameters p
+    SELECT GROUP_CONCAT(
+            CONCAT(
+                IF(PARAMETER_MODE IS NOT NULL, CONCAT(PARAMETER_MODE, ' '), ''),
+                PARAMETER_NAME,
+                ' ',
+                UPPER(DTD_IDENTIFIER)
+            )
+            SEPARATOR ', '
+        )
+    FROM information_schema.PARAMETERS p
     WHERE p.SPECIFIC_NAME = r.ROUTINE_NAME
         AND p.SPECIFIC_SCHEMA = r.ROUTINE_SCHEMA
         AND ORDINAL_POSITION > 0
