@@ -41,10 +41,22 @@ class IntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
     {
         return [
             [
+                null,
+                true,
+                false,
+                'int',
+            ],
+            [
                 11,
                 true,
                 false,
                 'int(11)',
+            ],
+            [
+                null,
+                true,
+                false,
+                'int signed',
             ],
             [
                 11,
@@ -91,6 +103,7 @@ class IntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
     public function doRecogniseProvider()
     {
         return [
+            ['int'],
             ['int(10)'],
             ['int(10) signed'],
             ['int(10) signed zerofill'],
@@ -107,7 +120,6 @@ class IntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
     public function doNotRecogniseProvider()
     {
         return [
-            ['int'],
             ['bigint(10)'],
             ['varchar(255)'],
         ];

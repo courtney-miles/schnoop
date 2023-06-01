@@ -26,8 +26,8 @@ class DatabaseFactory implements DatabaseFactoryInterface
 
         $this->sqlSelectSchemata = $this->pdo->prepare(<<< SQL
 SELECT
-  schema_name,
-  default_collation_name
+  SCHEMA_NAME,
+  DEFAULT_COLLATION_NAME
 FROM information_schema.SCHEMATA
 WHERE SCHEMA_NAME = :databaseName
 SQL

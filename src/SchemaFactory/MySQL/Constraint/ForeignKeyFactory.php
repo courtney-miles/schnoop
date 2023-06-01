@@ -27,17 +27,17 @@ class ForeignKeyFactory implements ForeignKeyFactoryInterface
 
         $this->stmtSelectForeignKeys = $this->pdo->prepare(<<<SQL
 SELECT
-  table_name,
-  constraint_name,
-  column_name,
-  ordinal_position,
-  referenced_table_name,
-  referenced_column_name
+  TABLE_NAME,
+  CONSTRAINT_NAME,
+  COLUMN_NAME,
+  ORDINAL_POSITION,
+  REFERENCED_TABLE_NAME,
+  REFERENCED_COLUMN_NAME
 FROM information_schema.key_column_usage
-WHERE referenced_table_name IS NOT NULL
-      AND referenced_column_name IS NOT NULL
-      AND table_schema = :database
-      AND table_name = :table
+WHERE REFERENCED_TABLE_NAME IS NOT NULL
+      AND REFERENCED_COLUMN_NAME IS NOT NULL
+      AND TABLE_SCHEMA = :database
+      AND TABLE_NAME = :table
 SQL
         );
     }

@@ -46,10 +46,22 @@ class MediumIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
     {
         return [
             [
+                null,
+                true,
+                false,
+                'mediumint',
+            ],
+            [
                 11,
                 true,
                 false,
                 'mediumint(11)',
+            ],
+            [
+                null,
+                true,
+                false,
+                'mediumint signed',
             ],
             [
                 11,
@@ -96,6 +108,7 @@ class MediumIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
     public function doRecogniseProvider()
     {
         return [
+            ['mediumint'],
             ['mediumint(10)'],
             ['mediumint(10) signed'],
             ['mediumint(10) signed zerofill'],
@@ -112,7 +125,6 @@ class MediumIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
     public function doNotRecogniseProvider()
     {
         return [
-            ['mediumint'],
             ['int(10)'],
             ['varchar(255)'],
         ];

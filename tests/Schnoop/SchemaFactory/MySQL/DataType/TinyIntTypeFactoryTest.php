@@ -46,10 +46,22 @@ class TinyIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
     {
         return [
             [
+                null,
+                true,
+                false,
+                'tinyint',
+            ],
+            [
                 4,
                 true,
                 false,
                 'tinyint(4)',
+            ],
+            [
+                null,
+                true,
+                false,
+                'tinyint signed',
             ],
             [
                 4,
@@ -96,6 +108,7 @@ class TinyIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
     public function doRecogniseProvider()
     {
         return [
+            ['tinyint'],
             ['tinyint(4)'],
             ['tinyint(4) signed'],
             ['tinyint(4) signed zerofill'],
@@ -112,7 +125,6 @@ class TinyIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
     public function doNotRecogniseProvider()
     {
         return [
-            ['tinyint'],
             ['int(10)'],
             ['varchar(255)'],
         ];

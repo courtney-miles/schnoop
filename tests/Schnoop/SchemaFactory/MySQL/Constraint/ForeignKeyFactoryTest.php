@@ -96,12 +96,12 @@ SQL
 
         $expectedRaw = [
             [
-                'table_name' => 'schnoop_tbl',
-                'constraint_name' => 'fk_schnoop',
-                'column_name' => 'id',
-                'ordinal_position' => '1',
-                'referenced_table_name' => 'schnoop_ref_tbl',
-                'referenced_column_name' => 'ref_id',
+                'TABLE_NAME' => 'schnoop_tbl',
+                'CONSTRAINT_NAME' => 'fk_schnoop',
+                'COLUMN_NAME' => 'id',
+                'ORDINAL_POSITION' => '1',
+                'REFERENCED_TABLE_NAME' => 'schnoop_ref_tbl',
+                'REFERENCED_COLUMN_NAME' => 'ref_id',
             ],
         ];
 

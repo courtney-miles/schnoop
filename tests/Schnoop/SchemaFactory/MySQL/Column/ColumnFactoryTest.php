@@ -57,7 +57,7 @@ SQL
         $expectedRaw = [
             [
                 'Field' => 'id',
-                'Type' => 'int(11)',
+                'Type' => self::isMySql8() ? 'int' : 'int(11)',
                 'Collation' => null,
                 'Null' => 'NO',
                 'Default' => null,

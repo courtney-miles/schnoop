@@ -52,10 +52,22 @@ class SmallIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
     {
         return [
             [
+                null,
+                true,
+                false,
+                'smallint',
+            ],
+            [
                 6,
                 true,
                 false,
                 'smallint(6)',
+            ],
+            [
+                null,
+                true,
+                false,
+                'smallint signed',
             ],
             [
                 6,
@@ -102,6 +114,7 @@ class SmallIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
     public function doRecogniseProvider()
     {
         return [
+            ['smallint'],
             ['smallint(6)'],
             ['smallint(6) signed'],
             ['smallint(6) signed zerofill'],
@@ -118,7 +131,6 @@ class SmallIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
     public function doNotRecogniseProvider()
     {
         return [
-            ['smallint'],
             ['int(10)'],
             ['varchar(255)'],
         ];

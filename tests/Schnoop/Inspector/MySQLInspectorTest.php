@@ -60,7 +60,8 @@ SQL
         );
         $this->getConnection()->exec(<<<SQL
 CREATE FUNCTION `{$this->functionName}` ()
-RETURNS INTEGER 
+RETURNS INTEGER
+DETERMINISTIC NO SQL
 RETURN 1
 SQL
         );

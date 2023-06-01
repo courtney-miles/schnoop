@@ -45,7 +45,7 @@ abstract class AbstractIntTypeFactory implements IntTypeFactoryInterface
         if (false === $r) {
             throw new \RuntimeException('Error evaluating regular expression:'.preg_last_error());
         } elseif (1 === $r) {
-            $r = preg_match('/\(\d+\)( unsigned| signed)?( zerofill)?$/i', $typeStr);
+            $r = preg_match('/[\(\d+\)]?( unsigned| signed)?( zerofill)?$/i', $typeStr);
         }
 
         return (bool) $r;
@@ -56,13 +56,13 @@ abstract class AbstractIntTypeFactory implements IntTypeFactoryInterface
      *
      * @param string $typeStr
      *
-     * @return int display width
+     * @return int|null display width
      */
     protected function extractDisplayWidth($typeStr)
     {
         preg_match('/\((\d+)\)/', $typeStr, $matches);
 
-        return (int) $matches[1];
+        return isset($matches[1]) ? (int) $matches[1] : null;
     }
 
     /**
