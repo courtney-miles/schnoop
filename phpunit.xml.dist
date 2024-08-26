@@ -6,7 +6,7 @@
         <ini name="display_errors" value="On"/>
         <ini name="error_reporting" value="E_ALL"/>
         <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_ENABLED" value="true"/>
-        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_HOST" value="mysql"/>
+        <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_HOST" value="172.19.0.2"/>
         <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_USERNAME" value="root"/>
         <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_PASSWORD" value=""/>
         <env name="TESTS_SCHNOOP_DBADAPTER_MYSQL_PORT" value="3306"/>
