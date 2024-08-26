@@ -9,7 +9,7 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                php-version: ['7.4', '8.0', '8.1']
+                php-version: ['7.4', '8.0', '8.1', '8.2', '8.3']
                 mysql-version: ['5.7', '8.0']
                 composer-flag:
                     - '--prefer-dist'
@@ -61,8 +61,9 @@ jobs:
             - name: Update Composer Dev dependencies
               run: composer update phpunit/phpunit --prefer-dist --no-interaction --with-dependencies
 
-#            - name: Run Code Style Check for PHP ${{ matrix.php-version }}
-#              run: composer run-script style-check
+            - name: Run Code Style Check for PHP ${{ matrix.php-version }}
+              run: composer run-script style-check
+              if: matrix.php-version == '8.2' && matrix.composer-flag == '--prefer-dist'
 
             - name: Run tests for PHP ${{ matrix.php-version }}
               run: composer run-script test
