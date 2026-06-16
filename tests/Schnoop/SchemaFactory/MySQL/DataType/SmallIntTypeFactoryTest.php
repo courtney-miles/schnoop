@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: courtney
@@ -25,8 +26,6 @@ class SmallIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
     }
 
     /**
-     * @param MockObject $mockIntType
-     *
      * @return IntTypeFactoryInterface
      */
     protected function newMockedIntTypeFactory(?MockObject $mockIntType = null)

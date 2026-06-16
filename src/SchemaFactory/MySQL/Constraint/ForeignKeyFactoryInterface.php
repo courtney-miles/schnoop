@@ -30,7 +30,7 @@ interface ForeignKeyFactoryInterface
     /**
      * Construct the foreign keys from the raw row data.
      *
-     * @return \MilesAsylum\SchnoopSchema\MySQL\Constraint\ForeignKey[]
+     * @return ForeignKey[]
      */
     public function createFromRaw(array $rawTableFKs);
 

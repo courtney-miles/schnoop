@@ -13,7 +13,7 @@ interface ColumnFactoryInterface
      * @param string $tableName
      * @param string $databaseName
      *
-     * @return \MilesAsylum\SchnoopSchema\MySQL\Column\Column[]
+     * @return Column[]
      */
     public function fetch($tableName, $databaseName);
 

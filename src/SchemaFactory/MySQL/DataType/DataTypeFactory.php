@@ -35,8 +35,6 @@ class DataTypeFactory implements DataTypeFactoryInterface
 
     /**
      * Add a data type factory.
-     *
-     * @param \MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface $dataTypeFactory
      */
     public function addFactoryTypeHandler($typeName, DataTypeFactoryInterface $dataTypeFactory)
     {
@@ -54,7 +52,7 @@ class DataTypeFactory implements DataTypeFactoryInterface
      *
      * @param string $typeName
      *
-     * @return \MilesAsylum\Schnoop\SchemaFactory\MySQL\DataType\DataTypeFactoryInterface
+     * @return DataTypeFactoryInterface
      */
     public function getFactoryHandlerForType($typeName)
     {

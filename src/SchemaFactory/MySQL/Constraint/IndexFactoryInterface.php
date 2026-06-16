@@ -29,7 +29,7 @@ interface IndexFactoryInterface
     /**
      * Construct the indexes from the supplied raw row data.
      *
-     * @return \MilesAsylum\SchnoopSchema\MySQL\Constraint\IndexInterface[]
+     * @return IndexInterface[]
      */
     public function createFromRaw(array $rawTableIndexes);
 }
