@@ -23,7 +23,7 @@ class MediumIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
      *
      * @return IntTypeFactoryInterface
      */
-    protected function newMockedIntTypeFactory(MockObject $mockIntType = null)
+    protected function newMockedIntTypeFactory(?MockObject $mockIntType = null)
     {
         $mockMediumIntTypeFactory = $this->getMockBuilder(MediumIntTypeFactory::class)
             ->setMethods(['newType'])

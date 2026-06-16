@@ -18,7 +18,7 @@ class IntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
         return new IntTypeFactory();
     }
 
-    protected function newMockedIntTypeFactory(MockObject $mockIntType = null)
+    protected function newMockedIntTypeFactory(?MockObject $mockIntType = null)
     {
         $intTypeFactory = $this->getMockBuilder(IntTypeFactory::class)
             ->setMethods(['newType'])
