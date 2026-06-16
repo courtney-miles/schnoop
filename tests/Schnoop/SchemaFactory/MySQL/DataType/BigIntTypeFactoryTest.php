@@ -14,7 +14,7 @@ class BigIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
         return new BigIntTypeFactory();
     }
 
-    protected function newMockedIntTypeFactory(MockObject $mockIntType = null)
+    protected function newMockedIntTypeFactory(?MockObject $mockIntType = null)
     {
         $bigIntTypeFactory = $this->getMockBuilder(BigIntTypeFactory::class)
             ->setMethods(['newType'])

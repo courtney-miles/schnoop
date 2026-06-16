@@ -24,7 +24,7 @@ abstract class AbstractIntTypeFactoryTestCase extends TestCase
      *
      * @return IntTypeFactoryInterface
      */
-    abstract protected function newMockedIntTypeFactory(MockObject $mockIntType = null);
+    abstract protected function newMockedIntTypeFactory(?MockObject $mockIntType = null);
 
     /**
      * @return string

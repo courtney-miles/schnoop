@@ -23,7 +23,7 @@ class TinyIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
      *
      * @return IntTypeFactoryInterface
      */
-    protected function newMockedIntTypeFactory(MockObject $mockIntType = null)
+    protected function newMockedIntTypeFactory(?MockObject $mockIntType = null)
     {
         $mockTinyIntTypeFactory = $this->getMockBuilder(TinyIntTypeFactory::class)
             ->setMethods(['newType'])
