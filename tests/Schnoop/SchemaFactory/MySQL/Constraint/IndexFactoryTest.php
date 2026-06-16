@@ -188,8 +188,7 @@ SQL
 ALTER TABLE `%s`.`%s`
   ADD UNIQUE INDEX ux_name (name(3)) COMMENT 'Unique index comment.',
   ADD INDEX idx_id_name (id, name) COMMENT 'Index comment.'
-SQL
-                ,
+SQL,
                 [
                     [
                         'Table' => $this->tableName,
@@ -199,7 +198,7 @@ SQL
                         'Column_name' => 'name',
                         'Sub_part' => '3',
                         'Index_type' => 'BTREE',
-                           'Index_comment' => 'Unique index comment.',
+                        'Index_comment' => 'Unique index comment.',
                     ],
                     [
                         'Table' => $this->tableName,

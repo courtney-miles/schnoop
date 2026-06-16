@@ -164,9 +164,10 @@ SQL;
             case IndexInterface::CONSTRAINT_INDEX_UNIQUE:
                 if ('primary' == strtolower($indexName)) {
                     return new PrimaryKey($indexName);
-                } else {
-                    return new UniqueIndex($indexName);
                 }
+
+                return new UniqueIndex($indexName);
+
                 break;
             case IndexInterface::CONSTRAINT_INDEX_FULLTEXT:
                 return new FullTextIndex($indexName);

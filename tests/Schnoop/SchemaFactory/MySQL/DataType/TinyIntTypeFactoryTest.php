@@ -19,8 +19,6 @@ class TinyIntTypeFactoryTest extends AbstractIntTypeFactoryTestCase
     }
 
     /**
-     * @param MockObject $mockIntType
-     *
      * @return IntTypeFactoryInterface
      */
     protected function newMockedIntTypeFactory(?MockObject $mockIntType = null)
